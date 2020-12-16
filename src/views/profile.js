@@ -1,4 +1,4 @@
-import React, {Components} from 'react';
+import React, {Component} from 'react';
 
 // Class to display the current user's profile
 class Profile extends Component {
@@ -20,3 +20,5 @@ class Profile extends Component {
         )
     }
 }
+
+export default Profile
