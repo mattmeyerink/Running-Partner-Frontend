@@ -6,8 +6,13 @@ class TrainingPlan extends Component {
         super();
 
         this.state = {
-
+            training_plans = []
         }
+    }
+
+    // Fetch all of the trianing plans from the API when the component mounts
+    componentDidMount(){
+        fetch()
     }
 
     render() {
