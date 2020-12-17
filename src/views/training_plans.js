@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PlanHeader from '../components/plan_header';
 
 // View for the training plan page
 class TrainingPlan extends Component {
@@ -6,13 +7,16 @@ class TrainingPlan extends Component {
         super();
 
         this.state = {
-            training_plans = []
+            training_plans: []
         }
     }
 
     // Fetch all of the trianing plans from the API when the component mounts
     componentDidMount(){
-        fetch()
+        fetch('http://127.0.0.1:5000/training_plans/all_plans')
+            .then(result => result.json())
+            .then(data => this.setState({training_plans: data}))
+            .catch(error => console.error(error))
     }
 
     render() {
@@ -20,6 +24,17 @@ class TrainingPlan extends Component {
             <React.Fragment>
                 <div className="row justify-content-center">
                     <h1>This page will hold the trianing plans</h1>
+
+                    {this.state.training_plans.map(
+                        plan => (<PlanHeader 
+                                    key={plan.id}
+                                    difficulty={plan.difficulty}
+                                    frequency={plan.frequency}
+                                    plan_length={plan.plan_length}
+                                    race_length={plan.race_length}
+                                    race_name={plan.race_name} 
+                                />)
+                    )}
                 </div>
             </React.Fragment>
         )
