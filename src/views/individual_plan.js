@@ -38,7 +38,7 @@ class SinglePlan extends Component {
         var weeksPlan = planStr.split("-");
 
         for (var i = 0; i < weeksPlan.length(); i++) {
-            weekPlanOutput = [];
+            var weekPlanOutput = [];
             // Split the weeks plan into each day (broken up by commas)
             var dailyPlan = weeksPlan[i].split(",");
 

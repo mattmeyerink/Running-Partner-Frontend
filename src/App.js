@@ -4,6 +4,7 @@ import Home from './views/home';
 import TrainingPlan from './views/training_plans';
 import Profile from './views/profile';
 import NavBar from './components/navbar';
+import SinglePlan from './views/individual_plan';
 
 // App class to control routing and authentication flow
 class App extends Component {
@@ -23,6 +24,7 @@ class App extends Component {
           <Switch>
             <Route exact path = "/" render={() => <Home />}/>
             <Route exact path = "/training_plans" render={() => <TrainingPlan />}/>
+            <Route exact path = "/training_plans/:id" render={(match) => <SinglePlan match={match} />}/>
             <Route exact path = "/profile" render={() => <Profile />}/>
           </Switch>
         </main>
