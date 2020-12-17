@@ -56,9 +56,38 @@ class SinglePlan extends Component {
     }
 
     render() {
+        console.log(this.state.planArr)
         return (
             <React.Fragment>
-                <h1>This will the the page for an individual training plan.</h1>
+                <div className="row justify-content-center">
+                    <h1>{this.state.race_name} - {this.state.difficulty}</h1>
+                </div>
+                <div className="row justify-content-center">
+                    <div className="col-md-10">
+                        <table className="table">
+                            <tr>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
+                                <th>Saturday</th>
+                                <th>Sunday</th>
+                            </tr>
+                            {this.state.planArr.map(week => (
+                                <tr>
+                                    <td>{week[0]}</td>
+                                    <td>{week[1]}</td>
+                                    <td>{week[2]}</td>
+                                    <td>{week[3]}</td>
+                                    <td>{week[4]}</td>
+                                    <td>{week[5]}</td>
+                                    <td>{week[6]}</td>
+                                </tr>
+                            ))}
+                        </table>
+                    </div>
+                </div>
             </React.Fragment>
         )
     }

@@ -23,8 +23,10 @@ class TrainingPlan extends Component {
         return (
             <React.Fragment>
                 <div className="row justify-content-center">
-                    <h1>This page will hold the trianing plans</h1>
+                    <h1>Training Plans</h1>
+                </div>
 
+                <div className="row justify-content-center">
                     {this.state.training_plans.map(
                         plan => (<PlanHeader 
                                     key={plan.id}
