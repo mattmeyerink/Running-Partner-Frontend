@@ -24,7 +24,7 @@ class App extends Component {
           <Switch>
             <Route exact path = "/" render={() => <Home />}/>
             <Route exact path = "/training_plans" render={() => <TrainingPlan />}/>
-            <Route exact path = "/training_plans/:id" render={(match) => <SinglePlan match={match} />}/>
+            <Route exact path = "/training_plans/:id" render={({ match }) => <SinglePlan match={match} />}/>
             <Route exact path = "/profile" render={() => <Profile />}/>
           </Switch>
         </main>

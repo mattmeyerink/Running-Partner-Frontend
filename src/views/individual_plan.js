@@ -5,12 +5,12 @@ class SinglePlan extends Component {
         super();
 
         this.state = {
-            difficulty: null,
-            frequency: null,
-            plan_length: null,
-            race_length: null,
-            race_name: null,
-            plan: null,
+            difficulty: "",
+            frequency: "",
+            plan_length: "",
+            race_length: "",
+            race_name: "",
+            plan: "",
             planArr: []
         }
     }
@@ -37,13 +37,13 @@ class SinglePlan extends Component {
         // Split the plan string in to each week (denominated by a -)
         var weeksPlan = planStr.split("-");
 
-        for (var i = 0; i < weeksPlan.length(); i++) {
+        for (var i = 0; i < weeksPlan.length; i++) {
             var weekPlanOutput = [];
             // Split the weeks plan into each day (broken up by commas)
             var dailyPlan = weeksPlan[i].split(",");
 
             // Add each day's value to an output array for the week
-            for (var j = 0; j < dailyPlan.length(); j++) {
+            for (var j = 0; j < dailyPlan.length; j++) {
                 weekPlanOutput.push(dailyPlan[j]);
             }
 

@@ -28,6 +28,7 @@ class TrainingPlan extends Component {
                     {this.state.training_plans.map(
                         plan => (<PlanHeader 
                                     key={plan.id}
+                                    id={plan.id}
                                     difficulty={plan.difficulty}
                                     frequency={plan.frequency}
                                     plan_length={plan.plan_length}
