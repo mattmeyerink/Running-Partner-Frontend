@@ -5,86 +5,78 @@ class SinglePlan extends Component {
         super();
 
         this.state = {
-            difficulty: "",
-            frequency: "",
-            plan_length: "",
-            race_length: "",
-            race_name: "",
-            plan: "",
-            planArr: []
+            training_plan: {},
+            planDetails: []
         }
+
+        this.convertToTable = this.convertToTable.bind(this)
     }
 
     // Get the plan data for a single training plan
     componentDidMount() {
-        // Make the API call
         fetch(`http://127.0.0.1:5000/training_plans/${this.props.match.params.id}`)
             .then(result => result.json())
-            .then(data => this.setState({
-                difficulty: data["difficulty"],
-                frequency: data["frequency"],
-                plan_length: data["plan_length"],
-                race_length: data["race_length"],
-                race_name: data["race_name"],
-                plan: data["plan"]
-            }))
+            .then(data => this.setState({training_plan: data}))
             .catch(error => console.error(error))
+    }
 
-        // Convert the plan into an array to be printed
-        var planStr = this.state.plan;
-        var outputPlan = []
-        
-        // Split the plan string in to each week (denominated by a -)
-        var weeksPlan = planStr.split("-");
+    // Converts the plan in state to an array that can be mapped to a table when rendered
+    convertToTable() {
+        var planOutput = []
 
-        for (var i = 0; i < weeksPlan.length; i++) {
-            var weekPlanOutput = [];
-            // Split the weeks plan into each day (broken up by commas)
-            var dailyPlan = weeksPlan[i].split(",");
+        // If the plan has been pulled from the API, handle the data
+        if (this.state.training_plan.plan !== undefined) {
+            const plan = this.state.training_plan.plan;
+            var weeks = plan.split("-");
 
-            // Add each day's value to an output array for the week
-            for (var j = 0; j < dailyPlan.length; j++) {
-                weekPlanOutput.push(dailyPlan[j]);
+            for (var i = 0; i < weeks.length; i++) {
+                var days = weeks[i].split(",");
+                var weekOutput = [];
+                for (var j = 0; j < days.length; j++) {
+                    weekOutput.push(days[j]);
+                }
+                planOutput.push(weekOutput);
             }
-
-            // Push that output to the plan array
-            outputPlan.push(weekPlanOutput);
         }
 
-        // Update state with the plan array
-        this.setState({planArr: outputPlan});
+        return planOutput
     }
 
     render() {
-        console.log(this.state.planArr)
+        const training_plan = this.state.training_plan;
+        const planData = this.convertToTable();
         return (
             <React.Fragment>
                 <div className="row justify-content-center">
-                    <h1>{this.state.race_name} - {this.state.difficulty}</h1>
+                    <h1>{training_plan.race_name} - {training_plan.difficulty}</h1>
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-md-10">
                         <table className="table">
-                            <tr>
-                                <th>Monday</th>
-                                <th>Tuesday</th>
-                                <th>Wednesday</th>
-                                <th>Thursday</th>
-                                <th>Friday</th>
-                                <th>Saturday</th>
-                                <th>Sunday</th>
-                            </tr>
-                            {this.state.planArr.map(week => (
+                            <tbody>
                                 <tr>
-                                    <td>{week[0]}</td>
-                                    <td>{week[1]}</td>
-                                    <td>{week[2]}</td>
-                                    <td>{week[3]}</td>
-                                    <td>{week[4]}</td>
-                                    <td>{week[5]}</td>
-                                    <td>{week[6]}</td>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                    <th>Saturday</th>
+                                    <th>Sunday</th>
                                 </tr>
-                            ))}
+                                {planData.map((week, index) => (
+                                    <React.Fragment key={index}>
+                                        <tr>
+                                            <td>{week[0]}</td>
+                                            <td>{week[1]}</td>
+                                            <td>{week[2]}</td>
+                                            <td>{week[3]}</td>
+                                            <td>{week[4]}</td>
+                                            <td>{week[5]}</td>
+                                            <td>{week[6]}</td>
+                                        </tr>
+                                    </React.Fragment>
+                                ))}
+                            </tbody>
                         </table>
                     </div>
                 </div>
