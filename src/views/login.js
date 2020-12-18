@@ -5,7 +5,7 @@ class Login extends Component {
         super(props);
 
         this.state = {
-            username: "",
+            email: "",
             password: ""
         }
         this.handleChange = this.handleChange.bind(this);
@@ -37,10 +37,10 @@ class Login extends Component {
                         <form onSubmit={this.handleSubmit}>
                             <input 
                                 type="text" 
-                                name="username"
+                                name="email"
                                 onChange={this.handleChange}
                                 value={this.state.username}
-                                placeholder="Username" 
+                                placeholder="Email" 
                                 className="form-control"
                             />
                             <input 
