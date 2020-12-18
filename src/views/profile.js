@@ -13,7 +13,7 @@ class Profile extends Component {
     render () {
         return (
             <React.Fragment>
-                <div class="row justify-content-center">
+                <div className="row justify-content-center">
                     <h1>This will the the user's profile page!</h1>
                 </div>
             </React.Fragment>
