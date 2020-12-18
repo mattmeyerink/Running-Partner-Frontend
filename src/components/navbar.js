@@ -26,6 +26,7 @@ class NavBar extends Component {
                                 <Link className="nav-link" to="/profile">Profile</Link>
                             </li>
                         </ul>
+                        <Link to="/login" className="btn btn-light ">Login</Link>
                     </div>
                 </nav>
             </React.Fragment>
@@ -33,4 +34,4 @@ class NavBar extends Component {
     }
 }
 
-export default NavBar
+export default NavBar;

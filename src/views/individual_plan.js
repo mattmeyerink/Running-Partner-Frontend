@@ -32,9 +32,12 @@ class SinglePlan extends Component {
             for (var i = 0; i < weeks.length; i++) {
                 var days = weeks[i].split(",");
                 var weekOutput = [];
+                var total = 0;
                 for (var j = 0; j < days.length; j++) {
                     weekOutput.push(days[j]);
+                    total += parseInt(days[j]);
                 }
+                weekOutput.push(total);
                 planOutput.push(weekOutput);
             }
         }
@@ -62,6 +65,7 @@ class SinglePlan extends Component {
                                     <th>Friday</th>
                                     <th>Saturday</th>
                                     <th>Sunday</th>
+                                    <th>Total</th>
                                 </tr>
                                 {planData.map((week, index) => (
                                     <React.Fragment key={index}>
@@ -73,6 +77,7 @@ class SinglePlan extends Component {
                                             <td>{week[4]}</td>
                                             <td>{week[5]}</td>
                                             <td>{week[6]}</td>
+                                            <td><b>{week[7]}</b></td>
                                         </tr>
                                     </React.Fragment>
                                 ))}

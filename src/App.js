@@ -5,6 +5,7 @@ import TrainingPlan from './views/training_plans';
 import Profile from './views/profile';
 import NavBar from './components/navbar';
 import SinglePlan from './views/individual_plan';
+import Login from './views/login';
 
 // App class to control routing and authentication flow
 class App extends Component {
@@ -22,10 +23,11 @@ class App extends Component {
         <NavBar />
         <main className="continaer">
           <Switch>
-            <Route exact path = "/" render={() => <Home />}/>
-            <Route exact path = "/training_plans" render={() => <TrainingPlan />}/>
-            <Route exact path = "/training_plans/:id" render={({ match }) => <SinglePlan match={match} />}/>
-            <Route exact path = "/profile" render={() => <Profile />}/>
+            <Route exact path = "/" render={() => <Home />} />
+            <Route exact path = "/training_plans" render={() => <TrainingPlan />} />
+            <Route exact path = "/training_plans/:id" render={({ match }) => <SinglePlan match={match} />} />
+            <Route exact path = "/profile" render={() => <Profile />} />
+            <Route exact path = "/login" render={() => <Login />} />
           </Switch>
         </main>
       </React.Fragment>
