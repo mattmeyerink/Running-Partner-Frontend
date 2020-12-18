@@ -27,31 +27,35 @@ class Login extends Component {
 
     render() {
         return (
-            <div>
+            <React.Fragment>
                 <div className="row justify-content-center">
                     <h1>This will be the login page</h1>
                 </div>
 
                 <div className="row justify-content-center">
-                    <form onSubmit={this.handleSubmit}>
-                        <input 
-                            type="text" 
-                            name="username"
-                            onChange={this.handleChange}
-                            value={this.state.username}
-                            placeholder="Username" 
-                        />
-                        <input 
-                            type="password" 
-                            name="password"
-                            onChange={this.handleChange}
-                            value={this.state.password}
-                            placeholder="Password" 
-                        />
-                        <input type="submit" />
-                    </form>
+                    <div className="col-md-4 ">
+                        <form onSubmit={this.handleSubmit}>
+                            <input 
+                                type="text" 
+                                name="username"
+                                onChange={this.handleChange}
+                                value={this.state.username}
+                                placeholder="Username" 
+                                className="form-control"
+                            />
+                            <input 
+                                type="password" 
+                                name="password"
+                                onChange={this.handleChange}
+                                value={this.state.password}
+                                placeholder="Password" 
+                                className="form-control"
+                            />
+                            <input type="submit" />
+                        </form>
+                    </div>
                 </div>
-            </div>
+            </React.Fragment>
         )
     }
 }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import './components.css';
 
 // Navbar to be displayed on every page
 class NavBar extends Component {
@@ -26,7 +27,8 @@ class NavBar extends Component {
                                 <Link className="nav-link" to="/profile">Profile</Link>
                             </li>
                         </ul>
-                        <Link to="/login" className="btn btn-light ">Login</Link>
+                        <Link to="/login" className="btn btn-light">Login</Link>
+                        <Link to="/registration" className="btn btn-light registration_btn">Register</Link>
                     </div>
                 </nav>
             </React.Fragment>
