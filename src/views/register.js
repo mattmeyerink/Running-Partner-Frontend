@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
 import '../index.css';
 
 class Registration extends Component {
@@ -27,7 +28,7 @@ class Registration extends Component {
 
     handleSubmit(event) {
         // Check if both passwords are the same
-        if (this.state.password === this.state.password2) {
+        if (this.state.password !== this.state.password2) {
             // TODO flash passwords do not match pin. 
             console.log("The passwords do not match");
         }
@@ -49,7 +50,7 @@ class Registration extends Component {
         .then((response) => {
             if (response.status === 201) {
                 // TODO flash success pin. Reroute user to the login screen
-                console.log("Successfully registered user");
+                return <Redirect to="/login" />
             }
             else if (response.status === 409) {
                 // TODO flash email already in use pin
@@ -70,12 +71,11 @@ class Registration extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="row justify-content-center">
-                    <h1>This will be the registration page</h1>
-                </div>
-
-                <div className="row justifiy-content-center">
-                    <div className="col-md-4 offset-4">
+                <div className="row">
+                    <div className="col-md-4 offset-4 border border-dark input_box">
+                        <div className="row justify-content-center">
+                            <h1>Register</h1>
+                        </div>
                         <form onSubmit={this.handleSubmit}>
                             <input type="text" name="firstName" value={this.state.firstName} onChange={this.handleChange} className="form-control form_spacing" placeholder="First Name" />
                             <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange} className="form-control form_spacing" placeholder="Last Name" />

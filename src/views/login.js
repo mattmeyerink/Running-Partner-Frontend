@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import '../index.css';
 
 class Login extends Component {
     constructor(props) {
@@ -28,12 +29,11 @@ class Login extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="row justify-content-center">
-                    <h1>This will be the login page</h1>
-                </div>
-
-                <div className="row justify-content-center">
-                    <div className="col-md-4 ">
+                <div className="row">
+                    <div className="col-md-4 offset-4 border border-dark login_input_box">
+                        <div className="row justify-content-center">
+                            <h1>Login</h1>
+                        </div>
                         <form onSubmit={this.handleSubmit}>
                             <input 
                                 type="text" 
@@ -41,7 +41,7 @@ class Login extends Component {
                                 onChange={this.handleChange}
                                 value={this.state.username}
                                 placeholder="Email" 
-                                className="form-control"
+                                className="form-control form_spacing"
                             />
                             <input 
                                 type="password" 
@@ -49,9 +49,9 @@ class Login extends Component {
                                 onChange={this.handleChange}
                                 value={this.state.password}
                                 placeholder="Password" 
-                                className="form-control"
+                                className="form-control form_spacing"
                             />
-                            <input type="submit" />
+                            <input type="submit" className="form-control btn btn-success" />
                         </form>
                     </div>
                 </div>
