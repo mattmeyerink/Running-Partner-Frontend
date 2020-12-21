@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 import '../index.css';
 
 class Login extends Component {
@@ -7,9 +7,7 @@ class Login extends Component {
         super(props);
 
         this.state = {
-            userAuthenticated: this.props.userAuthenticated,
             warning: "",
-            userData: this.props.userData,
             email: "",
             password: ""
         }
@@ -23,18 +21,24 @@ class Login extends Component {
         const name = target.name;
         const value = target.value;
     
-        this.setState({[name]: value})
+        this.setState({[name]: value});
     }
 
     handleSubmit(event) {
+
+        // Determine if a form field was left blank
         if (this.state.email === "" || this.state.password === "") {
             this.setState({warning: "Please fill in all login credentials"})
             return;
         }
+
+        // Prepare JSON to submit form data to API
         const loginData = {
             "email": this.state.email,
             "password": this.state.password
         }
+
+        // Fetch request to authentication section of API
         fetch("http://127.0.0.1:5000/authentication/login", {
             method: "POST",
             body: JSON.stringify(loginData),
@@ -43,28 +47,30 @@ class Login extends Component {
             }
         })
         .then((response) => {
-            if (response.status === 200) {
-                this.setState({userAuthenticated: true});
-            }
-            else if (response.status === 401) {
+            if (response.status === 401) {
                 this.setState({warning: "Invalid Email or Password"})
             }
             return response.json()
         })
-        .then(data => this.setState({userData: data}))
+        .then(data => {
+            if (data !== {}){
+                this.props.login(data);
+        }})
         .catch(error => console.error(error))
 
         event.preventDefault();
     }
 
     clearWarning() {
-        this.setState({warning: ""})
+        if (this._isMounted) {
+            this.setState({warning: ""})
+        }
     }
 
     render() {
         return (
             <React.Fragment>
-                {this.state.userAuthenticated
+                {this.props.userAuthenticated
                 ? 
                 <Redirect to="/" /> 
                 :
@@ -94,6 +100,10 @@ class Login extends Component {
                                 />
                                 <input type="submit" className="form-control btn btn-success" />
                             </form>
+                            <strong>
+                                Not signed up yet?
+                                <Link to="/registration"> Create an account!</Link>
+                            </strong>
                         </div>
                     </div>
                     :
@@ -104,7 +114,7 @@ class Login extends Component {
                         <div className="row justify-content-center">
                         <button className="btn btn-warning" onClick={this.clearWarning}>
                                 Return to Login Page
-                            </button>
+                        </button>
                         </div>
                     </React.Fragment>
                     }

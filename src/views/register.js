@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 import '../index.css';
 
 class Registration extends Component {
@@ -93,6 +93,10 @@ class Registration extends Component {
                                 <input type="password" name="password2" value={this.state.password2} onChange={this.handleChange} className="form-control form_spacing" placeholder="Retype Password" />
                                 <input type="submit" className="btn btn-success form-control"/>
                             </form>
+                            <strong>
+                                Already have an account?
+                                <Link to="/login"> Login!</Link>
+                            </strong>
                         </div>
                     </div>
                     :
@@ -101,8 +105,8 @@ class Registration extends Component {
                             <h1>{this.state.warning}</h1>
                         </div>
                         <div className="row justify-content-center">
-                        <button className="btn btn-warning" onClick={this.clearWarning}>
-                                Return to Registration Page
+                            <button className="btn btn-warning" onClick={this.clearWarning}>
+                                    Return to Registration Page
                             </button>
                         </div>
                     </React.Fragment>

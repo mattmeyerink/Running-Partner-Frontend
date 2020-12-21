@@ -4,11 +4,11 @@ import './components.css';
 
 // Navbar to be displayed on every page
 class NavBar extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
-
+            
         }
     }
 
@@ -27,8 +27,15 @@ class NavBar extends Component {
                                 <Link className="nav-link" to="/profile">Profile</Link>
                             </li>
                         </ul>
-                        <Link to="/login" className="btn btn-light">Login</Link>
-                        <Link to="/registration" className="btn btn-light registration_btn">Register</Link>
+                        {this.props.userAuthenticated ?
+                        <button className="btn btn-light" onClick={this.props.logout}>Logout</button>
+                        :
+                        <React.Fragment>
+                            <Link to="/login" className="btn btn-light">Login</Link>
+                            <Link to="/registration" className="btn btn-light registration_btn">Register</Link>
+                        </React.Fragment>
+                        }
+                        
                     </div>
                 </nav>
             </React.Fragment>

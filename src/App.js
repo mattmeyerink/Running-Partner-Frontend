@@ -15,25 +15,58 @@ class App extends Component {
 
     this.state = {
       userAuthenticated: false,
-      userData: {},
+      userData: {}
     }
+
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+  }
+
+  login(data) {
+    this.setState({
+      userAuthenticated: true,
+      userData: data
+    })
+  }
+
+  logout() {
+    this.setState({
+      userAuthenticated: false,
+      userData: {}
+    })
   }
 
   render() {
     return (
-      <React.Fragment>
-        <NavBar />
-        <main className="continaer">
+      <div>
+        <NavBar userAuthenticated={this.state.userAuthenticated} logout={this.logout}/>
+        <main className="container">
           <Switch>
-            <Route exact path = "/" render={() => <Home />} />
-            <Route exact path = "/training_plans" render={() => <TrainingPlan />} />
-            <Route exact path = "/training_plans/:id" render={({ match }) => <SinglePlan match={match} />} />
-            <Route exact path = "/profile" render={() => <Profile />} />
-            <Route exact path = "/login" render={() => <Login userAuthenticated={this.state.userAuthenticated} userData={this.state.userData}/>} />
+            <Route exact path = "/" render={() => 
+                <Home userAuthenticated={this.state.userAuthenticated} />
+            }/>
+
+            <Route exact path = "/training_plans" render={() => 
+                <TrainingPlan userAuthenticated={this.state.userAuthenticated}/>
+            }/>
+
+            <Route exact path = "/training_plans/:id" render={({ match }) => 
+                <SinglePlan match={match} userAuthenticated={this.state.userAuthenticated}/>
+            }/>
+
+            <Route exact path = "/profile" render={() => 
+                <Profile userAuthenticated={this.state.userAuthenticated} />
+            }/>
+
+            <Route exact path = "/login" render={() => 
+                <Login login={this.login} userAuthenticated={this.state.userAuthenticated} 
+                    userData={this.state.userData}/>
+            }/>
+
             <Route exact path = "/registration" render={() => <Registration />} />
           </Switch>
         </main>
-      </React.Fragment>
+      </div>
     );
 
   }
