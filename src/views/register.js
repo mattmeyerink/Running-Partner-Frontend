@@ -7,6 +7,7 @@ class Registration extends Component {
         super();
 
         this.state = {
+            accountCreated: false,
             firstName: "",
             lastName: "",
             username: "",
@@ -50,19 +51,12 @@ class Registration extends Component {
         .then((response) => {
             if (response.status === 201) {
                 // TODO flash success pin. Reroute user to the login screen
-                return <Redirect to="/login" />
+                this.setState({accountCreated: true});
             }
             else if (response.status === 409) {
                 // TODO flash email already in use pin
                 console.log("That email is already in use");
             }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data)
-        })
-        .catch(error => {
-            console.log("There was a problem with the fetch", error)
         })
 
         event.preventDefault();
@@ -71,6 +65,10 @@ class Registration extends Component {
     render() {
         return (
             <React.Fragment>
+                {this.state.accountCreated 
+                ? 
+                <Redirect to="/login" /> 
+                : 
                 <div className="row">
                     <div className="col-md-4 offset-4 border border-dark input_box">
                         <div className="row justify-content-center">
@@ -87,7 +85,10 @@ class Registration extends Component {
                         </form>
                     </div>
                 </div>
+                }
             </React.Fragment>
+            
+            
         )
     }
 }
