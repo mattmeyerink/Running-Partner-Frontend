@@ -30,7 +30,11 @@ class Registration extends Component {
     }
 
     handleSubmit(event) {
-        // Check if both passwords are the same
+        if (this.state.firstName === "" || this.state.lastName === "" || this.state.username === "" ||
+                this.state.email === "" || this.state.password === "" || this.state.password2 === "") {
+            this.setState({warning: "Please fill in all form fields"})
+            return;
+        }
         if (this.state.password !== this.state.password2) {
             this.setState({warning: "Passwords did not match. Try again!"})
             return;

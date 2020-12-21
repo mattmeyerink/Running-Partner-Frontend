@@ -14,7 +14,8 @@ class App extends Component {
     super();
 
     this.state = {
-      userAuthenticated: false
+      userAuthenticated: false,
+      userData: {},
     }
   }
 
@@ -28,7 +29,7 @@ class App extends Component {
             <Route exact path = "/training_plans" render={() => <TrainingPlan />} />
             <Route exact path = "/training_plans/:id" render={({ match }) => <SinglePlan match={match} />} />
             <Route exact path = "/profile" render={() => <Profile />} />
-            <Route exact path = "/login" render={() => <Login userAuthenticated={this.state.userAuthenticated} />} />
+            <Route exact path = "/login" render={() => <Login userAuthenticated={this.state.userAuthenticated} userData={this.state.userData}/>} />
             <Route exact path = "/registration" render={() => <Registration />} />
           </Switch>
         </main>
