@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Redirect, Link} from 'react-router-dom';
+import StatesForm from '../components/statesForm';
 import '../index.css';
 
 class Registration extends Component {
@@ -13,6 +14,8 @@ class Registration extends Component {
             lastName: "",
             username: "",
             email: "",
+            city: "",
+            state: "",
             password: "",
             password2:"" 
         }
@@ -44,7 +47,9 @@ class Registration extends Component {
             "last_name": this.state.lastName,
             "username": this.state.username,
             "email": this.state.email,
-            "password": this.state.password
+            "password": this.state.password,
+            "city": this.state.city,
+            "state": this.state.state
         }
 
         fetch("http://127.0.0.1:5000/authentication/register", {
@@ -89,6 +94,10 @@ class Registration extends Component {
                                 <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange} className="form-control form_spacing" placeholder="Last Name" />
                                 <input type="text" name="username" value={this.state.username} onChange={this.handleChange} className="form-control form_spacing" placeholder="Username" />
                                 <input type="text" name="email" value={this.state.email} onChange={this.handleChange} className="form-control form_spacing" placeholder="Email" />
+                                <input type="text" name="city" value={this.state.city} onChange={this.handleChange} className="form-control form_spacing" placeholder="City" />
+                                <select name="state" value={this.state.state} onChange={this.handleChange} className="form-control form_spacing">
+                                    <StatesForm />
+                                </select>
                                 <input type="password" name="password" value={this.state.password} onChange={this.handleChange} className="form-control form_spacing" placeholder="Password" />
                                 <input type="password" name="password2" value={this.state.password2} onChange={this.handleChange} className="form-control form_spacing" placeholder="Retype Password" />
                                 <input type="submit" className="btn btn-success form-control"/>

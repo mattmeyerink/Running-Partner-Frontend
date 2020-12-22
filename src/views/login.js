@@ -62,9 +62,7 @@ class Login extends Component {
     }
 
     clearWarning() {
-        if (this._isMounted) {
-            this.setState({warning: ""})
-        }
+        this.setState({warning: ""})
     }
 
     render() {

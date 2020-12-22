@@ -43,7 +43,7 @@ class App extends Component {
         <main className="container">
           <Switch>
             <Route exact path = "/" render={() => 
-                <Home userAuthenticated={this.state.userAuthenticated} />
+                <Home userAuthenticated={this.state.userAuthenticated} userData={this.state.userData} />
             }/>
 
             <Route exact path = "/training_plans" render={() => 
