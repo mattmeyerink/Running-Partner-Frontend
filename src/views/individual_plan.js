@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Redirect } from 'react-router-dom';
 
 class SinglePlan extends Component {
     constructor() {
@@ -50,6 +51,8 @@ class SinglePlan extends Component {
         const planData = this.convertToTable();
         return (
             <React.Fragment>
+                {this.props.userAuthenticated ?
+                <React.Fragment>
                 <div className="row justify-content-center">
                     <h1>{training_plan.race_name} - {training_plan.difficulty}</h1>
                 </div>
@@ -85,6 +88,12 @@ class SinglePlan extends Component {
                         </table>
                     </div>
                 </div>
+            </React.Fragment> 
+                :
+                <React.Fragment>
+                    <Redirect to="/login" />
+                </React.Fragment>
+                }
             </React.Fragment>
         )
     }

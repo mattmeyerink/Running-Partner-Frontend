@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Redirect } from 'react-router-dom';
 import PlanHeader from '../components/plan_header';
 
 // View for the training plan page
@@ -22,23 +23,31 @@ class TrainingPlan extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="row justify-content-center">
-                    <h1>Training Plans</h1>
-                </div>
+                {this.props.userAuthenticated ?
+                <React.Fragment>
+                    <div className="row justify-content-center">
+                        <h1>Training Plans</h1>
+                    </div>
 
-                <div className="row justify-content-center">
-                    {this.state.training_plans.map(
-                        plan => (<PlanHeader 
-                                    key={plan.id}
-                                    id={plan.id}
-                                    difficulty={plan.difficulty}
-                                    frequency={plan.frequency}
-                                    plan_length={plan.plan_length}
-                                    race_length={plan.race_length}
-                                    race_name={plan.race_name} 
-                                />)
-                    )}
-                </div>
+                    <div className="row justify-content-center">
+                        {this.state.training_plans.map(
+                            plan => (<PlanHeader 
+                                        key={plan.id}
+                                        id={plan.id}
+                                        difficulty={plan.difficulty}
+                                        frequency={plan.frequency}
+                                        plan_length={plan.plan_length}
+                                        race_length={plan.race_length}
+                                        race_name={plan.race_name} 
+                                    />)
+                        )}
+                    </div>
+                </React.Fragment> 
+                :
+                <React.Fragment>
+                    <Redirect to="/login" />
+                </React.Fragment>
+                }
             </React.Fragment>
         )
     }
