@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom';
-import PlanHeader from '../components/plan_header';
+import PlanHeader from '../../components/plan_header';
 
 // View for the training plan page
 class TrainingPlan extends Component {

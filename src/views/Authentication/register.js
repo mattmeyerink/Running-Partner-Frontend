@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect, Link} from 'react-router-dom';
-import StatesForm from '../components/statesForm';
-import '../index.css';
+import StatesForm from '../../components/statesForm';
+import '../../index.css';
 
 class Registration extends Component {
     constructor() {
