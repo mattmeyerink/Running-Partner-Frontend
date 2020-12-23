@@ -9,23 +9,22 @@ class Home extends Component {
 
         this.state = {
             weatherData: {},
-            pageLoaded: false
+            loading: true
         }
     }
     
     componentDidMount() {
-        const apiKey = process.env.REACT_APP_OW_API_KEY;
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.props.userData.city}&units=imperial&appid=${apiKey}`)
-            .then(response => response.json())
-            .then(data => this.setState({weatherData: data}))
-            .catch(error => console.error(error))
-
-        this.setState({pageLoaded: true})
+        if (this.props.userAuthenticated) {
+            const apiKey = process.env.REACT_APP_OW_API_KEY;
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.props.userData.city}&units=imperial&appid=${apiKey}`)
+                .then(response => response.json())
+                .then(data => this.setState({weatherData: data, loading: false}))
+                .catch(error => console.error(error))
+            }
     }
 
     render() {
         const {city, state, first_name} = this.props.userData;
-        console.log(this.state.weatherData)
 
         return (
             <React.Fragment>
@@ -34,10 +33,13 @@ class Home extends Component {
                     <div className="row justify-content-center">
                         <h3>Hello {first_name}</h3>
                     </div>
+
+                    {this.state.loading ?
+                    <p>Loading...</p> :
                     <div className="row justify-content-center">
-                        
-                        
+                        <WeatherWidget city={city} state={state} weatherData={this.state.weatherData} />
                     </div>
+                    }
                 </React.Fragment> 
                 :
                 <React.Fragment>

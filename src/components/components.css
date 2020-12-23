@@ -6,3 +6,8 @@
 .registration_btn {
     margin-left: 5px;
 }
+
+.weather_card {
+    padding: 5px 50px;
+    padding-top: 20px;
+}
