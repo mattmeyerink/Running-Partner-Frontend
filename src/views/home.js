@@ -35,7 +35,7 @@ class Home extends Component {
                     </div>
 
                     {this.state.loading ?
-                    <div class="row justify-content-center">
+                    <div className="row justify-content-center">
                         <h1>Loading...</h1>
                     </div>
                     :
