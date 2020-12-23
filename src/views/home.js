@@ -35,7 +35,10 @@ class Home extends Component {
                     </div>
 
                     {this.state.loading ?
-                    <p>Loading...</p> :
+                    <div class="row justify-content-center">
+                        <h1>Loading...</h1>
+                    </div>
+                    :
                     <div className="row justify-content-center">
                         <WeatherWidget city={city} state={state} weatherData={this.state.weatherData} />
                     </div>
