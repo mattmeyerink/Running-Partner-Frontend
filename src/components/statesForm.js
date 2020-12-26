@@ -3,7 +3,6 @@ import React from 'react';
 function StatesForm () {
     return (
         <React.Fragment>
-            <option value="State" selected disabled hidden>State</option>
 
             <option value="AL">AL</option>
             <option value="AK">AK</option>

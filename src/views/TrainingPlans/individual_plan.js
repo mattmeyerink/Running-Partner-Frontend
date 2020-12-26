@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import '../../index.css'
 
 class SinglePlan extends Component {
     constructor() {
@@ -57,7 +58,7 @@ class SinglePlan extends Component {
                     <h1>{training_plan.race_name} - {training_plan.difficulty}</h1>
                 </div>
                 <div className="row justify-content-center">
-                    <Link to={`/add_plan/${training_plan.id}`} className="btn btn-success">Use Plan</Link>
+                    <Link to={`/add_plan/${training_plan.id}`} className="btn btn-success form_spacing">Use Plan</Link>
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-md-10">
