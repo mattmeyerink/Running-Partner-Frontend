@@ -7,8 +7,16 @@ class Profile extends Component {
         super(props)
 
         this.state = {
-
+            plans: []
         }
+    }
+
+    componentDidMount() {
+        // Make API call to gather training plans the user has.
+        fetch(`http://127.0.0.1:5000/training_plans/custom_plans/${this.props.userData.id}`)
+            .then(response => response.json())
+            .then(data => this.setState({plans: data}))
+            .catch(error => console.error(error))
     }
 
     render () {
@@ -30,18 +38,15 @@ class Profile extends Component {
                             <p><b>Running Location:</b> {city}, {state}</p>
                         </div>
                         <div class="row">
-                            <p><b>Current Training Plan:</b></p>
+                            <p>
+                                <b>Current Training Plan:</b> 
+                                {this.state.plans.map(plan => 
+                                <React.Fragment>
+                                    ({plan.race_name} - {plan.difficulty}) 
+                                </React.Fragment>)}
+                            </p>
                         </div>
-                        <div class="row">
-                            <p><b>Lifetime Mileage:</b></p>
-                        </div>
-                        <div class="row">
-                            <p><b>Miles this Month:</b></p>
-                        </div>
-                        <div class="row">
-                            <p><b>Miles this Week:</b></p>
-                        </div>
-                </React.Fragment> 
+                </React.Fragment>
                 :
                 <React.Fragment>
                     <Redirect to="/login" />

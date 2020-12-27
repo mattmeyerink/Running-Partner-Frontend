@@ -128,7 +128,11 @@ class AddPlan extends Component {
         const userID = this.props.userData.id;
 
         const planData = {
-            plan: this.state.finalPlan
+            user_id: this.props.userData.id,
+            plan: this.state.finalPlan,
+            difficulty: this.state.planData.difficulty,
+            race_name: this.state.planData.race_name,
+            plan_length: this.state.planData.plan_length,
         }
 
         fetch(`http://127.0.0.1:5000/training_plans/add_plan/${userID}`, {
