@@ -164,6 +164,12 @@ class AddPlan extends Component {
                     </React.Fragment>
                     :
                     <React.Fragment>
+                        {this.state.planSubmitted?
+                        <React.Fragment>
+                            <Redirect to="/profile" />
+                        </React.Fragment>
+                        :
+                        <React.Fragment>
                         <div className="row justify-content-center">
                             <h1>{this.state.planData.race_name} - {this.state.planData.difficulty}</h1>
                         </div>
@@ -272,6 +278,8 @@ class AddPlan extends Component {
                             </div>
                         </div>
                         
+                    </React.Fragment>
+                        }
                     </React.Fragment>
                     }
                 </React.Fragment>
