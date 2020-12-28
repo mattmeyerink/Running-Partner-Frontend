@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 // Class to display the current user's profile
 class Profile extends Component {
@@ -42,7 +42,7 @@ class Profile extends Component {
                                 <b>Current Training Plan:</b> 
                                 {this.state.plans.map(plan => 
                                 <React.Fragment>
-                                    ({plan.race_name} - {plan.difficulty}) 
+                                    <Link to={`/personal_plan/${plan.id}`}>{plan.race_name} - {plan.difficulty}      </Link>
                                 </React.Fragment>)}
                             </p>
                         </div>
