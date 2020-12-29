@@ -15,6 +15,7 @@ class PersonalPlan extends Component {
 
         this.convertToTable = this.convertToTable.bind(this);
         this.deletePlan = this.deletePlan.bind(this);
+        this.editPlan = this.editPlan.bind(this);
     }
 
     componentDidMount(){
@@ -85,7 +86,7 @@ class PersonalPlan extends Component {
                         </div>
                         <div className="row justify-content-center">
                             <button onClick={this.deletePlan} className="btn btn-danger button_spacing">Delete Plan</button>
-                            <button className="btn btn-warning button_spacing">Edit Plan</button>
+                            <button onClick={this.editPlan} className="btn btn-warning button_spacing">Edit Plan</button>
                         </div>
                         <div className="row justify-content-center">
                             <div className="col-md-10">

@@ -149,7 +149,12 @@ class EditPlan extends Component {
         })
         .catch(error => console.error(error))
 
-        fetch(`http://127.0.0.1:5000/training_plans/custom_plans/delete/${this.props.match.params.id}`)
+        fetch(`http://127.0.0.1:5000/training_plans/custom_plan/delete/${this.props.match.params.id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
             .catch(error => console.error(error))
     }
 
