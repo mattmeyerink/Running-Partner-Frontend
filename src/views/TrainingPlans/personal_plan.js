@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import '../../index.css';
 
 // View to display a personal training plan
 class PersonalPlan extends Component {
@@ -7,8 +8,12 @@ class PersonalPlan extends Component {
         super(props)
 
         this.state = {
-            planData: {}
+            planData: {},
+            planDeleted: false
         }
+
+        this.convertToTable = this.convertToTable.bind(this);
+        this.deletePlan = this.deletePlan.bind(this);
     }
 
     componentDidMount(){
@@ -42,49 +47,70 @@ class PersonalPlan extends Component {
         return planOutput
     }
 
+    deletePlan() {
+        fetch(`http://127.0.0.1:5000/training_plans/custom_plan/delete/${this.state.planData.id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    this.setState({planDeleted: true})
+                }
+            })
+            .catch(error => console.error(error))
+    }
+
     render() {
         const training_plan = this.state.planData;
         const planData = this.convertToTable();
         return (
             <React.Fragment>
-                <div className="row justify-content-center">
-                    <h1>{training_plan.race_name} - {training_plan.difficulty}</h1>
-                </div>
-                <div className="row justify-content-center">
-                    <Link to={`/add_plan/${training_plan.id}`} className="btn btn-success form_spacing">Use Plan</Link>
-                </div>
-                <div className="row justify-content-center">
-                    <div className="col-md-10">
-                        <table className="table">
-                            <tbody>
-                                <tr>
-                                    <th>Monday</th>
-                                    <th>Tuesday</th>
-                                    <th>Wednesday</th>
-                                    <th>Thursday</th>
-                                    <th>Friday</th>
-                                    <th>Saturday</th>
-                                    <th>Sunday</th>
-                                    <th>Total</th>
-                                </tr>
-                                {planData.map((week, index) => (
-                                    <React.Fragment key={index}>
-                                        <tr>
-                                            <td>{week[0]}</td>
-                                            <td>{week[1]}</td>
-                                            <td>{week[2]}</td>
-                                            <td>{week[3]}</td>
-                                            <td>{week[4]}</td>
-                                            <td>{week[5]}</td>
-                                            <td>{week[6]}</td>
-                                            <td><b>{week[7]}</b></td>
-                                        </tr>
-                                    </React.Fragment>
-                                ))}
-                            </tbody>
-                        </table>
+                {this.state.planDeleted ?
+                <Redirect to={"/profile"} />
+                :
+                <React.Fragment>
+                    <div className="row justify-content-center">
+                        <h1>{training_plan.race_name} - {training_plan.difficulty}</h1>
                     </div>
-                </div>
+                    <div className="row justify-content-center">
+                        <button onClick={this.deletePlan} className="btn btn-danger form_spacing">Delete Plan</button>
+                    </div>
+                    <div className="row justify-content-center">
+                        <div className="col-md-10">
+                            <table className="table">
+                                <tbody>
+                                    <tr>
+                                        <th>Monday</th>
+                                        <th>Tuesday</th>
+                                        <th>Wednesday</th>
+                                        <th>Thursday</th>
+                                        <th>Friday</th>
+                                        <th>Saturday</th>
+                                        <th>Sunday</th>
+                                        <th>Total</th>
+                                    </tr>
+                                    {planData.map((week, index) => (
+                                        <React.Fragment key={index}>
+                                            <tr>
+                                                <td>{week[0]}</td>
+                                                <td>{week[1]}</td>
+                                                <td>{week[2]}</td>
+                                                <td>{week[3]}</td>
+                                                <td>{week[4]}</td>
+                                                <td>{week[5]}</td>
+                                                <td>{week[6]}</td>
+                                                <td><b>{week[7]}</b></td>
+                                            </tr>
+                                        </React.Fragment>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </React.Fragment>
+                }
             </React.Fragment>
         )
     }
