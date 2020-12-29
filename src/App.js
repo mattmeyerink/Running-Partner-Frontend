@@ -6,6 +6,7 @@ import SinglePlan from './views/TrainingPlans/individual_plan';
 import TrainingPlan from './views/TrainingPlans/training_plans';
 import AddPlan from './views/TrainingPlans/add_training_plan';
 import PersonalPlan from './views/TrainingPlans/personal_plan';
+import EditPlan from './views/TrainingPlans/edit_personal_plan';
 import Login from './views/Authentication/login';
 import Registration from './views/Authentication/register';
 import NavBar from './components/navbar';
@@ -57,6 +58,11 @@ class App extends Component {
             }/>
 
             <Route exact path = "/personal_plan/:id" render={({ match }) => <PersonalPlan match={match}/> } />
+
+            <Route exact path = "/personal_plan/edit/:id" render={({ match }) => 
+                <EditPlan match={match} userAuthenticated={this.state.userAuthenticated}
+                    userData={this.state.userData}/> 
+            } />
 
             <Route exact path = "/add_plan/:id" render={({ match }) => 
                 <AddPlan match={match} userAuthenticated={this.state.userAuthenticated} 
