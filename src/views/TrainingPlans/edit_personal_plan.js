@@ -193,6 +193,7 @@ class EditPlan extends Component {
                                 <table className="table">
                                     <tbody>
                                         <tr>
+                                            <th>Week</th>
                                             <th>Monday</th>
                                             <th>Tuesday</th>
                                             <th>Wednesday</th>
@@ -205,6 +206,7 @@ class EditPlan extends Component {
                                         {planData.map((week, index) => (
                                             <React.Fragment key={index}>
                                                 <tr>
+                                                    <td><b>{index}</b></td>
                                                     <td>
                                                         {this.state.inEditMode.status && this.state.inEditMode.rowKey === index?
                                                         <input className="training_col" type="number" name="mondayEdit" value={this.state.mondayEdit} onChange={this.handleChange}></input>:

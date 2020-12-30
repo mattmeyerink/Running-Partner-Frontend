@@ -65,6 +65,7 @@ class SinglePlan extends Component {
                         <table className="table">
                             <tbody>
                                 <tr>
+                                    <th>Week</th>
                                     <th>Monday</th>
                                     <th>Tuesday</th>
                                     <th>Wednesday</th>
@@ -77,6 +78,7 @@ class SinglePlan extends Component {
                                 {planData.map((week, index) => (
                                     <React.Fragment key={index}>
                                         <tr>
+                                            <td><b>{index}</b></td>
                                             <td>{week[0]}</td>
                                             <td>{week[1]}</td>
                                             <td>{week[2]}</td>
