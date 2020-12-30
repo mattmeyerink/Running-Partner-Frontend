@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
+import moment from 'moment';
 import '../../index.css'
 
 class AddPlan extends Component {
@@ -25,9 +26,13 @@ class AddPlan extends Component {
             sundayEdit: null,
             totalEdit: null,
 
-            planSubmitted: false
-        }
+            planSubmitted: false,
 
+            startDate: null,
+            endDate: null
+        }
+        
+        this.findFirstMonday = this.findFirstMonday.bind(this);
         this.convertToTable = this.convertToTable.bind(this);
         this.editTable = this.editTable.bind(this);
         this.saveTable = this.saveTable.bind(this);
@@ -41,6 +46,17 @@ class AddPlan extends Component {
             .then(result => result.json())
             .then(data => this.setState({planData: data, loading: false, finalPlan: data.plan}))
             .catch(error => console.error(error))
+
+        this.findFirstMonday();
+    }
+
+    // Assign the moment object for the next monday in state
+    findFirstMonday() {
+        var currentDay = moment();
+        while (currentDay !== "monday") {
+            currentDay = currentDay.add(1, "days");
+        }
+        this.setState({startDate: currentDay});
     }
 
     // Converts the plan in state to an array that can be mapped to a table when rendered
