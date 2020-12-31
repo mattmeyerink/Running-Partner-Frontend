@@ -29,8 +29,10 @@ class AddPlan extends Component {
             planSubmitted: false,
 
             possibleStartDates: [],
-            startDate: null,
-            currentPlanDates: []
+            currentPlanDates: [],
+            next2YearsDates: [],
+            startDate: null
+            
         }
 
         this.findFirstMonday = this.findFirstMonday.bind(this);
@@ -59,17 +61,16 @@ class AddPlan extends Component {
         }
 
         let startDates = []
-        let currentPlanDates = []
-        for (var i = 0; i < 52; i++) {
-            startDates.push(currentDay);
-            currentPlanDates.push(currentDay.format("L"));
+        for (var i = 0; i < 104; i++) {
+            startDates.push(currentDay.format("L"));
             currentDay = currentDay.add(7, "days");
-            
-            for (var j = 0; j < startDates.length; j++){
-                console.log(startDates[j])
-            }
         }
-        this.setState({possibleStartDates: startDates, startDate: startDates[0], currentPlanDates: currentPlanDates});
+        this.setState({
+            possibleStartDates: startDates.slice(0,53),
+            startDate: startDates[0],
+            currentPlanDates: startDates,
+            next2YearsDates: startDates
+        });
     }
 
     // Converts the plan in state to an array that can be mapped to a table when rendered
@@ -149,6 +150,17 @@ class AddPlan extends Component {
         const name = target.name;
         const value = target.value;
 
+        if (name === "startDate") { 
+            var next2YearsDates = this.state.next2YearsDates;
+            var possibleStartDates = this.state.possibleStartDates;
+            var dateIndex;
+            for (var i = 0; i < possibleStartDates.length; i++) {
+                if (value === possibleStartDates[i]) {
+                    dateIndex = i;
+                }
+            }
+            this.setState({currentPlanDates: next2YearsDates.slice(dateIndex)})
+        }
         this.setState({[name]: value});
     }
 
@@ -214,7 +226,7 @@ class AddPlan extends Component {
                                 <select name="startDate" value={this.state.startDate} onChange={this.handleChange}>
                                     {this.state.possibleStartDates.map((possibleStartDate, index) => (
                                         <React.Fragment key={index}>
-                                            <option value={possibleStartDate}>{possibleStartDate.format("L")}</option>
+                                            <option value={possibleStartDate}>{possibleStartDate}</option>
                                         </React.Fragment>
                                     ))}
                                 </select>
