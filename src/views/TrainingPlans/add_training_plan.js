@@ -28,10 +28,11 @@ class AddPlan extends Component {
 
             planSubmitted: false,
 
+            possibleStartDates: [],
             startDate: null,
-            endDate: null
+            currentPlanDates: []
         }
-        
+
         this.findFirstMonday = this.findFirstMonday.bind(this);
         this.convertToTable = this.convertToTable.bind(this);
         this.editTable = this.editTable.bind(this);
@@ -52,11 +53,23 @@ class AddPlan extends Component {
 
     // Assign the moment object for the next monday in state
     findFirstMonday() {
-        var currentDay = moment();
-        while (currentDay !== "monday") {
+        let currentDay = moment();
+        while (currentDay.format("dddd") !== "Monday") {
             currentDay = currentDay.add(1, "days");
         }
-        this.setState({startDate: currentDay});
+
+        let startDates = []
+        let currentPlanDates = []
+        for (var i = 0; i < 52; i++) {
+            startDates.push(currentDay);
+            currentPlanDates.push(currentDay.format("L"));
+            currentDay = currentDay.add(7, "days");
+            
+            for (var j = 0; j < startDates.length; j++){
+                console.log(startDates[j])
+            }
+        }
+        this.setState({possibleStartDates: startDates, startDate: startDates[0], currentPlanDates: currentPlanDates});
     }
 
     // Converts the plan in state to an array that can be mapped to a table when rendered
@@ -64,7 +77,6 @@ class AddPlan extends Component {
         var planOutput = []
         const plan = this.state.finalPlan;
         var weeks = plan.split("-");
-        
         for (var i = 0; i < weeks.length; i++) {
             var days = weeks[i].split(",");
             var weekOutput = [];
@@ -100,7 +112,7 @@ class AddPlan extends Component {
         planData[index] = [this.state.mondayEdit, this.state.tuesdayEdit, this.state.wednesdayEdit, 
                             this.state.thursdayEdit, this.state.fridayEdit, this.state.saturdayEdit, 
                             this.state.sundayEdit, this.state.totalEdit];
-
+        
         var outputPlan = "";
         for (var i = 0; i < planData.length; i++) {
             for (var j = 0; j < planData[0].length - 1; j++) {
@@ -171,7 +183,7 @@ class AddPlan extends Component {
         if (!this.state.loading) {
             planData = this.convertToTable();
         }
-
+        
         return (
             <React.Fragment>
                 {this.props.userAuthenticated ?
@@ -197,6 +209,21 @@ class AddPlan extends Component {
                             <button onClick={this.submitPlan} className="btn btn-success form_spacing">Submit Plan</button>
                         </div>
                         <div className="row justify-content-center">
+                            <h4 className="label_margin">Start Date</h4>
+                            <form>
+                                <select name="startDate" value={this.state.startDate} onChange={this.handleChange}>
+                                    {this.state.possibleStartDates.map((possibleStartDate, index) => (
+                                        <React.Fragment key={index}>
+                                            <option value={possibleStartDate}>{possibleStartDate.format("L")}</option>
+                                        </React.Fragment>
+                                    ))}
+                                </select>
+                            </form>
+                        </div>
+                        <div className="row justify-content-center">
+                            <h3>Training Plan</h3>
+                        </div>
+                        <div className="row justify-content-center">
                             <div className="col-md-10">
                                 <table className="table">
                                     <tbody>
@@ -214,7 +241,7 @@ class AddPlan extends Component {
                                         {planData.map((week, index) => (
                                             <React.Fragment key={index}>
                                                 <tr>
-                                                    <td><b>{index}</b></td>
+                                                    <td><b>{this.state.currentPlanDates[index]}</b></td>
                                                     <td>
                                                         {this.state.inEditMode.status && this.state.inEditMode.rowKey === index?
                                                         <input className="training_col" type="number" name="mondayEdit" value={this.state.mondayEdit} onChange={this.handleChange}></input>:

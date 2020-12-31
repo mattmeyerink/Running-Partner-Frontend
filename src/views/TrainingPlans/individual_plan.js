@@ -78,7 +78,7 @@ class SinglePlan extends Component {
                                 {planData.map((week, index) => (
                                     <React.Fragment key={index}>
                                         <tr>
-                                            <td><b>{index}</b></td>
+                                            <td><b>{index + 1}</b></td>
                                             <td>{week[0]}</td>
                                             <td>{week[1]}</td>
                                             <td>{week[2]}</td>
