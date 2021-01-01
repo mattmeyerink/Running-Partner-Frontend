@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import WeatherWidget from '../components/weatherWidget';
+import TodaysRun from '../components/todays_run';
+import RunEntry from '../components/run_entry';
 
 // view for the homepage
 class Home extends Component {
@@ -13,6 +15,7 @@ class Home extends Component {
         }
     }
     
+    // Make initial API Calls for weather data, today's run, and run input.
     componentDidMount() {
         if (this.props.userAuthenticated) {
             const apiKey = process.env.REACT_APP_OW_API_KEY;
@@ -31,7 +34,7 @@ class Home extends Component {
                 {this.props.userAuthenticated ?
                 <React.Fragment>
                     <div className="row justify-content-center">
-                        <h3>Hello {first_name}</h3>
+                        <h1>Hello {first_name}</h1>
                     </div>
 
                     {this.state.loading ?
@@ -40,7 +43,15 @@ class Home extends Component {
                     </div>
                     :
                     <div className="row justify-content-center">
-                        <WeatherWidget city={city} state={state} weatherData={this.state.weatherData} />
+                        <div className="col-md-3">
+                            <WeatherWidget city={city} state={state} weatherData={this.state.weatherData} />
+                        </div>
+                        <div className="col-md-3 widget_spacing">
+                            <TodaysRun />
+                        </div>
+                        <div className="col-md-3 widget_spacing">
+                            <RunEntry />
+                        </div>
                     </div>
                     }
                 </React.Fragment> 

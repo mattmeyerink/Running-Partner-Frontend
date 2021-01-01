@@ -38,3 +38,7 @@ code {
 .label_margin {
   margin-right: 5px;
 }
+  
+.widget_spacing {
+  margin-left: 20px;
+}
