@@ -17,7 +17,7 @@ class PersonalPlan extends Component {
         this.deletePlan = this.deletePlan.bind(this);
         this.editPlan = this.editPlan.bind(this);
     }
-
+    // Fetch the personal plan data
     componentDidMount(){
         fetch(`http://127.0.0.1:5000/training_plans/custom_plan/${this.props.match.params.id}`)
             .then(response => response.json())
@@ -32,16 +32,23 @@ class PersonalPlan extends Component {
         // If the plan has been pulled from the API, handle the data
         if (this.state.planData.plan !== undefined) {
             const plan = this.state.planData.plan;
+
+            // Split the plan data into individual weeks
             var weeks = plan.split("-");
 
             for (var i = 0; i < weeks.length; i++) {
+                // Split the week string into individual runs
                 var days = weeks[i].split(",");
+
+                // Push each day to the week array and update the total
                 var weekOutput = [];
                 var total = 0;
                 for (var j = 0; j < days.length; j++) {
                     weekOutput.push(days[j]);
                     total += parseInt(days[j]);
                 }
+
+                // Push the total to the week array and push the week to the matrix
                 weekOutput.push(total);
                 planOutput.push(weekOutput);
             }
@@ -49,6 +56,7 @@ class PersonalPlan extends Component {
         return planOutput
     }
 
+    // Delete a specific plan from the database
     deletePlan() {
         fetch(`http://127.0.0.1:5000/training_plans/custom_plan/delete/${this.state.planData.id}`, {
             method: "DELETE",
@@ -64,6 +72,7 @@ class PersonalPlan extends Component {
             .catch(error => console.error(error))
     }
 
+    // Update state to editing plan to force re-direct
     editPlan() {
         this.setState({editingPlan: true});
     }
@@ -71,6 +80,7 @@ class PersonalPlan extends Component {
     render() {
         const training_plan = this.state.planData;
         const planData = this.convertToTable();
+
         return (
             <React.Fragment>
                 {this.state.editingPlan ?
@@ -93,6 +103,7 @@ class PersonalPlan extends Component {
                                 <table className="table">
                                     <tbody>
                                         <tr>
+                                            <th>Week</th>
                                             <th>Monday</th>
                                             <th>Tuesday</th>
                                             <th>Wednesday</th>
@@ -105,14 +116,15 @@ class PersonalPlan extends Component {
                                         {planData.map((week, index) => (
                                             <React.Fragment key={index}>
                                                 <tr>
-                                                    <td>{week[0]}</td>
+                                                    <td><b>{week[0]}</b></td>
                                                     <td>{week[1]}</td>
                                                     <td>{week[2]}</td>
                                                     <td>{week[3]}</td>
                                                     <td>{week[4]}</td>
                                                     <td>{week[5]}</td>
                                                     <td>{week[6]}</td>
-                                                    <td><b>{week[7]}</b></td>
+                                                    <td>{week[7]}</td>
+                                                    <td><b>{week[8]}</b></td>
                                                 </tr>
                                             </React.Fragment>
                                         ))}

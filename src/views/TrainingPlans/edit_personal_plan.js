@@ -35,7 +35,7 @@ class EditPlan extends Component {
         this.submitPlan = this.submitPlan.bind(this);
     }
 
-    // Gather the individual training plan
+    // Gather the individual training plan from custom plan table
     componentDidMount(){
         fetch(`http://127.0.0.1:5000/training_plans/custom_plan/${this.props.match.params.id}`)
             .then(result => result.json())
@@ -45,18 +45,27 @@ class EditPlan extends Component {
 
     // Converts the plan in state to an array that can be mapped to a table when rendered
     convertToTable() {
-        var planOutput = []
+        // Pull the plan data from state
         const plan = this.state.finalPlan;
+
+        // Split the plan into a string for each week
         var weeks = plan.split("-");
         
+        // Create a matrix of runs for each week
+        var planOutput = []
         for (var i = 0; i < weeks.length; i++) {
+            // Split the week into each days run
             var days = weeks[i].split(",");
+
+            // Push each days run to the array and update weeks total mileage
             var weekOutput = [];
             var total = 0;
             for (var j = 0; j < days.length; j++) {
                 weekOutput.push(days[j]);
                 total += parseInt(days[j]);
             }
+
+            // Add the total to the week's array and add week to the matrix
             weekOutput.push(total);
             planOutput.push(weekOutput);
         }
@@ -64,11 +73,13 @@ class EditPlan extends Component {
         return planOutput;
     }
 
+    // Set state that the training table is in edit mode
     editTable(rowKey, week) {
         this.setState({inEditMode: {
             status: true,
             rowKey: rowKey
         },
+
         mondayEdit: week[0],
         tuesdayEdit: week[1],
         wednesdayEdit: week[2],
@@ -80,26 +91,32 @@ class EditPlan extends Component {
     })
     }
 
+    // Save the results of table edit to state
     saveTable(index, planData) {
+        // Push the new row values for each day to the matrix
         planData[index] = [this.state.mondayEdit, this.state.tuesdayEdit, this.state.wednesdayEdit, 
                             this.state.thursdayEdit, this.state.fridayEdit, this.state.saturdayEdit, 
                             this.state.sundayEdit, this.state.totalEdit];
 
+        // Create trianing data string to push to matrix
         var outputPlan = "";
         for (var i = 0; i < planData.length; i++) {
             for (var j = 0; j < planData[0].length - 1; j++) {
+                // Add a comma between runs during the week
                 if (j !== planData[0].length - 2) {
                     outputPlan += planData[i][j] + ",";
                 }
+                // Add a dash between the data for each week
                 else {
                     outputPlan += planData[i][j] + "-";
                 }
             }
         }
     
-        // Remove the trailing dash from the plan
+        // Remove the trailing dash from the plan string
         outputPlan = outputPlan.slice(0, -1);
         
+        // Clear the state edit mode variables and push new plan string
         this.setState({inEditMode: {
             status: false,
             rowKey: null,
@@ -116,6 +133,7 @@ class EditPlan extends Component {
     })
     }
 
+    // Handle a change to the training plan
     handleChange(event) {
         const target = event.target;
         const name = target.name;
@@ -124,9 +142,12 @@ class EditPlan extends Component {
         this.setState({[name]: value});
     }
 
+    // Submit the edited plan to the database
     submitPlan() {
+        // Gather the user id from props
         const userID = this.props.userData.id;
 
+        // Create a JSON object to send edited plan to db in post request
         const planData = {
             user_id: this.props.userData.id,
             plan: this.state.finalPlan,
@@ -135,6 +156,7 @@ class EditPlan extends Component {
             plan_length: this.state.planData.plan_length,
         }
 
+        // Send POST request to db with edited plan update the plan submitted in state to force redirect
         fetch(`http://127.0.0.1:5000/training_plans/add_plan/${userID}`, {
             method: "POST",
             body: JSON.stringify(planData),
@@ -149,6 +171,7 @@ class EditPlan extends Component {
         })
         .catch(error => console.error(error))
 
+        // Delete the old version of the training plan from the db. 
         fetch(`http://127.0.0.1:5000/training_plans/custom_plan/delete/${this.props.match.params.id}`, {
             method: "DELETE",
             headers: {
@@ -206,18 +229,10 @@ class EditPlan extends Component {
                                         {planData.map((week, index) => (
                                             <React.Fragment key={index}>
                                                 <tr>
-                                                    <td><b>{index + 1}</b></td>
+                                                    <td><b>{week[0]}</b></td>
                                                     <td>
                                                         {this.state.inEditMode.status && this.state.inEditMode.rowKey === index?
                                                         <input className="training_col" type="number" name="mondayEdit" value={this.state.mondayEdit} onChange={this.handleChange}></input>:
-                                                        <React.Fragment>
-                                                            {week[0]}
-                                                        </React.Fragment>
-                                                        }
-                                                    </td>
-                                                    <td>
-                                                        {this.state.inEditMode.status && this.state.inEditMode.rowKey === index?
-                                                        <input className="training_col" type="number" name="tuesdayEdit" value={this.state.tuesdayEdit} onChange={this.handleChange}></input>:
                                                         <React.Fragment>
                                                             {week[1]}
                                                         </React.Fragment>
@@ -225,7 +240,7 @@ class EditPlan extends Component {
                                                     </td>
                                                     <td>
                                                         {this.state.inEditMode.status && this.state.inEditMode.rowKey === index?
-                                                        <input className="training_col" type="number" name="wednesdayEdit" value={this.state.wednesdayEdit} onChange={this.handleChange}></input>:
+                                                        <input className="training_col" type="number" name="tuesdayEdit" value={this.state.tuesdayEdit} onChange={this.handleChange}></input>:
                                                         <React.Fragment>
                                                             {week[2]}
                                                         </React.Fragment>
@@ -233,7 +248,7 @@ class EditPlan extends Component {
                                                     </td>
                                                     <td>
                                                         {this.state.inEditMode.status && this.state.inEditMode.rowKey === index?
-                                                        <input className="training_col" type="number" name="thursdayEdit" value={this.state.thursdayEdit} onChange={this.handleChange}></input>:
+                                                        <input className="training_col" type="number" name="wednesdayEdit" value={this.state.wednesdayEdit} onChange={this.handleChange}></input>:
                                                         <React.Fragment>
                                                             {week[3]}
                                                         </React.Fragment>
@@ -241,7 +256,7 @@ class EditPlan extends Component {
                                                     </td>
                                                     <td>
                                                         {this.state.inEditMode.status && this.state.inEditMode.rowKey === index?
-                                                        <input className="training_col" type="number" name="fridayEdit" value={this.state.fridayEdit} onChange={this.handleChange}></input>:
+                                                        <input className="training_col" type="number" name="thursdayEdit" value={this.state.thursdayEdit} onChange={this.handleChange}></input>:
                                                         <React.Fragment>
                                                             {week[4]}
                                                         </React.Fragment>
@@ -249,9 +264,17 @@ class EditPlan extends Component {
                                                     </td>
                                                     <td>
                                                         {this.state.inEditMode.status && this.state.inEditMode.rowKey === index?
-                                                        <input className="training_col" type="number" name="saturdayEdit" value={this.state.saturdayEdit} onChange={this.handleChange}></input>:
+                                                        <input className="training_col" type="number" name="fridayEdit" value={this.state.fridayEdit} onChange={this.handleChange}></input>:
                                                         <React.Fragment>
                                                             {week[5]}
+                                                        </React.Fragment>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        {this.state.inEditMode.status && this.state.inEditMode.rowKey === index?
+                                                        <input className="training_col" type="number" name="saturdayEdit" value={this.state.saturdayEdit} onChange={this.handleChange}></input>:
+                                                        <React.Fragment>
+                                                            {week[6]}
                                                         </React.Fragment>
                                                         }
                                                     </td>
@@ -260,7 +283,7 @@ class EditPlan extends Component {
                                                         <input className="training_col" type="number" name="sundayEdit" value={this.state.sundayEdit} onChange={this.handleChange}></input>
                                                         :
                                                         <React.Fragment>
-                                                            {week[6]}
+                                                            {week[7]}
                                                         </React.Fragment>
                                                         }
                                                     </td>
@@ -270,7 +293,7 @@ class EditPlan extends Component {
                                                             {this.state.totalEdit}
                                                         </React.Fragment>:
                                                         <React.Fragment>
-                                                            {week[7]}
+                                                            {week[8]}
                                                         </React.Fragment>
                                                         }
                                                     </td>
