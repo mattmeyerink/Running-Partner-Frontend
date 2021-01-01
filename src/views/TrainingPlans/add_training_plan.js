@@ -55,18 +55,22 @@ class AddPlan extends Component {
 
     // Assign the moment object for the next monday in state
     findFirstMonday() {
+        // Gather the current datetime object. Move to next day until monday is found
         let currentDay = moment();
         while (currentDay.format("dddd") !== "Monday") {
             currentDay = currentDay.add(1, "days");
         }
 
+        // Store the next 2 years of mondays
         let startDates = []
         for (var i = 0; i < 104; i++) {
             startDates.push(currentDay.format("L"));
             currentDay = currentDay.add(7, "days");
         }
+
+        // Set date arrays/values in state
         this.setState({
-            possibleStartDates: startDates.slice(0,53),
+            possibleStartDates: startDates.slice(0,52),
             startDate: startDates[0],
             currentPlanDates: startDates,
             next2YearsDates: startDates
@@ -75,17 +79,27 @@ class AddPlan extends Component {
 
     // Converts the plan in state to an array that can be mapped to a table when rendered
     convertToTable() {
-        var planOutput = []
+        // Pull the plan data from state
         const plan = this.state.finalPlan;
+
+        // Split the string into weeks with the deliniating - char
         var weeks = plan.split("-");
+
+        // Create a matrix of all of the runs
+        var planOutput = []
         for (var i = 0; i < weeks.length; i++) {
+            // Split the week into individual run days
             var days = weeks[i].split(",");
+
+            // Create the array for the week and calculate week mileage total
             var weekOutput = [];
             var total = 0;
             for (var j = 0; j < days.length; j++) {
                 weekOutput.push(days[j]);
                 total += parseInt(days[j]);
             }
+
+            // Push the weeks runs onto the matrix
             weekOutput.push(total);
             planOutput.push(weekOutput);
         }
@@ -93,11 +107,15 @@ class AddPlan extends Component {
         return planOutput;
     }
 
+    // Enter into edit mode for a specific row on the plan table
     editTable(rowKey, week) {
+        // Set the state to edit mode and set which week being edited
         this.setState({inEditMode: {
             status: true,
             rowKey: rowKey
         },
+
+        // Initialize each run edit value to the appropriate weeks runs
         mondayEdit: week[0],
         tuesdayEdit: week[1],
         wednesdayEdit: week[2],
@@ -109,17 +127,22 @@ class AddPlan extends Component {
     })
     }
 
+    // Saves any edits to the table to state
     saveTable(index, planData) {
+        // Push the edited values from the table into the planData
         planData[index] = [this.state.mondayEdit, this.state.tuesdayEdit, this.state.wednesdayEdit, 
                             this.state.thursdayEdit, this.state.fridayEdit, this.state.saturdayEdit, 
                             this.state.sundayEdit, this.state.totalEdit];
-        
+
+        // Stringify the matrix of plan data
         var outputPlan = "";
         for (var i = 0; i < planData.length; i++) {
             for (var j = 0; j < planData[0].length - 1; j++) {
+                // Add the value without a comma unless it is the last value.
                 if (j !== planData[0].length - 2) {
                     outputPlan += planData[i][j] + ",";
                 }
+                // Add the dash to signify the end of the week
                 else {
                     outputPlan += planData[i][j] + "-";
                 }
@@ -129,6 +152,7 @@ class AddPlan extends Component {
         // Remove the trailing dash from the plan
         outputPlan = outputPlan.slice(0, -1);
         
+        // Reset state to be out of edit mode
         this.setState({inEditMode: {
             status: false,
             rowKey: null,
@@ -142,14 +166,17 @@ class AddPlan extends Component {
             totalEdit: null
         },
         finalPlan: outputPlan
-    })
+        });
     }
 
+    // Handles a changes for table and for start date
     handleChange(event) {
+        // Gather change event variables
         const target = event.target;
         const name = target.name;
         const value = target.value;
 
+        // Set the currentPlanDates array to appropriate values if start date changed
         if (name === "startDate") { 
             var next2YearsDates = this.state.next2YearsDates;
             var possibleStartDates = this.state.possibleStartDates;
@@ -161,20 +188,38 @@ class AddPlan extends Component {
             }
             this.setState({currentPlanDates: next2YearsDates.slice(dateIndex)})
         }
+
+        // Changed the specified state
         this.setState({[name]: value});
     }
 
+
+    // Submit the custom plan to the database
     submitPlan() {
+        // Retrive the user id from state
         const userID = this.props.userData.id;
 
+        // Add dates to the final plan
+        var currentStartDates = this.state.currentPlanDates;
+        var finalPlan = this.state.finalPlan;
+        var planArr = finalPlan.split("-");
+        var output = "";
+        for (let i = 0; i < planArr.length; i++) {
+            output += currentStartDates[i] + "," + planArr[i] + "-";
+        }
+        // Remove trailing slash
+        output = output.slice(0,-1)
+
+        // Organize plan data into JSON object for fetch call
         const planData = {
             user_id: this.props.userData.id,
-            plan: this.state.finalPlan,
+            plan: output,
             difficulty: this.state.planData.difficulty,
             race_name: this.state.planData.race_name,
             plan_length: this.state.planData.plan_length,
         }
 
+        // Send POST request to API. Set planSubmitted state to true if successful to redirect page to profile
         fetch(`http://127.0.0.1:5000/training_plans/add_plan/${userID}`, {
             method: "POST",
             body: JSON.stringify(planData),
