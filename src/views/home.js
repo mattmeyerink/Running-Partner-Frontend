@@ -27,7 +27,7 @@ class Home extends Component {
     }
 
     render() {
-        const {city, state, first_name} = this.props.userData;
+        const {city, state, first_name, id} = this.props.userData;
 
         return (
             <React.Fragment>
@@ -50,7 +50,7 @@ class Home extends Component {
                             <TodaysRun />
                         </div>
                         <div className="col-md-3 widget_spacing">
-                            <RunEntry />
+                            <RunEntry user_id={id}/>
                         </div>
                     </div>
                     }

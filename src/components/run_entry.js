@@ -26,7 +26,33 @@ class RunEntry extends Component {
 
     // Submit run data to db
     handleSubmit(event) {
+        // Create json object to send in POST request
+        const runData = {
+            user_id: this.props.id,
+            distance: this.state.distance,
+            date: this.state.date,
+            notes: this.state.notes
+        }
 
+        // Send POST request to create run in the db
+        fetch('http://127.0.0.1:5000/runs/add_run', {
+            method: "POST",
+            body: JSON.stringify(runData),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        .then(response => {
+            // Reset the form fields if request was successful
+            if (response.status === 201) {
+                this.setState({
+                    distance: undefined,
+                    date: undefined,
+                    notes: undefined
+                })
+            }
+        })
+        .catch(error => console.error(error))
 
         event.preventDefault();
     }
