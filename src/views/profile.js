@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 // Class to display the current user's profile
 class Profile extends Component {
@@ -9,14 +9,6 @@ class Profile extends Component {
         this.state = {
             plans: []
         }
-    }
-
-    componentDidMount() {
-        // Make API call to gather training plans the user has.
-        fetch(`http://127.0.0.1:5000/training_plans/custom_plans/${this.props.userData.id}`)
-            .then(response => response.json())
-            .then(data => this.setState({plans: data}))
-            .catch(error => console.error(error))
     }
 
     render () {
@@ -36,15 +28,6 @@ class Profile extends Component {
                         </div>
                         <div className="row">
                             <p><b>Running Location:</b> {city}, {state}</p>
-                        </div>
-                        <div className="row">
-                            <p>
-                                <b>Current Training Plan:</b> 
-                                {this.state.plans.map(plan => 
-                                <React.Fragment key={plan.id}>
-                                    <Link to={`/personal_plan/${plan.id}`}>{plan.race_name} - {plan.difficulty}      </Link>
-                                </React.Fragment>)}
-                            </p>
                         </div>
                 </React.Fragment>
                 :

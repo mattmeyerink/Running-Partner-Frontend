@@ -20,14 +20,17 @@ class NavBar extends Component {
                 
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav mr-auto">
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/personal_plan">My Training Plans</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/all_runs">My Runs</Link>
+                            </li>
                             <li className="nav-item active">
                                 <Link className="nav-link" to="/training_plans">Training Plans<span className="sr-only">(current)</span></Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/profile">Profile</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/all_runs">My Runs</Link>
                             </li>
                         </ul>
                         {this.props.userAuthenticated ?
