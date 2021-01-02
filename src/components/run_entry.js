@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import moment from 'moment';
 import '../index.css';
 
 class RunEntry extends Component {
@@ -6,9 +7,9 @@ class RunEntry extends Component {
         super();
 
         this.state = {
-            distance: undefined,
-            date: undefined,
-            notes: undefined
+            distance: "",
+            date: moment().format("L"),
+            notes: ""
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -28,7 +29,7 @@ class RunEntry extends Component {
     handleSubmit(event) {
         // Create json object to send in POST request
         const runData = {
-            user_id: this.props.id,
+            user_id: this.props.user_id,
             distance: this.state.distance,
             date: this.state.date,
             notes: this.state.notes
@@ -46,9 +47,9 @@ class RunEntry extends Component {
             // Reset the form fields if request was successful
             if (response.status === 201) {
                 this.setState({
-                    distance: undefined,
-                    date: undefined,
-                    notes: undefined
+                    distance: "",
+                    date: moment().format("L"),
+                    notes: ""
                 })
             }
         })
