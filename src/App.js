@@ -70,16 +70,18 @@ class App extends Component {
                     userData={this.state.userData}/>
             } />
 
-            <Route exact path = "/all_runs" render={() => <AllRuns />} />
+            <Route exact path = "/all_runs" render={() => 
+                <AllRuns userAuthenticated={this.state.userAuthenticated} userData={this.state.userData} /> 
+            } />
 
             <Route exact path = "/profile" render={() => 
                 <Profile userAuthenticated={this.state.userAuthenticated} userData={this.state.userData}/>
-            }/>
+            } />
 
             <Route exact path = "/login" render={() => 
                 <Login login={this.login} userAuthenticated={this.state.userAuthenticated} 
                     userData={this.state.userData}/>
-            }/>
+            } />
 
             <Route exact path = "/registration" render={() => <Registration />} />
           </Switch>

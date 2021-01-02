@@ -42,3 +42,23 @@ code {
 .widget_spacing {
   margin-left: 20px;
 }
+
+.run_card {
+  padding-top: 20px;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.icon_button {
+  border: none;
+  background-color: white;
+}
+
+.icon_button:focus{
+  border: none;
+}
+
+.text_spacing {
+  margin-right: 20px;
+  margin-bottom: 20px;
+}

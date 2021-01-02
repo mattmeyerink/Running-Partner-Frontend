@@ -16,6 +16,7 @@ class EditPlan extends Component {
                 rowValues: null
             },
 
+            startDateEdit: null,
             mondayEdit: null,
             tuesdayEdit: null,
             wednesdayEdit: null,
@@ -62,7 +63,10 @@ class EditPlan extends Component {
             var total = 0;
             for (var j = 0; j < days.length; j++) {
                 weekOutput.push(days[j]);
-                total += parseInt(days[j]);
+                if (j !== 0) {
+                    total += parseInt(days[j]);
+                }
+                
             }
 
             // Add the total to the week's array and add week to the matrix
@@ -79,22 +83,23 @@ class EditPlan extends Component {
             status: true,
             rowKey: rowKey
         },
-
-        mondayEdit: week[0],
-        tuesdayEdit: week[1],
-        wednesdayEdit: week[2],
-        thursdayEdit: week[3],
-        fridayEdit: week[4],
-        saturdayEdit: week[5],
-        sundayEdit: week[6],
-        totalEdit: week[7]
+        
+        startDateEdit: week[0],
+        mondayEdit: week[1],
+        tuesdayEdit: week[2],
+        wednesdayEdit: week[3],
+        thursdayEdit: week[4],
+        fridayEdit: week[5],
+        saturdayEdit: week[6],
+        sundayEdit: week[7],
+        totalEdit: week[8]
     })
     }
 
     // Save the results of table edit to state
     saveTable(index, planData) {
         // Push the new row values for each day to the matrix
-        planData[index] = [this.state.mondayEdit, this.state.tuesdayEdit, this.state.wednesdayEdit, 
+        planData[index] = [this.state.startDateEdit, this.state.mondayEdit, this.state.tuesdayEdit, this.state.wednesdayEdit, 
                             this.state.thursdayEdit, this.state.fridayEdit, this.state.saturdayEdit, 
                             this.state.sundayEdit, this.state.totalEdit];
 
