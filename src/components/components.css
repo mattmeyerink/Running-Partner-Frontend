@@ -11,3 +11,9 @@
     padding: 5px 50px;
     padding-top: 20px;
 }
+
+.icon_button {
+    border: none;
+    background-color: white;
+    margin-top: 20px;
+  }

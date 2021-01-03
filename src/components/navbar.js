@@ -26,8 +26,8 @@ class NavBar extends Component {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/all_runs">My Runs</Link>
                             </li>
-                            <li className="nav-item active">
-                                <Link className="nav-link" to="/training_plans">Training Plans<span className="sr-only">(current)</span></Link>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/training_plans">Training Plans</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/profile">Profile</Link>

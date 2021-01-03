@@ -255,7 +255,7 @@ class AddPlan extends Component {
                     <React.Fragment>
                         {this.state.planSubmitted?
                         <React.Fragment>
-                            <Redirect to="/profile" />
+                            <Redirect to="/personal_plan" />
                         </React.Fragment>
                         :
                         <React.Fragment>
