@@ -25,8 +25,10 @@ class App extends Component {
 
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+    this.refreshUserData = this.refreshUserData.bind(this);
   }
 
+  // Login the user. Passed to login screen.
   login(data) {
     this.setState({
       userAuthenticated: true,
@@ -34,11 +36,17 @@ class App extends Component {
     })
   }
 
+  // Logout the current user. Passed to logout screen.
   logout() {
     this.setState({
       userAuthenticated: false,
       userData: {}
     })
+  }
+
+  // Re pull the user data after an edit in the profile page. Passed to the profile page.
+  refreshUserData() {
+    
   }
 
   render() {
