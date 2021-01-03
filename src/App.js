@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Home from './views/home';
-import Profile from './views/profile';
+import Profile from './views/Profile/profile';
+import ConfirmDeleteAccount from './views/Profile/confirm_delete';
 import SinglePlan from './views/TrainingPlans/individual_plan';
 import TrainingPlan from './views/TrainingPlans/training_plans';
 import AddPlan from './views/TrainingPlans/add_training_plan';
@@ -93,6 +94,10 @@ class App extends Component {
             <Route exact path = "/profile" render={() => 
                 <Profile userAuthenticated={this.state.userAuthenticated} userData={this.state.userData}
                     refreshUserData={this.refreshUserData}/>
+            } />
+
+            <Route exact path = "/profile/confirm_delete/:id" render={({ match }) => 
+                <ConfirmDeleteAccount logout={this.logout} match={match}/> 
             } />
 
             <Route exact path = "/login" render={() => 

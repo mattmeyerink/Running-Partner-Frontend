@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import StatesForm from '../components/statesForm';
+import StatesForm from '../../components/statesForm';
 import { Redirect } from 'react-router-dom';
-import '../index.css';
+import '../../index.css';
 
 // Class to display the current user's profile
 class Profile extends Component {
@@ -10,15 +10,20 @@ class Profile extends Component {
 
         this.state = {
             plans: [],
-            editing: false,
+            
             firstName: this.props.userData.first_name,
             lastName: this.props.userData.last_name,
             email: this.props.userData.email,
             username: this.props.userData.username,
             city: this.props.userData.city,
-            state: this.props.userData.state
+            state: this.props.userData.state,
+
+            editing: false,
+            deleting: false
+
         }
 
+        this.deleteAccount = this.deleteAccount.bind(this);
         this.beginEditing = this.beginEditing.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -73,12 +78,21 @@ class Profile extends Component {
         event.preventDefault()
     }
 
+    // Route to confirmation page to delete account
+    deleteAccount() {
+        this.setState({deleting: true})
+    }
+
     render () {
-        const { first_name, last_name, email, username, city, state } = this.props.userData
+        const { first_name, last_name, email, username, city, state, id } = this.props.userData
         return (
             <React.Fragment>
                 {this.props.userAuthenticated ?
                 <React.Fragment>
+                    {this.state.deleting ?
+                    <Redirect to={`/profile/confirm_delete/${id}`}/>
+                    :
+                    <React.Fragment>
                         {this.state.editing? 
                         <React.Fragment>
                             <h1>Edit Account Information</h1>
@@ -103,6 +117,7 @@ class Profile extends Component {
                             </div>
                             <div className="row">
                                 <button className="btn btn-warning text_spacing" onClick={this.beginEditing}>Edit Account</button>
+                                <button className="btn btn-danger text_spacing" onClick={this.deleteAccount}>Delete Account</button>
                             </div>
                             <div className="row">
                                 <p><b>Username:</b> {username}</p>
@@ -115,6 +130,8 @@ class Profile extends Component {
                             </div>
                         </React.Fragment>
                         }
+                </React.Fragment>
+                    }
                 </React.Fragment>
                 :
                 <React.Fragment>
