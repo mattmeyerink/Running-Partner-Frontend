@@ -46,7 +46,10 @@ class App extends Component {
 
   // Re pull the user data after an edit in the profile page. Passed to the profile page.
   refreshUserData() {
-    
+    fetch(`http://127.0.0.1:5000/authentication/get_user_data/${this.state.userData.id}`)
+        .then(response => response.json())
+        .then(data => this.setState({userData: data}))
+        .catch(error => console.error(error))
   }
 
   render() {
@@ -88,7 +91,8 @@ class App extends Component {
             } />
 
             <Route exact path = "/profile" render={() => 
-                <Profile userAuthenticated={this.state.userAuthenticated} userData={this.state.userData}/>
+                <Profile userAuthenticated={this.state.userAuthenticated} userData={this.state.userData}
+                    refreshUserData={this.refreshUserData}/>
             } />
 
             <Route exact path = "/login" render={() => 
