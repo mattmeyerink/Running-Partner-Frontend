@@ -16,6 +16,8 @@ class PersonalPlan extends Component {
         this.convertToTable = this.convertToTable.bind(this);
         this.deletePlan = this.deletePlan.bind(this);
         this.editPlan = this.editPlan.bind(this);
+        this.setActivePlan = this.setActivePlan.bind(this);
+        this.removeActivePlan = this.removeActivePlan.bind(this);
     }
     // Fetch the personal plan data
     componentDidMount(){
@@ -23,6 +25,50 @@ class PersonalPlan extends Component {
             .then(response => response.json())
             .then(data => this.setState({planData: data}))
             .catch(error => console.error(error))
+    }
+
+    // Sets this plan as the current user's active plan
+    setActivePlan() {
+        const activePlanData = {
+            user_id: this.props.userData.id,
+            plan_id: this.state.planData.id
+        }
+        
+        fetch("http://127.0.0.1:5000/authentication/set_active_plan", {
+            method: "POST",
+            body: JSON.stringify(activePlanData),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        .then(response => {
+            if (response.status === 200) {
+                this.props.refreshUserData();
+            }
+        })
+        .catch(error => console.error(error))
+    }
+
+    removeActivePlan() {
+        // Set active plan to -1 (to signify empty)
+        const activePlanData = {
+            user_id: this.props.userData.id,
+            plan_id: -1
+        }
+        
+        fetch("http://127.0.0.1:5000/authentication/set_active_plan", {
+            method: "POST",
+            body: JSON.stringify(activePlanData),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        .then(response => {
+            if (response.status === 200) {
+                this.props.refreshUserData();
+            }
+        })
+        .catch(error => console.error(error))
     }
 
     // Converts the plan in state to an array that can be mapped to a table when rendered
@@ -95,6 +141,11 @@ class PersonalPlan extends Component {
                             <h1>{training_plan.race_name} - {training_plan.difficulty}</h1>
                         </div>
                         <div className="row justify-content-center">
+                            {this.props.userData.active_plan === this.state.planData.id?
+                                <button onClick={this.removeActivePlan} className="btn btn-warning button_spacing">Remove Active Plan</button>
+                                :
+                                <button onClick={this.setActivePlan} className="btn btn-success button_spacing">Set As Active Plan</button>
+                            }
                             <button onClick={this.deletePlan} className="btn btn-danger button_spacing">Delete Plan</button>
                             <button onClick={this.editPlan} className="btn btn-warning button_spacing">Edit Plan</button>
                         </div>

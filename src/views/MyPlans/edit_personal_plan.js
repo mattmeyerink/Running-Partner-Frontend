@@ -149,20 +149,13 @@ class EditPlan extends Component {
 
     // Submit the edited plan to the database
     submitPlan() {
-        // Gather the user id from props
-        const userID = this.props.userData.id;
-
         // Create a JSON object to send edited plan to db in post request
         const planData = {
-            user_id: this.props.userData.id,
-            plan: this.state.finalPlan,
-            difficulty: this.state.planData.difficulty,
-            race_name: this.state.planData.race_name,
-            plan_length: this.state.planData.plan_length,
+            plan: this.state.finalPlan
         }
 
         // Send POST request to db with edited plan update the plan submitted in state to force redirect
-        fetch(`http://127.0.0.1:5000/training_plans/add_plan/${userID}`, {
+        fetch(`http://127.0.0.1:5000/training_plans/custom_plan/edit/${this.state.planData.id}`, {
             method: "POST",
             body: JSON.stringify(planData),
             headers: {
@@ -170,20 +163,11 @@ class EditPlan extends Component {
             }
         })
         .then(response => {
-            if (response.status === 201) {
+            if (response.status === 200) {
                 this.setState({planSubmitted: true})
             }
         })
         .catch(error => console.error(error))
-
-        // Delete the old version of the training plan from the db. 
-        fetch(`http://127.0.0.1:5000/training_plans/custom_plan/delete/${this.props.match.params.id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
-            .catch(error => console.error(error))
     }
 
     render() {

@@ -75,7 +75,9 @@ class App extends Component {
                 <MyPlans userAuthenticated={this.state.userAuthenticated} userData={this.state.userData} />
             } />
 
-            <Route exact path = "/personal_plan/:id" render={({ match }) => <PersonalPlan match={match}/> } />
+            <Route exact path = "/personal_plan/:id" render={({ match }) => 
+                <PersonalPlan match={match} userData={this.state.userData} refreshUserData={this.refreshUserData}/> 
+            } />
 
             <Route exact path = "/personal_plan/edit/:id" render={({ match }) => 
                 <EditPlan match={match} userAuthenticated={this.state.userAuthenticated}
