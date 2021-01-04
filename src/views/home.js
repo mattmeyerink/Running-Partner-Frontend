@@ -47,7 +47,7 @@ class Home extends Component {
                             <WeatherWidget city={city} state={state} weatherData={this.state.weatherData} />
                         </div>
                         <div className="col-md-3 widget_spacing">
-                            <TodaysRun />
+                            <TodaysRun userData={this.props.userData}/>
                         </div>
                         <div className="col-md-3 widget_spacing">
                             <RunEntry user_id={id}/>
