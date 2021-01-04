@@ -21,22 +21,22 @@ function WeatherWidget(props) {
                         <img id="iconImage" src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt="Oops" className="img-fluid" />
                     </div>
                     <div className="row justify-content-center">
-                        <p>{description}</p>
+                        <strong>{description}</strong>
                     </div>
                     <div className="row justify-content-center">
-                        <p id="currentTemp">Current Temperature: {weatherData.main.temp} F</p>
+                        <p id="currentTemp"><b>Current Temperature:</b> {parseInt(weatherData.main.temp)} F</p>
                     </div>
                     <div className="row justify-content-center">
-                        <p id="max">Today's High: {weatherData.main.temp_max} F</p>
+                        <p id="max"><b>Today's High:</b> {parseInt(weatherData.main.temp_max)} F</p>
                     </div>
                     <div className="row justify-content-center">
-                        <p id="min">Today's Low: {weatherData.main.temp_min} F</p>
+                        <p id="min"><b>Today's Low:</b> {parseInt(weatherData.main.temp_min)} F</p>
                     </div>
                     <div className="row justify-content-center">
-                        <p id="feelsLike">Feels Like: {weatherData.main.feels_like} F</p>
+                        <p id="feelsLike"><b>Feels Like:</b> {parseInt(weatherData.main.feels_like)} F</p>
                     </div>
                     <div className="row justify-content-center">
-                        <p id="humidity">Humidity: {weatherData.main.humidity} %</p>
+                        <p id="humidity"><b>Humidity:</b> {parseInt(weatherData.main.humidity)} %</p>
                     </div>
                 </div>
             </div>

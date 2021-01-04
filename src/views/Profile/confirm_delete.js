@@ -48,8 +48,6 @@ class ConfirmDeleteAccount extends Component {
                 </React.Fragment>
                 }
             </React.Fragment>
-            
-            
         )
     }
 }
