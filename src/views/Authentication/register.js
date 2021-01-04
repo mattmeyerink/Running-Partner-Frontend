@@ -49,7 +49,8 @@ class Registration extends Component {
             "email": this.state.email,
             "password": this.state.password,
             "city": this.state.city,
-            "state": this.state.state
+            "state": this.state.state,
+            "active_plan": -1
         }
 
         fetch("http://127.0.0.1:5000/authentication/register", {
