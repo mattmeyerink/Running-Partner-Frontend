@@ -1,14 +1,17 @@
 import React, {Component} from 'react';
 import moment from 'moment';
+import StatesForm from './statesForm';
 import '../index.css';
 
 class RunEntry extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             distance: "",
             date: moment().format("L"),
+            city: this.props.city,
+            state: this.props.state,
             notes: ""
         }
 
@@ -32,6 +35,8 @@ class RunEntry extends Component {
             user_id: this.props.user_id,
             distance: this.state.distance,
             date: this.state.date,
+            run_city: this.state.city,
+            run_state: this.state.state,
             notes: this.state.notes
         }
 
@@ -49,6 +54,8 @@ class RunEntry extends Component {
                 this.setState({
                     distance: "",
                     date: moment().format("L"),
+                    city: this.props.city,
+                    state: this.props.state,
                     notes: ""
                 })
             }
@@ -67,6 +74,10 @@ class RunEntry extends Component {
                         <form onSubmit={this.handleSubmit}>
                             <input type="number" name="distance" value={this.state.distance} onChange={this.handleChange} placeholder="Distance" className="form_spacing form-control" />
                             <input type="text" name="date" value={this.state.date} onChange={this.handleChange} placeholder="Date (MM/DD/YYYY)" className="form_spacing form-control" />
+                            <input type="text" name="city" value={this.state.city} onChange={this.handleChange} placeholder="City" className="form_spacing form-control" />
+                            <select name="state" value={this.state.state} onChange={this.handleChange} className="form_spacing form-control">
+                                <StatesForm />
+                            </select>
                             <textarea name="notes" value={this.state.notes} onChange={this.handleChange} placeholder="Notes" className="form_spacing form-control" />
                             <input type="submit" className="form-control btn btn-success form_spacing"/>
                         </form>

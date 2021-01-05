@@ -97,7 +97,7 @@ class Home extends Component {
                                 <TodaysRun userData={this.props.userData}/>
                             </div>
                             <div className="col-md-3 widget_spacing">
-                                <RunEntry user_id={id}/>
+                                <RunEntry user_id={id} city={city} state={state}/>
                             </div>
                         </div>
                     </React.Fragment>
