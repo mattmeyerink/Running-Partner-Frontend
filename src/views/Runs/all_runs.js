@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash} from '@fortawesome/free-solid-svg-icons';
+import RunPageRunEntry from '../../components/run_page_entry';
 import '../../index.css';
 
 class AllRuns extends Component {
@@ -98,6 +99,13 @@ class AllRuns extends Component {
                 <React.Fragment>
                     <div className="row justify-content-center">
                         <h1>My Runs</h1>
+                    </div>
+                    <div className="row justify-content-center text_spacing">
+                        <div className="col-md-6">
+                            <div className="row justify-content-center">
+                                <RunPageRunEntry user_id={this.props.userData.id} city={this.props.userData.city} state={this.props.userData.state}/>
+                            </div>
+                        </div>
                     </div>
                     {this.state.totalRuns === 0?
                     <React.Fragment>

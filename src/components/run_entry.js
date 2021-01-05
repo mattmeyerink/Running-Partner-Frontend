@@ -73,7 +73,7 @@ class RunEntry extends Component {
                         <h4>Enter a Run</h4>
                         <form onSubmit={this.handleSubmit}>
                             <input type="number" name="distance" value={this.state.distance} onChange={this.handleChange} placeholder="Distance" className="form_spacing form-control" />
-                            <input type="text" name="date" value={this.state.date} onChange={this.handleChange} placeholder="Date (MM/DD/YYYY)" className="form_spacing form-control" />
+                            <input type="date" name="date" value={this.state.date} onChange={this.handleChange} placeholder="Date (MM/DD/YYYY)" className="form_spacing form-control" />
                             <input type="text" name="city" value={this.state.city} onChange={this.handleChange} placeholder="City" className="form_spacing form-control" />
                             <select name="state" value={this.state.state} onChange={this.handleChange} className="form_spacing form-control">
                                 <StatesForm />
