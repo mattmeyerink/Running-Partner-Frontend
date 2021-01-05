@@ -37,7 +37,7 @@ class SinglePlan extends Component {
                 var total = 0;
                 for (var j = 0; j < days.length; j++) {
                     weekOutput.push(days[j]);
-                    total += parseInt(days[j]);
+                    total += parseFloat(days[j]);
                 }
                 weekOutput.push(total);
                 planOutput.push(weekOutput);
@@ -86,7 +86,7 @@ class SinglePlan extends Component {
                                             <td>{week[4]}</td>
                                             <td>{week[5]}</td>
                                             <td>{week[6]}</td>
-                                            <td><b>{week[7]}</b></td>
+                                            <td><b>{(week[7]).toFixed(1)}</b></td>
                                         </tr>
                                     </React.Fragment>
                                 ))}

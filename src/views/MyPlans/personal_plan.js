@@ -91,7 +91,9 @@ class PersonalPlan extends Component {
                 var total = 0;
                 for (var j = 0; j < days.length; j++) {
                     weekOutput.push(days[j]);
-                    total += parseInt(days[j]);
+                    if (j > 0) {
+                        total += parseFloat(days[j]);
+                    }
                 }
 
                 // Push the total to the week array and push the week to the matrix
@@ -175,7 +177,7 @@ class PersonalPlan extends Component {
                                                     <td>{week[5]}</td>
                                                     <td>{week[6]}</td>
                                                     <td>{week[7]}</td>
-                                                    <td><b>{week[8]}</b></td>
+                                                    <td><b>{(week[8]).toFixed(1)}</b></td>
                                                 </tr>
                                             </React.Fragment>
                                         ))}

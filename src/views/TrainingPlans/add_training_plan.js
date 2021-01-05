@@ -96,7 +96,7 @@ class AddPlan extends Component {
             var total = 0;
             for (var j = 0; j < days.length; j++) {
                 weekOutput.push(days[j]);
-                total += parseInt(days[j]);
+                total += parseFloat(days[j]);
             }
 
             // Push the weeks runs onto the matrix
@@ -114,7 +114,7 @@ class AddPlan extends Component {
             status: true,
             rowKey: rowKey
         },
-
+        
         // Initialize each run edit value to the appropriate weeks runs
         mondayEdit: week[0],
         tuesdayEdit: week[1],
@@ -359,10 +359,10 @@ class AddPlan extends Component {
                                                     <td>
                                                         {this.state.inEditMode.status && this.state.inEditMode.rowKey === index?
                                                         <React.Fragment>
-                                                            {this.state.totalEdit}
+                                                            {(this.state.totalEdit).toFixed(1)}
                                                         </React.Fragment>:
                                                         <React.Fragment>
-                                                            {week[7]}
+                                                            {(week[7]).toFixed(1)}
                                                         </React.Fragment>
                                                         }
                                                     </td>

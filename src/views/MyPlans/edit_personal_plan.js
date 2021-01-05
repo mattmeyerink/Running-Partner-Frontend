@@ -64,7 +64,7 @@ class EditPlan extends Component {
             for (var j = 0; j < days.length; j++) {
                 weekOutput.push(days[j]);
                 if (j !== 0) {
-                    total += parseInt(days[j]);
+                    total += parseFloat(days[j]);
                 }
                 
             }
@@ -279,10 +279,10 @@ class EditPlan extends Component {
                                                     <td>
                                                         {this.state.inEditMode.status && this.state.inEditMode.rowKey === index?
                                                         <React.Fragment>
-                                                            {this.state.totalEdit}
+                                                            {(this.state.totalEdit).toFixed(1)}
                                                         </React.Fragment>:
                                                         <React.Fragment>
-                                                            {week[8]}
+                                                            {(week[8]).toFixed(1)}
                                                         </React.Fragment>
                                                         }
                                                     </td>
