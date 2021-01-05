@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import moment from 'moment';
 import {Redirect} from 'react-router-dom';
 import WeatherWidget from '../components/weatherWidget';
 import TodaysRun from '../components/todays_run';
@@ -11,19 +12,53 @@ class Home extends Component {
 
         this.state = {
             weatherData: {},
-            loading: true
+            loading: true,
+            greeting: null,
+            motivationalQuoteText: null,
+            motivationalQuoteAuthor: null
         }
     }
     
     // Make initial API Calls for weather data, today's run, and run input.
     componentDidMount() {
         if (this.props.userAuthenticated) {
+
+            // Fetch the weather data (hind sight I should move this to the weatherWidget component)
             const apiKey = process.env.REACT_APP_OW_API_KEY;
             fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.props.userData.city}&units=imperial&appid=${apiKey}`)
                 .then(response => response.json())
                 .then(data => this.setState({weatherData: data, loading: false}))
                 .catch(error => console.error(error))
             }
+
+            // Fetch motivational quote
+            fetch("https://type.fit/api/quotes")
+                .then(response => response.json())
+                .then(data => {
+                    const randomNum = Math.floor(Math.random() * data.length);
+                    this.setState({
+                        motivationalQuoteText: data[randomNum].text,
+                        motivationalQuoteAuthor: data[randomNum].author
+                    })
+                })
+                .catch(error => console.error(error))
+
+
+            // Set the greeting message
+            this.getGreetingMessage();
+    }
+
+    // Determine the greeting message based on the time
+    getGreetingMessage() {
+        if (moment().hour() < 12) {
+            this.setState({greeting: "Good Morning "});
+        }
+        else if (moment().hour() < 17) {
+            this.setState({greeting: "Good Afternoon "});
+        }
+        else {
+            this.setState({greeting: "Good Night "})
+        }
     }
 
     render() {
@@ -34,25 +69,38 @@ class Home extends Component {
                 {this.props.userAuthenticated ?
                 <React.Fragment>
                     <div className="row justify-content-center">
-                        <h1>Hello {first_name}</h1>
+                        <h1>{this.state.greeting} {first_name}!</h1>
                     </div>
+                    
 
                     {this.state.loading ?
                     <div className="row justify-content-center">
                         <h1>Loading...</h1>
                     </div>
                     :
-                    <div className="row justify-content-center">
-                        <div className="col-md-3">
-                            <WeatherWidget city={city} state={state} weatherData={this.state.weatherData} />
+                    <React.Fragment>
+                        <div className="row justify-content-center">
+                            <div className="col-md-8">
+                                <div className="row justify-content-center">
+                                <h4>{this.state.motivationalQuoteText}</h4>
+                                </div>
+                            </div>
                         </div>
-                        <div className="col-md-3 widget_spacing">
-                            <TodaysRun userData={this.props.userData}/>
+                        <div className="row justify-content-center">
+                            <h4>~{this.state.motivationalQuoteAuthor}</h4>
                         </div>
-                        <div className="col-md-3 widget_spacing">
-                            <RunEntry user_id={id}/>
+                        <div className="row justify-content-center">
+                            <div className="col-md-3">
+                                <WeatherWidget city={city} state={state} weatherData={this.state.weatherData} />
+                            </div>
+                            <div className="col-md-3 widget_spacing">
+                                <TodaysRun userData={this.props.userData}/>
+                            </div>
+                            <div className="col-md-3 widget_spacing">
+                                <RunEntry user_id={id}/>
+                            </div>
                         </div>
-                    </div>
+                    </React.Fragment>
                     }
                 </React.Fragment> 
                 :
