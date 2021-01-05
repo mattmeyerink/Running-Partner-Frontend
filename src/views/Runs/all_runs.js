@@ -64,7 +64,7 @@ class AllRuns extends Component {
         
     }
 
-    // Re-pull all the user's run data
+    // Re-pull all the user's run data after run deleted or added
     getRunData() {
         fetch(`http://127.0.0.1:5000/runs/all_runs/${this.props.userData.id}`)
             .then(response => response.json())
@@ -103,7 +103,8 @@ class AllRuns extends Component {
                     <div className="row justify-content-center text_spacing">
                         <div className="col-md-6">
                             <div className="row justify-content-center">
-                                <RunPageRunEntry user_id={this.props.userData.id} city={this.props.userData.city} state={this.props.userData.state}/>
+                                <RunPageRunEntry user_id={this.props.userData.id} city={this.props.userData.city} 
+                                        state={this.props.userData.state} getRunData={this.getRunData}/>
                             </div>
                         </div>
                     </div>
@@ -119,9 +120,9 @@ class AllRuns extends Component {
                     :
                     <React.Fragment>
                         <div className="row justify-content-center">
-                            <strong className="text_spacing">Total Miles: {this.state.totalMiles}</strong>
+                            <strong className="text_spacing">Total Miles: {this.state.totalMiles} Miles</strong>
                             <strong className="text_spacing">Total Runs: {this.state.totalRuns}</strong>
-                            <strong>Average Miles Per Run: {this.state.averageMilesPerRun}</strong>
+                            <strong>Average Miles Per Run: {(this.state.averageMilesPerRun).toFixed(2)} Miles</strong>
                         </div>
                         <div className="row justify-content-center">
                             {this.state.runs.map(run => (
@@ -129,7 +130,7 @@ class AllRuns extends Component {
                                         <div className="col-md-8 border border-dark run_card">
                                             <div className="row">
                                                 <div className="col-md-11">
-                                                    <h5>{run.date} - {run.distance} Miles</h5>
+                                                    <h5>{run.distance} Miles - {run.run_city}, {run.run_state}</h5>
                                                 </div>
                                                 <div className="col-md-1">
                                                     <button className="icon_button" onClick={() => this.deleteRun(run.id)}>
@@ -139,6 +140,7 @@ class AllRuns extends Component {
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-10">
+                                                    <strong>{run.date.split("-")[1] + " - " + run.date.split("-")[2] + " - " + run.date.split("-")[0]}</strong>
                                                     <p>{run.notes}</p>
                                                 </div>
                                             </div>

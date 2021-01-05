@@ -9,13 +9,14 @@ class RunPageRunEntry extends Component {
 
         this.state = {
             distance: "",
-            date: moment().format("L"),
+            date: moment().format("YYYY-MM-DD"),
             city: this.props.city,
             state: this.props.state,
             notes: ""
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
@@ -26,10 +27,44 @@ class RunPageRunEntry extends Component {
         this.setState({[name]: value});
     }
 
+    handleSubmit(event) {
+        const runData = {
+            user_id: this.props.user_id,
+            distance: this.state.distance,
+            date: this.state.date,
+            run_city: this.state.city,
+            run_state: this.state.state,
+            notes: this.state.notes
+        }
+        fetch('http://127.0.0.1:5000/runs/add_run', {
+            method: "POST",
+            body: JSON.stringify(runData),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        .then(response => {
+            // Reset the form fields if request was successful
+            if (response.status === 201) {
+                this.setState({
+                    distance: "",
+                    date: moment().format("YYYY-MM-DD"),
+                    city: this.props.city,
+                    state: this.props.state,
+                    notes: ""
+                })
+                this.props.getRunData();
+            }
+        })
+        .catch(error => console.error(error))
+
+        event.preventDefault();
+    }
+
     render() {
         return (
             <React.Fragment>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <div className="row form_spacing">
                         <div className="col-md-6">  
                             <input type="number" name="distance" value={this.state.distance} onChange={this.handleChange} placeholder="Distance" className="form-control"/>

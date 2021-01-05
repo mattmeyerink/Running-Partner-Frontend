@@ -9,7 +9,7 @@ class RunEntry extends Component {
 
         this.state = {
             distance: "",
-            date: moment().format("L"),
+            date: moment().format("YYYY-MM-DD"),
             city: this.props.city,
             state: this.props.state,
             notes: ""
@@ -53,7 +53,7 @@ class RunEntry extends Component {
             if (response.status === 201) {
                 this.setState({
                     distance: "",
-                    date: moment().format("L"),
+                    date: moment().format("YYYY-MM-DD"),
                     city: this.props.city,
                     state: this.props.state,
                     notes: ""
