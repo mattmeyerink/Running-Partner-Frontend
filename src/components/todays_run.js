@@ -8,7 +8,8 @@ class TodaysRun extends Component {
 
         this.state = {
             activePlan: false,
-            planData: {}
+            planData: {},
+            activePlanRun: null
         }
 
         this.getTodaysRun = this.getTodaysRun.bind(this);
@@ -55,7 +56,50 @@ class TodaysRun extends Component {
             })
 
             // Calculate the plan end date
+            var startDateMoment = firstWeekStartMoment.subtract(1, "days");
             var endDateMoment = lastWeekStartMoment.add(6, "days");
+
+            // Gather today's moment object
+            var today = moment();
+            
+            // Determine if today is within the range plan dates
+            if (today.isAfter(startDateMoment) && today.isBefore(endDateMoment)) {
+                // Loop through each week in active plans until right range is found
+                for (let i = 0; i < activePlanArr.length; i++) {
+                    // Get the current week in an array
+                    var currentWeekArr = activePlanArr[i].split(",");
+                    
+                    // Get the start date of the week
+                    var weekStartDate = currentWeekArr[0];
+                    var weekStartDateArr = weekStartDate.split("/");
+
+                    // Convert the start date to a moment
+                    var weekStartDateMoment = moment({
+                        year: parseInt(weekStartDateArr[2]),
+                        month: parseInt(weekStartDateArr[0] - 1),
+                        day: parseInt(weekStartDateArr[1])
+                    });
+                    
+                    // Gather day before and day after moments
+                    var weekEndDateMoment = weekStartDateMoment.add(7, "days");
+                    weekStartDateMoment = weekStartDateMoment.subtract(1, "days");
+
+                    // Find the run if this is the current week
+                    if (today.isAfter(weekStartDateMoment) && today.isBefore(weekEndDateMoment)) {
+                        
+                        weekStartDateMoment = weekStartDateMoment.add(1, "days");
+                        var j = 1;
+
+                        // Loop through until the right day is hit
+                        while (!today.isSame(weekStartDateMoment)) {
+                            weekStartDateMoment = weekStartDateMoment.add(1, "days");
+                            j++;
+                        }
+
+                        this.setState({activePlanRun: currentWeekArr[j], activePlan: true});
+                    }
+                }
+            }
         }
     }
 
