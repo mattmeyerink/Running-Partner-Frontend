@@ -48,68 +48,91 @@ class TodaysRun extends Component {
                 year: parseInt(firstWeekStartArr[2]),
                 month: parseInt(firstWeekStartArr[0] - 1),
                 day: parseInt(firstWeekStartArr[1])
-            })
+            });
+            firstWeekStartMoment.subtract(1, "days");
             var lastWeekStartMoment = moment({
                 year: parseInt(lastWeekStartArr[2]),
                 month: parseInt(lastWeekStartArr[0] - 1),
                 day: parseInt(lastWeekStartArr[1])
-            })
+            });
+            lastWeekStartMoment.add(7, "days");
 
-            // Calculate the plan end date
-            var startDateMoment = firstWeekStartMoment.subtract(1, "days");
-            var endDateMoment = lastWeekStartMoment.add(6, "days");
-
-            // Gather today's moment object
-            var today = moment();
-            
-            // Determine if today is within the range plan dates
-            if (today.isAfter(startDateMoment) && today.isBefore(endDateMoment)) {
-                // Loop through each week in active plans until right range is found
+            // Check if today is within the range of the active plan dates
+            if (moment().isAfter(firstWeekStartMoment) && moment().isBefore(lastWeekStartMoment)) {
                 for (let i = 0; i < activePlanArr.length; i++) {
-                    // Get the current week in an array
+                    // Split up the string of the current week
                     var currentWeekArr = activePlanArr[i].split(",");
-                    
-                    // Get the start date of the week
+
+                    // Gather the start date for the week and put it into an array
                     var weekStartDate = currentWeekArr[0];
                     var weekStartDateArr = weekStartDate.split("/");
 
-                    // Convert the start date to a moment
+                    // Create moments for the start of the week and for the end of the week
                     var weekStartDateMoment = moment({
                         year: parseInt(weekStartDateArr[2]),
                         month: parseInt(weekStartDateArr[0] - 1),
                         day: parseInt(weekStartDateArr[1])
                     });
-                    
-                    // Gather day before and day after moments
-                    var weekEndDateMoment = weekStartDateMoment.add(7, "days");
-                    weekStartDateMoment = weekStartDateMoment.subtract(1, "days");
+                    weekStartDateMoment.subtract(1, "days");
+                    var weekEndDateMoment = moment({
+                        year: parseInt(weekStartDateArr[2]),
+                        month: parseInt(weekStartDateArr[0] - 1),
+                        day: parseInt(weekStartDateArr[1])
+                    });
+                    weekEndDateMoment.add(7, "days");
 
-                    // Find the run if this is the current week
-                    if (today.isAfter(weekStartDateMoment) && today.isBefore(weekEndDateMoment)) {
+                    // Check if todays run is within this week
+                    if (moment().isAfter(weekStartDateMoment) && moment().isBefore(weekEndDateMoment)) {
+                        weekStartDateMoment.add(1, "days");
                         
-                        weekStartDateMoment = weekStartDateMoment.add(1, "days");
-                        var j = 1;
+                        // Possible easier way to do this. Determine which day of the week today is and pull that
+                        // value from the plan array
+                        let j = 1;
+                        while (j < 8) {
+                            // Pull the ints for the current day, month, year
+                            const currentDay = moment().day();
+                            const currentMonth = moment().month();
+                            const currentYear = moment().year();
+                            
+                            // Pull the ints for the current day in the plan's date, month, year
+                            const planDay = weekStartDateMoment.day();
+                            const planMonth = weekStartDateMoment.month();
+                            const planYear = weekStartDateMoment.year();
 
-                        // Loop through until the right day is hit
-                        while (!today.isSame(weekStartDateMoment)) {
-                            weekStartDateMoment = weekStartDateMoment.add(1, "days");
+                            if (currentDay === planDay && currentMonth === planMonth && currentYear === planYear) {
+                                return parseFloat(currentWeekArr[j])
+                            }
+                            weekStartDateMoment.add(1, "days");
                             j++;
                         }
-
-                        this.setState({activePlanRun: currentWeekArr[j], activePlan: true});
                     }
                 }
             }
+            return null
         }
     }
 
     render() {
-        this.getTodaysRun();
+        const activeRun = this.getTodaysRun();
+
         return (
             <React.Fragment>
                 <div className="row justify-content-center">
                     <div className="border border-dark weather_card">
-                        <h3>This will be the data for today's run</h3>
+                        <div className="row justify-content-center">
+                            <h3>Today's Run</h3>
+                        </div>
+                        <div className="row justify-content-center">
+                            {activeRun === null || activeRun === 0?
+                            <React.Fragment>
+                                <h5>No Run Scheduled for today!</h5>
+                            </React.Fragment>
+                            :
+                            <React.Fragment>
+                                <h5>{activeRun} Miles</h5>
+                            </React.Fragment>
+                            }
+                        </div>
                     </div>
                 </div>
             </React.Fragment>
