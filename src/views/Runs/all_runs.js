@@ -99,34 +99,47 @@ class AllRuns extends Component {
                     <div className="row justify-content-center">
                         <h1>My Runs</h1>
                     </div>
-                    <div className="row justify-content-center">
-                        <strong className="text_spacing">Total Miles: {this.state.totalMiles}</strong>
-                        <strong className="text_spacing">Total Runs: {this.state.totalRuns}</strong>
-                        <strong>Average Miles Per Run: {this.state.averageMilesPerRun}</strong>
-                    </div>
-                    <div className="row justify-content-center">
-                        {this.state.runs.map(run => (
-                            <React.Fragment key={run.id}>
-                                    <div className="col-md-8 border border-dark run_card">
-                                        <div className="row">
-                                            <div className="col-md-11">
-                                                <h5>{run.date} - {run.distance} Miles</h5>
+                    {this.state.totalRuns === 0?
+                    <React.Fragment>
+                        <div className="row justify-content-center">
+                            <h3>You haven't done any runs yet!</h3>
+                        </div>
+                        <div className="row justify-content-center">
+                            <h3>Theres a whole world to explore! Get out there!</h3>
+                        </div>
+                    </React.Fragment>
+                    :
+                    <React.Fragment>
+                        <div className="row justify-content-center">
+                            <strong className="text_spacing">Total Miles: {this.state.totalMiles}</strong>
+                            <strong className="text_spacing">Total Runs: {this.state.totalRuns}</strong>
+                            <strong>Average Miles Per Run: {this.state.averageMilesPerRun}</strong>
+                        </div>
+                        <div className="row justify-content-center">
+                            {this.state.runs.map(run => (
+                                <React.Fragment key={run.id}>
+                                        <div className="col-md-8 border border-dark run_card">
+                                            <div className="row">
+                                                <div className="col-md-11">
+                                                    <h5>{run.date} - {run.distance} Miles</h5>
+                                                </div>
+                                                <div className="col-md-1">
+                                                    <button className="icon_button" onClick={() => this.deleteRun(run.id)}>
+                                                        <FontAwesomeIcon icon={faTrash} color="red"/>
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div className="col-md-1">
-                                                <button className="icon_button" onClick={() => this.deleteRun(run.id)}>
-                                                    <FontAwesomeIcon icon={faTrash} color="red"/>
-                                                </button>
+                                            <div className="row">
+                                                <div className="col-md-10">
+                                                    <p>{run.notes}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className="row">
-                                            <div className="col-md-10">
-                                                <p>{run.notes}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </React.Fragment>
-                        ))}
-                    </div>
+                                </React.Fragment>
+                            ))}
+                        </div>
+                    </React.Fragment>
+                    }
                 </React.Fragment>
                 :
                 <React.Fragment>
