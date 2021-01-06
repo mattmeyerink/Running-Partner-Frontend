@@ -8,16 +8,18 @@ class MyPlans extends Component {
 
         this.state = {
             training_plans: [],
+            loading: true,
             planDeleted: false
         }
 
         this.getTrainingPlans = this.getTrainingPlans.bind(this);
+        this.getActivePlan = this.getActivePlan.bind(this);
     }
 
     componentDidMount(){
         fetch(`http://127.0.0.1:5000/training_plans/custom_plans/${this.props.userData.id}`)
             .then(result => result.json())
-            .then(data => this.setState({training_plans: data}))
+            .then(data => this.setState({training_plans: data, loading: false}))
             .catch(error => console.error(error))
     }
 
@@ -29,7 +31,22 @@ class MyPlans extends Component {
             .catch(error => console.error(error))
     }
 
+    // Return the active plan data out of all of the training plans
+    getActivePlan() {
+        if (!this.state.loading) {
+            const trainingPlan = this.state.training_plans
+            for (let i = 0; i < trainingPlan.length; i++) {
+                if (trainingPlan[i].id === this.props.userData.active_plan) {
+                    return trainingPlan[i];
+                }
+            }
+        }
+        return null;
+    }
+
     render() {
+        const activePlan = this.getActivePlan();
+
         return (
             <React.Fragment>
                 {this.props.userAuthenticated ?
@@ -40,27 +57,66 @@ class MyPlans extends Component {
                     {this.state.training_plans.length === 0?
                     <React.Fragment>
                         <div className="row justify-content-center">
-                            <h3>You are not currently signed up for any training plans.</h3>
+                            <h3 className="text_shadow">You are not currently signed up for any training plans.</h3>
                         </div>
                         <div className="row justify-content-center">
-                            <h3>Sign up for a plan <Link to="/training_plans">here</Link>!</h3>
+                            <h3 className="text_shadow">Sign up for a plan <Link to="/training_plans">here</Link>!</h3>
                         </div>
                     </React.Fragment>
                     
                     :
+                    <React.Fragment>
+                        {activePlan !== null ?
+                        <React.Fragment>
+                            <div className="row">
+                                <div className="offset-2">
+                                    <h3 className="text_shadow">My Active Plan</h3>
+                                </div>
+                            </div>
+                            <div className="row justify-content-center">
+                                <MyPlanHeader 
+                                    key={activePlan.id}
+                                    id={activePlan.id}
+                                    difficulty={activePlan.difficulty}
+                                    plan_length={activePlan.plan_length}
+                                    race_name={activePlan.race_name} 
+                                    plan={activePlan.plan}
+                                    getTrainingPlans={this.getTrainingPlans}
+                                />
+                            </div>
+                        </React.Fragment>
+                        :
+                        <React.Fragment>
+                        </React.Fragment>
+                    }
+                    <div className="row">
+                        <div className="offset-2">
+                            <h3 className="text_shadow">Saved Plans</h3>
+                        </div>
+                    </div>
                     <div className="row justify-content-center">
                     {this.state.training_plans.map(
-                        plan => (<MyPlanHeader 
-                                    key={plan.id}
-                                    id={plan.id}
-                                    difficulty={plan.difficulty}
-                                    plan_length={plan.plan_length}
-                                    race_name={plan.race_name} 
-                                    plan={plan.plan}
-                                    getTrainingPlans={this.getTrainingPlans}
-                                />)
+                        plan => ( 
+                                <React.Fragment>
+                                    {plan.id === this.props.userData.active_plan?
+                                    <React.Fragment>
+                                    </React.Fragment>
+                                    :
+                                    <MyPlanHeader 
+                                        key={plan.id}
+                                        id={plan.id}
+                                        difficulty={plan.difficulty}
+                                        plan_length={plan.plan_length}
+                                        race_name={plan.race_name} 
+                                        plan={plan.plan}
+                                        getTrainingPlans={this.getTrainingPlans}
+                                    />
+                                    }
+                                </React.Fragment>
+                        )
                         )}
                     </div>
+                    </React.Fragment>
                     }
                     
                 </React.Fragment> 
