@@ -110,8 +110,8 @@ class TodaysRun extends Component {
                     }
                 }
             }
-            return null
         }
+        return null;
     }
 
     render() {
