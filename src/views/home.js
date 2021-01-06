@@ -4,6 +4,7 @@ import {Redirect} from 'react-router-dom';
 import WeatherWidget from '../components/weatherWidget';
 import TodaysRun from '../components/todays_run';
 import RunEntry from '../components/run_entry';
+import '../index.css';
 
 // view for the homepage
 class Home extends Component {
@@ -65,31 +66,36 @@ class Home extends Component {
         const {city, state, first_name, id} = this.props.userData;
 
         return (
-            <React.Fragment>
+            <div className="home_page">
                 {this.props.userAuthenticated ?
                 <React.Fragment>
-                    <div className="row justify-content-center">
-                        <h1>{this.state.greeting} {first_name}!</h1>
+                    <div className="row justify-content-center home_widgets">
+                        <h1 className="text_shadow">{this.state.greeting} {first_name}!</h1>
                     </div>
                     
 
                     {this.state.loading ?
                     <div className="row justify-content-center">
-                        <h1>Loading...</h1>
+                        <h1 className="text_shadow">Loading...</h1>
                     </div>
                     :
                     <React.Fragment>
                         <div className="row justify-content-center">
-                            <div className="col-md-8">
+                            <div className="col-md-8 background_color border border-dark">
+                                <div className="row justify-content-center home_widgets">
+                                    <div className="col-md-8">
+                                        <div className="row justify-content-center">
+                                        <h4 className="text_shadow">{this.state.motivationalQuoteText}</h4>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="row justify-content-center">
-                                <h4>{this.state.motivationalQuoteText}</h4>
+                                    <h4 className="text_shadow">~{this.state.motivationalQuoteAuthor}</h4>
                                 </div>
                             </div>
                         </div>
-                        <div className="row justify-content-center">
-                            <h4>~{this.state.motivationalQuoteAuthor}</h4>
-                        </div>
-                        <div className="row justify-content-center">
+                        
+                        <div className="row justify-content-center home_widgets">
                             <div className="col-md-3">
                                 <WeatherWidget city={city} state={state} weatherData={this.state.weatherData} />
                             </div>
@@ -108,7 +114,7 @@ class Home extends Component {
                     <Redirect to="/login" />
                 </React.Fragment>
                 }
-            </React.Fragment>
+            </div>
         )
     }
 }

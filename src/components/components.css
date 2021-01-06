@@ -1,6 +1,7 @@
 .training_plan_card {
     margin-bottom: 5px;
-    padding-top: 10px
+    padding-top: 10px;
+    background-color: white;
 }
 
 .registration_btn {
@@ -10,6 +11,7 @@
 .weather_card {
     padding: 5px 50px;
     padding-top: 20px;
+    background-color: white;
 }
 
 .icon_button {

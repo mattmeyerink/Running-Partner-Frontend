@@ -19,11 +19,13 @@ code {
 .input_box {
   padding-bottom: 15px;
   margin-top: 10%;
+  background-color: white;
 }
 
 .login_input_box {
   padding-bottom: 15px;
   margin-top: 17%;
+  background-color: white;
 }
 
 .training_col {
@@ -47,6 +49,7 @@ code {
   padding-top: 20px;
   padding-bottom: 15px;
   margin-bottom: 20px;
+  background-color: white;
 }
 
 .icon_button {
@@ -59,6 +62,40 @@ code {
 }
 
 .text_spacing {
+  margin-top: 20px;
   margin-right: 20px;
   margin-bottom: 20px;
+}
+
+.home_widgets {
+  margin-top: 20px;
+}
+
+.training_run_spacing {
+  margin-bottom: 30px;
+}
+
+.home_page {
+  background-image: url('./images/home_background.jpg');
+  background-position: center;
+  height: 1750px;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.text_shadow {
+  text-shadow: 2px 2px white;
+}
+
+.background_color {
+  background-color: white;
+}
+
+.text_shadow_small {
+  text-shadow: 1px 1px white;
+}
+
+.edit_profile_padding {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }

@@ -35,7 +35,7 @@ class MyPlans extends Component {
                 {this.props.userAuthenticated ?
                 <React.Fragment>
                     <div className="row justify-content-center">
-                        <h1>My Plans</h1>
+                        <h1 className="text_shadow">My Plans</h1>
                     </div>
                     {this.state.training_plans.length === 0?
                     <React.Fragment>

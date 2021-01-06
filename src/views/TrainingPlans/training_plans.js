@@ -26,7 +26,7 @@ class TrainingPlan extends Component {
                 {this.props.userAuthenticated ?
                 <React.Fragment>
                     <div className="row justify-content-center">
-                        <h1>Training Plans</h1>
+                        <h1 className="text_shadow">Training Plans</h1>
                     </div>
 
                     <div className="row justify-content-center">

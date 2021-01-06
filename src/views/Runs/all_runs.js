@@ -98,7 +98,7 @@ class AllRuns extends Component {
                 {this.props.userAuthenticated? 
                 <React.Fragment>
                     <div className="row justify-content-center">
-                        <h1>My Runs</h1>
+                        <h1 className="text_shadow">My Runs</h1>
                     </div>
                     <div className="row justify-content-center text_spacing">
                         <div className="col-md-6">
@@ -119,10 +119,14 @@ class AllRuns extends Component {
                     </React.Fragment>
                     :
                     <React.Fragment>
-                        <div className="row justify-content-center">
-                            <strong className="text_spacing">Total Miles: {this.state.totalMiles} Miles</strong>
-                            <strong className="text_spacing">Total Runs: {this.state.totalRuns}</strong>
-                            <strong>Average Miles Per Run: {(this.state.averageMilesPerRun).toFixed(2)} Miles</strong>
+                        <div className="row justify-content-center training_run_spacing">
+                            <div className="col-md-8 background_color border border-dark">
+                                <div className="row justify-content-center">
+                                    <strong className="text_spacing">Total Miles: {this.state.totalMiles} Miles</strong>
+                                    <strong className="text_spacing">Total Runs: {this.state.totalRuns}</strong>
+                                    <strong className="text_spacing">Average Miles Per Run: {(this.state.averageMilesPerRun).toFixed(2)} Miles</strong>
+                                </div>
+                            </div>
                         </div>
                         <div className="row justify-content-center">
                             {this.state.runs.map(run => (

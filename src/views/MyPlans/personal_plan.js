@@ -140,7 +140,7 @@ class PersonalPlan extends Component {
                 :
                     <React.Fragment>
                         <div className="row justify-content-center">
-                            <h1>{training_plan.race_name} - {training_plan.difficulty}</h1>
+                            <h1 className="text_shadow">{training_plan.race_name} - {training_plan.difficulty}</h1>
                         </div>
                         <div className="row justify-content-center">
                             {this.props.userData.active_plan === this.state.planData.id?
@@ -153,7 +153,7 @@ class PersonalPlan extends Component {
                         </div>
                         <div className="row justify-content-center">
                             <div className="col-md-10">
-                                <table className="table">
+                                <table className="table background_color">
                                     <tbody>
                                         <tr>
                                             <th>Week</th>

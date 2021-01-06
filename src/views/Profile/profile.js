@@ -95,38 +95,42 @@ class Profile extends Component {
                     <React.Fragment>
                         {this.state.editing? 
                         <React.Fragment>
-                            <h1>Edit Account Information</h1>
-                            <div className="col-md-6">
-                                <form onSubmit={this.handleSubmit}>
-                                    <input type="text" name="firstName" value={this.state.firstName} onChange={this.handleChange} className="form-control form_spacing" placeholder="First Name" />
-                                        <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange} className="form-control form_spacing" placeholder="Last Name" />
-                                        <input type="text" name="username" value={this.state.username} onChange={this.handleChange} className="form-control form_spacing" placeholder="Username" />
-                                        <input type="text" name="email" value={this.state.email} onChange={this.handleChange} className="form-control form_spacing" placeholder="Email" />
-                                        <input type="text" name="city" value={this.state.city} onChange={this.handleChange} className="form-control form_spacing" placeholder="City" />
-                                        <select name="state" value={this.state.state} onChange={this.handleChange} className="form-control form_spacing">
-                                            <StatesForm />
-                                        </select>
-                                        <input type="submit" className="btn btn-success form-control"/>
-                                </form>
+                            <div className="row justify-content-center">
+                                <h1 className="text_shadow">Edit Account Information</h1>
+                            </div>
+                            <div className="row justify-content-center">
+                                <div className="col-md-6 background_color border border-dark edit_profile_padding">
+                                    <form onSubmit={this.handleSubmit}>
+                                        <input type="text" name="firstName" value={this.state.firstName} onChange={this.handleChange} className="form-control form_spacing" placeholder="First Name" />
+                                            <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange} className="form-control form_spacing" placeholder="Last Name" />
+                                            <input type="text" name="username" value={this.state.username} onChange={this.handleChange} className="form-control form_spacing" placeholder="Username" />
+                                            <input type="text" name="email" value={this.state.email} onChange={this.handleChange} className="form-control form_spacing" placeholder="Email" />
+                                            <input type="text" name="city" value={this.state.city} onChange={this.handleChange} className="form-control form_spacing" placeholder="City" />
+                                            <select name="state" value={this.state.state} onChange={this.handleChange} className="form-control form_spacing">
+                                                <StatesForm />
+                                            </select>
+                                            <input type="submit" className="btn btn-success form-control"/>
+                                    </form>
+                                </div>
                             </div>
                         </React.Fragment>
                         :
                         <React.Fragment>
-                            <div className="row">
-                                <h1>{first_name} {last_name}</h1>
+                            <div className="row justify-content-center">
+                                <h1 className="text_shadow">{first_name} {last_name}</h1>
                             </div>
-                            <div className="row">
+                            <div className="row justify-content-center">
                                 <button className="btn btn-warning text_spacing" onClick={this.beginEditing}>Edit Account</button>
                                 <button className="btn btn-danger text_spacing" onClick={this.deleteAccount}>Delete Account</button>
                             </div>
-                            <div className="row">
-                                <p><b>Username:</b> {username}</p>
+                            <div className="row justify-content-center">
+                                <p className="text_shadow_small"><b>Username:</b> {username}</p>
                             </div>
-                            <div className="row">
-                                <p><b>Email:</b> {email}</p>
+                            <div className="row justify-content-center">
+                                <p className="text_shadow_small"><b>Email:</b> {email}</p>
                             </div>
-                            <div className="row">
-                                <p><b>Running Location:</b> {city}, {state}</p>
+                            <div className="row justify-content-center">
+                                <p className="text_shadow_small"><b>Running Location:</b> {city}, {state}</p>
                             </div>
                         </React.Fragment>
                         }

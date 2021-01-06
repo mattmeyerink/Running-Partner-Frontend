@@ -195,14 +195,14 @@ class EditPlan extends Component {
                         :
                         <React.Fragment>
                         <div className="row justify-content-center">
-                            <h1>{this.state.planData.race_name} - {this.state.planData.difficulty}</h1>
+                            <h1 className="text_shadow">{this.state.planData.race_name} - {this.state.planData.difficulty}</h1>
                         </div>
                         <div className="row justify-content-center">
                             <button onClick={this.submitPlan} className="btn btn-success form_spacing">Submit Plan</button>
                         </div>
                         <div className="row justify-content-center">
                             <div className="col-md-10">
-                                <table className="table">
+                                <table className="table background_color">
                                     <tbody>
                                         <tr>
                                             <th>Week</th>

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import '../index.css';
+import running_shoes from '../images/running_shoes.jpeg';
+import rest_day_beach from '../images/rest_day_beach.jpeg';
 
 class TodaysRun extends Component {
     constructor(props) {
@@ -125,11 +127,15 @@ class TodaysRun extends Component {
                         <div className="row justify-content-center">
                             {activeRun === null || activeRun === 0?
                             <React.Fragment>
-                                <h5>No Run Scheduled for today!</h5>
+                                <h5 className="training_run_spacing">No Run Today!</h5>
+                                <img src={rest_day_beach} className="img-fluid border border-dark training_run_spacing" alt="oops" />
+                                <p className="trianing_run_spacing">Have a nice rest day!</p>
                             </React.Fragment>
                             :
                             <React.Fragment>
-                                <h5>{activeRun} Miles</h5>
+                                <h5 className="training_run_spacing">{activeRun} Miles</h5>
+                                <img src={running_shoes} className="img-fluid border border-dark training_run_spacing" alt="oops"/>
+                                <p className="training_run_spacing">Strap on your shoes and get out there!</p>
                             </React.Fragment>
                             }
                         </div>

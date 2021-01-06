@@ -15,7 +15,7 @@ class NavBar extends Component {
     render() {
         return (
             <React.Fragment>
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                <nav className="navbar navbar-expand-lg navbar-dark bg-info">
                     <Link className="navbar-brand" to="/">Running Partner</Link>
                 
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -34,7 +34,7 @@ class NavBar extends Component {
                             </li>
                         </ul>
                         {this.props.userAuthenticated ?
-                        <button className="btn btn-light" onClick={this.props.logout}>Logout</button>
+                        <button className="btn btn-secondary" onClick={this.props.logout}>Logout</button>
                         :
                         <React.Fragment>
                             <Link to="/login" className="btn btn-light">Login</Link>

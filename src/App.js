@@ -13,6 +13,7 @@ import AllRuns from './views/Runs/all_runs';
 import Login from './views/Authentication/login';
 import Registration from './views/Authentication/register';
 import NavBar from './components/navbar';
+import './index.css';
 
 // App class to control routing and authentication flow
 class App extends Component {
@@ -55,7 +56,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="home_page">
         <NavBar userAuthenticated={this.state.userAuthenticated} logout={this.logout}/>
         <main className="container">
           <Switch>

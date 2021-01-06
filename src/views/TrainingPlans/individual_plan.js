@@ -62,7 +62,7 @@ class SinglePlan extends Component {
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-md-10">
-                        <table className="table">
+                        <table className="table background_color">
                             <tbody>
                                 <tr>
                                     <th>Week</th>
