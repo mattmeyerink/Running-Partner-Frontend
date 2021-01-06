@@ -111,10 +111,10 @@ class AllRuns extends Component {
                     {this.state.totalRuns === 0?
                     <React.Fragment>
                         <div className="row justify-content-center">
-                            <h3>You haven't done any runs yet!</h3>
+                            <h3 className="text_shadow">You haven't done any runs yet!</h3>
                         </div>
                         <div className="row justify-content-center">
-                            <h3>Theres a whole world to explore! Get out there!</h3>
+                            <h3 className="text_shadow">Theres a whole world to explore! Get out there!</h3>
                         </div>
                     </React.Fragment>
                     :

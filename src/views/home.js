@@ -90,7 +90,11 @@ class Home extends Component {
                                     </div>
                                 </div>
                                 <div className="row justify-content-center">
+                                    {this.state.motivationalQuoteAuthor === null?
+                                    <h3 className="quote">~ unknown</h3>
+                                    :
                                     <h3 className="quote">~{this.state.motivationalQuoteAuthor}</h3>
+                                    }
                                 </div>
                             </div>
                         </div>
