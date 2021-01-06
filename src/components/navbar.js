@@ -37,8 +37,8 @@ class NavBar extends Component {
                         <button className="btn btn-secondary" onClick={this.props.logout}>Logout</button>
                         :
                         <React.Fragment>
-                            <Link to="/login" className="btn btn-light">Login</Link>
-                            <Link to="/registration" className="btn btn-light registration_btn">Register</Link>
+                            <Link to="/login" className="btn btn-secondary">Login</Link>
+                            <Link to="/registration" className="btn btn-secondary registration_btn">Register</Link>
                         </React.Fragment>
                         }
                         
