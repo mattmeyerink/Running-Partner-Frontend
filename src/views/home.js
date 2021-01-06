@@ -81,16 +81,16 @@ class Home extends Component {
                     :
                     <React.Fragment>
                         <div className="row justify-content-center">
-                            <div className="col-md-8 background_color border border-dark">
+                            <div className="col-md-8">
                                 <div className="row justify-content-center home_widgets">
-                                    <div className="col-md-8">
+                                    <div className="col">
                                         <div className="row justify-content-center">
-                                        <h4 className="text_shadow">{this.state.motivationalQuoteText}</h4>
+                                            <h3 className="quote">{this.state.motivationalQuoteText}</h3>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="row justify-content-center">
-                                    <h4 className="text_shadow">~{this.state.motivationalQuoteAuthor}</h4>
+                                    <h3 className="quote">~{this.state.motivationalQuoteAuthor}</h3>
                                 </div>
                             </div>
                         </div>
