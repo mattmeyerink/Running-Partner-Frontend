@@ -55,6 +55,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.userData);
     return (
       <div className="home_page">
         <NavBar userAuthenticated={this.state.userAuthenticated} logout={this.logout}/>
@@ -65,7 +66,7 @@ class App extends Component {
             }/>
 
             <Route exact path = "/training_plans" render={() => 
-                <TrainingPlan userAuthenticated={this.state.userAuthenticated}/>
+                <TrainingPlan userAuthenticated={this.state.userAuthenticated} userData={this.state.userData}/>
             }/>
 
             <Route exact path = "/training_plans/:id" render={({ match }) => 
@@ -100,7 +101,7 @@ class App extends Component {
             } />
 
             <Route exact path = "/profile/confirm_delete/:id" render={({ match }) => 
-                <ConfirmDeleteAccount logout={this.logout} match={match}/> 
+                <ConfirmDeleteAccount logout={this.logout} match={match} userData={this.state.userData}/> 
             } />
 
             <Route exact path = "/login" render={() => 

@@ -56,13 +56,16 @@ class Profile extends Component {
             state: this.state.state
         }
 
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+
         // POST request to update user's data in db
         fetch("http://127.0.0.1:5000/authentication/edit_profile", {
             method: "POST",
             body: JSON.stringify(editedUserData),
-            headers: {
-                "Content-Type": "application/json",
-            }
+            headers: myHeaders
         })
             .then(response => {
                 if (response.status === 200) {

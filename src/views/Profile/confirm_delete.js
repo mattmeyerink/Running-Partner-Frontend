@@ -14,11 +14,14 @@ class ConfirmDeleteAccount extends Component {
 
     // Method to handle delete account
     deleteAccount() {
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+
         fetch(`http://127.0.0.1:5000/authentication/delete_account/${this.props.match.params.id}`, {
             method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            }
+            headers: myHeaders
         })
             .then(response => {
                 if (response.status === 200) {

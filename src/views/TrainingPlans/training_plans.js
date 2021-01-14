@@ -14,7 +14,15 @@ class TrainingPlan extends Component {
 
     // Fetch all of the trianing plans from the API when the component mounts
     componentDidMount(){
-        fetch('http://127.0.0.1:5000/training_plans/all_plans')
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+
+        fetch('http://127.0.0.1:5000/training_plans/all_plans', {
+            method: 'GET',
+            headers: myHeaders
+        })
             .then(result => result.json())
             .then(data => this.setState({training_plans: data}))
             .catch(error => console.error(error))
