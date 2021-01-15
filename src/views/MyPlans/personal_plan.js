@@ -21,7 +21,15 @@ class PersonalPlan extends Component {
     }
     // Fetch the personal plan data
     componentDidMount(){
-        fetch(`http://127.0.0.1:5000/training_plans/custom_plan/${this.props.match.params.id}`)
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+
+        fetch(`http://127.0.0.1:5000/training_plans/custom_plan/${this.props.match.params.id}`, {
+            method: 'GET',
+            headers: myHeaders
+        })
             .then(response => response.json())
             .then(data => this.setState({planData: data}))
             .catch(error => console.error(error))
@@ -56,12 +64,15 @@ class PersonalPlan extends Component {
             plan_id: -1
         }
         
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+        
         fetch("http://127.0.0.1:5000/authentication/set_active_plan", {
             method: "POST",
             body: JSON.stringify(activePlanData),
-            headers: {
-                "Content-Type": "application/json",
-            }
+            headers: myHeaders
         })
         .then(response => {
             if (response.status === 200) {
@@ -106,11 +117,14 @@ class PersonalPlan extends Component {
 
     // Delete a specific plan from the database
     deletePlan() {
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+
         fetch(`http://127.0.0.1:5000/training_plans/custom_plan/delete/${this.state.planData.id}`, {
             method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            }
+            headers: myHeaders
         })
             .then(response => {
                 if (response.status === 200) {

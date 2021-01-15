@@ -19,14 +19,22 @@ class TodaysRun extends Component {
 
     // Pull the data for the person's current run
     componentDidMount() {
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+        
         if (this.props.userData.active_plan !== -1) {
-            fetch(`http://127.0.0.1:5000/training_plans/custom_plan/${this.props.userData.active_plan}`)
-            .then(response => response.json())
-            .then(data => this.setState({
-                planData: data,
-                activePlan: true
-            }))
-            .catch(error => console.error(error))
+            fetch(`http://127.0.0.1:5000/training_plans/custom_plan/${this.props.userData.active_plan}`, {
+                methods: 'GET',
+                headers: myHeaders
+            })
+                .then(response => response.json())
+                .then(data => this.setState({
+                    planData: data,
+                    activePlan: true
+                }))
+                .catch(error => console.error(error))
         }
     }
 

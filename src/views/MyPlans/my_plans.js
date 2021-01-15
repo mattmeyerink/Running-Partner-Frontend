@@ -17,7 +17,15 @@ class MyPlans extends Component {
     }
 
     componentDidMount(){
-        fetch(`http://127.0.0.1:5000/training_plans/custom_plans/${this.props.userData.id}`)
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+
+        fetch(`http://127.0.0.1:5000/training_plans/custom_plans/${this.props.userData.id}`, {
+            method: 'GET',
+            headers: myHeaders
+        })
             .then(result => result.json())
             .then(data => this.setState({training_plans: data, loading: false}))
             .catch(error => console.error(error))
@@ -25,7 +33,15 @@ class MyPlans extends Component {
 
     // Method to pass down to plan headers to re gather plan info when a plan is deleted
     getTrainingPlans() {
-        fetch(`http://127.0.0.1:5000/training_plans/custom_plans/${this.props.userData.id}`)
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+
+        fetch(`http://127.0.0.1:5000/training_plans/custom_plans/${this.props.userData.id}`, {
+            method: 'GET',
+            headers: myHeaders
+        })
             .then(result => result.json())
             .then(data => this.setState({training_plans: data}))
             .catch(error => console.error(error))
@@ -97,7 +113,7 @@ class MyPlans extends Component {
                     <div className="row justify-content-center">
                     {this.state.training_plans.map(
                         plan => ( 
-                                <React.Fragment>
+                                <React.Fragment key={plan.id}>
                                     {plan.id === this.props.userData.active_plan?
                                     <React.Fragment>
                                     </React.Fragment>
