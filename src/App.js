@@ -55,7 +55,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.userData);
     return (
       <div className="home_page">
         <NavBar userAuthenticated={this.state.userAuthenticated} logout={this.logout}/>
@@ -70,7 +69,7 @@ class App extends Component {
             }/>
 
             <Route exact path = "/training_plans/:id" render={({ match }) => 
-                <SinglePlan match={match} userAuthenticated={this.state.userAuthenticated}/>
+                <SinglePlan match={match} userAuthenticated={this.state.userAuthenticated} userData={this.state.userData}/>
             }/>
 
             <Route exact path = "/personal_plan" render={() => 

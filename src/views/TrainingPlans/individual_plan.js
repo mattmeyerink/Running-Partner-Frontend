@@ -16,7 +16,15 @@ class SinglePlan extends Component {
 
     // Get the plan data for a single training plan
     componentDidMount() {
-        fetch(`http://127.0.0.1:5000/training_plans/${this.props.match.params.id}`)
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+
+        fetch(`http://127.0.0.1:5000/training_plans/${this.props.match.params.id}`, {
+            method: 'GET',
+            headers: myHeaders
+        })
             .then(result => result.json())
             .then(data => this.setState({training_plan: data}))
             .catch(error => console.error(error))

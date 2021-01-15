@@ -45,7 +45,15 @@ class AddPlan extends Component {
 
     // Gather the individual training plan
     componentDidMount(){
-        fetch(`http://127.0.0.1:5000/training_plans/${this.props.match.params.id}`)
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+        
+        fetch(`http://127.0.0.1:5000/training_plans/${this.props.match.params.id}`, {
+            method: 'GET',
+            headers: myHeaders
+        })
             .then(result => result.json())
             .then(data => this.setState({planData: data, loading: false, finalPlan: data.plan}))
             .catch(error => console.error(error))
@@ -219,20 +227,23 @@ class AddPlan extends Component {
             plan_length: this.state.planData.plan_length,
         }
 
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+
         // Send POST request to API. Set planSubmitted state to true if successful to redirect page to profile
         fetch(`http://127.0.0.1:5000/training_plans/add_plan/${userID}`, {
             method: "POST",
             body: JSON.stringify(planData),
-            headers: {
-                "Content-Type": "application/json",
-            }
+            headers: myHeaders
         })
-        .then(response => {
-            if (response.status === 201) {
-                this.setState({planSubmitted: true})
-            }
-        })
-        .catch(error => console.error(error))
+            .then(response => {
+                if (response.status === 201) {
+                    this.setState({planSubmitted: true})
+                }
+            })
+            .catch(error => console.error(error))
     }
 
     render() {
