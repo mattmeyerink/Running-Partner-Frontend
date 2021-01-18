@@ -24,7 +24,15 @@ class AllRuns extends Component {
 
     // Gather all of the user's runs from the runs db
     componentDidMount() {
-        fetch(`http://127.0.0.1:5000/runs/all_runs/${this.props.userData.id}`)
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+
+        fetch(`http://127.0.0.1:5000/runs/all_runs/${this.props.userData.id}`, {
+            method: 'GET',
+            headers: myHeaders
+        })
             .then(response => response.json())
             .then(data => {
                 var totalMiles = 0;
@@ -48,12 +56,15 @@ class AllRuns extends Component {
 
     // Deletes a run from the db
     deleteRun(run_id) {
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+
         // Delete the run from the db
         fetch(`http://127.0.0.1:5000/runs/delete_run/${run_id}`, {
             method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            }
+            headers: myHeaders
         })
             .then(response => {
                 if (response.status === 200) {
@@ -66,7 +77,15 @@ class AllRuns extends Component {
 
     // Re-pull all the user's run data after run deleted or added
     getRunData() {
-        fetch(`http://127.0.0.1:5000/runs/all_runs/${this.props.userData.id}`)
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+
+        fetch(`http://127.0.0.1:5000/runs/all_runs/${this.props.userData.id}`, {
+            method: 'GET',
+            headers: myHeaders
+        })
             .then(response => response.json())
             .then(data => {
                 var totalMiles = 0;
@@ -104,7 +123,8 @@ class AllRuns extends Component {
                         <div className="col-md-6">
                             <div className="row justify-content-center">
                                 <RunPageRunEntry user_id={this.props.userData.id} city={this.props.userData.city} 
-                                        state={this.props.userData.state} getRunData={this.getRunData}/>
+                                        state={this.props.userData.state} getRunData={this.getRunData} 
+                                        userData={this.props.userData}/>
                             </div>
                         </div>
                     </div>

@@ -40,27 +40,30 @@ class RunEntry extends Component {
             notes: this.state.notes
         }
 
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+
         // Send POST request to create run in the db
         fetch('http://127.0.0.1:5000/runs/add_run', {
             method: "POST",
             body: JSON.stringify(runData),
-            headers: {
-                "Content-Type": "application/json",
-            }
+            headers: myHeaders
         })
-        .then(response => {
-            // Reset the form fields if request was successful
-            if (response.status === 201) {
-                this.setState({
-                    distance: "",
-                    date: moment().format("YYYY-MM-DD"),
-                    city: this.props.city,
-                    state: this.props.state,
-                    notes: ""
-                })
-            }
-        })
-        .catch(error => console.error(error))
+            .then(response => {
+                // Reset the form fields if request was successful
+                if (response.status === 201) {
+                    this.setState({
+                        distance: "",
+                        date: moment().format("YYYY-MM-DD"),
+                        city: this.props.city,
+                        state: this.props.state,
+                        notes: ""
+                    })
+                }
+            })
+            .catch(error => console.error(error))
 
         event.preventDefault();
     }
