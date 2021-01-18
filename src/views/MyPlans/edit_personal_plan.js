@@ -38,7 +38,15 @@ class EditPlan extends Component {
 
     // Gather the individual training plan from custom plan table
     componentDidMount(){
-        fetch(`http://127.0.0.1:5000/training_plans/custom_plan/${this.props.match.params.id}`)
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+
+        fetch(`http://127.0.0.1:5000/training_plans/custom_plan/${this.props.match.params.id}`, {
+            method: 'GET',
+            headers: myHeaders
+        })
             .then(result => result.json())
             .then(data => this.setState({planData: data, loading: false, finalPlan: data.plan}))
             .catch(error => console.error(error))
@@ -153,14 +161,17 @@ class EditPlan extends Component {
         const planData = {
             plan: this.state.finalPlan
         }
+        
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
 
         // Send POST request to db with edited plan update the plan submitted in state to force redirect
         fetch(`http://127.0.0.1:5000/training_plans/custom_plan/edit/${this.state.planData.id}`, {
             method: "POST",
             body: JSON.stringify(planData),
-            headers: {
-                "Content-Type": "application/json",
-            }
+            headers: myHeaders
         })
         .then(response => {
             if (response.status === 200) {

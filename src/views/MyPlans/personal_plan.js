@@ -42,19 +42,22 @@ class PersonalPlan extends Component {
             plan_id: this.state.planData.id
         }
         
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+
         fetch("http://127.0.0.1:5000/authentication/set_active_plan", {
             method: "POST",
             body: JSON.stringify(activePlanData),
-            headers: {
-                "Content-Type": "application/json",
-            }
+            headers: myHeaders
         })
-        .then(response => {
-            if (response.status === 200) {
-                this.props.refreshUserData();
-            }
-        })
-        .catch(error => console.error(error))
+            .then(response => {
+                if (response.status === 200) {
+                    this.props.refreshUserData();
+                }
+            })
+            .catch(error => console.error(error))
     }
 
     removeActivePlan() {
@@ -74,12 +77,12 @@ class PersonalPlan extends Component {
             body: JSON.stringify(activePlanData),
             headers: myHeaders
         })
-        .then(response => {
-            if (response.status === 200) {
-                this.props.refreshUserData();
-            }
-        })
-        .catch(error => console.error(error))
+            .then(response => {
+                if (response.status === 200) {
+                    this.props.refreshUserData();
+                }
+            })
+            .catch(error => console.error(error))
     }
 
     // Converts the plan in state to an array that can be mapped to a table when rendered

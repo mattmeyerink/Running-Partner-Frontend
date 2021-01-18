@@ -48,7 +48,15 @@ class App extends Component {
 
   // Re pull the user data after an edit in the profile page. Passed to the profile page.
   refreshUserData() {
-    fetch(`http://127.0.0.1:5000/authentication/get_user_data/${this.state.userData.id}`)
+    const myHeaders = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.state.userData.token,
+    });
+
+    fetch(`http://127.0.0.1:5000/authentication/get_user_data/${this.state.userData.id}`, {
+      method: 'GET',
+      headers: myHeaders
+    })
         .then(response => response.json())
         .then(data => this.setState({userData: data}))
         .catch(error => console.error(error))
