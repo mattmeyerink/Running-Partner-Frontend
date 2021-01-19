@@ -50,7 +50,7 @@ class AddPlan extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
         
-        fetch(`http://127.0.0.1:5000/training_plans/${this.props.match.params.id}`, {
+        fetch(`https://git.heroku.com/running-partner.git/training_plans/${this.props.match.params.id}`, {
             method: 'GET',
             headers: myHeaders
         })
@@ -233,7 +233,7 @@ class AddPlan extends Component {
         });
 
         // Send POST request to API. Set planSubmitted state to true if successful to redirect page to profile
-        fetch(`http://127.0.0.1:5000/training_plans/add_plan/${userID}`, {
+        fetch(`https://git.heroku.com/running-partner.git/training_plans/add_plan/${userID}`, {
             method: "POST",
             body: JSON.stringify(planData),
             headers: myHeaders

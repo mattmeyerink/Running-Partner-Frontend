@@ -25,7 +25,7 @@ class TodaysRun extends Component {
         });
         
         if (this.props.userData.active_plan !== -1) {
-            fetch(`http://127.0.0.1:5000/training_plans/custom_plan/${this.props.userData.active_plan}`, {
+            fetch(`https://git.heroku.com/running-partner.git/training_plans/custom_plan/${this.props.userData.active_plan}`, {
                 methods: 'GET',
                 headers: myHeaders
             })

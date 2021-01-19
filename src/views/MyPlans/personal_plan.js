@@ -26,7 +26,7 @@ class PersonalPlan extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(`http://127.0.0.1:5000/training_plans/custom_plan/${this.props.match.params.id}`, {
+        fetch(`https://git.heroku.com/running-partner.git/training_plans/custom_plan/${this.props.match.params.id}`, {
             method: 'GET',
             headers: myHeaders
         })
@@ -47,7 +47,7 @@ class PersonalPlan extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch("http://127.0.0.1:5000/authentication/set_active_plan", {
+        fetch("https://git.heroku.com/running-partner.git/authentication/set_active_plan", {
             method: "POST",
             body: JSON.stringify(activePlanData),
             headers: myHeaders
@@ -72,7 +72,7 @@ class PersonalPlan extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
         
-        fetch("http://127.0.0.1:5000/authentication/set_active_plan", {
+        fetch("https://git.heroku.com/running-partner.git/authentication/set_active_plan", {
             method: "POST",
             body: JSON.stringify(activePlanData),
             headers: myHeaders
@@ -125,7 +125,7 @@ class PersonalPlan extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(`http://127.0.0.1:5000/training_plans/custom_plan/delete/${this.state.planData.id}`, {
+        fetch(`https://git.heroku.com/running-partner.git/training_plans/custom_plan/delete/${this.state.planData.id}`, {
             method: "DELETE",
             headers: myHeaders
         })

@@ -39,7 +39,7 @@ class Login extends Component {
         }
 
         // Fetch request to authentication section of API
-        fetch("http://127.0.0.1:5000/authentication/login", {
+        fetch("https://git.heroku.com/running-partner.git/authentication/login", {
             method: "POST",
             body: JSON.stringify(loginData),
             headers: {

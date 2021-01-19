@@ -53,7 +53,7 @@ class Registration extends Component {
             "active_plan": -1
         }
 
-        fetch("http://127.0.0.1:5000/authentication/register", {
+        fetch("https://git.heroku.com/running-partner.git/authentication/register", {
             method: "POST",
             body: JSON.stringify(registrationData),
             headers: {

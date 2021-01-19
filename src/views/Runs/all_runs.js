@@ -29,7 +29,7 @@ class AllRuns extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(`http://127.0.0.1:5000/runs/all_runs/${this.props.userData.id}`, {
+        fetch(`https://git.heroku.com/running-partner.git/runs/all_runs/${this.props.userData.id}`, {
             method: 'GET',
             headers: myHeaders
         })
@@ -62,7 +62,7 @@ class AllRuns extends Component {
         });
 
         // Delete the run from the db
-        fetch(`http://127.0.0.1:5000/runs/delete_run/${run_id}`, {
+        fetch(`https://git.heroku.com/running-partner.git/runs/delete_run/${run_id}`, {
             method: "DELETE",
             headers: myHeaders
         })
@@ -82,7 +82,7 @@ class AllRuns extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(`http://127.0.0.1:5000/runs/all_runs/${this.props.userData.id}`, {
+        fetch(`https://git.heroku.com/running-partner.git/runs/all_runs/${this.props.userData.id}`, {
             method: 'GET',
             headers: myHeaders
         })
