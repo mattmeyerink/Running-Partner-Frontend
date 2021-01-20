@@ -53,7 +53,7 @@ class App extends Component {
       'Authorization': 'Bearer ' + this.state.userData.token,
     });
 
-    fetch(`https://git.heroku.com/running-partner.git/authentication/get_user_data/${this.state.userData.id}`, {
+    fetch(`https://running-partner.herokuapp.com/authentication/get_user_data/${this.state.userData.id}`, {
       method: 'GET',
       headers: myHeaders
     })

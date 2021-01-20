@@ -19,7 +19,7 @@ class ConfirmDeleteAccount extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(`https://git.heroku.com/running-partner.git/authentication/delete_account/${this.props.match.params.id}`, {
+        fetch(`https://running-partner.herokuapp.com/authentication/delete_account/${this.props.match.params.id}`, {
             method: "DELETE",
             headers: myHeaders
         })

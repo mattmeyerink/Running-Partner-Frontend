@@ -22,7 +22,7 @@ class MyPlans extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(`https://git.heroku.com/running-partner.git/training_plans/custom_plans/${this.props.userData.id}`, {
+        fetch(`https://running-partner.herokuapp.com/training_plans/custom_plans/${this.props.userData.id}`, {
             method: 'GET',
             headers: myHeaders
         })
@@ -38,7 +38,7 @@ class MyPlans extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(`https://git.heroku.com/running-partner.git/training_plans/custom_plans/${this.props.userData.id}`, {
+        fetch(`https://running-partner.herokuapp.com/training_plans/custom_plans/${this.props.userData.id}`, {
             method: 'GET',
             headers: myHeaders
         })

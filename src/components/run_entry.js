@@ -46,7 +46,7 @@ class RunEntry extends Component {
         });
 
         // Send POST request to create run in the db
-        fetch('https://git.heroku.com/running-partner.git/runs/add_run', {
+        fetch('https://running-partner.herokuapp.com/runs/add_run', {
             method: "POST",
             body: JSON.stringify(runData),
             headers: myHeaders

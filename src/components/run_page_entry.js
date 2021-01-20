@@ -42,7 +42,7 @@ class RunPageRunEntry extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch('https://git.heroku.com/running-partner.git/runs/add_run', {
+        fetch('https://running-partner.herokuapp.com/runs/add_run', {
             method: "POST",
             body: JSON.stringify(runData),
             headers: myHeaders

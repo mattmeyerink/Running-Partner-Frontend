@@ -62,7 +62,7 @@ class Profile extends Component {
         });
 
         // POST request to update user's data in db
-        fetch("https://git.heroku.com/running-partner.git/authentication/edit_profile", {
+        fetch("https://running-partner.herokuapp.com/authentication/edit_profile", {
             method: "POST",
             body: JSON.stringify(editedUserData),
             headers: myHeaders

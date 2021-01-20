@@ -43,7 +43,7 @@ class EditPlan extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(`https://git.heroku.com/running-partner.git/training_plans/custom_plan/${this.props.match.params.id}`, {
+        fetch(`https://running-partner.herokuapp.com/training_plans/custom_plan/${this.props.match.params.id}`, {
             method: 'GET',
             headers: myHeaders
         })
@@ -168,7 +168,7 @@ class EditPlan extends Component {
         });
 
         // Send POST request to db with edited plan update the plan submitted in state to force redirect
-        fetch(`https://git.heroku.com/running-partner.git/training_plans/custom_plan/edit/${this.state.planData.id}`, {
+        fetch(`https://running-partner.herokuapp.com/training_plans/custom_plan/edit/${this.state.planData.id}`, {
             method: "POST",
             body: JSON.stringify(planData),
             headers: myHeaders

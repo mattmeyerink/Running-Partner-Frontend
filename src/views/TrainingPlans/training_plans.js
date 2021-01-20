@@ -19,7 +19,7 @@ class TrainingPlan extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch('https://git.heroku.com/running-partner.git/training_plans/all_plans', {
+        fetch('https://running-partner.herokuapp.com/training_plans/all_plans', {
             method: 'GET',
             headers: myHeaders
         })

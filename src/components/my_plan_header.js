@@ -17,7 +17,7 @@ class MyPlanHeader extends Component {
 
     // Deletes a custom plan from the db
     deletePlan() {
-        fetch(`https://git.heroku.com/running-partner.git/training_plans/custom_plan/delete/${this.props.id}`, {
+        fetch(`https://running-partner.herokuapp.com/training_plans/custom_plan/delete/${this.props.id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

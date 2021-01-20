@@ -21,7 +21,7 @@ class SinglePlan extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(`https://git.heroku.com/running-partner.git/training_plans/${this.props.match.params.id}`, {
+        fetch(`https://running-partner.herokuapp.com/training_plans/${this.props.match.params.id}`, {
             method: 'GET',
             headers: myHeaders
         })
