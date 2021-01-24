@@ -2,6 +2,10 @@
   "name": "capstone-frontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "15.x",
+    "npm": "7.x"
+  },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.14",
@@ -17,7 +21,7 @@
     "react-scripts": "4.0.1",
     "web-vitals": "^0.2.4"
   },
-  "scripts": {
+"scripts": {
     "start": "node server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
