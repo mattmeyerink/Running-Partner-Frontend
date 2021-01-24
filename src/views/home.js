@@ -26,7 +26,7 @@ class Home extends Component {
             // Fetch the weather data (hind sight I should move this to the weatherWidget component)
             const myHeaders = new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + this.state.userData.token,
+                'Authorization': 'Bearer ' + this.props.userData.token,
             });
 
             fetch(`https://running-partner.herokuapp.com/${this.props.userData.city}`, {
