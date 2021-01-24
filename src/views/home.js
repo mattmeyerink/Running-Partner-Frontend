@@ -29,7 +29,7 @@ class Home extends Component {
                 'Authorization': 'Bearer ' + this.props.userData.token,
             });
 
-            fetch(`https://running-partner.herokuapp.com/${this.props.userData.city}`, {
+            fetch(`https://running-partner.herokuapp.com/weather/${this.props.userData.city}`, {
                 method: 'GET',
                 headers: myHeaders
             })
