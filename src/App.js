@@ -34,7 +34,7 @@ class App extends Component {
   login(data) {
     this.setState({
       userAuthenticated: true,
-      userData: data
+      userData: data,
     })
   }
 
@@ -69,7 +69,8 @@ class App extends Component {
         <main className="container">
           <Switch>
             <Route exact path = "/" render={() => 
-                <Home userAuthenticated={this.state.userAuthenticated} userData={this.state.userData} />
+                <Home userAuthenticated={this.state.userAuthenticated} userData={this.state.userData} 
+                    owAPIKey={this.state.owAPIKey}/>
             }/>
 
             <Route exact path = "/training_plans" render={() => 

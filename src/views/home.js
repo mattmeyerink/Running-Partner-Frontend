@@ -23,10 +23,16 @@ class Home extends Component {
     // Make initial API Calls for weather data, today's run, and run input.
     componentDidMount() {
         if (this.props.userAuthenticated) {
-
             // Fetch the weather data (hind sight I should move this to the weatherWidget component)
-            const apiKey = process.env.REACT_APP_OW_API_KEY;
-            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.props.userData.city}&units=imperial&appid=${apiKey}`)
+            const myHeaders = new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.state.userData.token,
+            });
+
+            fetch(`https://running-partner.herokuapp.com/${this.props.userData.city}`, {
+                method: 'GET',
+                headers: myHeaders
+            })
                 .then(response => response.json())
                 .then(data => this.setState({weatherData: data, loading: false}))
                 .catch(error => console.error(error))
