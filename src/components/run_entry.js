@@ -72,7 +72,7 @@ class RunEntry extends Component {
         return (
             <React.Fragment>
                 <div className="row justify-content-center">
-                    <div className="border border-dark weather_card">
+                    <div className="weather_card">
                         <h3>Enter a Run</h3>
                         <form onSubmit={this.handleSubmit}>
                             <input type="number" name="distance" value={this.state.distance} onChange={this.handleChange} placeholder="Distance" className="form_spacing form-control" />

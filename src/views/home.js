@@ -76,13 +76,13 @@ class Home extends Component {
                 {this.props.userAuthenticated ?
                 <React.Fragment>
                     <div className="row justify-content-center home_widgets">
-                        <h1 className="text_shadow">{this.state.greeting} {first_name}!</h1>
+                        <h1>{this.state.greeting} {first_name}!</h1>
                     </div>
                     
 
                     {this.state.loading ?
                     <div className="row justify-content-center">
-                        <h1 className="text_shadow">Loading...</h1>
+                        <h1>Loading...</h1>
                     </div>
                     :
                     <React.Fragment>

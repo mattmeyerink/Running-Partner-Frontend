@@ -38,7 +38,7 @@ class MyPlanHeader extends Component {
 
         return (
             <React.Fragment>
-                <div className="col-md-8 border border-secondary training_plan_card">
+                <div className="col-md-8 training_plan_card">
                     <div className="row">
                         <div className="col-md-11">
                             <Link to={`/personal_plan/${this.props.id}`}>

@@ -128,7 +128,7 @@ class TodaysRun extends Component {
         return (
             <React.Fragment>
                 <div className="row justify-content-center">
-                    <div className="border border-dark weather_card">
+                    <div className="weather_card">
                         <div className="row justify-content-center">
                             <h3>Today's Run</h3>
                         </div>
@@ -136,7 +136,7 @@ class TodaysRun extends Component {
                             {activeRun === null || activeRun === 0?
                             <React.Fragment>
                                 <h5 className="training_run_spacing">No Run Today!</h5>
-                                <img src={rest_day_beach} className="img-fluid border border-dark training_run_spacing" alt="oops" />
+                                <img src={rest_day_beach} className="img-fluid training_run_spacing" alt="oops" />
                                 <p className="trianing_run_spacing">Have a nice rest day!</p>
                             </React.Fragment>
                             :

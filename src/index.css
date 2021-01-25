@@ -17,15 +17,26 @@ code {
 }
 
 .input_box {
-  padding-bottom: 15px;
+  padding-top: 20px;
+  padding-bottom: 30px;
   margin-top: 10%;
   background-color: white;
+  border-radius: 20px;
+}
+
+.run_entry_input_box {
+  padding-top: 20px;
+  padding-bottom: 30px;
+  background-color: white;
+  border-radius: 20px;
 }
 
 .login_input_box {
-  padding-bottom: 15px;
+  padding-bottom: 30px;
+  padding-top: 20px;
   margin-top: 17%;
   background-color: white;
+  border-radius: 20px;
 }
 
 .training_col {
@@ -50,6 +61,7 @@ code {
   padding-bottom: 15px;
   margin-bottom: 20px;
   background-color: white;
+  border-radius: 15px;
 }
 
 .icon_button {
@@ -89,6 +101,7 @@ code {
 
 .background_color {
   background-color: white;
+  border-radius: 15px;
 }
 
 .text_shadow_small {
@@ -101,7 +114,6 @@ code {
 }
 
 .quote {
-  color: white;
-  text-shadow: 2px 2px black;
+  color: black;
   text-align: center;
 }

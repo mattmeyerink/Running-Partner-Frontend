@@ -75,7 +75,7 @@ class Login extends Component {
                 <React.Fragment>
                     {this.state.warning === "" ?
                     <div className="row">
-                        <div className="col-md-4 offset-4 border border-dark login_input_box">
+                        <div className="col-md-4 offset-4 login_input_box">
                             <div className="row justify-content-center">
                                 <h1>Login</h1>
                             </div>
@@ -96,12 +96,14 @@ class Login extends Component {
                                     placeholder="Password" 
                                     className="form-control form_spacing"
                                 />
-                                <input type="submit" className="form-control btn btn-success" />
+                                <input type="submit" className="form-control btn btn-success form_spacing" />
                             </form>
-                            <strong>
-                                Not signed up yet?
-                                <Link to="/registration"> Create an account!</Link>
-                            </strong>
+                            <div className="row justify-content-center">
+                                <strong>
+                                    Not signed up yet?
+                                    <Link to="/registration"> Create an account!</Link>
+                                </strong>
+                            </div>
                         </div>
                     </div>
                     :

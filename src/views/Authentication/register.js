@@ -86,7 +86,7 @@ class Registration extends Component {
                 <React.Fragment>
                     {this.state.warning === "" ?
                     <div className="row">
-                        <div className="col-md-4 offset-4 border border-dark input_box">
+                        <div className="col-md-4 offset-4 input_box">
                             <div className="row justify-content-center">
                                 <h1>Register</h1>
                             </div>
@@ -101,12 +101,14 @@ class Registration extends Component {
                                 </select>
                                 <input type="password" name="password" value={this.state.password} onChange={this.handleChange} className="form-control form_spacing" placeholder="Password" />
                                 <input type="password" name="password2" value={this.state.password2} onChange={this.handleChange} className="form-control form_spacing" placeholder="Retype Password" />
-                                <input type="submit" className="btn btn-success form-control"/>
+                                <input type="submit" className="btn btn-success form-control form_spacing"/>
                             </form>
-                            <strong>
-                                Already have an account?
-                                <Link to="/login"> Login!</Link>
-                            </strong>
+                            <div className="row justify-content-center">
+                                <strong>
+                                    Already have an account?
+                                    <Link to="/login"> Login!</Link>
+                                </strong>
+                            </div>
                         </div>
                     </div>
                     :

@@ -13,7 +13,7 @@ function WeatherWidget(props) {
     return (
         <React.Fragment>
             <div className="row justify-content-center">
-                <div className="border border-dark weather_card">
+                <div className="weather_card">
                     <div className="row justify-content-center">
                         <h3 id="cityName">{city}, {state}</h3>
                     </div>

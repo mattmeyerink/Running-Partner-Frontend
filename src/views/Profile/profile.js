@@ -99,10 +99,10 @@ class Profile extends Component {
                         {this.state.editing? 
                         <React.Fragment>
                             <div className="row justify-content-center">
-                                <h1 className="text_shadow">Edit Account Information</h1>
+                                <h1>Edit Account Information</h1>
                             </div>
                             <div className="row justify-content-center">
-                                <div className="col-md-6 background_color border border-dark edit_profile_padding">
+                                <div className="col-md-6 background_color edit_profile_padding">
                                     <form onSubmit={this.handleSubmit}>
                                         <input type="text" name="firstName" value={this.state.firstName} onChange={this.handleChange} className="form-control form_spacing" placeholder="First Name" />
                                             <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange} className="form-control form_spacing" placeholder="Last Name" />
@@ -120,21 +120,26 @@ class Profile extends Component {
                         :
                         <React.Fragment>
                             <div className="row justify-content-center">
-                                <h1 className="text_shadow">{first_name} {last_name}</h1>
+                                <h1>{first_name} {last_name}</h1>
                             </div>
                             <div className="row justify-content-center">
                                 <button className="btn btn-warning text_spacing" onClick={this.beginEditing}>Edit Account</button>
                                 <button className="btn btn-danger text_spacing" onClick={this.deleteAccount}>Delete Account</button>
                             </div>
                             <div className="row justify-content-center">
-                                <p className="text_shadow_small"><b>Username:</b> {username}</p>
+                                <div className="col-md-4 run_entry_input_box">
+                                    <div className="row justify-content-center">
+                                        <h5><b>Username:</b> {username}</h5>
+                                    </div>
+                                    <div className="row justify-content-center">
+                                        <h5><b>Email:</b> {email}</h5>
+                                    </div>
+                                    <div className="row justify-content-center">
+                                        <h5><b>Running Location:</b> {city}, {state}</h5>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="row justify-content-center">
-                                <p className="text_shadow_small"><b>Email:</b> {email}</p>
-                            </div>
-                            <div className="row justify-content-center">
-                                <p className="text_shadow_small"><b>Running Location:</b> {city}, {state}</p>
-                            </div>
+                            
                         </React.Fragment>
                         }
                 </React.Fragment>

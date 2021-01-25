@@ -117,10 +117,10 @@ class AllRuns extends Component {
                 {this.props.userAuthenticated? 
                 <React.Fragment>
                     <div className="row justify-content-center">
-                        <h1 className="text_shadow">My Runs</h1>
+                        <h1>My Runs</h1>
                     </div>
                     <div className="row justify-content-center text_spacing">
-                        <div className="col-md-6">
+                        <div className="col-md-5 run_entry_input_box">
                             <div className="row justify-content-center">
                                 <RunPageRunEntry user_id={this.props.userData.id} city={this.props.userData.city} 
                                         state={this.props.userData.state} getRunData={this.getRunData} 
@@ -131,16 +131,16 @@ class AllRuns extends Component {
                     {this.state.totalRuns === 0?
                     <React.Fragment>
                         <div className="row justify-content-center">
-                            <h3 className="text_shadow">You haven't done any runs yet!</h3>
+                            <h3>You haven't done any runs yet!</h3>
                         </div>
                         <div className="row justify-content-center">
-                            <h3 className="text_shadow">Theres a whole world to explore! Get out there!</h3>
+                            <h3>Theres a whole world to explore! Get out there!</h3>
                         </div>
                     </React.Fragment>
                     :
                     <React.Fragment>
                         <div className="row justify-content-center training_run_spacing">
-                            <div className="col-md-8 background_color border border-dark">
+                            <div className="col-md-7 background_color">
                                 <div className="row justify-content-center">
                                     <strong className="text_spacing">Total Miles: {this.state.totalMiles} Miles</strong>
                                     <strong className="text_spacing">Total Runs: {this.state.totalRuns}</strong>
@@ -151,7 +151,7 @@ class AllRuns extends Component {
                         <div className="row justify-content-center">
                             {this.state.runs.map(run => (
                                 <React.Fragment key={run.id}>
-                                        <div className="col-md-8 border border-dark run_card">
+                                        <div className="col-md-8 run_card">
                                             <div className="row">
                                                 <div className="col-md-11">
                                                     <h5>{run.distance} Miles - {run.run_city}, {run.run_state}</h5>
