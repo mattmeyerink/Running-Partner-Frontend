@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
 }
 
 code {
@@ -88,11 +89,8 @@ code {
 }
 
 .home_page {
-  background-image: url('./images/home_background.jpg');
-  background-position: center;
-  height: 1750px;
-  background-size: cover;
-  background-attachment: fixed;
+  height: 100%;
+  background-color: black;
 }
 
 .text_shadow {

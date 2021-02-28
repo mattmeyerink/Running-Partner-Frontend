@@ -63,8 +63,9 @@ class App extends Component {
   }
 
   render() {
+    document.body.style.backgroundColor = "#323232";
     return (
-      <div className="home_page">
+      <div>
         <NavBar userAuthenticated={this.state.userAuthenticated} logout={this.logout}/>
         <main className="container">
           <Switch>
