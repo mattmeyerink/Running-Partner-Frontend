@@ -289,7 +289,7 @@ class AddPlan extends Component {
                             </form>
                         </div>
                         <div className="row justify-content-center">
-                            <h3 className="text_shadow">Training Plan</h3>
+                            <h3>Training Plan</h3>
                         </div>
                         <div className="row justify-content-center">
                             <div className="col-md-10">
