@@ -5,7 +5,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: black;
 }
 
 code {
@@ -90,7 +89,6 @@ code {
 
 .home_page {
   height: 100%;
-  background-color: black;
 }
 
 .text_shadow {
@@ -114,4 +112,8 @@ code {
 .quote {
   color: black;
   text-align: center;
+}
+
+.btn-success {
+  background-color: #02A7A2 !important;
 }

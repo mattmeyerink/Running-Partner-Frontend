@@ -20,4 +20,12 @@
     border: none;
     background-color: white;
     margin-top: 20px;
-  }
+}
+
+.navbar_custom {
+    background-color: #02A7A2;
+}
+
+.btn-secondary {
+    background-color: #323232 !important;
+}

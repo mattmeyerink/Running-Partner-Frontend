@@ -15,7 +15,7 @@ class NavBar extends Component {
     render() {
         return (
             <React.Fragment>
-                <nav className="navbar navbar-expand-lg navbar-dark bg-info">
+                <nav className="navbar navbar-expand-lg  navbar-dark navbar_custom">
                     <Link className="navbar-brand" to="/">Running Partner</Link>
                 
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
