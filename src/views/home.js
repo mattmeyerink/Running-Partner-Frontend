@@ -76,16 +76,18 @@ class Home extends Component {
                 {this.props.userAuthenticated ?
                 <React.Fragment>
                     <div className="row justify-content-center home_widgets">
-                        <h1>{this.state.greeting} {first_name}!</h1>
+                        <h1 className="white_text">{this.state.greeting} {first_name}!</h1>
                     </div>
                     
 
                     {this.state.loading ?
                     <div className="row justify-content-center">
-                        <h1>Loading...</h1>
+                        <h1 className="white_text">Loading...</h1>
                     </div>
                     :
                     <React.Fragment>
+                        {/*
+                        Note Temporarily pulling motivaitonal quote seciton
                         <div className="row justify-content-center">
                             <div className="col-md-8">
                                 <div className="row justify-content-center home_widgets">
@@ -104,12 +106,13 @@ class Home extends Component {
                                 </div>
                             </div>
                         </div>
+                        */}
                         
                         <div className="row justify-content-center home_widgets">
-                            <div className="col-md-3">
+                            <div className="col-md-3 widget_spacing">
                                 <WeatherWidget city={city} state={state} weatherData={this.state.weatherData} />
                             </div>
-                            <div className="col-md-3 widget_spacing">
+                            <div className="col-md-4 widget_spacing">
                                 <TodaysRun userData={this.props.userData}/>
                             </div>
                             <div className="col-md-3 widget_spacing">

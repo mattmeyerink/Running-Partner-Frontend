@@ -53,7 +53,7 @@ code {
 }
   
 .widget_spacing {
-  margin-left: 20px;
+  margin: 20px;
 }
 
 .run_card {
@@ -116,4 +116,8 @@ code {
 
 .btn-success {
   background-color: #02A7A2 !important;
+}
+
+.white_text {
+  color: white;
 }
