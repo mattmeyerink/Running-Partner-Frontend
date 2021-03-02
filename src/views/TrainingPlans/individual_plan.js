@@ -63,7 +63,7 @@ class SinglePlan extends Component {
                 {this.props.userAuthenticated ?
                 <React.Fragment>
                 <div className="row justify-content-center">
-                    <h1>{training_plan.race_name} - {training_plan.difficulty}</h1>
+                    <h1 className="white_text">{training_plan.race_name} - {training_plan.difficulty}</h1>
                 </div>
                 <div className="row justify-content-center">
                     <Link to={`/add_plan/${training_plan.id}`} className="btn btn-success form_spacing">Use Plan</Link>
