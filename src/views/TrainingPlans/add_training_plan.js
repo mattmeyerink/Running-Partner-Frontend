@@ -277,7 +277,7 @@ class AddPlan extends Component {
                             <button onClick={this.submitPlan} className="btn btn-success form_spacing">Submit Plan</button>
                         </div>
                         <div className="row justify-content-center">
-                            <h4 className="label_margin text_shadow">Start Date</h4>
+                            <h4 className="label_margin white_text">Start Date</h4>
                             <form>
                                 <select name="startDate" value={this.state.startDate} onChange={this.handleChange}>
                                     {this.state.possibleStartDates.map((possibleStartDate, index) => (
@@ -289,7 +289,7 @@ class AddPlan extends Component {
                             </form>
                         </div>
                         <div className="row justify-content-center">
-                            <h3>Training Plan</h3>
+                            <h3 className="white_text">Training Plan</h3>
                         </div>
                         <div className="row justify-content-center">
                             <div className="col-md-10">

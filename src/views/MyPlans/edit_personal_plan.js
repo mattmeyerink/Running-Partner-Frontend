@@ -194,7 +194,7 @@ class EditPlan extends Component {
                     {this.state.loading ?
                     <React.Fragment>
                         <div className="row justify-content-center">
-                            <h1>Loading...</h1>
+                            <h1 className="white_text">Loading...</h1>
                         </div>
                     </React.Fragment>
                     :
@@ -206,7 +206,7 @@ class EditPlan extends Component {
                         :
                         <React.Fragment>
                         <div className="row justify-content-center">
-                            <h1>{this.state.planData.race_name} - {this.state.planData.difficulty}</h1>
+                            <h1 className="white_text">{this.state.planData.race_name} - {this.state.planData.difficulty}</h1>
                         </div>
                         <div className="row justify-content-center">
                             <button onClick={this.submitPlan} className="btn btn-success form_spacing">Submit Plan</button>

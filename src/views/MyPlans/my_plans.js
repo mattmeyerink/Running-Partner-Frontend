@@ -68,15 +68,15 @@ class MyPlans extends Component {
                 {this.props.userAuthenticated ?
                 <React.Fragment>
                     <div className="row justify-content-center">
-                        <h1>My Plans</h1>
+                        <h1 className="white_text">My Plans</h1>
                     </div>
                     {this.state.training_plans.length === 0?
                     <React.Fragment>
                         <div className="row justify-content-center">
-                            <h3>You are not currently signed up for any training plans.</h3>
+                            <h3 className="white_text">You are not currently signed up for any training plans.</h3>
                         </div>
                         <div className="row justify-content-center">
-                            <h3>Sign up for a plan <Link to="/training_plans">here</Link>!</h3>
+                            <h3 className="white_text">Sign up for a plan <Link to="/training_plans">here</Link>!</h3>
                         </div>
                     </React.Fragment>
                     
@@ -86,7 +86,7 @@ class MyPlans extends Component {
                         <React.Fragment>
                             <div className="row">
                                 <div className="offset-2">
-                                    <h3>My Active Plan</h3>
+                                    <h3 className="white_text">My Active Plan</h3>
                                 </div>
                             </div>
                             <div className="row justify-content-center">
@@ -107,7 +107,7 @@ class MyPlans extends Component {
                     }
                     <div className="row">
                         <div className="offset-2">
-                            <h3>Saved Plans</h3>
+                            <h3 className="white_text">Saved Plans</h3>
                         </div>
                     </div>
                     <div className="row justify-content-center">

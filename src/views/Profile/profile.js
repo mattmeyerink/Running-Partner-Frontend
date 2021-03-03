@@ -99,7 +99,7 @@ class Profile extends Component {
                         {this.state.editing? 
                         <React.Fragment>
                             <div className="row justify-content-center">
-                                <h1>Edit Account Information</h1>
+                                <h1 className="white_text">Edit Account Information</h1>
                             </div>
                             <div className="row justify-content-center">
                                 <div className="col-md-6 background_color edit_profile_padding">
@@ -120,7 +120,7 @@ class Profile extends Component {
                         :
                         <React.Fragment>
                             <div className="row justify-content-center">
-                                <h1>{first_name} {last_name}</h1>
+                                <h1 className="white_text">{first_name} {last_name}</h1>
                             </div>
                             <div className="row justify-content-center">
                                 <button className="btn btn-warning text_spacing" onClick={this.beginEditing}>Edit Account</button>

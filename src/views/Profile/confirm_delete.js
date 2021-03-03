@@ -40,10 +40,10 @@ class ConfirmDeleteAccount extends Component {
                 :
                 <React.Fragment>
                     <div className="row justify-content-center">
-                        <h1>Are you sure you want to delete your account?</h1>
+                        <h1 className="white_text">Are you sure you want to delete your account?</h1>
                     </div>
                     <div className="row justify-content-center">
-                    <h1>All data associated with it will be lost.</h1>
+                        <h1 className="white_text">All data associated with it will be lost.</h1>
                     </div>
                     <div className="row justify-content-center">
                         <button className="btn btn-danger" onClick={this.deleteAccount}>Delete Account</button>

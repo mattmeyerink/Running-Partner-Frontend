@@ -157,7 +157,7 @@ class PersonalPlan extends Component {
                 :
                     <React.Fragment>
                         <div className="row justify-content-center">
-                            <h1>{training_plan.race_name} - {training_plan.difficulty}</h1>
+                            <h1 className="white_text">{training_plan.race_name} - {training_plan.difficulty}</h1>
                         </div>
                         <div className="row justify-content-center">
                             {this.props.userData.active_plan === this.state.planData.id?
