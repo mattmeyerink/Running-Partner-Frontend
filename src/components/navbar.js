@@ -32,6 +32,9 @@ class NavBar extends Component {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/profile">Profile</Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/help">Help</Link>
+                            </li>
                         </ul>
                         {this.props.userAuthenticated ?
                         <button className="btn btn-secondary" onClick={this.props.logout}>Logout</button>

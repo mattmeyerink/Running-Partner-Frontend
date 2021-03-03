@@ -10,6 +10,7 @@ import PersonalPlan from './views/MyPlans/personal_plan';
 import EditPlan from './views/MyPlans/edit_personal_plan';
 import MyPlans from './views/MyPlans/my_plans';
 import AllRuns from './views/Runs/all_runs';
+import GeneralHelp from './views/Help/generalHelp';
 import Login from './views/Authentication/login';
 import Registration from './views/Authentication/register';
 import NavBar from './components/navbar';
@@ -112,6 +113,8 @@ class App extends Component {
             <Route exact path = "/profile/confirm_delete/:id" render={({ match }) => 
                 <ConfirmDeleteAccount logout={this.logout} match={match} userData={this.state.userData}/> 
             } />
+
+            <Route exact path = "/help" render={() => <GeneralHelp />} />
 
             <Route exact path = "/login" render={() => 
                 <Login login={this.login} userAuthenticated={this.state.userAuthenticated} 
