@@ -23,12 +23,19 @@ class App extends Component {
 
     this.state = {
       userAuthenticated: false,
-      userData: {}
+      userData: {},
+      currentPage: "",
     }
 
+    this.setCurrentPage = this.setCurrentPage.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.refreshUserData = this.refreshUserData.bind(this);
+  }
+
+  // Sets the current page to pass to the nav bar
+  setCurrentPage(page) {
+    this.setState({currentPage: page});
   }
 
   // Login the user. Passed to login screen.
@@ -72,49 +79,55 @@ class App extends Component {
           <Switch>
             <Route exact path = "/" render={() => 
                 <Home userAuthenticated={this.state.userAuthenticated} userData={this.state.userData} 
-                    owAPIKey={this.state.owAPIKey}/>
+                    owAPIKey={this.state.owAPIKey} setCurrentPage={this.setCurrentPage} />
             }/>
 
             <Route exact path = "/training_plans" render={() => 
-                <TrainingPlan userAuthenticated={this.state.userAuthenticated} userData={this.state.userData}/>
+                <TrainingPlan userAuthenticated={this.state.userAuthenticated} userData={this.state.userData}
+                    setCurrentPage={this.setCurrentPage} />
             }/>
 
             <Route exact path = "/training_plans/:id" render={({ match }) => 
-                <SinglePlan match={match} userAuthenticated={this.state.userAuthenticated} userData={this.state.userData}/>
+                <SinglePlan match={match} userAuthenticated={this.state.userAuthenticated} 
+                    userData={this.state.userData} setCurrentPage={this.setCurrentPage} />
             }/>
 
             <Route exact path = "/personal_plan" render={() => 
-                <MyPlans userAuthenticated={this.state.userAuthenticated} userData={this.state.userData} />
+                <MyPlans userAuthenticated={this.state.userAuthenticated} userData={this.state.userData} 
+                    setCurrentPage={this.setCurrentPage} />
             } />
 
             <Route exact path = "/personal_plan/:id" render={({ match }) => 
-                <PersonalPlan match={match} userData={this.state.userData} refreshUserData={this.refreshUserData}/> 
+                <PersonalPlan match={match} userData={this.state.userData} 
+                    refreshUserData={this.refreshUserData} setCurrentPage={this.setCurrentPage} /> 
             } />
 
             <Route exact path = "/personal_plan/edit/:id" render={({ match }) => 
                 <EditPlan match={match} userAuthenticated={this.state.userAuthenticated}
-                    userData={this.state.userData} /> 
+                    userData={this.state.userData} setCurrentPage={this.setCurrentPage} /> 
             } />
 
             <Route exact path = "/add_plan/:id" render={({ match }) => 
                 <AddPlan match={match} userAuthenticated={this.state.userAuthenticated} 
-                    userData={this.state.userData}/>
+                    userData={this.state.userData} setCurrentPage={this.setCurrentPage} />
             } />
 
             <Route exact path = "/all_runs" render={() => 
-                <AllRuns userAuthenticated={this.state.userAuthenticated} userData={this.state.userData} /> 
+                <AllRuns userAuthenticated={this.state.userAuthenticated} userData={this.state.userData} 
+                    setCurrentPage={this.setCurrentPage} /> 
             } />
 
             <Route exact path = "/profile" render={() => 
                 <Profile userAuthenticated={this.state.userAuthenticated} userData={this.state.userData}
-                    refreshUserData={this.refreshUserData}/>
+                    refreshUserData={this.refreshUserData} setCurrentPage={this.setCurrentPage} />
             } />
 
             <Route exact path = "/profile/confirm_delete/:id" render={({ match }) => 
-                <ConfirmDeleteAccount logout={this.logout} match={match} userData={this.state.userData}/> 
+                <ConfirmDeleteAccount logout={this.logout} match={match} 
+                    userData={this.state.userData} setCurrentPage={this.setCurrentPage} /> 
             } />
 
-            <Route exact path = "/help" render={() => <GeneralHelp />} />
+            <Route exact path = "/help" render={() => <GeneralHelp setCurrentPage={this.setCurrentPage}/>} />
 
             <Route exact path = "/login" render={() => 
                 <Login login={this.login} userAuthenticated={this.state.userAuthenticated} 
