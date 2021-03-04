@@ -14,6 +14,9 @@ class TrainingPlan extends Component {
 
     // Fetch all of the trianing plans from the API when the component mounts
     componentDidMount(){
+        // Set current page to allTraining Plans for the nav bar
+        this.props.setCurrentPage("allTrainingPlans");
+        
         const myHeaders = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.props.userData.token,

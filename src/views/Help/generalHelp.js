@@ -9,6 +9,11 @@ class GeneralHelp extends Component {
         };
     }
 
+    componentDidMount() {
+        // Set the current page to help for the nav bar
+        this.props.setCurrentPage("help");
+    }
+
     render() {
         return (
             <React.Fragment>

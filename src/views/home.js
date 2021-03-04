@@ -22,6 +22,9 @@ class Home extends Component {
     
     // Make initial API Calls for weather data, today's run, and run input.
     componentDidMount() {
+        // Set the users page to blank to unhighlight any nav bar tabs
+        this.props.setCurrentPage("");
+
         if (this.props.userAuthenticated) {
             // Fetch the weather data (hind sight I should move this to the weatherWidget component)
             const myHeaders = new Headers({

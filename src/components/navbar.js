@@ -14,6 +14,7 @@ class NavBar extends Component {
 
     render() {
         const { currentPage } = this.props;
+        
         return (
             <React.Fragment>
                 <nav className="navbar navbar-expand-lg  navbar-dark navbar_custom">

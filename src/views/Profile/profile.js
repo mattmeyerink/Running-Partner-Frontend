@@ -29,6 +29,11 @@ class Profile extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        // Set the current page to profile for the nav bar
+        this.props.setCurrentPage("profile");
+    }
+
     // Set state to begin editing
     beginEditing() {
         this.setState({editing: true});

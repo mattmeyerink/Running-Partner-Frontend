@@ -17,6 +17,9 @@ class MyPlans extends Component {
     }
 
     componentDidMount(){
+        // Set the current page to myTrainingPlans for the nav bar
+        this.props.setCurrentPage("myTrainingPlans");
+        
         const myHeaders = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.props.userData.token,

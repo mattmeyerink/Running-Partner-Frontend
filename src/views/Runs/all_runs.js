@@ -24,6 +24,9 @@ class AllRuns extends Component {
 
     // Gather all of the user's runs from the runs db
     componentDidMount() {
+        // Set the current page to myRuns for the nav bar
+        this.props.setCurrentPage("myRuns");
+        
         const myHeaders = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.props.userData.token,

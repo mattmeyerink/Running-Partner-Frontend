@@ -16,6 +16,9 @@ class SinglePlan extends Component {
 
     // Get the plan data for a single training plan
     componentDidMount() {
+        // Set current page to allTraining Plans for the nav bar
+        this.props.setCurrentPage("allTrainingPlans");
+        
         const myHeaders = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.props.userData.token,

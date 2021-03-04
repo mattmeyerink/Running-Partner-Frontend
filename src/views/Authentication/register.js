@@ -24,6 +24,11 @@ class Registration extends Component {
         this.clearWarning = this.clearWarning.bind(this);
     }
 
+    componentDidMount() {
+        // Set the users page to blank to unhighlight any nav bar tabs
+        this.props.setCurrentPage("");
+    }
+
     handleChange(event) {
         const target = event.target;
         const name = target.name;

@@ -12,6 +12,11 @@ class ConfirmDeleteAccount extends Component {
         this.deleteAccount = this.deleteAccount.bind(this);
     }
 
+    componentDidMount() {
+        // Set the current page to profile for the nav bar
+        this.props.setCurrentPage("profile");
+    }
+
     // Method to handle delete account
     deleteAccount() {
         const myHeaders = new Headers({

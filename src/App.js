@@ -131,10 +131,10 @@ class App extends Component {
 
             <Route exact path = "/login" render={() => 
                 <Login login={this.login} userAuthenticated={this.state.userAuthenticated} 
-                    userData={this.state.userData}/>
+                    userData={this.state.userData} setCurrentPage={this.setCurrentPage} />
             } />
 
-            <Route exact path = "/registration" render={() => <Registration />} />
+            <Route exact path = "/registration" render={() => <Registration />} setCurrentPage={this.setCurrentPage} />
           </Switch>
         </main>
       </div>
