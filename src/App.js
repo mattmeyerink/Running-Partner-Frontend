@@ -74,7 +74,7 @@ class App extends Component {
     document.body.style.backgroundColor = "#323232";
     return (
       <div>
-        <NavBar userAuthenticated={this.state.userAuthenticated} logout={this.logout}/>
+        <NavBar userAuthenticated={this.state.userAuthenticated} logout={this.logout} currentPage={this.state.currentPage} />
         <main className="container">
           <Switch>
             <Route exact path = "/" render={() => 
@@ -139,7 +139,6 @@ class App extends Component {
         </main>
       </div>
     );
-
   }
 }
 
