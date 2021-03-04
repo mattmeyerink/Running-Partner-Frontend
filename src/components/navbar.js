@@ -13,6 +13,7 @@ class NavBar extends Component {
     }
 
     render() {
+        const { currentPage } = this.props;
         return (
             <React.Fragment>
                 <nav className="navbar navbar-expand-lg  navbar-dark navbar_custom">
@@ -20,19 +21,19 @@ class NavBar extends Component {
                 
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav mr-auto">
-                            <li className="nav-item">
+                            <li className={currentPage==="myTrainingPlans" ? "nav-item active" : "nav-item"} >
                                 <Link className="nav-link" to="/personal_plan">My Training Plans</Link>
                             </li>
-                            <li className="nav-item">
+                            <li className={currentPage==="myRuns" ? "nav-item active" : "nav-item"}>
                                 <Link className="nav-link" to="/all_runs">My Runs</Link>
                             </li>
-                            <li className="nav-item">
+                            <li className={currentPage==="allTrainingPlans" ? "nav-item active" : "nav-item"}>
                                 <Link className="nav-link" to="/training_plans">Training Plans</Link>
                             </li>
-                            <li className="nav-item">
+                            <li className={currentPage==="profile" ? "nav-item active" : "nav-item"}>
                                 <Link className="nav-link" to="/profile">Profile</Link>
                             </li>
-                            <li className="nav-item">
+                            <li className={currentPage==="help" ? "nav-item active" : "nav-item"}>
                                 <Link className="nav-link" to="/help">Help</Link>
                             </li>
                         </ul>
@@ -44,7 +45,6 @@ class NavBar extends Component {
                             <Link to="/registration" className="btn btn-secondary registration_btn">Register</Link>
                         </React.Fragment>
                         }
-                        
                     </div>
                 </nav>
             </React.Fragment>
