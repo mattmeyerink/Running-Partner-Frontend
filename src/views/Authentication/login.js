@@ -9,7 +9,8 @@ class Login extends Component {
         this.state = {
             warning: "",
             email: "",
-            password: ""
+            password: "",
+            loading: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,6 +44,9 @@ class Login extends Component {
             "password": this.state.password
         }
 
+        // Tell state loading has begun
+        this.setState({loading: true});
+
         // Fetch request to authentication section of API
         fetch("https://running-partner.herokuapp.com/authentication/login", {
             method: "POST",
@@ -60,6 +64,7 @@ class Login extends Component {
         .then(data => {
             if (data !== {}){
                 this.props.login(data);
+            this.setState({loading: false});
         }})
         .catch(error => console.error(error))
 
@@ -80,36 +85,44 @@ class Login extends Component {
                 <React.Fragment>
                     {this.state.warning === "" ?
                     <div className="row">
-                        <div className="col-md-4 offset-4 login_input_box">
-                            <div className="row justify-content-center">
-                                <h1>Login</h1>
+                        {this.state.loading ?
+                            <div className="col">
+                                <div className="row justify-content-center">
+                                    <h1 className="white_text">Loading...</h1>
+                                </div>
                             </div>
-                            <form onSubmit={this.handleSubmit}>
-                                <input 
-                                    type="text" 
-                                    name="email"
-                                    onChange={this.handleChange}
-                                    value={this.state.username}
-                                    placeholder="Email" 
-                                    className="form-control form_spacing"
-                                />
-                                <input 
-                                    type="password" 
-                                    name="password"
-                                    onChange={this.handleChange}
-                                    value={this.state.password}
-                                    placeholder="Password" 
-                                    className="form-control form_spacing"
-                                />
-                                <input type="submit" className="form-control btn btn-success form_spacing" />
-                            </form>
-                            <div className="row justify-content-center">
-                                <strong>
-                                    Not signed up yet?
-                                    <Link to="/registration"> Create an account!</Link>
-                                </strong>
+                        :
+                            <div className="col-md-4 offset-4 login_input_box">
+                                <div className="row justify-content-center">
+                                    <h1>Login</h1>
+                                </div>
+                                <form onSubmit={this.handleSubmit}>
+                                    <input 
+                                        type="text" 
+                                        name="email"
+                                        onChange={this.handleChange}
+                                        value={this.state.username}
+                                        placeholder="Email" 
+                                        className="form-control form_spacing"
+                                    />
+                                    <input 
+                                        type="password" 
+                                        name="password"
+                                        onChange={this.handleChange}
+                                        value={this.state.password}
+                                        placeholder="Password" 
+                                        className="form-control form_spacing"
+                                    />
+                                    <input type="submit" className="form-control btn btn-success form_spacing" />
+                                </form>
+                                <div className="row justify-content-center">
+                                    <strong>
+                                        Not signed up yet?
+                                        <Link to="/registration"> Create an account!</Link>
+                                    </strong>
+                                </div>
                             </div>
-                        </div>
+                        }
                     </div>
                     :
                     <React.Fragment>
