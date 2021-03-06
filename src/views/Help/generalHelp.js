@@ -60,6 +60,38 @@ class GeneralHelp extends Component {
                         you select a training plan, any day you have a run scheduled, the widget will display the 
                         amount you are scheduled to run that day. 
                     </p>
+
+                    <h3>Training Plans</h3>
+                    <p>
+                        When you first login to the app you will have no training plans currently 
+                        associated with your account. Fear not! Adding training plans to your account
+                        is easy! To add a training plan to your account navigate to the "Training Plans"
+                        page in the navigation bar. On this page you will see there are tons of plans to 
+                        chose from! Select the plan that appeals the most to you to view the details of the 
+                        plan. Are no plans looking right for you? Just select the custom training plan option!
+                        This option will be a blank plan you can edit to be anything you want!
+                        If it seems like it is the plan for you, awesome! The next step will be to
+                        edit the plan any way you see fit. While it is nice to have plans to chose from, no 
+                        two people are the exact same and neither are there schedules! Just use the edit button
+                        on the side of each week to turn the week into a form. Change any days you want
+                        and be sure to click save to view your updated plan. Not sure about a specific change? 
+                        Don't worry! When it is added to your account your training plan is not set in stone. 
+                        After a plan is added to your account you can change it at any time!
+                        When you think you have the plan set, just click to add it to your account! 
+                    </p>
+                    <p>
+                        You can have more than one training plan associated with your account. This can
+                        be useful if you are someone who likes to plan your runs very far in advance. To
+                        view the runs added to your account select the "My Training Plans" tab from the 
+                        navigation bar. From here you can click into each of your training plans to view 
+                        infomration on them as well as delete plans you don't need anymore. The two key
+                        features on this page is the ability to edit a plan and the ability to set an active
+                        training plan. By clicking into a training plan you can enter edit mode similar to 
+                        when you add a new trainign plan. Setting an active plan is the key to the "Today's Run"
+                        widget on the dashboard. The "Today's Run" widget pulls the day's run from the plan
+                        you have set as your active plan. To set a plan as your active plan simply enter the plan
+                        detail page by clicking on the plan and clicking the "set active plan" button.
+                    </p>
                 </div>
             </div>
         );
