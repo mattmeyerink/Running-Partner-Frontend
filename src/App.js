@@ -33,12 +33,12 @@ class App extends Component {
     this.refreshUserData = this.refreshUserData.bind(this);
   }
 
-  // Sets the current page to pass to the nav bar
+  /* Sets the current page to pass to the nav bar */
   setCurrentPage(page) {
     this.setState({currentPage: page});
   }
 
-  // Login the user. Passed to login screen.
+  /* Login the user. Passed to login screen */
   login(data) {
     this.setState({
       userAuthenticated: true,
@@ -46,7 +46,7 @@ class App extends Component {
     })
   }
 
-  // Logout the current user. Passed to logout screen.
+  /* Logout the current user. Passed to logout screen */
   logout() {
     this.setState({
       userAuthenticated: false,
@@ -54,87 +54,149 @@ class App extends Component {
     })
   }
 
-  // Re pull the user data after an edit in the profile page. Passed to the profile page.
+  /* 
+  Re pull the user data after an edit in the profile page.
+  Passed to the profile page.
+  */
   refreshUserData() {
+    // Set Headers required for API Request
     const myHeaders = new Headers({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.state.userData.token,
     });
 
+    // Submit request and store user data
+    // TODO This is where I will need to change where I am storing user data to allow
+    // persistent login. That will be good for users and good for dev env
     fetch(`https://running-partner.herokuapp.com/authentication/get_user_data/${this.state.userData.id}`, {
       method: 'GET',
       headers: myHeaders
     })
-        .then(response => response.json())
-        .then(data => this.setState({userData: data}))
-        .catch(error => console.error(error))
+      .then(response => response.json())
+      .then(data => this.setState({userData: data}))
+      .catch(error => console.error(error))
   }
 
   render() {
+    // Setting background for entire app here. CSS was being broken don't know why
     document.body.style.backgroundColor = "#323232";
+
     return (
       <div>
-        <NavBar userAuthenticated={this.state.userAuthenticated} logout={this.logout} currentPage={this.state.currentPage} />
+        <NavBar 
+          userAuthenticated={this.state.userAuthenticated}
+          logout={this.logout} 
+          currentPage={this.state.currentPage} 
+        />
         <main className="container">
           <Switch>
             <Route exact path = "/" render={() => 
-                <Home userAuthenticated={this.state.userAuthenticated} userData={this.state.userData} 
-                    owAPIKey={this.state.owAPIKey} setCurrentPage={this.setCurrentPage} />
+                <Home 
+                  userAuthenticated={this.state.userAuthenticated}
+                  userData={this.state.userData} 
+                  owAPIKey={this.state.owAPIKey} 
+                  setCurrentPage={this.setCurrentPage} 
+                />
             }/>
 
             <Route exact path = "/training_plans" render={() => 
-                <TrainingPlan userAuthenticated={this.state.userAuthenticated} userData={this.state.userData}
-                    setCurrentPage={this.setCurrentPage} />
+                <TrainingPlan 
+                  userAuthenticated={this.state.userAuthenticated} 
+                  userData={this.state.userData}
+                  setCurrentPage={this.setCurrentPage} 
+                />
             }/>
 
             <Route exact path = "/training_plans/:id" render={({ match }) => 
-                <SinglePlan match={match} userAuthenticated={this.state.userAuthenticated} 
-                    userData={this.state.userData} setCurrentPage={this.setCurrentPage} />
+                <SinglePlan 
+                  match={match} 
+                  userAuthenticated={this.state.userAuthenticated} 
+                  userData={this.state.userData} 
+                  setCurrentPage={this.setCurrentPage} 
+                />
             }/>
 
             <Route exact path = "/personal_plan" render={() => 
-                <MyPlans userAuthenticated={this.state.userAuthenticated} userData={this.state.userData} 
-                    setCurrentPage={this.setCurrentPage} />
-            } />
+                <MyPlans 
+                  userAuthenticated={this.state.userAuthenticated} 
+                  userData={this.state.userData} 
+                  setCurrentPage={this.setCurrentPage} 
+                /> 
+            }/>
 
             <Route exact path = "/personal_plan/:id" render={({ match }) => 
-                <PersonalPlan match={match} userData={this.state.userData} 
-                    refreshUserData={this.refreshUserData} setCurrentPage={this.setCurrentPage} /> 
-            } />
+                <PersonalPlan 
+                  match={match} 
+                  userData={this.state.userData} 
+                  refreshUserData={this.refreshUserData} 
+                  setCurrentPage={this.setCurrentPage} 
+                /> 
+            }/>
 
             <Route exact path = "/personal_plan/edit/:id" render={({ match }) => 
-                <EditPlan match={match} userAuthenticated={this.state.userAuthenticated}
-                    userData={this.state.userData} setCurrentPage={this.setCurrentPage} /> 
-            } />
+                <EditPlan 
+                  match={match} 
+                  userAuthenticated={this.state.userAuthenticated}
+                  userData={this.state.userData} 
+                  setCurrentPage={this.setCurrentPage} 
+                /> 
+            }/>
 
             <Route exact path = "/add_plan/:id" render={({ match }) => 
-                <AddPlan match={match} userAuthenticated={this.state.userAuthenticated} 
-                    userData={this.state.userData} setCurrentPage={this.setCurrentPage} />
-            } />
+                <AddPlan 
+                  match={match} 
+                  userAuthenticated={this.state.userAuthenticated} 
+                  userData={this.state.userData} 
+                  setCurrentPage={this.setCurrentPage} 
+                />
+            }/>
 
             <Route exact path = "/all_runs" render={() => 
-                <AllRuns userAuthenticated={this.state.userAuthenticated} userData={this.state.userData} 
-                    setCurrentPage={this.setCurrentPage} /> 
-            } />
+                <AllRuns 
+                  userAuthenticated={this.state.userAuthenticated} 
+                  userData={this.state.userData} 
+                  setCurrentPage={this.setCurrentPage} 
+                /> 
+            }/>
 
             <Route exact path = "/profile" render={() => 
-                <Profile userAuthenticated={this.state.userAuthenticated} userData={this.state.userData}
-                    refreshUserData={this.refreshUserData} setCurrentPage={this.setCurrentPage} />
-            } />
+                <Profile 
+                  userAuthenticated={this.state.userAuthenticated} 
+                  userData={this.state.userData}
+                  refreshUserData={this.refreshUserData} 
+                  setCurrentPage={this.setCurrentPage} 
+                />
+            }/>
 
             <Route exact path = "/profile/confirm_delete/:id" render={({ match }) => 
-                <ConfirmDeleteAccount logout={this.logout} match={match} 
-                    userData={this.state.userData} setCurrentPage={this.setCurrentPage} /> 
-            } />
+                <ConfirmDeleteAccount
+                  match={match} 
+                  userData={this.state.userData} 
+                  logout={this.logout} 
+                  setCurrentPage={this.setCurrentPage} 
+                /> 
+            }/>
 
-            <Route exact path = "/help" render={() => <GeneralHelp setCurrentPage={this.setCurrentPage}/>} />
+            <Route exact path = "/help" render={() => 
+              <GeneralHelp 
+                setCurrentPage={this.setCurrentPage}
+              />
+            }/>
 
             <Route exact path = "/login" render={() => 
-                <Login login={this.login} userAuthenticated={this.state.userAuthenticated} 
-                    userData={this.state.userData} setCurrentPage={this.setCurrentPage} />
-            } />
+                <Login 
+                  login={this.login}
+                  userAuthenticated={this.state.userAuthenticated} 
+                  userData={this.state.userData} 
+                  setCurrentPage={this.setCurrentPage} 
+                />
+            }/>
 
-            <Route exact path = "/registration" render={() => <Registration />} setCurrentPage={this.setCurrentPage} />
+            <Route exact path = "/registration" render={() => 
+              <Registration 
+                setCurrentPage={this.setCurrentPage}
+              />
+            }/>
           </Switch>
         </main>
       </div>
