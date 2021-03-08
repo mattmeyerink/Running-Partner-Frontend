@@ -101,6 +101,17 @@ class GeneralHelp extends Component {
                         recently entered runs. You can view the length of the run, the location the run 
                         was recorded in, and the length of the run.
                     </p>
+
+                    <h3>Profile</h3>
+                    <p>
+                        This page displays your entered information. If anything has changed or you 
+                        realize you input the wrong information you can use this page to change your 
+                        stored data using the edit profile button. Click the edit profile button, change
+                        your data, and click submit and your data is changed. This is also the page 
+                        you can use to delete your profile. Click the delete profile button as well 
+                        as the confirmation button. Beware! This action deletes your account and all
+                        infomration and cannot be undone.
+                    </p>
                 </div>
             </div>
         );
