@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import StatesForm from './statesForm';
+import RP_API_URL from '../config';
 import '../index.css';
 
 class RunEntry extends Component {
@@ -46,7 +47,7 @@ class RunEntry extends Component {
         });
 
         // Send POST request to create run in the db
-        fetch('https://running-partner.herokuapp.com/runs/add_run', {
+        fetch(RP_API_URL + '/runs/add_run', {
             method: "POST",
             body: JSON.stringify(runData),
             headers: myHeaders

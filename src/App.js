@@ -14,6 +14,7 @@ import GeneralHelp from './views/Help/generalHelp';
 import Login from './views/Authentication/login';
 import Registration from './views/Authentication/register';
 import NavBar from './components/navbar';
+import RP_API_URL from './config';
 import './index.css';
 
 // App class to control routing and authentication flow
@@ -68,7 +69,7 @@ class App extends Component {
     // Submit request and store user data
     // TODO This is where I will need to change where I am storing user data to allow
     // persistent login. That will be good for users and good for dev env
-    fetch(`https://running-partner.herokuapp.com/authentication/get_user_data/${this.state.userData.id}`, {
+    fetch(RP_API_URL + `/authentication/get_user_data/${this.state.userData.id}`, {
       method: 'GET',
       headers: myHeaders
     })

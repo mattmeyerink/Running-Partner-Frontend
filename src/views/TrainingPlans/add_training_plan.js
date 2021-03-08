@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import moment from 'moment';
+import RP_API_URL from '../../config';
 import '../../index.css'
 
 class AddPlan extends Component {
@@ -53,7 +54,7 @@ class AddPlan extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
         
-        fetch(`https://running-partner.herokuapp.com/training_plans/${this.props.match.params.id}`, {
+        fetch(RP_API_URL + `/training_plans/${this.props.match.params.id}`, {
             method: 'GET',
             headers: myHeaders
         })
@@ -236,7 +237,7 @@ class AddPlan extends Component {
         });
 
         // Send POST request to API. Set planSubmitted state to true if successful to redirect page to profile
-        fetch(`https://running-partner.herokuapp.com/training_plans/add_plan/${userID}`, {
+        fetch(RP_API_URL + `/training_plans/add_plan/${userID}`, {
             method: "POST",
             body: JSON.stringify(planData),
             headers: myHeaders

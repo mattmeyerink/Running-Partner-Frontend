@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom';
 import PlanHeader from '../../components/plan_header';
+import RP_API_URL from '../../config';
 
 // View for the training plan page
 class TrainingPlan extends Component {
@@ -22,7 +23,7 @@ class TrainingPlan extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch('https://running-partner.herokuapp.com/training_plans/all_plans', {
+        fetch(RP_API_URL + '/training_plans/all_plans', {
             method: 'GET',
             headers: myHeaders
         })

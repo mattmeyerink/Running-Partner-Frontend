@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect, Link} from 'react-router-dom';
 import MyPlanHeader from '../../components/my_plan_header';
+import RP_API_URL from '../../config';
 
 class MyPlans extends Component {
     constructor(props) {
@@ -25,7 +26,7 @@ class MyPlans extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(`https://running-partner.herokuapp.com/training_plans/custom_plans/${this.props.userData.id}`, {
+        fetch(RP_API_URL + `/training_plans/custom_plans/${this.props.userData.id}`, {
             method: 'GET',
             headers: myHeaders
         })
@@ -41,7 +42,7 @@ class MyPlans extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(`https://running-partner.herokuapp.com/training_plans/custom_plans/${this.props.userData.id}`, {
+        fetch(RP_API_URL + `/training_plans/custom_plans/${this.props.userData.id}`, {
             method: 'GET',
             headers: myHeaders
         })

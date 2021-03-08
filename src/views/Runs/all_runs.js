@@ -3,6 +3,7 @@ import {Redirect} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash} from '@fortawesome/free-solid-svg-icons';
 import RunPageRunEntry from '../../components/run_page_entry';
+import RP_API_URL from '../../config';
 import '../../index.css';
 
 class AllRuns extends Component {
@@ -32,7 +33,7 @@ class AllRuns extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(`https://running-partner.herokuapp.com/runs/all_runs/${this.props.userData.id}`, {
+        fetch(RP_API_URL + `/runs/all_runs/${this.props.userData.id}`, {
             method: 'GET',
             headers: myHeaders
         })
@@ -65,7 +66,7 @@ class AllRuns extends Component {
         });
 
         // Delete the run from the db
-        fetch(`https://running-partner.herokuapp.com/runs/delete_run/${run_id}`, {
+        fetch(RP_API_URL + `/runs/delete_run/${run_id}`, {
             method: "DELETE",
             headers: myHeaders
         })
@@ -85,7 +86,7 @@ class AllRuns extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(`https://running-partner.herokuapp.com/runs/all_runs/${this.props.userData.id}`, {
+        fetch(RP_API_URL + `/runs/all_runs/${this.props.userData.id}`, {
             method: 'GET',
             headers: myHeaders
         })

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
+import RP_API_URL from '../../config';
 
 class ConfirmDeleteAccount extends Component {
     constructor() {
@@ -24,7 +25,7 @@ class ConfirmDeleteAccount extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(`https://running-partner.herokuapp.com/authentication/delete_account/${this.props.match.params.id}`, {
+        fetch(RP_API_URL + `/authentication/delete_account/${this.props.match.params.id}`, {
             method: "DELETE",
             headers: myHeaders
         })

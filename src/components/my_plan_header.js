@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash} from '@fortawesome/free-solid-svg-icons';
+import RP_API_URL from '../config';
 import './components.css';
 
 class MyPlanHeader extends Component {
@@ -17,7 +18,7 @@ class MyPlanHeader extends Component {
 
     // Deletes a custom plan from the db
     deletePlan() {
-        fetch(`https://running-partner.herokuapp.com/training_plans/custom_plan/delete/${this.props.id}`, {
+        fetch(RP_API_URL + `/training_plans/custom_plan/delete/${this.props.id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import StatesForm from '../../components/statesForm';
 import { Redirect } from 'react-router-dom';
+import RP_API_URL from '../../config';
 import '../../index.css';
 
 // Class to display the current user's profile
@@ -67,7 +68,7 @@ class Profile extends Component {
         });
 
         // POST request to update user's data in db
-        fetch("https://running-partner.herokuapp.com/authentication/edit_profile", {
+        fetch(RP_API_URL + "/authentication/edit_profile", {
             method: "POST",
             body: JSON.stringify(editedUserData),
             headers: myHeaders

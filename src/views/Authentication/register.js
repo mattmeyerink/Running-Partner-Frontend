@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect, Link} from 'react-router-dom';
 import StatesForm from '../../components/statesForm';
+import RP_API_URL from '../../config';
 import '../../index.css';
 
 class Registration extends Component {
@@ -58,7 +59,7 @@ class Registration extends Component {
             "active_plan": -1
         }
 
-        fetch("https://running-partner.herokuapp.com/authentication/register", {
+        fetch(RP_API_URL + "/authentication/register", {
             method: "POST",
             body: JSON.stringify(registrationData),
             headers: {

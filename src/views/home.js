@@ -4,6 +4,7 @@ import {Redirect} from 'react-router-dom';
 import WeatherWidget from '../components/weatherWidget';
 import TodaysRun from '../components/todays_run';
 import RunEntry from '../components/run_entry';
+import RP_API_URL from '../config';
 import '../index.css';
 
 // view for the homepage
@@ -32,7 +33,7 @@ class Home extends Component {
                 'Authorization': 'Bearer ' + this.props.userData.token,
             });
 
-            fetch(`https://running-partner.herokuapp.com/weather/${this.props.userData.city}`, {
+            fetch(RP_API_URL + `/weather/${this.props.userData.city}`, {
                 method: 'GET',
                 headers: myHeaders
             })
