@@ -92,6 +92,15 @@ class GeneralHelp extends Component {
                         you have set as your active plan. To set a plan as your active plan simply enter the plan
                         detail page by clicking on the plan and clicking the "set active plan" button.
                     </p>
+
+                    <h3>Runs</h3>
+                    <p>
+                        This is the section to track the runs you have already completed. At the top
+                        you will notice a form to enter a run simlar to the dashboard page. Below 
+                        the run entry form are all runs you have previously logged starting with the most 
+                        recently entered runs. You can view the length of the run, the location the run 
+                        was recorded in, and the length of the run.
+                    </p>
                 </div>
             </div>
         );
