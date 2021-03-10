@@ -49,7 +49,6 @@ class Login extends Component {
         this.setState({loading: true});
 
         // Fetch request to authentication section of API
-        console.log(Config.rpAPI);
         fetch(Config.rpAPI + "/authentication/login", {
             method: "POST",
             body: JSON.stringify(loginData),

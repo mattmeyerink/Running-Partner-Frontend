@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import StatesForm from './statesForm';
-import RP_API_URL from '../config';
+import Config from '../config';
 import '../index.css';
 
 class RunPageRunEntry extends Component {
@@ -43,7 +43,7 @@ class RunPageRunEntry extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(RP_API_URL + '/runs/add_run', {
+        fetch(Config.rpAPI + '/runs/add_run', {
             method: "POST",
             body: JSON.stringify(runData),
             headers: myHeaders

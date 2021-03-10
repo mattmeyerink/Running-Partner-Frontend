@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import RP_API_URL from '../../config';
+import Config from '../../config';
 import '../../index.css'
 
 class SinglePlan extends Component {
@@ -25,7 +25,7 @@ class SinglePlan extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(RP_API_URL + `/training_plans/${this.props.match.params.id}`, {
+        fetch(Config.rpAPI + `/training_plans/${this.props.match.params.id}`, {
             method: 'GET',
             headers: myHeaders
         })

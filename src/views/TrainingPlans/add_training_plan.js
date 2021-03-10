@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import moment from 'moment';
-import RP_API_URL from '../../config';
+import Config from '../../config';
 import '../../index.css'
 
 class AddPlan extends Component {
@@ -54,7 +54,7 @@ class AddPlan extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
         
-        fetch(RP_API_URL + `/training_plans/${this.props.match.params.id}`, {
+        fetch(Config.rpAPI + `/training_plans/${this.props.match.params.id}`, {
             method: 'GET',
             headers: myHeaders
         })
@@ -237,7 +237,7 @@ class AddPlan extends Component {
         });
 
         // Send POST request to API. Set planSubmitted state to true if successful to redirect page to profile
-        fetch(RP_API_URL + `/training_plans/add_plan/${userID}`, {
+        fetch(Config.rpAPI + `/training_plans/add_plan/${userID}`, {
             method: "POST",
             body: JSON.stringify(planData),
             headers: myHeaders

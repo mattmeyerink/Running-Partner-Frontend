@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect, Link} from 'react-router-dom';
 import StatesForm from '../../components/statesForm';
-import RP_API_URL from '../../config';
+import Config from '../../config';
 import '../../index.css';
 
 class Registration extends Component {
@@ -59,7 +59,7 @@ class Registration extends Component {
             "active_plan": -1
         }
 
-        fetch(RP_API_URL + "/authentication/register", {
+        fetch(Config.rpAPI + "/authentication/register", {
             method: "POST",
             body: JSON.stringify(registrationData),
             headers: {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import moment from 'moment';
-import RP_API_URL from '../config';
+import Config from '../config';
 import '../index.css';
 import running_shoes from '../images/running_shoes.jpeg';
 import rest_day_beach from '../images/rest_day_beach.jpeg';
@@ -26,7 +26,7 @@ class TodaysRun extends Component {
         });
         
         if (this.props.userData.active_plan !== -1) {
-            fetch(RP_API_URL + `/training_plans/custom_plan/${this.props.userData.active_plan}`, {
+            fetch(Config.rpAPI + `/training_plans/custom_plan/${this.props.userData.active_plan}`, {
                 methods: 'GET',
                 headers: myHeaders
             })

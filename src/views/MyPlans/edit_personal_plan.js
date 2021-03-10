@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
-import RP_API_URL from '../../config';
+import Config from '../../config';
 import '../../index.css'
 
 class EditPlan extends Component {
@@ -47,7 +47,7 @@ class EditPlan extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(RP_API_URL + `/training_plans/custom_plan/${this.props.match.params.id}`, {
+        fetch(Config.rpAPI + `/training_plans/custom_plan/${this.props.match.params.id}`, {
             method: 'GET',
             headers: myHeaders
         })
@@ -172,7 +172,7 @@ class EditPlan extends Component {
         });
 
         // Send POST request to db with edited plan update the plan submitted in state to force redirect
-        fetch(RP_API_URL + `/training_plans/custom_plan/edit/${this.state.planData.id}`, {
+        fetch(Config.rpAPI + `/training_plans/custom_plan/edit/${this.state.planData.id}`, {
             method: "POST",
             body: JSON.stringify(planData),
             headers: myHeaders

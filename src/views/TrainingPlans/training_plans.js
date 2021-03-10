@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom';
 import PlanHeader from '../../components/plan_header';
-import RP_API_URL from '../../config';
+import Config from '../../config';
 
 // View for the training plan page
 class TrainingPlan extends Component {
@@ -23,7 +23,7 @@ class TrainingPlan extends Component {
             'Authorization': 'Bearer ' + this.props.userData.token,
         });
 
-        fetch(RP_API_URL + '/training_plans/all_plans', {
+        fetch(Config.rpAPI + '/training_plans/all_plans', {
             method: 'GET',
             headers: myHeaders
         })
