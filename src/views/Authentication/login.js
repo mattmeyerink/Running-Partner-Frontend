@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Redirect, Link} from 'react-router-dom';
-import RP_API_URL from '../../config';
+import Config from '../../config';
 import '../../index.css';
 
 class Login extends Component {
@@ -49,7 +49,8 @@ class Login extends Component {
         this.setState({loading: true});
 
         // Fetch request to authentication section of API
-        fetch(RP_API_URL + "/authentication/login", {
+        console.log(Config.rpAPI);
+        fetch(Config.rpAPI + "/authentication/login", {
             method: "POST",
             body: JSON.stringify(loginData),
             headers: {
