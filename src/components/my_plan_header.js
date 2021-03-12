@@ -18,11 +18,14 @@ class MyPlanHeader extends Component {
 
     // Deletes a custom plan from the db
     deletePlan() {
+        const myHeaders = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.props.userData.token,
+        });
+
         fetch(Config.rpAPI + `/training_plans/custom_plan/delete/${this.props.id}`, {
             method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            }
+            headers: myHeaders
         })
             .then(response => {
                 if (response.status === 200) {

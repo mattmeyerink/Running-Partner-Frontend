@@ -113,6 +113,7 @@ class MyPlans extends Component {
                                         race_name={activePlan.race_name} 
                                         plan={activePlan.plan}
                                         getTrainingPlans={this.getTrainingPlans}
+                                        userData={this.props.userData}
                                     />
                                 </div>
                             </React.Fragment>
@@ -146,6 +147,7 @@ class MyPlans extends Component {
                                             race_name={plan.race_name} 
                                             plan={plan.plan}
                                             getTrainingPlans={this.getTrainingPlans}
+                                            userData={this.props.userData}
                                         />
                                         }
                                     </React.Fragment>
