@@ -11,7 +11,7 @@ class TrainingPlan extends Component {
 
         this.state = {
             training_plans: [],
-            planType: '',
+            planType: 'All-Plans',
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -35,8 +35,12 @@ class TrainingPlan extends Component {
             .catch(error => console.error(error))
     }
 
-    handleChange() {
+    handleChange(event) {
+        const target = event.target;
+        const name = target.name;
+        const value = target.value;
 
+        this.setState({[name]: value});
     }
 
     render() {
@@ -49,19 +53,20 @@ class TrainingPlan extends Component {
 
                         <form className="filter_dropdown">
                             <select name="planType" value={this.state.planType} onChange={this.handleChange}>
-                                <option value='allPlans'>All Plans</option>
+                                <option value='All-Plans'>All Plans</option>
                                 <option value='5k'>5k</option>
                                 <option value='10k'>10k</option>
-                                <option value='halfMarathon'>Half Marathon</option>
-                                <option value='marathon'>Marathon</option>
-                                <option value='custom'>Custom</option>
+                                <option value='Half-Marathon'>Half Marathon</option>
+                                <option value='Marathon'>Marathon</option>
+                                <option value='Custom'>Custom</option>
                             </select>
                         </form>
                     </div>
 
                     <div className="row justify-content-center">
                         {this.state.training_plans.map(
-                            plan => (<PlanHeader 
+                            plan => this.state.planType==='All-Plans' || this.state.planType === plan.race_name?
+                                    <PlanHeader 
                                         key={plan.id}
                                         id={plan.id}
                                         difficulty={plan.difficulty}
@@ -69,7 +74,10 @@ class TrainingPlan extends Component {
                                         plan_length={plan.plan_length}
                                         race_length={plan.race_length}
                                         race_name={plan.race_name} 
-                                    />)
+                                    />
+                                    :
+                                    <React.Fragment key={plan.id}></React.Fragment>
+                                
                         )}
                     </div>
                 </React.Fragment> 
