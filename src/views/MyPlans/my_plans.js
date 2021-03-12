@@ -121,9 +121,14 @@ class MyPlans extends Component {
                             </React.Fragment>
                         }
                         <div className="row">
+                            {this.state.training_plans.length === 1 && activePlan ?
+                                <React.Fragment>
+                                </React.Fragment>
+                            :
                             <div className="offset-2">
                                 <h3 className="white_text">Saved Plans</h3>
                             </div>
+                            }
                         </div>
                         <div className="row justify-content-center">
                         {this.state.training_plans.map(
