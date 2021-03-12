@@ -121,3 +121,7 @@ code {
 .white_text {
   color: white;
 }
+
+.filter_dropdown {
+  margin: 15px;
+}
