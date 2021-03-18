@@ -41,6 +41,10 @@ class App extends Component {
 
   /* Login the user. Passed to login screen */
   login(data) {
+    localStorage.setItem("userData", data);
+    localStoreage.setItem("userAuthenticated", true);
+
+    // TODO leaving set state for now until local storage is fully implemented.
     this.setState({
       userAuthenticated: true,
       userData: data,
@@ -49,6 +53,7 @@ class App extends Component {
 
   /* Logout the current user. Passed to logout screen */
   logout() {
+    localStorage.clear();
     this.setState({
       userAuthenticated: false,
       userData: {},
@@ -77,7 +82,10 @@ class App extends Component {
       }
     )
       .then((response) => response.json())
-      .then((data) => this.setState({ userData: data }))
+      .then((data) => {
+        this.setState({ userData: data });
+        localStorage.setItem('userData', data);
+      })
       .catch((error) => console.error(error));
   }
 
