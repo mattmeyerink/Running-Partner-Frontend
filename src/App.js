@@ -34,6 +34,15 @@ class App extends Component {
     this.refreshUserData = this.refreshUserData.bind(this);
   }
 
+  componentDidMount() {
+    // Retrive user data from local storage to determine if already logged in
+    const userDataRaw = localStorage.getItem('userData');
+    if (userDataRaw) {
+      const userData = JSON.parse(userDataRaw);
+      this.setState({ userAuthenticated: true, userData: userData });
+    }
+  }
+
   /* Sets the current page to pass to the nav bar */
   setCurrentPage(page) {
     this.setState({ currentPage: page });
@@ -41,10 +50,11 @@ class App extends Component {
 
   /* Login the user. Passed to login screen */
   login(data) {
-    localStorage.setItem("userData", data);
-    localStoreage.setItem("userAuthenticated", true);
-
-    // TODO leaving set state for now until local storage is fully implemented.
+    // Store the data in local storage for persistent login
+    const dataAltered = JSON.stringify(data);
+    localStorage.setItem("userData", dataAltered);
+    
+    // Set authentication data in state for current session
     this.setState({
       userAuthenticated: true,
       userData: data,
@@ -53,7 +63,10 @@ class App extends Component {
 
   /* Logout the current user. Passed to logout screen */
   logout() {
+    // Clear user data from local storage
     localStorage.clear();
+
+    // Clear user data from current state
     this.setState({
       userAuthenticated: false,
       userData: {},
@@ -84,7 +97,8 @@ class App extends Component {
       .then((response) => response.json())
       .then((data) => {
         this.setState({ userData: data });
-        localStorage.setItem('userData', data);
+        const dataAltered = JSON.stringify(data);
+        localStorage.setItem('userData', dataAltered);
       })
       .catch((error) => console.error(error));
   }
