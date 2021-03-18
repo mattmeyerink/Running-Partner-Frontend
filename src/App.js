@@ -43,12 +43,18 @@ class App extends Component {
     }
   }
 
-  /* Sets the current page to pass to the nav bar */
+  /* 
+   * Sets the current page to pass to the nav bar 
+   * @param page a string representing the current page
+   */
   setCurrentPage(page) {
     this.setState({ currentPage: page });
   }
 
-  /* Login the user. Passed to login screen */
+  /*
+   * Login the user. Passed to login screen 
+   * @param data A JSON object containing the user's data
+   */
   login(data) {
     // Store the data in local storage for persistent login
     const dataAltered = JSON.stringify(data);
@@ -61,7 +67,9 @@ class App extends Component {
     });
   }
 
-  /* Logout the current user. Passed to logout screen */
+  /*
+   * Logout the current user. Passed to logout screen 
+   */
   logout() {
     // Clear user data from local storage
     localStorage.clear();
@@ -74,9 +82,9 @@ class App extends Component {
   }
 
   /* 
-  Re pull the user data after an edit in the profile page.
-  Passed to the profile page.
-  */
+   * Re pull the user data after an edit in the profile page.
+   * Passed to the profile page.
+   */
   refreshUserData() {
     // Set Headers required for API Request
     const myHeaders = new Headers({
@@ -85,8 +93,6 @@ class App extends Component {
     });
 
     // Submit request and store user data
-    // TODO This is where I will need to change where I am storing user data to allow
-    // persistent login. That will be good for users and good for dev env
     fetch(
       Config.rpAPI + `/authentication/get_user_data/${this.state.userData.id}`,
       {
