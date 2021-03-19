@@ -21,6 +21,9 @@ class Login extends Component {
   componentDidMount() {
     // Set the users page to blank to unhighlight any nav bar tabs
     this.props.setCurrentPage("");
+
+    // Set current path in local storage
+    localStorage.setItem('currentPath', '/login');
   }
 
   handleChange(event) {

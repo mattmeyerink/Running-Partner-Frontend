@@ -21,6 +21,9 @@ class MyPlans extends Component {
     // Set the current page to myTrainingPlans for the nav bar
     this.props.setCurrentPage("myTrainingPlans");
 
+    // Set current path in local storage
+    localStorage.setItem('currentPath', '/personal_plan');
+
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,

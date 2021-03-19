@@ -10,6 +10,9 @@ class GeneralHelp extends Component {
   componentDidMount() {
     // Set the current page to help for the nav bar
     this.props.setCurrentPage("help");
+
+    // Set current path in local storage
+    localStorage.setItem('currentPath', '/help');
   }
 
   render() {
