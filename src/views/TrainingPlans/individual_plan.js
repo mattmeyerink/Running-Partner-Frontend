@@ -39,18 +39,18 @@ class SinglePlan extends Component {
 
   // Converts the plan in state to an array that can be mapped to a table when rendered
   convertToTable() {
-    var planOutput = [];
+    const planOutput = [];
 
     // If the plan has been pulled from the API, handle the data
     if (this.state.training_plan.plan !== undefined) {
       const plan = this.state.training_plan.plan;
-      var weeks = plan.split("-");
+      const weeks = plan.split("-");
 
-      for (var i = 0; i < weeks.length; i++) {
-        var days = weeks[i].split(",");
-        var weekOutput = [];
-        var total = 0;
-        for (var j = 0; j < days.length; j++) {
+      for (let i = 0; i < weeks.length; i++) {
+        const days = weeks[i].split(",");
+        const weekOutput = [];
+        let total = 0;
+        for (let j = 0; j < days.length; j++) {
           weekOutput.push(days[j]);
           total += parseFloat(days[j]);
         }
