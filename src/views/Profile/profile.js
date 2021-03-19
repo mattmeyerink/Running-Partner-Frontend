@@ -32,6 +32,9 @@ class Profile extends Component {
   componentDidMount() {
     // Set the current page to profile for the nav bar
     this.props.setCurrentPage("profile");
+
+    // Set current path in local storage
+    localStorage.setItem('currentPath', '/profile');
   }
 
   // Set state to begin editing

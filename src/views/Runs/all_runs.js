@@ -28,6 +28,9 @@ class AllRuns extends Component {
     // Set the current page to myRuns for the nav bar
     this.props.setCurrentPage("myRuns");
 
+    // Set current path in local storage
+    localStorage.setItem('currentPath', '/all_runs');
+
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,

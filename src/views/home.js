@@ -24,12 +24,15 @@ class Home extends Component {
 
   componentDidMount() {
     // Set the users page to blank to unhighlight any nav bar tabs
-    this.props.setCurrentPage("");
+    this.props.setCurrentPage('');
 
     // Reset path if a page is present in local storage
-    const page = localStorage.getItem('page');
+    const page = localStorage.getItem('currentPath');
     if (page) {
-
+      this.setState({ shouldRedirect: true, redirectTo: page });
+    } else {
+      // Set current path in local storage
+      localStorage.setItem('currentPath', '');
     }
 
     // Ensure user authenticated before loading data for weather, quote and runs
@@ -81,72 +84,78 @@ class Home extends Component {
     const { city, state, first_name, id } = this.props.userData;
 
     return (
-      <div className="home_page">
-        {this.props.userAuthenticated ? (
-          <React.Fragment>
-            <div className="row justify-content-center home_widgets">
-              <h1 className="white_text">
-                {this.state.greeting} {first_name}!
-              </h1>
-            </div>
+      <React.Fragment>
+        {this.state.shouldRedirect ? (
+          <Redirect to={this.state.redirectTo} />
+        ) : (
+          <div className="home_page">
+            {this.props.userAuthenticated ? (
+              <React.Fragment>
+                <div className="row justify-content-center home_widgets">
+                  <h1 className="white_text">
+                    {this.state.greeting} {first_name}!
+                  </h1>
+                </div>
 
-            {this.state.loading ? (
-              <div className="row justify-content-center">
-                <h1 className="white_text">Loading...</h1>
-              </div>
+                {this.state.loading ? (
+                  <div className="row justify-content-center">
+                    <h1 className="white_text">Loading...</h1>
+                  </div>
+                ) : (
+                  <React.Fragment>
+                    {/*
+                                  Note Temporarily pulling motivaitonal quote seciton
+                                  <div className="row justify-content-center">
+                                      <div className="col-md-8">
+                                          <div className="row justify-content-center home_widgets">
+                                              <div className="col">
+                                                  <div className="row justify-content-center">
+                                                      <h3 className="quote">{this.state.motivationalQuoteText}</h3>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div className="row justify-content-center">
+                                              {this.state.motivationalQuoteAuthor === null?
+                                              <h3 className="quote">~ unknown</h3>
+                                              :
+                                              <h3 className="quote">~{this.state.motivationalQuoteAuthor}</h3>
+                                              }
+                                          </div>
+                                      </div>
+                                  </div>
+                                  */}
+
+                    <div className="row justify-content-center home_widgets">
+                      <div className="col-md-3 widget_spacing">
+                        <WeatherWidget
+                          city={city}
+                          state={state}
+                          weatherData={this.state.weatherData}
+                        />
+                      </div>
+                      <div className="col-md-4 widget_spacing">
+                        <TodaysRun userData={this.props.userData} />
+                      </div>
+                      <div className="col-md-3 widget_spacing">
+                        <RunEntry
+                          user_id={id}
+                          city={city}
+                          state={state}
+                          userData={this.props.userData}
+                        />
+                      </div>
+                    </div>
+                  </React.Fragment>
+                )}
+              </React.Fragment>
             ) : (
               <React.Fragment>
-                {/*
-                                Note Temporarily pulling motivaitonal quote seciton
-                                <div className="row justify-content-center">
-                                    <div className="col-md-8">
-                                        <div className="row justify-content-center home_widgets">
-                                            <div className="col">
-                                                <div className="row justify-content-center">
-                                                    <h3 className="quote">{this.state.motivationalQuoteText}</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="row justify-content-center">
-                                            {this.state.motivationalQuoteAuthor === null?
-                                            <h3 className="quote">~ unknown</h3>
-                                            :
-                                            <h3 className="quote">~{this.state.motivationalQuoteAuthor}</h3>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                                */}
-
-                <div className="row justify-content-center home_widgets">
-                  <div className="col-md-3 widget_spacing">
-                    <WeatherWidget
-                      city={city}
-                      state={state}
-                      weatherData={this.state.weatherData}
-                    />
-                  </div>
-                  <div className="col-md-4 widget_spacing">
-                    <TodaysRun userData={this.props.userData} />
-                  </div>
-                  <div className="col-md-3 widget_spacing">
-                    <RunEntry
-                      user_id={id}
-                      city={city}
-                      state={state}
-                      userData={this.props.userData}
-                    />
-                  </div>
-                </div>
+                <Redirect to="/login" />
               </React.Fragment>
             )}
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            <Redirect to="/login" />
-          </React.Fragment>
+          </div>
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }

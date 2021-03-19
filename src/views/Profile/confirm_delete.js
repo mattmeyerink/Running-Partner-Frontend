@@ -16,6 +16,9 @@ class ConfirmDeleteAccount extends Component {
   componentDidMount() {
     // Set the current page to profile for the nav bar
     this.props.setCurrentPage("profile");
+
+    // Set current path in local storage
+    localStorage.setItem('currentPath', `/profile/confirm_delete/${this.props.match.params.id}`);
   }
 
   // Method to handle delete account
