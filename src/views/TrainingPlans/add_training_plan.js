@@ -42,8 +42,7 @@ class AddPlan extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.submitPlan = this.submitPlan.bind(this);
   }
-
-  // Gather the individual training plan
+  
   componentDidMount() {
     // Set current page to allTraining Plans for the nav bar
     this.props.setCurrentPage("allTrainingPlans");
@@ -69,7 +68,9 @@ class AddPlan extends Component {
     this.findFirstMonday();
   }
 
-  // Assign the moment object for the next monday in state
+  /*
+   * Assign the moment object for the next monday in state
+   */
   findFirstMonday() {
     // Gather the current datetime object. Move to next day until monday is found
     let currentDay = moment();
@@ -93,7 +94,9 @@ class AddPlan extends Component {
     });
   }
 
-  // Converts the plan in state to an array that can be mapped to a table when rendered
+  /*
+   * Converts the plan in state to an array that can be mapped to a table when rendered
+   */
   convertToTable() {
     // Pull the plan data from state
     const plan = this.state.finalPlan;
@@ -123,7 +126,11 @@ class AddPlan extends Component {
     return planOutput;
   }
 
-  // Enter into edit mode for a specific row on the plan table
+  /*
+   * Enter into edit mode for a specific row on the plan table
+   * @param rowKey represents the week of the plan being edited
+   * @param week data to display to initialize in edit form
+   */
   editTable(rowKey, week) {
     // Set the state to edit mode and set which week being edited
     this.setState({
@@ -144,7 +151,11 @@ class AddPlan extends Component {
     });
   }
 
-  // Saves any edits to the table to state
+  /*
+   * Saves any edits to the table to state
+   * @param index Represents the week that was edited/saved
+   * @param planData 
+   */
   saveTable(index, planData) {
     // Push the edited values from the table into the planData
     planData[index] = [
@@ -194,7 +205,6 @@ class AddPlan extends Component {
     });
   }
 
-  // Handles a changes for table and for start date
   handleChange(event) {
     // Gather change event variables
     const target = event.target;
@@ -218,7 +228,9 @@ class AddPlan extends Component {
     this.setState({ [name]: value });
   }
 
-  // Submit the custom plan to the database
+  /*
+   * Submit the custom plan to the database
+   */  
   submitPlan() {
     // Retrive the user id from state
     const userID = this.props.userData.id;
@@ -263,6 +275,7 @@ class AddPlan extends Component {
   }
 
   render() {
+    // Structure the plan data to be rendered in a table
     let planData = [];
     if (!this.state.loading) {
       planData = this.convertToTable();
