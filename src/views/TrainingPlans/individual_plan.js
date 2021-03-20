@@ -15,7 +15,6 @@ class SinglePlan extends Component {
     this.convertToTable = this.convertToTable.bind(this);
   }
 
-  // Get the plan data for a single training plan
   componentDidMount() {
     // Set current page to allTraining Plans for the nav bar
     this.props.setCurrentPage("allTrainingPlans");
@@ -37,7 +36,9 @@ class SinglePlan extends Component {
       .catch((error) => console.error(error));
   }
 
-  // Converts the plan in state to an array that can be mapped to a table when rendered
+  /*
+   * Converts the plan in state to an array that can be mapped to a table when rendered]
+   */
   convertToTable() {
     const planOutput = [];
 
