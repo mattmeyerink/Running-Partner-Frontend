@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "./views/home";
 import Profile from "./views/Profile/profile";
 import ConfirmDeleteAccount from "./views/Profile/confirm_delete";
@@ -17,7 +17,6 @@ import NavBar from "./components/navbar";
 import Config from "./config";
 import "./index.css";
 
-// App class to control routing and authentication flow
 class App extends Component {
   constructor() {
     super();
@@ -26,6 +25,7 @@ class App extends Component {
       userAuthenticated: false,
       userData: {},
       currentPage: "",
+      currentPath: "",
     };
 
     this.setCurrentPage = this.setCurrentPage.bind(this);
@@ -36,15 +36,21 @@ class App extends Component {
 
   componentDidMount() {
     // Retrive user data from local storage to determine if already logged in
-    const userDataRaw = localStorage.getItem('userData');
+    const userDataRaw = localStorage.getItem("userData");
     if (userDataRaw) {
       const userData = JSON.parse(userDataRaw);
       this.setState({ userAuthenticated: true, userData: userData });
     }
+
+    // Retrive current path from local storage to determine if page saved
+    const currentPath = localStorage.getItem("currentPath");
+    if (currentPath) {
+      this.setState({ currentPath: currentPath });
+    }
   }
 
-  /* 
-   * Sets the current page to pass to the nav bar 
+  /*
+   * Sets the current page to pass to the nav bar
    * @param page a string representing the current page
    */
   setCurrentPage(page) {
@@ -52,14 +58,14 @@ class App extends Component {
   }
 
   /*
-   * Login the user. Passed to login screen 
+   * Login the user. Passed to login screen
    * @param data A JSON object containing the user's data
    */
   login(data) {
     // Store the data in local storage for persistent login
     const dataAltered = JSON.stringify(data);
     localStorage.setItem("userData", dataAltered);
-    
+
     // Set authentication data in state for current session
     this.setState({
       userAuthenticated: true,
@@ -68,7 +74,7 @@ class App extends Component {
   }
 
   /*
-   * Logout the current user. Passed to logout screen 
+   * Logout the current user. Passed to logout screen
    */
   logout() {
     // Clear user data from local storage
@@ -81,7 +87,7 @@ class App extends Component {
     });
   }
 
-  /* 
+  /*
    * Re pull the user data after an edit in the profile page.
    * Passed to the profile page.
    */
@@ -104,7 +110,7 @@ class App extends Component {
       .then((data) => {
         this.setState({ userData: data });
         const dataAltered = JSON.stringify(data);
-        localStorage.setItem('userData', dataAltered);
+        localStorage.setItem("userData", dataAltered);
       })
       .catch((error) => console.error(error));
   }
@@ -279,6 +285,12 @@ class App extends Component {
             />
           </Switch>
         </main>
+
+        {this.state.currentPath ? (
+          <Redirect to={this.state.currentPath} />
+        ) : (
+          <React.Fragment />
+        )}
       </div>
     );
   }

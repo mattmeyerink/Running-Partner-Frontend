@@ -17,8 +17,6 @@ class Home extends Component {
       greeting: null,
       motivationalQuoteText: null,
       motivationalQuoteAuthor: null,
-      shouldRedirect: false,
-      redirectTo: '',
     };
   }
 
@@ -26,14 +24,8 @@ class Home extends Component {
     // Set the users page to blank to unhighlight any nav bar tabs
     this.props.setCurrentPage('');
 
-    // Reset path if a page is present in local storage
-    // const page = localStorage.getItem('currentPath');
-    // if (page) {
-    //   this.setState({ shouldRedirect: true, redirectTo: page });
-    // } else {
-    //   // Set current path in local storage
-    //   localStorage.setItem('currentPath', '');
-    // }
+    // Set the current path to home
+    localStorage.setItem('currentPath', '/');
 
     // Ensure user authenticated before loading data for weather, quote and runs
     if (this.props.userAuthenticated) {
