@@ -79,7 +79,7 @@ class AddPlan extends Component {
 
     // Store the next 2 years of mondays
     let startDates = [];
-    for (var i = 0; i < 104; i++) {
+    for (let i = 0; i < 104; i++) {
       startDates.push(currentDay.format("L"));
       currentDay = currentDay.add(7, "days");
     }
@@ -99,18 +99,18 @@ class AddPlan extends Component {
     const plan = this.state.finalPlan;
 
     // Split the string into weeks with the deliniating - char
-    var weeks = plan.split("-");
+    const weeks = plan.split("-");
 
     // Create a matrix of all of the runs
-    var planOutput = [];
-    for (var i = 0; i < weeks.length; i++) {
+    const planOutput = [];
+    for (let i = 0; i < weeks.length; i++) {
       // Split the week into individual run days
-      var days = weeks[i].split(",");
+      const days = weeks[i].split(",");
 
       // Create the array for the week and calculate week mileage total
-      var weekOutput = [];
-      var total = 0;
-      for (var j = 0; j < days.length; j++) {
+      const weekOutput = [];
+      let total = 0;
+      for (let j = 0; j < days.length; j++) {
         weekOutput.push(days[j]);
         total += parseFloat(days[j]);
       }
@@ -159,9 +159,9 @@ class AddPlan extends Component {
     ];
 
     // Stringify the matrix of plan data
-    var outputPlan = "";
-    for (var i = 0; i < planData.length; i++) {
-      for (var j = 0; j < planData[0].length - 1; j++) {
+    let outputPlan = "";
+    for (let i = 0; i < planData.length; i++) {
+      for (let j = 0; j < planData[0].length - 1; j++) {
         // Add the value without a comma unless it is the last value.
         if (j !== planData[0].length - 2) {
           outputPlan += planData[i][j] + ",";
@@ -203,10 +203,10 @@ class AddPlan extends Component {
 
     // Set the currentPlanDates array to appropriate values if start date changed
     if (name === "startDate") {
-      var next2YearsDates = this.state.next2YearsDates;
-      var possibleStartDates = this.state.possibleStartDates;
-      var dateIndex;
-      for (var i = 0; i < possibleStartDates.length; i++) {
+      const next2YearsDates = this.state.next2YearsDates;
+      const possibleStartDates = this.state.possibleStartDates;
+      let dateIndex;
+      for (let i = 0; i < possibleStartDates.length; i++) {
         if (value === possibleStartDates[i]) {
           dateIndex = i;
         }
@@ -224,10 +224,10 @@ class AddPlan extends Component {
     const userID = this.props.userData.id;
 
     // Add dates to the final plan
-    var currentStartDates = this.state.currentPlanDates;
-    var finalPlan = this.state.finalPlan;
-    var planArr = finalPlan.split("-");
-    var output = "";
+    const currentStartDates = this.state.currentPlanDates;
+    const finalPlan = this.state.finalPlan;
+    const planArr = finalPlan.split("-");
+    let output = "";
     for (let i = 0; i < planArr.length; i++) {
       output += currentStartDates[i] + "," + planArr[i] + "-";
     }
@@ -263,7 +263,7 @@ class AddPlan extends Component {
   }
 
   render() {
-    var planData = [];
+    let planData = [];
     if (!this.state.loading) {
       planData = this.convertToTable();
     }
