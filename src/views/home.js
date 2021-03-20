@@ -27,13 +27,13 @@ class Home extends Component {
     this.props.setCurrentPage('');
 
     // Reset path if a page is present in local storage
-    const page = localStorage.getItem('currentPath');
-    if (page) {
-      this.setState({ shouldRedirect: true, redirectTo: page });
-    } else {
-      // Set current path in local storage
-      localStorage.setItem('currentPath', '');
-    }
+    // const page = localStorage.getItem('currentPath');
+    // if (page) {
+    //   this.setState({ shouldRedirect: true, redirectTo: page });
+    // } else {
+    //   // Set current path in local storage
+    //   localStorage.setItem('currentPath', '');
+    // }
 
     // Ensure user authenticated before loading data for weather, quote and runs
     if (this.props.userAuthenticated) {
