@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "./views/home";
 import Profile from "./views/Profile/profile";
 import ConfirmDeleteAccount from "./views/Profile/confirm_delete";
+import ResetPassword from './views/Profile/resetPassword';
 import SinglePlan from "./views/TrainingPlans/individual_plan";
 import TrainingPlan from "./views/TrainingPlans/training_plans";
 import AddPlan from "./views/TrainingPlans/add_training_plan";
@@ -250,6 +251,18 @@ class App extends Component {
                   match={match}
                   userData={this.state.userData}
                   logout={this.logout}
+                  setCurrentPage={this.setCurrentPage}
+                />
+              )}
+            />
+
+            <Route
+              exact
+              path="/profile/reset_password/:id"
+              render={({ match }) => (
+                <ResetPassword
+                  match={match}
+                  userData={this.state.userData}
                   setCurrentPage={this.setCurrentPage}
                 />
               )}
