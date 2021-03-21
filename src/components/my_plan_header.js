@@ -37,9 +37,9 @@ class MyPlanHeader extends Component {
   }
 
   render() {
-    var planSplit = this.props.plan.split("-");
-    var startDate = planSplit[0].split(",")[0];
-    var endDate = planSplit[planSplit.length - 1].split(",")[0];
+    const planSplit = this.props.plan.split("-");
+    const startDate = planSplit[0].split(",")[0];
+    const endDate = planSplit[planSplit.length - 1].split(",")[0];
 
     return (
       <React.Fragment>
