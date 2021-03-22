@@ -36,6 +36,9 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // Clear local storage for now until I figure out how to properly handle sign in tokens
+    localStorage.clear();
+
     // Retrive user data from local storage to determine if already logged in
     const userDataRaw = localStorage.getItem("userData");
     if (userDataRaw) {
