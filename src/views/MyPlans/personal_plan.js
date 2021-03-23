@@ -62,7 +62,7 @@ class PersonalPlan extends Component {
     })
       .then((response) => {
         if (response.status === 200) {
-          this.props.refreshUserData();
+          this.props.refreshUserData(this.props.userData.id, this.props.userData.token);
         }
       })
       .catch((error) => console.error(error));
@@ -87,7 +87,7 @@ class PersonalPlan extends Component {
     })
       .then((response) => {
         if (response.status === 200) {
-          this.props.refreshUserData();
+          this.props.refreshUserData(this.props.userData.id, this.props.userData.token);
         }
       })
       .catch((error) => console.error(error));

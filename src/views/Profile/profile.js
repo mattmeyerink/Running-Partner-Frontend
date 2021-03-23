@@ -78,7 +78,7 @@ class Profile extends Component {
       .then((response) => {
         if (response.status === 200) {
           // Function to repull user data in the app to have most up to date info
-          this.props.refreshUserData();
+          this.props.refreshUserData(this.props.userData.id, this.props.userData.token);
 
           // Clear the editing state to display user info again
           this.setState({ editing: false });

@@ -36,14 +36,18 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // Clear local storage for now until I figure out how to properly handle sign in tokens
-    localStorage.clear();
-
     // Retrive user data from local storage to determine if already logged in
     const userDataRaw = localStorage.getItem("userData");
     if (userDataRaw) {
       const userData = JSON.parse(userDataRaw);
-      this.setState({ userAuthenticated: true, userData: userData });
+      
+      // Attempt to refresh the user data if saved data is valid
+      if (userData.id) {
+        this.refreshUserData(userData.id, userData.token);
+      }
+      else {
+        this.logout();
+      }
     }
 
     // Retrive current path from local storage to determine if page saved
@@ -94,17 +98,19 @@ class App extends Component {
   /*
    * Re pull the user data after an edit in the profile page.
    * Passed to the profile page.
+   * @params userId The id of the user
+   * @params token API authentication token
    */
-  refreshUserData() {
+  refreshUserData(userId, token) {
     // Set Headers required for API Request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
-      Authorization: "Bearer " + this.state.userData.token,
+      Authorization: "Bearer " + token,
     });
 
     // Submit request and store user data
     fetch(
-      Config.rpAPI + `/authentication/get_user_data/${this.state.userData.id}`,
+      Config.rpAPI + `/authentication/get_user_data/${userId}`,
       {
         method: "GET",
         headers: myHeaders,
@@ -112,9 +118,18 @@ class App extends Component {
     )
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ userData: data });
-        const dataAltered = JSON.stringify(data);
-        localStorage.setItem("userData", dataAltered);
+        // Set user to logged out and clear local storage if token has expired
+        if (data.msg === 'Token has expired') {
+          this.setState({ userAuthenticated: false });
+          localStorage.clear();
+        }
+        
+        // Set the user to logged in/save new data if token valid
+        else {
+          this.setState({ userData: data, userAuthenticated: true });
+          const dataAltered = JSON.stringify(data);
+          localStorage.setItem("userData", dataAltered);
+        }
       })
       .catch((error) => console.error(error));
   }
