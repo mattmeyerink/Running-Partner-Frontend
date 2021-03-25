@@ -95,23 +95,23 @@ class PersonalPlan extends Component {
 
   // Converts the plan in state to an array that can be mapped to a table when rendered
   convertToTable() {
-    var planOutput = [];
+    const planOutput = [];
 
     // If the plan has been pulled from the API, handle the data
     if (this.state.planData.plan !== undefined) {
       const plan = this.state.planData.plan;
 
       // Split the plan data into individual weeks
-      var weeks = plan.split("-");
+      const weeks = plan.split("-");
 
-      for (var i = 0; i < weeks.length; i++) {
+      for (let i = 0; i < weeks.length; i++) {
         // Split the week string into individual runs
-        var days = weeks[i].split(",");
+        const days = weeks[i].split(",");
 
         // Push each day to the week array and update the total
-        var weekOutput = [];
-        var total = 0;
-        for (var j = 0; j < days.length; j++) {
+        const weekOutput = [];
+        let total = 0;
+        for (let j = 0; j < days.length; j++) {
           weekOutput.push(days[j]);
           if (j > 0) {
             total += parseFloat(days[j]);
