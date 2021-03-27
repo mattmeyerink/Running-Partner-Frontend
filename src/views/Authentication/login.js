@@ -130,7 +130,7 @@ class Login extends Component {
                     <div className="row justify-content-center">
                       <strong>
                         Forgot your password?
-                        <Link to="/"> Reset your password</Link>
+                        <Link to="/confirm_password_reset"> Reset your password</Link>
                       </strong>
                     </div>
                   </div>

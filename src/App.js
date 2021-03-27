@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "./views/home";
 import Profile from "./views/Profile/profile";
 import ConfirmDeleteAccount from "./views/Profile/confirm_delete";
-import ResetPassword from './views/Profile/resetPassword';
+import ResetPassword from "./views/Profile/resetPassword";
 import SinglePlan from "./views/TrainingPlans/individual_plan";
 import TrainingPlan from "./views/TrainingPlans/training_plans";
 import AddPlan from "./views/TrainingPlans/add_training_plan";
@@ -14,6 +14,7 @@ import AllRuns from "./views/Runs/all_runs";
 import GeneralHelp from "./views/Help/generalHelp";
 import Login from "./views/Authentication/login";
 import Registration from "./views/Authentication/register";
+import ConfirmPasswordReset from "./views/Authentication/confirmPasswordReset";
 import NavBar from "./components/navbar";
 import Config from "./config";
 import "./index.css";
@@ -40,12 +41,11 @@ class App extends Component {
     const userDataRaw = localStorage.getItem("userData");
     if (userDataRaw) {
       const userData = JSON.parse(userDataRaw);
-      
+
       // Attempt to refresh the user data if saved data is valid
       if (userData.id) {
         this.refreshUserData(userData.id, userData.token);
-      }
-      else {
+      } else {
         this.logout();
       }
     }
@@ -109,21 +109,18 @@ class App extends Component {
     });
 
     // Submit request and store user data
-    fetch(
-      Config.rpAPI + `/authentication/get_user_data/${userId}`,
-      {
-        method: "GET",
-        headers: myHeaders,
-      }
-    )
+    fetch(Config.rpAPI + `/authentication/get_user_data/${userId}`, {
+      method: "GET",
+      headers: myHeaders,
+    })
       .then((response) => response.json())
       .then((data) => {
         // Set user to logged out and clear local storage if token has expired
-        if (data.msg === 'Token has expired') {
+        if (data.msg === "Token has expired") {
           this.setState({ userAuthenticated: false });
           localStorage.clear();
         }
-        
+
         // Set the user to logged in/save new data if token valid
         else {
           this.setState({ userData: data, userAuthenticated: true });
@@ -313,6 +310,12 @@ class App extends Component {
               render={() => (
                 <Registration setCurrentPage={this.setCurrentPage} />
               )}
+            />
+
+            <Route
+              exact
+              path="/confirm_password_reset"
+              render={() => <ConfirmPasswordReset />}
             />
           </Switch>
         </main>
