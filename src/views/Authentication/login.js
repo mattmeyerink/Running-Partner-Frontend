@@ -127,6 +127,12 @@ class Login extends Component {
                         <Link to="/registration"> Create an account!</Link>
                       </strong>
                     </div>
+                    <div className="row justify-content-center">
+                      <strong>
+                        Forgot your password?
+                        <Link to="/"> Reset your password</Link>
+                      </strong>
+                    </div>
                   </div>
                 )}
               </div>
