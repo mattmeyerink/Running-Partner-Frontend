@@ -133,7 +133,7 @@ class Login extends Component {
             ) : (
               <React.Fragment>
                 <div className="row justify-content-center">
-                  <h1 className="text_shadow">{this.state.warning}</h1>
+                  <h1>{this.state.warning}</h1>
                 </div>
                 <div className="row justify-content-center">
                   <button
