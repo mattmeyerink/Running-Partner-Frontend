@@ -273,7 +273,7 @@ class App extends Component {
 
             <Route
               exact
-              path="/profile/reset_password/:id"
+              path="/reset_password/:id"
               render={({ match }) => (
                 <ResetPassword
                   match={match}
