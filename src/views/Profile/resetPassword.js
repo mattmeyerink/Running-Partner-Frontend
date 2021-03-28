@@ -12,17 +12,6 @@ class ResetPassword extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
-    // Set the current page to profile for the nav bar
-    this.props.setCurrentPage("profile");
-
-    // Set current path in local storage
-    localStorage.setItem(
-      "currentPath",
-      `/profile/reset_password/${this.props.match.params.id}`
-    );
-  }
-
   handleChange(event) {
     const target = event.target;
     const { name, value } = target;

@@ -277,7 +277,6 @@ class App extends Component {
               render={({ match }) => (
                 <ResetPassword
                   match={match}
-                  userData={this.state.userData}
                   setCurrentPage={this.setCurrentPage}
                 />
               )}
