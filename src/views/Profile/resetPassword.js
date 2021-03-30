@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Config from "../../config";
 import "../../index.css";
 
 class ResetPassword extends Component {
@@ -12,6 +13,7 @@ class ResetPassword extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -63,7 +65,7 @@ class ResetPassword extends Component {
         });
       }
     });
-    
+
     event.preventDefault();
   }
 
@@ -75,7 +77,7 @@ class ResetPassword extends Component {
         </div>
         <div className="row justify-content-center">
           <div className="col-md-6 background_color edit_profile_padding">
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <input
                 type="text"
                 name="password"
