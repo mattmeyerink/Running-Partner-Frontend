@@ -7,6 +7,8 @@ class ResetPassword extends Component {
     this.state = {
       password: "",
       confirmPassword: "",
+      passwordReset: false,
+      warning: null
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,6 +27,44 @@ class ResetPassword extends Component {
     const { name, value } = target;
 
     this.setState({ [name]: value });
+  }
+
+  handleSubmit(event) {
+    // Check if a password was input
+    if (!this.state.password) {
+      this.setState({ warning: "Please input a password" });
+      return;
+    }
+
+    // Check if the passwords match
+    if (this.state.password !== this.state.confirmPassword) {
+      this.setState({ warning: "Passwords do not match" });
+      return;
+    } 
+
+    // Package the data for the request
+    const newPasswordData = {
+      user_id: this.props.match.params.id,
+      password: this.state.password
+    };
+
+    fetch(Config.rpAPI + "/authentication/reset_password", {
+      method: "POST",
+      body: JSON.stringify(newPasswordData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      if (response.status === 200) {
+        this.setState({ passwordReset: true });
+      } else if (response.status === 404) {
+        this.setState({
+          warning: "There was an error locating your account",
+        });
+      }
+    });
+    
+    event.preventDefault();
   }
 
   render() {
