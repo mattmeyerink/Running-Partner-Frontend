@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import Config from "../../config";
 import "../../index.css";
 
@@ -9,7 +10,7 @@ class ResetPassword extends Component {
       password: "",
       confirmPassword: "",
       passwordReset: false,
-      warning: null
+      warning: null,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -21,7 +22,10 @@ class ResetPassword extends Component {
     this.props.setCurrentPage("");
 
     // Set current path in local storage
-    localStorage.setItem('currentPath', `/reset_password/${this.props.match.params.id}`);
+    localStorage.setItem(
+      "currentPath",
+      `/reset_password/${this.props.match.params.id}`
+    );
   }
 
   handleChange(event) {
@@ -35,36 +39,34 @@ class ResetPassword extends Component {
     // Check if a password was input
     if (!this.state.password) {
       this.setState({ warning: "Please input a password" });
-      return;
     }
 
     // Check if the passwords match
-    if (this.state.password !== this.state.confirmPassword) {
+    else if (this.state.password !== this.state.confirmPassword) {
       this.setState({ warning: "Passwords do not match" });
-      return;
-    } 
+    } else {
+      // Package the data for the request
+      const newPasswordData = {
+        user_id: this.props.match.params.id,
+        password: this.state.password,
+      };
 
-    // Package the data for the request
-    const newPasswordData = {
-      user_id: this.props.match.params.id,
-      password: this.state.password
-    };
-
-    fetch(Config.rpAPI + "/authentication/reset_password", {
-      method: "POST",
-      body: JSON.stringify(newPasswordData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((response) => {
-      if (response.status === 200) {
-        this.setState({ passwordReset: true });
-      } else if (response.status === 404) {
-        this.setState({
-          warning: "There was an error locating your account",
-        });
-      }
-    });
+      fetch(Config.rpAPI + "/authentication/reset_password", {
+        method: "POST",
+        body: JSON.stringify(newPasswordData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((response) => {
+        if (response.status === 200) {
+          this.setState({ passwordReset: true });
+        } else if (response.status === 404) {
+          this.setState({
+            warning: "There was an error locating your account",
+          });
+        }
+      });
+    }
 
     event.preventDefault();
   }
@@ -72,32 +74,48 @@ class ResetPassword extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="row justify-content-center">
-          <h1 className="white_text">Reset Password</h1>
-        </div>
-        <div className="row justify-content-center">
-          <div className="col-md-6 background_color edit_profile_padding">
-            <form onSubmit={this.handleSubmit}>
-              <input
-                type="text"
-                name="password"
-                placeholder="Password"
-                className="form-control form_spacing"
-                value={this.state.password}
-                onChange={this.handleChange}
-              />
-              <input
-                type="text"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                className="form-control form_spacing"
-                value={this.state.confirmPassword}
-                onChange={this.handleChange}
-              />
-              <input type="submit" className="btn btn-success form-control" />
-            </form>
-          </div>
-        </div>
+        {this.state.passwordReset ? (
+          <Redirect to="/login" />
+        ) : (
+          <React.Fragment>
+            <div className="row justify-content-center">
+              <h1 className="white_text">Reset Password</h1>
+            </div>
+            {this.state.warning !== null ? (
+              <div className="row justify-content-center">
+                <h3 className="white_text">{this.state.warning}</h3>
+              </div>
+            ) : (
+              <React.Fragment></React.Fragment>
+            )}
+            <div className="row justify-content-center">
+              <div className="col-md-6 background_color edit_profile_padding">
+                <form onSubmit={this.handleSubmit}>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    className="form-control form_spacing"
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                  />
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    className="form-control form_spacing"
+                    value={this.state.confirmPassword}
+                    onChange={this.handleChange}
+                  />
+                  <input
+                    type="submit"
+                    className="btn btn-success form-control"
+                  />
+                </form>
+              </div>
+            </div>
+          </React.Fragment>
+        )}
       </React.Fragment>
     );
   }
