@@ -3,6 +3,10 @@ import { Redirect } from "react-router-dom";
 import Config from "../../config";
 import "../../index.css";
 
+/*
+ * This class is in charge of the page that allows the user to edit a plan 
+ * Already added to their account.
+ */
 class EditPlan extends Component {
   constructor(props) {
     super(props);
@@ -37,16 +41,17 @@ class EditPlan extends Component {
     this.submitPlan = this.submitPlan.bind(this);
   }
 
-  // Gather the individual training plan from custom plan table
   componentDidMount() {
     // Set the current page to myTrainingPlans for the nav bar
     this.props.setCurrentPage("myTrainingPlans");
 
+    // Create the headers for the API request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
+    // Send for the plan data and save it in state.
     fetch(
       Config.rpAPI +
         `/training_plans/custom_plan/${this.props.match.params.id}`,
@@ -62,24 +67,27 @@ class EditPlan extends Component {
       .catch((error) => console.error(error));
   }
 
-  // Converts the plan in state to an array that can be mapped to a table when rendered
+  /*
+   * Converts the plan in state to an array.
+   * That array can then be mapped when it is rendered
+   */  
   convertToTable() {
     // Pull the plan data from state
     const plan = this.state.finalPlan;
 
-    // Split the plan into a string for each week
-    var weeks = plan.split("-");
+    // Split the plan into an array of strings. Each string represnets a week
+    const weeks = plan.split("-");
 
-    // Create a matrix of runs for each week
-    var planOutput = [];
-    for (var i = 0; i < weeks.length; i++) {
+    // Create a matrix of runs. Each row is a week. Each col is a week day
+    const planOutput = [];
+    for (let i = 0; i < weeks.length; i++) {
       // Split the week into each days run
-      var days = weeks[i].split(",");
+      const days = weeks[i].split(",");
 
       // Push each days run to the array and update weeks total mileage
-      var weekOutput = [];
-      var total = 0;
-      for (var j = 0; j < days.length; j++) {
+      const weekOutput = [];
+      let total = 0;
+      for (let j = 0; j < days.length; j++) {
         weekOutput.push(days[j]);
         if (j !== 0) {
           total += parseFloat(days[j]);
@@ -94,7 +102,11 @@ class EditPlan extends Component {
     return planOutput;
   }
 
-  // Set state that the training table is in edit mode
+  /*
+   * Initialize edit mode on a week of the trianing plan
+   * @param rowKey Represents the key (week) in the plan being edited
+   * @param week An array with the run values of the week to be edited
+   */
   editTable(rowKey, week) {
     this.setState({
       inEditMode: {
@@ -114,7 +126,11 @@ class EditPlan extends Component {
     });
   }
 
-  // Save the results of table edit to state
+  /*
+   * Save the results of table edit to state.
+   * @param index represents the week of the plan that was edited
+   * @param planData represents the entire plan matrix
+   */
   saveTable(index, planData) {
     // Push the new row values for each day to the matrix
     planData[index] = [
@@ -165,7 +181,6 @@ class EditPlan extends Component {
     });
   }
 
-  // Handle a change to the training plan
   handleChange(event) {
     const target = event.target;
     const name = target.name;
@@ -174,13 +189,13 @@ class EditPlan extends Component {
     this.setState({ [name]: value });
   }
 
-  // Submit the edited plan to the database
   submitPlan() {
     // Create a JSON object to send edited plan to db in post request
     const planData = {
       plan: this.state.finalPlan,
     };
 
+    // Create headers for the API request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
@@ -205,6 +220,7 @@ class EditPlan extends Component {
   }
 
   render() {
+    // Run function to pull data into Matrix that can be rendered
     let planData = [];
     if (!this.state.loading) {
       planData = this.convertToTable();
