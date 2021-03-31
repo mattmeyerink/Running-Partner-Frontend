@@ -22,13 +22,15 @@ class MyPlans extends Component {
     this.props.setCurrentPage("myTrainingPlans");
 
     // Set current path in local storage
-    localStorage.setItem('currentPath', '/personal_plan');
+    localStorage.setItem("currentPath", "/personal_plan");
 
+    // Prepare headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
+    // Gather the users training plans
     fetch(
       Config.rpAPI + `/training_plans/custom_plans/${this.props.userData.id}`,
       {
@@ -41,13 +43,17 @@ class MyPlans extends Component {
       .catch((error) => console.error(error));
   }
 
-  // Method to pass down to plan headers to re gather plan info when a plan is deleted
+  /*
+   * Method to pass down to the plan headers to re-gather plan info when a plan is deleted
+   */
   getTrainingPlans() {
+    // Prepare headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
+    // Re gather the plan data
     fetch(
       Config.rpAPI + `/training_plans/custom_plans/${this.props.userData.id}`,
       {
@@ -60,7 +66,9 @@ class MyPlans extends Component {
       .catch((error) => console.error(error));
   }
 
-  // Return the active plan data out of all of the training plans
+  /*
+   * Return the active plan data out of all of the training plans
+   */
   getActivePlan() {
     if (!this.state.loading) {
       const trainingPlan = this.state.training_plans;
