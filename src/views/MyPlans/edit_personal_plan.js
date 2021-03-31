@@ -130,9 +130,9 @@ class EditPlan extends Component {
     ];
 
     // Create trianing data string to push to matrix
-    var outputPlan = "";
-    for (var i = 0; i < planData.length; i++) {
-      for (var j = 0; j < planData[0].length - 1; j++) {
+    let outputPlan = "";
+    for (let i = 0; i < planData.length; i++) {
+      for (let j = 0; j < planData[0].length - 1; j++) {
         // Add a comma between runs during the week
         if (j !== planData[0].length - 2) {
           outputPlan += planData[i][j] + ",";
@@ -205,7 +205,7 @@ class EditPlan extends Component {
   }
 
   render() {
-    var planData = [];
+    let planData = [];
     if (!this.state.loading) {
       planData = this.convertToTable();
     }
