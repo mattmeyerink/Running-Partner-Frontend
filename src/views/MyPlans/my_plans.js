@@ -3,6 +3,9 @@ import { Redirect, Link } from "react-router-dom";
 import MyPlanHeader from "../../components/my_plan_header";
 import Config from "../../config";
 
+/*
+ * This class is responsible for displaying all of a users plans
+ */
 class MyPlans extends Component {
   constructor(props) {
     super(props);

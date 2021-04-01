@@ -3,7 +3,9 @@ import { Redirect } from "react-router-dom";
 import Config from "../../config";
 import "../../index.css";
 
-// View to display a personal training plan
+/*
+ * View to display a specific personal training plan
+ */
 class PersonalPlan extends Component {
   constructor(props) {
     super(props);
@@ -20,16 +22,18 @@ class PersonalPlan extends Component {
     this.setActivePlan = this.setActivePlan.bind(this);
     this.removeActivePlan = this.removeActivePlan.bind(this);
   }
-  // Fetch the personal plan data
+
   componentDidMount() {
     // Set the current page to myTrainingPlans for the nav bar
     this.props.setCurrentPage("myTrainingPlans");
 
+    // Prepare headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
+    // Gather the training plan data
     fetch(
       Config.rpAPI +
         `/training_plans/custom_plan/${this.props.match.params.id}`,
@@ -43,18 +47,23 @@ class PersonalPlan extends Component {
       .catch((error) => console.error(error));
   }
 
-  // Sets this plan as the current user's active plan
+  /*
+   * Sets this plan as the current user's active plan
+   */
   setActivePlan() {
+    // Prepare active plan data for the request
     const activePlanData = {
       user_id: this.props.userData.id,
       plan_id: this.state.planData.id,
     };
 
+    // Prepare the headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
+    // Post the new active plan to the API
     fetch(Config.rpAPI + "/authentication/set_active_plan", {
       method: "POST",
       body: JSON.stringify(activePlanData),
@@ -68,6 +77,10 @@ class PersonalPlan extends Component {
       .catch((error) => console.error(error));
   }
 
+  /*
+   * Delete this plan as teh active plan for the user.
+   * Note that no plan is signified as a -1
+   */
   removeActivePlan() {
     // Set active plan to -1 (to signify empty)
     const activePlanData = {
@@ -75,11 +88,13 @@ class PersonalPlan extends Component {
       plan_id: -1,
     };
 
+    // Prepare the headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
+    // Post request to delete the current active plan
     fetch(Config.rpAPI + "/authentication/set_active_plan", {
       method: "POST",
       body: JSON.stringify(activePlanData),
@@ -93,7 +108,9 @@ class PersonalPlan extends Component {
       .catch((error) => console.error(error));
   }
 
-  // Converts the plan in state to an array that can be mapped to a table when rendered
+  /*
+   * Converts the plan in state to a matrix 
+   */
   convertToTable() {
     const planOutput = [];
 
@@ -126,13 +143,17 @@ class PersonalPlan extends Component {
     return planOutput;
   }
 
-  // Delete a specific plan from the database
+  /*
+   * Delete a specific plan from the database
+   */
   deletePlan() {
+    // Initialize headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
+    // Make the call to delete the plan
     fetch(
       Config.rpAPI +
         `/training_plans/custom_plan/delete/${this.state.planData.id}`,
@@ -149,7 +170,9 @@ class PersonalPlan extends Component {
       .catch((error) => console.error(error));
   }
 
-  // Update state to editing plan to force re-direct
+  /*
+   * Update state to editing plan to force re-direct to plan editing page
+   */
   editPlan() {
     this.setState({ editingPlan: true });
   }
