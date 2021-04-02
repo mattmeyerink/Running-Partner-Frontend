@@ -4,7 +4,10 @@ import { Redirect } from "react-router-dom";
 import Config from "../../config";
 import "../../index.css";
 
-// Class to display the current user's profile
+/*
+ * Class to display the current user's profile
+ * Also contains a form allowing the user to edit their information
+ */
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -37,12 +40,13 @@ class Profile extends Component {
     localStorage.setItem('currentPath', '/profile');
   }
 
-  // Set state to begin editing
+  /*
+   * Set state to begin editing the user's data
+   */
   beginEditing() {
     this.setState({ editing: true });
   }
 
-  // Handle change to edit account form
   handleChange(event) {
     const target = event.target;
     const name = target.name;
@@ -51,7 +55,6 @@ class Profile extends Component {
     this.setState({ [name]: value });
   }
 
-  // Handle submit of the edit account form
   handleSubmit(event) {
     // Create JSON of edited user data for POST Request
     const editedUserData = {
@@ -64,6 +67,7 @@ class Profile extends Component {
       state: this.state.state,
     };
 
+    // Prepare headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
@@ -89,7 +93,9 @@ class Profile extends Component {
     event.preventDefault();
   }
 
-  // Route to confirmation page to delete account
+  /*
+   * Route to set state to redirect to confirm delete account page
+   */
   deleteAccount() {
     this.setState({ deleting: true });
   }

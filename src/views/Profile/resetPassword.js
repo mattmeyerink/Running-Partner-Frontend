@@ -3,6 +3,9 @@ import { Redirect } from "react-router-dom";
 import Config from "../../config";
 import "../../index.css";
 
+/*
+ * Class that holds the form that resets the user's password on submit
+ */
 class ResetPassword extends Component {
   constructor() {
     super();
@@ -36,12 +39,12 @@ class ResetPassword extends Component {
   }
 
   handleSubmit(event) {
-    // Check if a password was input
+    // Check to make a password was input
     if (!this.state.password) {
       this.setState({ warning: "Please input a password" });
     }
 
-    // Check if the passwords match
+    // Check that the two passwords match
     else if (this.state.password !== this.state.confirmPassword) {
       this.setState({ warning: "Passwords do not match" });
     } else {
@@ -51,6 +54,7 @@ class ResetPassword extends Component {
         password: this.state.password,
       };
 
+      // Send the new passwords to the API
       fetch(Config.rpAPI + "/authentication/reset_password", {
         method: "POST",
         body: JSON.stringify(newPasswordData),

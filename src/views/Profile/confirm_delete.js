@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Config from "../../config";
 
+/*
+ * View cofirming the user would like to delete their account
+ */
 class ConfirmDeleteAccount extends Component {
   constructor() {
     super();
@@ -18,16 +21,23 @@ class ConfirmDeleteAccount extends Component {
     this.props.setCurrentPage("profile");
 
     // Set current path in local storage
-    localStorage.setItem('currentPath', `/profile/confirm_delete/${this.props.match.params.id}`);
+    localStorage.setItem(
+      "currentPath",
+      `/profile/confirm_delete/${this.props.match.params.id}`
+    );
   }
 
-  // Method to handle delete account
+  /*
+   * Method to delete the user's account
+   */
   deleteAccount() {
+    // Prepare headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
+    // Send the request to delete the account
     fetch(
       Config.rpAPI +
         `/authentication/delete_account/${this.props.match.params.id}`,
