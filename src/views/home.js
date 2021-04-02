@@ -7,6 +7,9 @@ import RunEntry from "../components/run_entry";
 import Config from "../config";
 import "../index.css";
 
+/*
+ * Class to handle and render the main dashboard
+ */
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -15,17 +18,15 @@ class Home extends Component {
       weatherData: {},
       loading: true,
       greeting: null,
-      motivationalQuoteText: null,
-      motivationalQuoteAuthor: null,
     };
   }
 
   componentDidMount() {
     // Set the users page to blank to unhighlight any nav bar tabs
-    this.props.setCurrentPage('');
+    this.props.setCurrentPage("");
 
     // Set the current path to home
-    localStorage.setItem('currentPath', '/');
+    localStorage.setItem("currentPath", "/");
 
     // Ensure user authenticated before loading data for weather, quote and runs
     if (this.props.userAuthenticated) {
@@ -43,19 +44,6 @@ class Home extends Component {
         .then((data) => this.setState({ weatherData: data, loading: false }))
         .catch((error) => console.error(error));
     }
-
-    // Note that the api changed so until I get another one I am commenting the fetch out
-    // Fetch motivational quote
-    // fetch("https://type.fit/api/quotes")
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         const randomNum = Math.floor(Math.random() * data.length);
-    //         this.setState({
-    //             motivationalQuoteText: data[randomNum].text,
-    //             motivationalQuoteAuthor: data[randomNum].author
-    //         })
-    //     })
-    //     .catch(error => console.error(error))
 
     // Set the greeting message
     this.getGreetingMessage();
@@ -95,28 +83,6 @@ class Home extends Component {
                   </div>
                 ) : (
                   <React.Fragment>
-                    {/*
-                                  Note Temporarily pulling motivaitonal quote seciton
-                                  <div className="row justify-content-center">
-                                      <div className="col-md-8">
-                                          <div className="row justify-content-center home_widgets">
-                                              <div className="col">
-                                                  <div className="row justify-content-center">
-                                                      <h3 className="quote">{this.state.motivationalQuoteText}</h3>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <div className="row justify-content-center">
-                                              {this.state.motivationalQuoteAuthor === null?
-                                              <h3 className="quote">~ unknown</h3>
-                                              :
-                                              <h3 className="quote">~{this.state.motivationalQuoteAuthor}</h3>
-                                              }
-                                          </div>
-                                      </div>
-                                  </div>
-                                  */}
-
                     <div className="row justify-content-center home_widgets">
                       <div className="col-md-3 widget_spacing">
                         <WeatherWidget
