@@ -6,6 +6,9 @@ import RunPageRunEntry from "../../components/run_page_entry";
 import Config from "../../config";
 import "../../index.css";
 
+/*
+ * Page to display and handle the user's runs
+ */
 class AllRuns extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +26,6 @@ class AllRuns extends Component {
     this.deleteRun = this.deleteRun.bind(this);
   }
 
-  // Gather all of the user's runs from the runs db
   componentDidMount() {
     // Set the current page to myRuns for the nav bar
     this.props.setCurrentPage("myRuns");
@@ -31,20 +33,22 @@ class AllRuns extends Component {
     // Set current path in local storage
     localStorage.setItem('currentPath', '/all_runs');
 
+    // Prepare the headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
+    // Gather the users runs and process the data
     fetch(Config.rpAPI + `/runs/all_runs/${this.props.userData.id}`, {
       method: "GET",
       headers: myHeaders,
     })
       .then((response) => response.json())
       .then((data) => {
-        var totalMiles = 0;
-        var totalRuns = data.length;
-        var averageRunMiles = 0;
+        let totalMiles = 0;
+        const totalRuns = data.length;
+        let averageRunMiles = 0;
         for (let i = 0; i < data.length; i++) {
           totalMiles += data[i].distance;
         }
@@ -61,8 +65,11 @@ class AllRuns extends Component {
       .catch((error) => console.error(error));
   }
 
-  // Deletes a run from the db
+  /*
+   * Deletes a run from the db
+   */
   deleteRun(run_id) {
+    // Prepare headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
@@ -81,22 +88,26 @@ class AllRuns extends Component {
       .catch((error) => console.error(error));
   }
 
-  // Re-pull all the user's run data after run deleted or added
+  /*
+   * Re-pull all the user's run data after run deleted or added
+   */
   getRunData() {
+    // Prepare headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
+    // Gather all the runs from the db and handle the data
     fetch(Config.rpAPI + `/runs/all_runs/${this.props.userData.id}`, {
       method: "GET",
       headers: myHeaders,
     })
       .then((response) => response.json())
       .then((data) => {
-        var totalMiles = 0;
-        var totalRuns = data.length;
-        var averageRunMiles = 0;
+        let totalMiles = 0;
+        const totalRuns = data.length;
+        let averageRunMiles = 0;
         for (let i = 0; i < data.length; i++) {
           totalMiles += data[i].distance;
         }
