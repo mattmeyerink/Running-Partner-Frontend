@@ -4,6 +4,10 @@ import moment from "moment";
 import Config from "../../config";
 import "../../index.css";
 
+/*
+ * Class responsible for allowing the user to edit a general 
+ * plan and add it to their account
+ */
 class AddPlan extends Component {
   constructor(props) {
     super(props);
@@ -50,11 +54,13 @@ class AddPlan extends Component {
     // Set current path in local storage
     localStorage.setItem('currentPath', `/add_plan/${this.props.match.params.id}`);
 
+    // Prepare headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
+    // Fetch the plan data from the API
     fetch(Config.rpAPI + `/training_plans/${this.props.match.params.id}`, {
       method: "GET",
       headers: myHeaders,
@@ -255,6 +261,7 @@ class AddPlan extends Component {
       plan_length: this.state.planData.plan_length,
     };
 
+    // Prepare headers for the reuest
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,

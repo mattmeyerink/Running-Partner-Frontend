@@ -3,6 +3,9 @@ import { Redirect, Link } from "react-router-dom";
 import Config from "../../config";
 import "../../index.css";
 
+/*
+ * Class to display a single general training plan
+ */
 class SinglePlan extends Component {
   constructor() {
     super();
@@ -22,11 +25,13 @@ class SinglePlan extends Component {
     // Set current path in local storage
     localStorage.setItem('currentPath', `/training_plans/${this.props.match.params.id}`);
 
+    // Prepare headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
+    // Gather the data for the specific training plan
     fetch(Config.rpAPI + `/training_plans/${this.props.match.params.id}`, {
       method: "GET",
       headers: myHeaders,
