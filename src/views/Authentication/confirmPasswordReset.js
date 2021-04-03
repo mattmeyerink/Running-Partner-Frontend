@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import Config from "../../config";
 import "../../index.css";
 
+/*
+ * Class to confirm the user wants to reset their password.
+ * requires the user to enter their email to send the page link to and confirms 
+ * the email matches an email in the system
+ */
 class ConfirmPasswordReset extends Component {
   constructor() {
     super();
@@ -23,10 +28,12 @@ class ConfirmPasswordReset extends Component {
   }
 
   handleSubmit(event) {
+    // Package the input email to send to the request
     const emailData = {
       email: this.state.email,
     };
 
+    // Send the request to confirm the email to the API
     fetch(Config.rpAPI + "/authentication/initiate_password_reset", {
       method: "POST",
       body: JSON.stringify(emailData),
@@ -41,6 +48,7 @@ class ConfirmPasswordReset extends Component {
         this.setState({ emailNotFound: true });
       }
     });
+    
     event.preventDefault();
   }
 

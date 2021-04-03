@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "../../index.css";
 
+/*
+ * Page containing general help and advice for using the site
+ */
 class GeneralHelp extends Component {
   constructor() {
     super();

@@ -4,6 +4,9 @@ import StatesForm from "../../components/statesForm";
 import Config from "../../config";
 import "../../index.css";
 
+/*
+ * Class that handles the registration page allowing new users to sign up
+ */
 class Registration extends Component {
   constructor() {
     super();
@@ -42,6 +45,7 @@ class Registration extends Component {
   }
 
   handleSubmit(event) {
+    // Ensure that all of the fields were filled out
     if (
       this.state.firstName === "" ||
       this.state.lastName === "" ||
@@ -53,10 +57,14 @@ class Registration extends Component {
       this.setState({ warning: "Please fill in all form fields" });
       return;
     }
+
+    // Make sure the passwords match each other
     if (this.state.password !== this.state.password2) {
       this.setState({ warning: "Passwords did not match. Try again!" });
       return;
     }
+
+    // Package the registration data
     const registrationData = {
       first_name: this.state.firstName,
       last_name: this.state.lastName,
@@ -68,6 +76,7 @@ class Registration extends Component {
       active_plan: -1,
     };
 
+    // Push the registration data to the API
     fetch(Config.rpAPI + "/authentication/register", {
       method: "POST",
       body: JSON.stringify(registrationData),
@@ -87,6 +96,9 @@ class Registration extends Component {
     event.preventDefault();
   }
 
+  /*
+   * Clear the registration warning from the screen
+   */
   clearWarning() {
     this.setState({ warning: "" });
   }

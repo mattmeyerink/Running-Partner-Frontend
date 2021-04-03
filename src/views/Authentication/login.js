@@ -3,6 +3,9 @@ import { Redirect, Link } from "react-router-dom";
 import Config from "../../config";
 import "../../index.css";
 
+/*
+ * Class to handle loging the user into the page
+ */
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +16,7 @@ class Login extends Component {
       password: "",
       loading: false,
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.clearWarning = this.clearWarning.bind(this);
@@ -75,6 +79,9 @@ class Login extends Component {
     event.preventDefault();
   }
 
+  /*
+   * Clear the warning from the page
+   */
   clearWarning() {
     this.setState({ warning: "" });
   }
