@@ -4,7 +4,9 @@ import PlanHeader from "../../components/plan_header";
 import Config from "../../config";
 import "../../index.css";
 
-// View for the training plan page
+/*
+ * Class that displays all of the available training plans
+ */
 class TrainingPlan extends Component {
   constructor() {
     super();
@@ -16,7 +18,6 @@ class TrainingPlan extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  // Fetch all of the trianing plans from the API when the component mounts
   componentDidMount() {
     // Set current page to allTraining Plans for the nav bar
     this.props.setCurrentPage("allTrainingPlans");
@@ -24,11 +25,13 @@ class TrainingPlan extends Component {
     // Set current path in local storage
     localStorage.setItem('currentPath', '/training_plans');
 
+    // Prepare headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
+    // Send the API request to gather all of the plan data
     fetch(Config.rpAPI + "/training_plans/all_plans", {
       method: "GET",
       headers: myHeaders,
@@ -65,6 +68,7 @@ class TrainingPlan extends Component {
                   <option value="10k">10k</option>
                   <option value="Half-Marathon">Half Marathon</option>
                   <option value="Marathon">Marathon</option>
+                  <option value="Base Training">Base Training</option>
                   <option value="Custom">Custom</option>
                 </select>
               </form>
