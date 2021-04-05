@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./components.css";
 
-// Navbar to be displayed on every page
+/*
+ * Class to handle the navbar to be displayed on every page
+ */
 class NavBar extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +13,7 @@ class NavBar extends Component {
   }
 
   render() {
+    // Retrieve the current page from props to highlight the correct 
     const { currentPage } = this.props;
 
     return (

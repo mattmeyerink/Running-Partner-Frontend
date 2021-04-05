@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./components.css";
 
+/*
+ * Class to display the header information for pre made training plans
+ */
 class PlanHeader extends Component {
   constructor() {
     super();

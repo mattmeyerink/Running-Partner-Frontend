@@ -5,6 +5,10 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import Config from "../config";
 import "./components.css";
 
+/*
+ * Class to display training plan information in a small header.
+ * Specifically for the personal training plan header.
+ */
 class MyPlanHeader extends Component {
   constructor() {
     super();
@@ -14,13 +18,17 @@ class MyPlanHeader extends Component {
     this.deletePlan = this.deletePlan.bind(this);
   }
 
-  // Deletes a custom plan from the db
+  /*
+   * Deletes a custom plan from the db
+   */
   deletePlan() {
+    // Prepare headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
+    // Send the request to delete the plan
     fetch(
       Config.rpAPI + `/training_plans/custom_plan/delete/${this.props.id}`,
       {
@@ -37,6 +45,7 @@ class MyPlanHeader extends Component {
   }
 
   render() {
+    // Split the plan to gather the start and end date
     const planSplit = this.props.plan.split("-");
     const startDate = planSplit[0].split(",")[0];
     const endDate = planSplit[planSplit.length - 1].split(",")[0];
