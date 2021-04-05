@@ -4,6 +4,10 @@ import StatesForm from "./statesForm";
 import Config from "../config";
 import "../index.css";
 
+/*
+ * Run entry form to allow the runner to log a new run.
+ * This component is specifically located on the dashboard.
+ */
 class RunEntry extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +24,6 @@ class RunEntry extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // Update state with changes from run form
   handleChange(event) {
     const target = event.target;
     const name = target.name;
@@ -29,7 +32,6 @@ class RunEntry extends Component {
     this.setState({ [name]: value });
   }
 
-  // Submit run data to db
   handleSubmit(event) {
     // Create json object to send in POST request
     const runData = {
@@ -41,6 +43,7 @@ class RunEntry extends Component {
       notes: this.state.notes,
     };
 
+    // Prepare the headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,

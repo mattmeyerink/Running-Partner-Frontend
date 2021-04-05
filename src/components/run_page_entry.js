@@ -4,6 +4,10 @@ import StatesForm from "./statesForm";
 import Config from "../config";
 import "../index.css";
 
+/*
+ * Run entry forms to allow runners to enter new runs
+ * Component specifically for the my runs page
+ */
 class RunPageRunEntry extends Component {
   constructor(props) {
     super(props);
@@ -29,6 +33,7 @@ class RunPageRunEntry extends Component {
   }
 
   handleSubmit(event) {
+    // Package the run data into a JSON for API request
     const runData = {
       user_id: this.props.user_id,
       distance: this.state.distance,
@@ -38,11 +43,13 @@ class RunPageRunEntry extends Component {
       notes: this.state.notes,
     };
 
+    // Prepare headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
+    // Send the run data to the API
     fetch(Config.rpAPI + "/runs/add_run", {
       method: "POST",
       body: JSON.stringify(runData),

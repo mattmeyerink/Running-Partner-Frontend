@@ -5,6 +5,9 @@ import "../index.css";
 import running_shoes from "../images/running_shoes.jpeg";
 import rest_day_beach from "../images/rest_day_beach.jpeg";
 
+/*
+ * Class to handle processing for today's run on the dashboard
+ */
 class TodaysRun extends Component {
   constructor(props) {
     super(props);
@@ -18,13 +21,14 @@ class TodaysRun extends Component {
     this.getTodaysRun = this.getTodaysRun.bind(this);
   }
 
-  // Pull the data for the person's current run
   componentDidMount() {
+    // Prepare headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
+    // Only send the request of the person has an active plan set
     if (this.props.userData.active_plan !== -1) {
       fetch(
         Config.rpAPI +
