@@ -1,11 +1,14 @@
 import React from "react";
 import "./components.css";
 
+/*
+ * Function to display the weather for the person's current city
+ */
 function WeatherWidget(props) {
   const { city, state, weatherData } = props;
-  var description = weatherData.weather[0].description.split(" ");
+  let description = weatherData.weather[0].description.split(" ");
 
-  for (var i = 0; i < description.length; i++) {
+  for (let i = 0; i < description.length; i++) {
     description[i] =
       description[i].charAt(0).toUpperCase() + description[i].slice(1);
   }
