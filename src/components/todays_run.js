@@ -49,29 +49,33 @@ class TodaysRun extends Component {
     }
   }
 
-  // Get todays run length from active plan
+  /*
+   * Get todays run length from active plan
+   */
   getTodaysRun() {
     if (this.state.activePlan) {
       // Pull the active plan from state and create a week by week array
-      var activePlan = this.state.planData.plan;
-      var activePlanArr = activePlan.split("-");
+      const activePlan = this.state.planData.plan;
+      const activePlanArr = activePlan.split("-");
 
       // Get the start date of the first week and the last week
-      var firstWeekStart = activePlanArr[0].split(",")[0];
-      var lastWeekStart = activePlanArr[activePlanArr.length - 1].split(",")[0];
+      const firstWeekStart = activePlanArr[0].split(",")[0];
+      const lastWeekStart = activePlanArr[activePlanArr.length - 1].split(
+        ","
+      )[0];
 
       // Split dates in array to use in creating moment objects
-      var firstWeekStartArr = firstWeekStart.split("/");
-      var lastWeekStartArr = lastWeekStart.split("/");
+      const firstWeekStartArr = firstWeekStart.split("/");
+      const lastWeekStartArr = lastWeekStart.split("/");
 
       // Create moment objects with first and last week moments
-      var firstWeekStartMoment = moment({
+      const firstWeekStartMoment = moment({
         year: parseInt(firstWeekStartArr[2]),
         month: parseInt(firstWeekStartArr[0] - 1),
         day: parseInt(firstWeekStartArr[1]),
       });
       firstWeekStartMoment.subtract(1, "days");
-      var lastWeekStartMoment = moment({
+      const lastWeekStartMoment = moment({
         year: parseInt(lastWeekStartArr[2]),
         month: parseInt(lastWeekStartArr[0] - 1),
         day: parseInt(lastWeekStartArr[1]),
@@ -85,20 +89,20 @@ class TodaysRun extends Component {
       ) {
         for (let i = 0; i < activePlanArr.length; i++) {
           // Split up the string of the current week
-          var currentWeekArr = activePlanArr[i].split(",");
+          const currentWeekArr = activePlanArr[i].split(",");
 
           // Gather the start date for the week and put it into an array
-          var weekStartDate = currentWeekArr[0];
-          var weekStartDateArr = weekStartDate.split("/");
+          const weekStartDate = currentWeekArr[0];
+          const weekStartDateArr = weekStartDate.split("/");
 
           // Create moments for the start of the week and for the end of the week
-          var weekStartDateMoment = moment({
+          const weekStartDateMoment = moment({
             year: parseInt(weekStartDateArr[2]),
             month: parseInt(weekStartDateArr[0] - 1),
             day: parseInt(weekStartDateArr[1]),
           });
           weekStartDateMoment.subtract(1, "days");
-          var weekEndDateMoment = moment({
+          const weekEndDateMoment = moment({
             year: parseInt(weekStartDateArr[2]),
             month: parseInt(weekStartDateArr[0] - 1),
             day: parseInt(weekStartDateArr[1]),
