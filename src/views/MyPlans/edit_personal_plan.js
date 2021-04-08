@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 import Config from "../../config";
 import "../../index.css";
 
@@ -233,7 +234,7 @@ class EditPlan extends Component {
             {this.state.loading ? (
               <React.Fragment>
                 <div className="row justify-content-center">
-                  <h1 className="white_text">Loading...</h1>
+                  <h1 className="white_text">Loading <Spinner animation="border" variant="light" /></h1>
                 </div>
               </React.Fragment>
             ) : (

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Spinner from "react-bootstrap/spinner";
 import moment from "moment";
 import { Redirect } from "react-router-dom";
 import WeatherWidget from "../components/weatherWidget";
@@ -79,7 +80,7 @@ class Home extends Component {
 
                 {this.state.loading ? (
                   <div className="row justify-content-center">
-                    <h1 className="white_text">Loading...</h1>
+                    <h1 className="white_text">Loading <Spinner animation="border" variant="light"/></h1>
                   </div>
                 ) : (
                   <React.Fragment>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 import MyPlanHeader from "../../components/my_plan_header";
 import Config from "../../config";
 
@@ -97,7 +98,7 @@ class MyPlans extends Component {
                   <h1 className="white_text">My Plans</h1>
                 </div>
                 <div className="row justify-content-center">
-                  <h1 className="white_text">Loading...</h1>
+                  <h1 className="white_text">Loading <Spinner animation="border" variant="light" /></h1>
                 </div>
               </React.Fragment>
             ) : (

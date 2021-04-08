@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 import Config from "../../config";
 import "../../index.css";
 
@@ -98,7 +99,7 @@ class Login extends Component {
                 {this.state.loading ? (
                   <div className="col">
                     <div className="row justify-content-center">
-                      <h1 className="white_text">Loading...</h1>
+                      <h1 className="white_text">Loading <Spinner animation="border" variant="light" /></h1>
                     </div>
                   </div>
                 ) : (
