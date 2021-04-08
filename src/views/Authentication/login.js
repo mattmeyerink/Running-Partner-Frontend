@@ -98,7 +98,7 @@ class Login extends Component {
               <div className="row">
                 {this.state.loading ? (
                   <div className="col">
-                    <div className="row justify-content-center">
+                    <div className="row justify-content-center loading_height">
                       <h1 className="white_text">Loading <Spinner animation="border" variant="light" /></h1>
                     </div>
                   </div>

@@ -295,7 +295,7 @@ class AddPlan extends Component {
           <React.Fragment>
             {this.state.loading ? (
               <React.Fragment>
-                <div className="row justify-content-center">
+                <div className="row justify-content-center loading_height">
                   <h1 className="white_text">Loading <Spinner animation="border" variant="light" /></h1>
                 </div>
               </React.Fragment>

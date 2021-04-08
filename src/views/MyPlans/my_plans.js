@@ -3,6 +3,7 @@ import { Redirect, Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import MyPlanHeader from "../../components/my_plan_header";
 import Config from "../../config";
+import "../../index.css";
 
 /*
  * This class is responsible for displaying all of a users plans
@@ -97,7 +98,7 @@ class MyPlans extends Component {
                 <div className="row justify-content-center">
                   <h1 className="white_text">My Plans</h1>
                 </div>
-                <div className="row justify-content-center">
+                <div className="row justify-content-center loading_height">
                   <h1 className="white_text">Loading <Spinner animation="border" variant="light" /></h1>
                 </div>
               </React.Fragment>
