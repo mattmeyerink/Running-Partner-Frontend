@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import RunPageRunEntry from "../../components/run_page_entry";
@@ -14,6 +15,7 @@ class AllRuns extends Component {
     super(props);
 
     this.state = {
+      loading: true,
       runs: [],
       totalMiles: 0,
       totalRuns: 0,
@@ -31,7 +33,7 @@ class AllRuns extends Component {
     this.props.setCurrentPage("myRuns");
 
     // Set current path in local storage
-    localStorage.setItem('currentPath', '/all_runs');
+    localStorage.setItem("currentPath", "/all_runs");
 
     // Prepare the headers for the request
     const myHeaders = new Headers({
@@ -60,6 +62,7 @@ class AllRuns extends Component {
           totalMiles: totalMiles,
           totalRuns: totalRuns,
           averageMilesPerRun: averageRunMiles,
+          loading: false,
         });
       })
       .catch((error) => console.error(error));
@@ -149,71 +152,83 @@ class AllRuns extends Component {
                 </div>
               </div>
             </div>
-            {this.state.totalRuns === 0 ? (
-              <React.Fragment>
-                <div className="row justify-content-center">
-                  <h3 className="white_text">You haven't done any runs yet!</h3>
-                </div>
-                <div className="row justify-content-center">
-                  <h3 className="white_text">
-                    Theres a whole world to explore! Get out there!
-                  </h3>
-                </div>
-              </React.Fragment>
+            {this.state.loading ? (
+              <div className="row justify-content-center">
+                <h1 className="white_text">
+                  Loading <Spinner animation="border" variant="light" />
+                </h1>
+              </div>
             ) : (
               <React.Fragment>
-                <div className="row justify-content-center training_run_spacing">
-                  <div className="col-md-7 background_color">
+                {this.state.totalRuns === 0 ? (
+                  <React.Fragment>
                     <div className="row justify-content-center">
-                      <strong className="text_spacing">
-                        Total Miles: {this.state.totalMiles} Miles
-                      </strong>
-                      <strong className="text_spacing">
-                        Total Runs: {this.state.totalRuns}
-                      </strong>
-                      <strong className="text_spacing">
-                        Average Miles Per Run:{" "}
-                        {this.state.averageMilesPerRun.toFixed(2)} Miles
-                      </strong>
+                      <h3 className="white_text">
+                        You haven't done any runs yet!
+                      </h3>
                     </div>
-                  </div>
-                </div>
-                <div className="row justify-content-center">
-                  {this.state.runs.map((run) => (
-                    <React.Fragment key={run.id}>
-                      <div className="col-md-8 run_card">
-                        <div className="row">
-                          <div className="col-md-11">
-                            <h5>
-                              {run.distance} Miles - {run.run_city},{" "}
-                              {run.run_state}
-                            </h5>
-                          </div>
-                          <div className="col-md-1">
-                            <button
-                              className="icon_button"
-                              onClick={() => this.deleteRun(run.id)}
-                            >
-                              <FontAwesomeIcon icon={faTrash} color="red" />
-                            </button>
-                          </div>
-                        </div>
-                        <div className="row">
-                          <div className="col-md-10">
-                            <strong>
-                              {run.date.split("-")[1] +
-                                " - " +
-                                run.date.split("-")[2] +
-                                " - " +
-                                run.date.split("-")[0]}
-                            </strong>
-                            <p>{run.notes}</p>
-                          </div>
+                    <div className="row justify-content-center">
+                      <h3 className="white_text">
+                        Theres a whole world to explore! Get out there!
+                      </h3>
+                    </div>
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <div className="row justify-content-center training_run_spacing">
+                      <div className="col-md-7 background_color">
+                        <div className="row justify-content-center">
+                          <strong className="text_spacing">
+                            Total Miles: {this.state.totalMiles} Miles
+                          </strong>
+                          <strong className="text_spacing">
+                            Total Runs: {this.state.totalRuns}
+                          </strong>
+                          <strong className="text_spacing">
+                            Average Miles Per Run:{" "}
+                            {this.state.averageMilesPerRun.toFixed(2)} Miles
+                          </strong>
                         </div>
                       </div>
-                    </React.Fragment>
-                  ))}
-                </div>
+                    </div>
+                    <div className="row justify-content-center">
+                      {this.state.runs.map((run) => (
+                        <React.Fragment key={run.id}>
+                          <div className="col-md-8 run_card">
+                            <div className="row">
+                              <div className="col-md-11">
+                                <h5>
+                                  {run.distance} Miles - {run.run_city},{" "}
+                                  {run.run_state}
+                                </h5>
+                              </div>
+                              <div className="col-md-1">
+                                <button
+                                  className="icon_button"
+                                  onClick={() => this.deleteRun(run.id)}
+                                >
+                                  <FontAwesomeIcon icon={faTrash} color="red" />
+                                </button>
+                              </div>
+                            </div>
+                            <div className="row">
+                              <div className="col-md-10">
+                                <strong>
+                                  {run.date.split("-")[1] +
+                                    " - " +
+                                    run.date.split("-")[2] +
+                                    " - " +
+                                    run.date.split("-")[0]}
+                                </strong>
+                                <p>{run.notes}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </React.Fragment>
+                      ))}
+                    </div>
+                  </React.Fragment>
+                )}
               </React.Fragment>
             )}
           </React.Fragment>
