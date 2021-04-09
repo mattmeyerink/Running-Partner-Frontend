@@ -16,6 +16,10 @@ code {
   margin-bottom: 5px;
 }
 
+.custom_plan_button {
+  margin: 10px;
+}
+
 .input_box {
   padding-top: 20px;
   padding-bottom: 30px;

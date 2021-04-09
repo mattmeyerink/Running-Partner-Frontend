@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import PlanHeader from "../../components/plan_header";
 import Config from "../../config";
@@ -58,6 +58,10 @@ class TrainingPlan extends Component {
         {this.props.userAuthenticated ? (
           <React.Fragment>
             <div className="row justify-content-center">
+              <Link to="/" className="btn btn-success custom_plan_button">
+                <b>Create a Custom Plan</b>
+              </Link>
+
               <h1 className="white_text">Training Plans</h1>
 
               <form className="filter_dropdown">
