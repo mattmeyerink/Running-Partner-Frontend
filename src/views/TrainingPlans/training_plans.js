@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 import PlanHeader from "../../components/plan_header";
 import Config from "../../config";
 import "../../index.css";
@@ -14,7 +15,9 @@ class TrainingPlan extends Component {
     this.state = {
       training_plans: [],
       planType: "All-Plans",
+      loading: true,
     };
+
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -23,7 +26,7 @@ class TrainingPlan extends Component {
     this.props.setCurrentPage("allTrainingPlans");
 
     // Set current path in local storage
-    localStorage.setItem('currentPath', '/training_plans');
+    localStorage.setItem("currentPath", "/training_plans");
 
     // Prepare headers for the request
     const myHeaders = new Headers({
@@ -37,7 +40,7 @@ class TrainingPlan extends Component {
       headers: myHeaders,
     })
       .then((result) => result.json())
-      .then((data) => this.setState({ training_plans: data }))
+      .then((data) => this.setState({ training_plans: data, loading: false }))
       .catch((error) => console.error(error));
   }
 
@@ -73,25 +76,32 @@ class TrainingPlan extends Component {
                 </select>
               </form>
             </div>
-
-            <div className="row justify-content-center">
-              {this.state.training_plans.map((plan) =>
-                this.state.planType === "All-Plans" ||
-                this.state.planType === plan.race_name ? (
-                  <PlanHeader
-                    key={plan.id}
-                    id={plan.id}
-                    difficulty={plan.difficulty}
-                    frequency={plan.frequency}
-                    plan_length={plan.plan_length}
-                    race_length={plan.race_length}
-                    race_name={plan.race_name}
-                  />
-                ) : (
-                  <React.Fragment key={plan.id}></React.Fragment>
-                )
-              )}
-            </div>
+            {this.state.loading ? (
+              <div className="row justify-content-center">
+                <h1 className="white_text">
+                  Loading <Spinner animation="border" variant="light" />
+                </h1>
+              </div>
+            ) : (
+              <div className="row justify-content-center">
+                {this.state.training_plans.map((plan) =>
+                  this.state.planType === "All-Plans" ||
+                  this.state.planType === plan.race_name ? (
+                    <PlanHeader
+                      key={plan.id}
+                      id={plan.id}
+                      difficulty={plan.difficulty}
+                      frequency={plan.frequency}
+                      plan_length={plan.plan_length}
+                      race_length={plan.race_length}
+                      race_name={plan.race_name}
+                    />
+                  ) : (
+                    <React.Fragment key={plan.id}></React.Fragment>
+                  )
+                )}
+              </div>
+            )}
           </React.Fragment>
         ) : (
           <React.Fragment>
