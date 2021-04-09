@@ -7,6 +7,7 @@ import ResetPassword from "./views/Profile/resetPassword";
 import SinglePlan from "./views/TrainingPlans/individual_plan";
 import TrainingPlan from "./views/TrainingPlans/training_plans";
 import AddPlan from "./views/TrainingPlans/add_training_plan";
+import CustomPlan from "./views/TrainingPlans/customTrainingPlan";
 import PersonalPlan from "./views/MyPlans/personal_plan";
 import EditPlan from "./views/MyPlans/edit_personal_plan";
 import MyPlans from "./views/MyPlans/my_plans";
@@ -168,6 +169,8 @@ class App extends Component {
                 />
               )}
             />
+
+            <Route exact path="/custom_plan" render={() => <CustomPlan />} />
 
             <Route
               exact

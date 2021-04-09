@@ -58,7 +58,7 @@ class TrainingPlan extends Component {
         {this.props.userAuthenticated ? (
           <React.Fragment>
             <div className="row justify-content-center">
-              <Link to="/" className="btn btn-success custom_plan_button">
+              <Link to="/custom_plan" className="btn btn-success custom_plan_button">
                 <b>Create a Custom Plan</b>
               </Link>
 
