@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 import Config from "../../config";
 import "../../index.css";
 
@@ -14,6 +15,7 @@ class PersonalPlan extends Component {
       planData: {},
       planDeleted: false,
       editingPlan: false,
+      loading: true,
     };
 
     this.convertToTable = this.convertToTable.bind(this);
@@ -43,7 +45,7 @@ class PersonalPlan extends Component {
       }
     )
       .then((response) => response.json())
-      .then((data) => this.setState({ planData: data }))
+      .then((data) => this.setState({ planData: data, loading: false }))
       .catch((error) => console.error(error));
   }
 
@@ -71,7 +73,10 @@ class PersonalPlan extends Component {
     })
       .then((response) => {
         if (response.status === 200) {
-          this.props.refreshUserData(this.props.userData.id, this.props.userData.token);
+          this.props.refreshUserData(
+            this.props.userData.id,
+            this.props.userData.token
+          );
         }
       })
       .catch((error) => console.error(error));
@@ -102,14 +107,17 @@ class PersonalPlan extends Component {
     })
       .then((response) => {
         if (response.status === 200) {
-          this.props.refreshUserData(this.props.userData.id, this.props.userData.token);
+          this.props.refreshUserData(
+            this.props.userData.id,
+            this.props.userData.token
+          );
         }
       })
       .catch((error) => console.error(error));
   }
 
   /*
-   * Converts the plan in state to a matrix 
+   * Converts the plan in state to a matrix
    */
   convertToTable() {
     const planOutput = [];
@@ -191,79 +199,89 @@ class PersonalPlan extends Component {
               <Redirect to={"/profile"} />
             ) : (
               <React.Fragment>
-                <div className="row justify-content-center">
-                  <h1 className="white_text">
-                    {training_plan.race_name} - {training_plan.difficulty}
-                  </h1>
-                </div>
-                <div className="row justify-content-center">
-                  {this.props.userData.active_plan ===
-                  this.state.planData.id ? (
-                    <button
-                      onClick={this.removeActivePlan}
-                      className="btn btn-warning button_spacing"
-                    >
-                      Remove Active Plan
-                    </button>
-                  ) : (
-                    <button
-                      onClick={this.setActivePlan}
-                      className="btn btn-success button_spacing"
-                    >
-                      Set As Active Plan
-                    </button>
-                  )}
-                  <button
-                    onClick={this.deletePlan}
-                    className="btn btn-danger button_spacing"
-                  >
-                    Delete Plan
-                  </button>
-                  <button
-                    onClick={this.editPlan}
-                    className="btn btn-warning button_spacing"
-                  >
-                    Edit Plan
-                  </button>
-                </div>
-                <div className="row justify-content-center">
-                  <div className="col-md-10">
-                    <table className="table background_color">
-                      <tbody>
-                        <tr>
-                          <th>Week</th>
-                          <th>Monday</th>
-                          <th>Tuesday</th>
-                          <th>Wednesday</th>
-                          <th>Thursday</th>
-                          <th>Friday</th>
-                          <th>Saturday</th>
-                          <th>Sunday</th>
-                          <th>Total</th>
-                        </tr>
-                        {planData.map((week, index) => (
-                          <React.Fragment key={index}>
-                            <tr>
-                              <td>
-                                <b>{week[0]}</b>
-                              </td>
-                              <td>{week[1]}</td>
-                              <td>{week[2]}</td>
-                              <td>{week[3]}</td>
-                              <td>{week[4]}</td>
-                              <td>{week[5]}</td>
-                              <td>{week[6]}</td>
-                              <td>{week[7]}</td>
-                              <td>
-                                <b>{week[8].toFixed(1)}</b>
-                              </td>
-                            </tr>
-                          </React.Fragment>
-                        ))}
-                      </tbody>
-                    </table>
+                {this.state.loading ? (
+                  <div className="row justify-content-center loading_height">
+                    <h1 className="white_text">
+                      Loading <Spinner animation="border" variant="light" />
+                    </h1>
                   </div>
-                </div>
+                ) : (
+                  <React.Fragment>
+                    <div className="row justify-content-center">
+                      <h1 className="white_text">
+                        {training_plan.race_name} - {training_plan.difficulty}
+                      </h1>
+                    </div>
+                    <div className="row justify-content-center">
+                      {this.props.userData.active_plan ===
+                      this.state.planData.id ? (
+                        <button
+                          onClick={this.removeActivePlan}
+                          className="btn btn-warning button_spacing"
+                        >
+                          Remove Active Plan
+                        </button>
+                      ) : (
+                        <button
+                          onClick={this.setActivePlan}
+                          className="btn btn-success button_spacing"
+                        >
+                          Set As Active Plan
+                        </button>
+                      )}
+                      <button
+                        onClick={this.deletePlan}
+                        className="btn btn-danger button_spacing"
+                      >
+                        Delete Plan
+                      </button>
+                      <button
+                        onClick={this.editPlan}
+                        className="btn btn-warning button_spacing"
+                      >
+                        Edit Plan
+                      </button>
+                    </div>
+                    <div className="row justify-content-center">
+                      <div className="col-md-10">
+                        <table className="table background_color">
+                          <tbody>
+                            <tr>
+                              <th>Week</th>
+                              <th>Monday</th>
+                              <th>Tuesday</th>
+                              <th>Wednesday</th>
+                              <th>Thursday</th>
+                              <th>Friday</th>
+                              <th>Saturday</th>
+                              <th>Sunday</th>
+                              <th>Total</th>
+                            </tr>
+                            {planData.map((week, index) => (
+                              <React.Fragment key={index}>
+                                <tr>
+                                  <td>
+                                    <b>{week[0]}</b>
+                                  </td>
+                                  <td>{week[1]}</td>
+                                  <td>{week[2]}</td>
+                                  <td>{week[3]}</td>
+                                  <td>{week[4]}</td>
+                                  <td>{week[5]}</td>
+                                  <td>{week[6]}</td>
+                                  <td>{week[7]}</td>
+                                  <td>
+                                    <b>{week[8].toFixed(1)}</b>
+                                  </td>
+                                </tr>
+                              </React.Fragment>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </React.Fragment>
+                )}
               </React.Fragment>
             )}
           </React.Fragment>
