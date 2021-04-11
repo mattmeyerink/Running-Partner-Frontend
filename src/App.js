@@ -170,7 +170,16 @@ class App extends Component {
               )}
             />
 
-            <Route exact path="/custom_plan" render={() => <CustomPlan />} />
+            <Route
+              exact
+              path="/custom_plan"
+              render={() => (
+                <CustomPlan
+                  userAuthenticated={this.state.userAuthenticated}
+                  userData={this.state.userData}
+                />
+              )}
+            />
 
             <Route
               exact
