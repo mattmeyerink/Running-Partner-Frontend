@@ -5,7 +5,7 @@ import moment from "moment";
 import Config from "../../config";
 import "../../index.css";
 
-/*
+/**
  * Class responsible for allowing the user to edit a general 
  * plan and add it to their account
  */
@@ -75,7 +75,7 @@ class AddPlan extends Component {
     this.findFirstMonday();
   }
 
-  /*
+  /**
    * Assign the moment object for the next monday in state
    */
   findFirstMonday() {
@@ -101,7 +101,7 @@ class AddPlan extends Component {
     });
   }
 
-  /*
+  /**
    * Converts the plan in state to an array that can be mapped to a table when rendered
    */
   convertToTable() {
@@ -133,7 +133,7 @@ class AddPlan extends Component {
     return planOutput;
   }
 
-  /*
+  /**
    * Enter into edit mode for a specific row on the plan table
    * @param rowKey represents the week of the plan being edited
    * @param week data to display to initialize in edit form
@@ -158,7 +158,7 @@ class AddPlan extends Component {
     });
   }
 
-  /*
+  /**
    * Saves any edits to the table to state
    * @param index Represents the week that was edited/saved
    * @param planData 
@@ -235,7 +235,7 @@ class AddPlan extends Component {
     this.setState({ [name]: value });
   }
 
-  /*
+  /**
    * Submit the custom plan to the database
    */  
   submitPlan() {
