@@ -177,6 +177,7 @@ class App extends Component {
                 <CustomPlan
                   userAuthenticated={this.state.userAuthenticated}
                   userData={this.state.userData}
+                  setCurrentPage={this.setCurrentPage}
                 />
               )}
             />
