@@ -37,6 +37,8 @@ class CustomPlan extends Component {
     this.changeNumberOfWeeks = this.changeNumberOfWeeks.bind(this);
     this.convertToTable = this.convertToTable.bind(this);
     this.findFirstMonday = this.findFirstMonday.bind(this);
+    this.editTable = this.editTable.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -46,7 +48,7 @@ class CustomPlan extends Component {
     this.findFirstMonday();
   }
 
-  /*
+  /**
    * Assign the moment object for the next monday in state
    */
   findFirstMonday() {
@@ -72,7 +74,7 @@ class CustomPlan extends Component {
     });
   }
 
-  /*
+  /**
    * Method to change the number of weeks of the plan
    */
   changeNumberOfWeeks(event) {
@@ -89,7 +91,7 @@ class CustomPlan extends Component {
     });
   }
 
-  /*
+  /**
    * Converts the plan in state to an array that can be mapped to a table when rendered
    */
   convertToTable() {
@@ -119,6 +121,54 @@ class CustomPlan extends Component {
     }
 
     return planOutput;
+  }
+
+  /**
+   * Enter into edit mode for a specific row on the plan table
+   * @param rowKey represents the week of the plan being edited
+   * @param week data to display to initialize in edit form
+   */
+  editTable(rowKey, week) {
+    // Set the state to edit mode and set which week being edited
+    this.setState({
+      inEditMode: {
+        status: true,
+        rowKey: rowKey,
+      },
+
+      // Initialize each run edit value to the appropriate weeks runs
+      mondayEdit: week[0],
+      tuesdayEdit: week[1],
+      wednesdayEdit: week[2],
+      thursdayEdit: week[3],
+      fridayEdit: week[4],
+      saturdayEdit: week[5],
+      sundayEdit: week[6],
+      totalEdit: week[7],
+    });
+  }
+
+  handleChange(event) {
+    // Gather change event variables
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+
+    // Set the currentPlanDates array to appropriate values if start date changed
+    if (name === "startDate") {
+      const next2YearsDates = this.state.next2YearsDates;
+      const possibleStartDates = this.state.possibleStartDates;
+      let dateIndex;
+      for (let i = 0; i < possibleStartDates.length; i++) {
+        if (value === possibleStartDates[i]) {
+          dateIndex = i;
+        }
+      }
+      this.setState({ currentPlanDates: next2YearsDates.slice(dateIndex) });
+    }
+
+    // Changed the specified state
+    this.setState({ [name]: value });
   }
 
   render() {
