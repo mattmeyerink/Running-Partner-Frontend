@@ -148,6 +148,60 @@ class CustomPlan extends Component {
     });
   }
 
+  /**`
+   * Saves any edits to the table to state
+   * @param index Represents the week that was edited/saved
+   * @param planData 
+   */
+  saveTable(index, planData) {
+    // Push the edited values from the table into the planData
+    planData[index] = [
+      this.state.mondayEdit,
+      this.state.tuesdayEdit,
+      this.state.wednesdayEdit,
+      this.state.thursdayEdit,
+      this.state.fridayEdit,
+      this.state.saturdayEdit,
+      this.state.sundayEdit,
+      this.state.totalEdit,
+    ];
+
+    // Stringify the matrix of plan data
+    let outputPlan = "";
+    for (let i = 0; i < planData.length; i++) {
+      for (let j = 0; j < planData[0].length - 1; j++) {
+        // Add the value without a comma unless it is the last value.
+        if (j !== planData[0].length - 2) {
+          outputPlan += planData[i][j] + ",";
+        }
+        // Add the dash to signify the end of the week
+        else {
+          outputPlan += planData[i][j] + "-";
+        }
+      }
+    }
+
+    // Remove the trailing dash from the plan
+    outputPlan = outputPlan.slice(0, -1);
+
+    // Reset state to be out of edit mode
+    this.setState({
+      inEditMode: {
+        status: false,
+        rowKey: null,
+        mondayEdit: null,
+        tuesdayEdit: null,
+        wednesdayEdit: null,
+        thursdayEdit: null,
+        fridayEdit: null,
+        saturdayEdit: null,
+        sundayEdit: null,
+        totalEdit: null,
+      },
+      trainingPlanString: outputPlan,
+    });
+  }
+
   handleChange(event) {
     // Gather change event variables
     const target = event.target;
