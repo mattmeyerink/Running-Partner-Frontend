@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
-import StatesForm from "../../components/statesForm";
+import StatesForm from "../../components/StatesForm";
 import Config from "../../config";
 import "../../index.css";
 

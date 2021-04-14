@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import moment from "moment";
-import StatesForm from "./statesForm";
+import StatesForm from "./StatesForm";
 import Config from "../config";
 import "../index.css";
 
 /*
- * Run entry form to allow the runner to log a new run.
- * This component is specifically located on the dashboard.
+ * Run entry forms to allow runners to enter new runs
+ * Component specifically for the my runs page
  */
-class RunEntry extends Component {
+class RunPageRunEntry extends Component {
   constructor(props) {
     super(props);
 
@@ -33,7 +33,7 @@ class RunEntry extends Component {
   }
 
   handleSubmit(event) {
-    // Create json object to send in POST request
+    // Package the run data into a JSON for API request
     const runData = {
       user_id: this.props.user_id,
       distance: this.state.distance,
@@ -43,13 +43,13 @@ class RunEntry extends Component {
       notes: this.state.notes,
     };
 
-    // Prepare the headers for the request
+    // Prepare headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.props.userData.token,
     });
 
-    // Send POST request to create run in the db
+    // Send the run data to the API
     fetch(Config.rpAPI + "/runs/add_run", {
       method: "POST",
       body: JSON.stringify(runData),
@@ -65,6 +65,7 @@ class RunEntry extends Component {
             state: this.props.state,
             notes: "",
           });
+          this.props.getRunData();
         }
       })
       .catch((error) => console.error(error));
@@ -75,59 +76,63 @@ class RunEntry extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="row justify-content-center">
-          <div className="weather_card">
-            <h3>Enter a Run</h3>
-            <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
+          <div className="row form_spacing">
+            <div className="col-md-6">
               <input
                 type="number"
                 name="distance"
                 value={this.state.distance}
                 onChange={this.handleChange}
                 placeholder="Distance"
-                className="form_spacing form-control"
+                className="form-control"
               />
+            </div>
+            <div className="col-md-6">
               <input
                 type="date"
                 name="date"
                 value={this.state.date}
                 onChange={this.handleChange}
                 placeholder="Date (MM/DD/YYYY)"
-                className="form_spacing form-control"
+                className="form-control"
               />
+            </div>
+          </div>
+          <div className="row form_spacing">
+            <div className="col-md-6">
               <input
                 type="text"
                 name="city"
                 value={this.state.city}
                 onChange={this.handleChange}
                 placeholder="City"
-                className="form_spacing form-control"
+                className="form-control"
               />
+            </div>
+            <div className="col-md-6">
               <select
                 name="state"
                 value={this.state.state}
                 onChange={this.handleChange}
-                className="form_spacing form-control"
+                className="form-control"
               >
                 <StatesForm />
               </select>
-              <textarea
-                name="notes"
-                value={this.state.notes}
-                onChange={this.handleChange}
-                placeholder="Notes"
-                className="form_spacing form-control"
-              />
-              <input
-                type="submit"
-                className="form-control btn btn-success form_spacing"
-              />
-            </form>
+            </div>
           </div>
-        </div>
+          <textarea
+            name="notes"
+            value={this.state.notes}
+            onChange={this.handleChange}
+            placeholder="Notes"
+            className="form-control form_spacing"
+          />
+          <input type="submit" className="btn btn-success form-control" />
+        </form>
       </React.Fragment>
     );
   }
 }
 
-export default RunEntry;
+export default RunPageRunEntry;

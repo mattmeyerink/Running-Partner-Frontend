@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import Spinner from "react-bootstrap/spinner";
 import moment from "moment";
 import { Redirect } from "react-router-dom";
-import WeatherWidget from "../components/weatherWidget";
-import TodaysRun from "../components/todays_run";
-import RunEntry from "../components/run_entry";
+import WeatherWidget from "../components/WeatherWidget";
+import TodaysRun from "../components/TodaysRun";
+import RunEntry from "../components/RunEntry";
 import Config from "../config";
 import "../index.css";
 

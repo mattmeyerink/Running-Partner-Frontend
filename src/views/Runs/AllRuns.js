@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import RunPageRunEntry from "../../components/run_page_entry";
+import RunPageRunEntry from "../../components/RunPageEntry";
 import Config from "../../config";
 import "../../index.css";
 

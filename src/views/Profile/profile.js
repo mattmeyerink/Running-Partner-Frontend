@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import StatesForm from "../../components/statesForm";
+import StatesForm from "../../components/StatesForm";
 import { Redirect } from "react-router-dom";
 import Config from "../../config";
 import "../../index.css";
