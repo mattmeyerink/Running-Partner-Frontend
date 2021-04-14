@@ -151,7 +151,7 @@ class CustomPlan extends Component {
   /**`
    * Saves any edits to the table to state
    * @param index Represents the week that was edited/saved
-   * @param planData 
+   * @param planData
    */
   saveTable(index, planData) {
     // Push the edited values from the table into the planData
@@ -252,6 +252,26 @@ class CustomPlan extends Component {
               >
                 <b>-</b>
               </button>
+              <div className="row justify-content-center">
+                <h3 className="label_margin white_text custom_plan_button">Start Date</h3>
+                <form className="custom_plan_button">
+                  <select
+                    name="startDate"
+                    value={this.state.startDate}
+                    onChange={this.handleChange}
+                  >
+                    {this.state.possibleStartDates.map(
+                      (possibleStartDate, index) => (
+                        <React.Fragment key={index}>
+                          <option value={possibleStartDate}>
+                            {possibleStartDate}
+                          </option>
+                        </React.Fragment>
+                      )
+                    )}
+                  </select>
+                </form>
+              </div>
             </div>
             <div className="row justify-content-center">
               <h3 className="white_text">{this.state.numberOfWeeks}</h3>
