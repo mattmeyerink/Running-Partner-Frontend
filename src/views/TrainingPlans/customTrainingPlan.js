@@ -34,11 +34,12 @@ class CustomPlan extends Component {
       startDate: null,
     };
 
-    this.changeNumberOfWeeks = this.changeNumberOfWeeks.bind(this);
     this.convertToTable = this.convertToTable.bind(this);
     this.findFirstMonday = this.findFirstMonday.bind(this);
     this.editTable = this.editTable.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.addWeekToPlan = this.addWeekToPlan.bind(this);
+    this.deleteWeekFromPlan = this.deleteWeekFromPlan.bind(this);
   }
 
   componentDidMount() {
@@ -75,18 +76,24 @@ class CustomPlan extends Component {
   }
 
   /**
-   * Method to change the number of weeks of the plan
+   * Add a week to the end of the plan
    */
-  changeNumberOfWeeks(event) {
-    // Gather determine which button was pressed
-    const action = event.target.name;
-
-    // Adjust the nubmer of weeks in state accordingly
+  addWeekToPlan() {
     this.setState((previousState) => {
-      if (action === "plus") {
-        return { numberOfWeeks: previousState.numberOfWeeks + 1 };
-      } else {
-        return { numberOfWeeks: previousState.numberOfWeeks - 1 };
+      return {
+        numberOfWeeks: previousState.numberOfWeeks + 1, 
+        trainingPlanString: previousState.trainingPlanString + '-0,0,0,0,0,0,0'
+      }
+    });
+  }
+
+  /**
+   * Delete week from the plan
+   */
+  deleteWeekFromPlan() {
+    this.setState((previousState) => {
+      return {
+        numberOfWeeks: previousState.numberOfWeeks - 1
       }
     });
   }
@@ -239,15 +246,13 @@ class CustomPlan extends Component {
             <div className="row justify-content-center">
               <h3 className="white_text custom_plan_button">Number of Weeks</h3>
               <button
-                onClick={this.changeNumberOfWeeks}
-                name="plus"
+                onClick={this.addWeekToPlan}
                 className="btn btn-success custom_plan_button"
               >
                 <b>+</b>
               </button>
               <button
-                onClick={this.changeNumberOfWeeks}
-                name="minus"
+                onClick={this.deleteWeekFromPlan}
                 className="btn btn-success custom_plan_button"
               >
                 <b>-</b>
