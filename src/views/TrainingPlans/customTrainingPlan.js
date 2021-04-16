@@ -79,33 +79,34 @@ class CustomPlan extends Component {
    * Add a week to the end of the plan
    */
   addWeekToPlan() {
-    this.setState((previousState) => {
-      return {
-        numberOfWeeks: previousState.numberOfWeeks + 1, 
-        trainingPlanString: previousState.trainingPlanString + '-0,0,0,0,0,0,0'
-      }
-    });
+    let { numberOfWeeks, trainingPlanString } = this.state;
+
+    numberOfWeeks++;
+    trainingPlanString += '-0,0,0,0,0,0,0';
+
+    this.setState({ numberOfWeeks: numberOfWeeks, trainingPlanString: trainingPlanString });
   }
 
   /**
    * Delete week from the plan
    */
   deleteWeekFromPlan() {
-    // Determine number of new length of training plan
-    const numberOfWeeks = this.state.numberOfWeeks;
-    const newNumberOfWeeks = numberOfWeeks - 1;
+    let { numberOfWeeks, trainingPlanString } = this.state;
+
+    // Update number of weeks the plan takes
+    numberOfWeeks--;
 
     // Pull the current training plan from state and deconstruct to an array
-    const trainingPlanWeeks = this.state.trainingPlanString.split("-");
+    const trainingPlanWeeks = trainingPlanString.split("-");
 
     // Pop the last week off and join the remaining weeks back together to a string
     trainingPlanWeeks.pop();
-    const newTrainingPlan = trainingPlanWeeks.join("-");
+    trainingPlanString = trainingPlanWeeks.join("-");
 
     // Slice of the training dash from the join
-    newTrainingPlan.slice(0, -1);
+    trainingPlanString.slice(0, -1);
 
-    this.setState({ numberOfWeeks: newNumberOfWeeks, trainingPlanString: newTrainingPlan });
+    this.setState({ numberOfWeeks: numberOfWeeks, trainingPlanString: trainingPlanString });
   }
 
   /**
