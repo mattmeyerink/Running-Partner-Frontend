@@ -91,11 +91,21 @@ class CustomPlan extends Component {
    * Delete week from the plan
    */
   deleteWeekFromPlan() {
-    this.setState((previousState) => {
-      return {
-        numberOfWeeks: previousState.numberOfWeeks - 1
-      }
-    });
+    // Determine number of new length of training plan
+    const numberOfWeeks = this.state.numberOfWeeks;
+    const newNumberOfWeeks = numberOfWeeks - 1;
+
+    // Pull the current training plan from state and deconstruct to an array
+    const trainingPlanWeeks = this.state.trainingPlanString.split("-");
+
+    // Pop the last week off and join the remaining weeks back together to a string
+    trainingPlanWeeks.pop();
+    const newTrainingPlan = trainingPlanWeeks.join("-");
+
+    // Slice of the training dash from the join
+    newTrainingPlan.slice(0, -1);
+
+    this.setState({ numberOfWeeks: newNumberOfWeeks, trainingPlanString: newTrainingPlan });
   }
 
   /**
