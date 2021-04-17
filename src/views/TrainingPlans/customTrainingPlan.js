@@ -8,6 +8,7 @@ class CustomPlan extends Component {
   constructor() {
     super();
     this.state = {
+      loading: false,
       numberOfWeeks: 5,
       trainingPlanString:
         "0,0,0,0,0,0,0-0,0,0,0,0,0,0-0,0,0,0,0,0,0-0,0,0,0,0,0,0-0,0,0,0,0,0,0",
@@ -253,8 +254,10 @@ class CustomPlan extends Component {
 
   /**
    * Submit the custom plan to the database
-   */  
-   submitPlan() {
+   */
+  submitPlan() {
+    this.setState({ loading: true });
+
     // Retrive the user id from state
     const userID = this.props.userData.id;
 
@@ -306,219 +309,229 @@ class CustomPlan extends Component {
       <React.Fragment>
         {this.props.userAuthenticated ? (
           <React.Fragment>
-            <div className="row justify-content-center">
-              <h1 className="white_text">Custom Training Plan</h1>
-              <div className="row justify-content-center">
-                <button
-                  onClick={this.submitPlan}
-                  className="btn btn-success custom_plan_button"
-                >
-                  Submit Plan
-                </button>
-              </div>
-            </div>
-            <div className="row justify-content-center">
-              <h3 className="white_text custom_plan_button">Number of Weeks</h3>
-              <button
-                onClick={this.addWeekToPlan}
-                className="btn btn-success custom_plan_button"
-              >
-                <b>+</b>
-              </button>
-              <button
-                onClick={this.deleteWeekFromPlan}
-                className="btn btn-success custom_plan_button"
-              >
-                <b>-</b>
-              </button>
-              <div className="row justify-content-center">
-                <h3 className="label_margin white_text custom_plan_button">
-                  Start Date
-                </h3>
-                <form className="custom_plan_button">
-                  <select
-                    name="startDate"
-                    value={this.state.startDate}
-                    onChange={this.handleChange}
+            {this.state.planSubmitted ? (
+              <Redirect to="/personal_plan" />
+            ) : (
+              <React.Fragment>
+                <div className="row justify-content-center">
+                  <h1 className="white_text">Custom Training Plan</h1>
+                  <div className="row justify-content-center">
+                    <button
+                      onClick={this.submitPlan}
+                      className="btn btn-success custom_plan_submit"
+                    >
+                      {this.state.loading ? <b>Loading</b> : <b>Submit Plan</b>}
+                    </button>
+                  </div>
+                </div>
+                <div className="row justify-content-center">
+                  <h3 className="white_text custom_plan_button">
+                    Number of Weeks
+                  </h3>
+                  <button
+                    onClick={this.addWeekToPlan}
+                    className="btn btn-success custom_plan_button"
                   >
-                    {this.state.possibleStartDates.map(
-                      (possibleStartDate, index) => (
-                        <React.Fragment key={index}>
-                          <option value={possibleStartDate}>
-                            {possibleStartDate}
-                          </option>
-                        </React.Fragment>
-                      )
-                    )}
-                  </select>
-                </form>
-              </div>
-            </div>
-            <div className="row justify-content-center">
-              <h3 className="white_text">{this.state.numberOfWeeks}</h3>
-            </div>
-            <div className="row justify-content-center">
-              <div className="col-md-10">
-                <table className="table background_color">
-                  <tbody>
-                    <tr>
-                      <th>Week</th>
-                      <th>Monday</th>
-                      <th>Tuesday</th>
-                      <th>Wednesday</th>
-                      <th>Thursday</th>
-                      <th>Friday</th>
-                      <th>Saturday</th>
-                      <th>Sunday</th>
-                      <th>Total</th>
-                    </tr>
-                    {planData.map((week, index) => (
-                      <React.Fragment key={index}>
+                    <b>+</b>
+                  </button>
+                  <button
+                    onClick={this.deleteWeekFromPlan}
+                    className="btn btn-success custom_plan_button"
+                  >
+                    <b>-</b>
+                  </button>
+                  <div className="row justify-content-center">
+                    <h3 className="label_margin white_text custom_plan_button">
+                      Start Date
+                    </h3>
+                    <form className="custom_plan_button">
+                      <select
+                        name="startDate"
+                        value={this.state.startDate}
+                        onChange={this.handleChange}
+                      >
+                        {this.state.possibleStartDates.map(
+                          (possibleStartDate, index) => (
+                            <React.Fragment key={index}>
+                              <option value={possibleStartDate}>
+                                {possibleStartDate}
+                              </option>
+                            </React.Fragment>
+                          )
+                        )}
+                      </select>
+                    </form>
+                  </div>
+                </div>
+                <div className="row justify-content-center">
+                  <h3 className="white_text">{this.state.numberOfWeeks}</h3>
+                </div>
+                <div className="row justify-content-center">
+                  <div className="col-md-10">
+                    <table className="table background_color">
+                      <tbody>
                         <tr>
-                          <td>
-                            <b>{this.state.currentPlanDates[index]}</b>
-                          </td>
-                          <td>
-                            {this.state.inEditMode.status &&
-                            this.state.inEditMode.rowKey === index ? (
-                              <input
-                                className="training_col"
-                                type="number"
-                                name="mondayEdit"
-                                value={this.state.mondayEdit}
-                                onChange={this.handleChange}
-                              ></input>
-                            ) : (
-                              <React.Fragment>{week[0]}</React.Fragment>
-                            )}
-                          </td>
-                          <td>
-                            {this.state.inEditMode.status &&
-                            this.state.inEditMode.rowKey === index ? (
-                              <input
-                                className="training_col"
-                                type="number"
-                                name="tuesdayEdit"
-                                value={this.state.tuesdayEdit}
-                                onChange={this.handleChange}
-                              ></input>
-                            ) : (
-                              <React.Fragment>{week[1]}</React.Fragment>
-                            )}
-                          </td>
-                          <td>
-                            {this.state.inEditMode.status &&
-                            this.state.inEditMode.rowKey === index ? (
-                              <input
-                                className="training_col"
-                                type="number"
-                                name="wednesdayEdit"
-                                value={this.state.wednesdayEdit}
-                                onChange={this.handleChange}
-                              ></input>
-                            ) : (
-                              <React.Fragment>{week[2]}</React.Fragment>
-                            )}
-                          </td>
-                          <td>
-                            {this.state.inEditMode.status &&
-                            this.state.inEditMode.rowKey === index ? (
-                              <input
-                                className="training_col"
-                                type="number"
-                                name="thursdayEdit"
-                                value={this.state.thursdayEdit}
-                                onChange={this.handleChange}
-                              ></input>
-                            ) : (
-                              <React.Fragment>{week[3]}</React.Fragment>
-                            )}
-                          </td>
-                          <td>
-                            {this.state.inEditMode.status &&
-                            this.state.inEditMode.rowKey === index ? (
-                              <input
-                                className="training_col"
-                                type="number"
-                                name="fridayEdit"
-                                value={this.state.fridayEdit}
-                                onChange={this.handleChange}
-                              ></input>
-                            ) : (
-                              <React.Fragment>{week[4]}</React.Fragment>
-                            )}
-                          </td>
-                          <td>
-                            {this.state.inEditMode.status &&
-                            this.state.inEditMode.rowKey === index ? (
-                              <input
-                                className="training_col"
-                                type="number"
-                                name="saturdayEdit"
-                                value={this.state.saturdayEdit}
-                                onChange={this.handleChange}
-                              ></input>
-                            ) : (
-                              <React.Fragment>{week[5]}</React.Fragment>
-                            )}
-                          </td>
-                          <td>
-                            {this.state.inEditMode.status &&
-                            this.state.inEditMode.rowKey === index ? (
-                              <input
-                                className="training_col"
-                                type="number"
-                                name="sundayEdit"
-                                value={this.state.sundayEdit}
-                                onChange={this.handleChange}
-                              ></input>
-                            ) : (
-                              <React.Fragment>{week[6]}</React.Fragment>
-                            )}
-                          </td>
-                          <td>
-                            {this.state.inEditMode.status &&
-                            this.state.inEditMode.rowKey === index ? (
-                              <React.Fragment>
-                                {this.state.totalEdit.toFixed(1)}
-                              </React.Fragment>
-                            ) : (
-                              <React.Fragment>
-                                {week[7].toFixed(1)}
-                              </React.Fragment>
-                            )}
-                          </td>
-                          <td>
-                            {this.state.inEditMode.status &&
-                            this.state.inEditMode.rowKey === index ? (
-                              <React.Fragment>
-                                <button
-                                  className="btn btn-success"
-                                  onClick={() =>
-                                    this.saveTable(index, planData)
-                                  }
-                                >
-                                  Save
-                                </button>
-                              </React.Fragment>
-                            ) : (
-                              <React.Fragment>
-                                <button
-                                  className="btn btn-warning"
-                                  onClick={() => this.editTable(index, week)}
-                                >
-                                  Edit
-                                </button>
-                              </React.Fragment>
-                            )}
-                          </td>
+                          <th>Week</th>
+                          <th>Monday</th>
+                          <th>Tuesday</th>
+                          <th>Wednesday</th>
+                          <th>Thursday</th>
+                          <th>Friday</th>
+                          <th>Saturday</th>
+                          <th>Sunday</th>
+                          <th>Total</th>
                         </tr>
-                      </React.Fragment>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                        {planData.map((week, index) => (
+                          <React.Fragment key={index}>
+                            <tr>
+                              <td>
+                                <b>{this.state.currentPlanDates[index]}</b>
+                              </td>
+                              <td>
+                                {this.state.inEditMode.status &&
+                                this.state.inEditMode.rowKey === index ? (
+                                  <input
+                                    className="training_col"
+                                    type="number"
+                                    name="mondayEdit"
+                                    value={this.state.mondayEdit}
+                                    onChange={this.handleChange}
+                                  ></input>
+                                ) : (
+                                  <React.Fragment>{week[0]}</React.Fragment>
+                                )}
+                              </td>
+                              <td>
+                                {this.state.inEditMode.status &&
+                                this.state.inEditMode.rowKey === index ? (
+                                  <input
+                                    className="training_col"
+                                    type="number"
+                                    name="tuesdayEdit"
+                                    value={this.state.tuesdayEdit}
+                                    onChange={this.handleChange}
+                                  ></input>
+                                ) : (
+                                  <React.Fragment>{week[1]}</React.Fragment>
+                                )}
+                              </td>
+                              <td>
+                                {this.state.inEditMode.status &&
+                                this.state.inEditMode.rowKey === index ? (
+                                  <input
+                                    className="training_col"
+                                    type="number"
+                                    name="wednesdayEdit"
+                                    value={this.state.wednesdayEdit}
+                                    onChange={this.handleChange}
+                                  ></input>
+                                ) : (
+                                  <React.Fragment>{week[2]}</React.Fragment>
+                                )}
+                              </td>
+                              <td>
+                                {this.state.inEditMode.status &&
+                                this.state.inEditMode.rowKey === index ? (
+                                  <input
+                                    className="training_col"
+                                    type="number"
+                                    name="thursdayEdit"
+                                    value={this.state.thursdayEdit}
+                                    onChange={this.handleChange}
+                                  ></input>
+                                ) : (
+                                  <React.Fragment>{week[3]}</React.Fragment>
+                                )}
+                              </td>
+                              <td>
+                                {this.state.inEditMode.status &&
+                                this.state.inEditMode.rowKey === index ? (
+                                  <input
+                                    className="training_col"
+                                    type="number"
+                                    name="fridayEdit"
+                                    value={this.state.fridayEdit}
+                                    onChange={this.handleChange}
+                                  ></input>
+                                ) : (
+                                  <React.Fragment>{week[4]}</React.Fragment>
+                                )}
+                              </td>
+                              <td>
+                                {this.state.inEditMode.status &&
+                                this.state.inEditMode.rowKey === index ? (
+                                  <input
+                                    className="training_col"
+                                    type="number"
+                                    name="saturdayEdit"
+                                    value={this.state.saturdayEdit}
+                                    onChange={this.handleChange}
+                                  ></input>
+                                ) : (
+                                  <React.Fragment>{week[5]}</React.Fragment>
+                                )}
+                              </td>
+                              <td>
+                                {this.state.inEditMode.status &&
+                                this.state.inEditMode.rowKey === index ? (
+                                  <input
+                                    className="training_col"
+                                    type="number"
+                                    name="sundayEdit"
+                                    value={this.state.sundayEdit}
+                                    onChange={this.handleChange}
+                                  ></input>
+                                ) : (
+                                  <React.Fragment>{week[6]}</React.Fragment>
+                                )}
+                              </td>
+                              <td>
+                                {this.state.inEditMode.status &&
+                                this.state.inEditMode.rowKey === index ? (
+                                  <React.Fragment>
+                                    {this.state.totalEdit.toFixed(1)}
+                                  </React.Fragment>
+                                ) : (
+                                  <React.Fragment>
+                                    {week[7].toFixed(1)}
+                                  </React.Fragment>
+                                )}
+                              </td>
+                              <td>
+                                {this.state.inEditMode.status &&
+                                this.state.inEditMode.rowKey === index ? (
+                                  <React.Fragment>
+                                    <button
+                                      className="btn btn-success"
+                                      onClick={() =>
+                                        this.saveTable(index, planData)
+                                      }
+                                    >
+                                      Save
+                                    </button>
+                                  </React.Fragment>
+                                ) : (
+                                  <React.Fragment>
+                                    <button
+                                      className="btn btn-warning"
+                                      onClick={() =>
+                                        this.editTable(index, week)
+                                      }
+                                    >
+                                      Edit
+                                    </button>
+                                  </React.Fragment>
+                                )}
+                              </td>
+                            </tr>
+                          </React.Fragment>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </React.Fragment>
+            )}
           </React.Fragment>
         ) : (
           <React.Fragment>

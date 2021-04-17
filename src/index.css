@@ -133,3 +133,8 @@ code {
 .loading_height {
   margin-top: 10%;
 }
+
+.custom_plan_submit {
+  margin: 10px;
+  margin-left: 25px;
+}
