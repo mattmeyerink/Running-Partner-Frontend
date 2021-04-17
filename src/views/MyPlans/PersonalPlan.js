@@ -196,7 +196,7 @@ class PersonalPlan extends Component {
         ) : (
           <React.Fragment>
             {this.state.planDeleted ? (
-              <Redirect to={"/profile"} />
+              <Redirect to="/personal_plan" />
             ) : (
               <React.Fragment>
                 {this.state.loading ? (
