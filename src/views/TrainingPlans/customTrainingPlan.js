@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import moment from "moment";
+import Config from "../../config";
 import "../../index.css";
 
 class CustomPlan extends Component {
@@ -40,6 +41,7 @@ class CustomPlan extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.addWeekToPlan = this.addWeekToPlan.bind(this);
     this.deleteWeekFromPlan = this.deleteWeekFromPlan.bind(this);
+    this.submitPlan = this.submitPlan.bind(this);
   }
 
   componentDidMount() {
@@ -82,9 +84,12 @@ class CustomPlan extends Component {
     let { numberOfWeeks, trainingPlanString } = this.state;
 
     numberOfWeeks++;
-    trainingPlanString += '-0,0,0,0,0,0,0';
+    trainingPlanString += "-0,0,0,0,0,0,0";
 
-    this.setState({ numberOfWeeks: numberOfWeeks, trainingPlanString: trainingPlanString });
+    this.setState({
+      numberOfWeeks: numberOfWeeks,
+      trainingPlanString: trainingPlanString,
+    });
   }
 
   /**
@@ -106,7 +111,10 @@ class CustomPlan extends Component {
     // Slice of the training dash from the join
     trainingPlanString.slice(0, -1);
 
-    this.setState({ numberOfWeeks: numberOfWeeks, trainingPlanString: trainingPlanString });
+    this.setState({
+      numberOfWeeks: numberOfWeeks,
+      trainingPlanString: trainingPlanString,
+    });
   }
 
   /**
@@ -243,6 +251,53 @@ class CustomPlan extends Component {
     this.setState({ [name]: value });
   }
 
+  /**
+   * Submit the custom plan to the database
+   */  
+   submitPlan() {
+    // Retrive the user id from state
+    const userID = this.props.userData.id;
+
+    // Add dates to the final plan
+    const currentStartDates = this.state.currentPlanDates;
+    const finalPlan = this.state.trainingPlanString;
+    const planArr = finalPlan.split("-");
+    let output = "";
+    for (let i = 0; i < planArr.length; i++) {
+      output += currentStartDates[i] + "," + planArr[i] + "-";
+    }
+    // Remove trailing slash
+    output = output.slice(0, -1);
+
+    // Organize plan data into JSON object for fetch call
+    const planData = {
+      user_id: this.props.userData.id,
+      plan: output,
+      difficulty: "Custom Plan",
+      race_name: "Custom Race Name",
+      plan_length: "10",
+    };
+
+    // Prepare headers for the reuest
+    const myHeaders = new Headers({
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + this.props.userData.token,
+    });
+
+    // Send POST request to API. Set planSubmitted state to true if successful to redirect page to profile
+    fetch(Config.rpAPI + `/training_plans/add_plan/${userID}`, {
+      method: "POST",
+      body: JSON.stringify(planData),
+      headers: myHeaders,
+    })
+      .then((response) => {
+        if (response.status === 201) {
+          this.setState({ planSubmitted: true });
+        }
+      })
+      .catch((error) => console.error(error));
+  }
+
   render() {
     // Structure the plan data to be rendered in a table
     const planData = this.convertToTable();
@@ -253,6 +308,14 @@ class CustomPlan extends Component {
           <React.Fragment>
             <div className="row justify-content-center">
               <h1 className="white_text">Custom Training Plan</h1>
+              <div className="row justify-content-center">
+                <button
+                  onClick={this.submitPlan}
+                  className="btn btn-success custom_plan_button"
+                >
+                  Submit Plan
+                </button>
+              </div>
             </div>
             <div className="row justify-content-center">
               <h3 className="white_text custom_plan_button">Number of Weeks</h3>
@@ -269,7 +332,9 @@ class CustomPlan extends Component {
                 <b>-</b>
               </button>
               <div className="row justify-content-center">
-                <h3 className="label_margin white_text custom_plan_button">Start Date</h3>
+                <h3 className="label_margin white_text custom_plan_button">
+                  Start Date
+                </h3>
                 <form className="custom_plan_button">
                   <select
                     name="startDate"
