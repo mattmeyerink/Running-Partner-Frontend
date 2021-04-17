@@ -28,7 +28,7 @@ class Login extends Component {
     this.props.setCurrentPage("");
 
     // Set current path in local storage
-    localStorage.setItem('currentPath', '/login');
+    localStorage.setItem("currentPath", "/login");
   }
 
   handleChange(event) {
@@ -99,7 +99,9 @@ class Login extends Component {
                 {this.state.loading ? (
                   <div className="col">
                     <div className="row justify-content-center loading_height">
-                      <h1 className="white_text">Loading <Spinner animation="border" variant="light" /></h1>
+                      <h1 className="white_text">
+                        Loading <Spinner animation="border" variant="light" />
+                      </h1>
                     </div>
                   </div>
                 ) : (
@@ -138,7 +140,10 @@ class Login extends Component {
                     <div className="row justify-content-center">
                       <strong>
                         Forgot your password?
-                        <Link to="/confirm_password_reset"> Reset your password</Link>
+                        <Link to="/confirm_password_reset">
+                          {" "}
+                          Reset your password
+                        </Link>
                       </strong>
                     </div>
                   </div>
@@ -147,7 +152,7 @@ class Login extends Component {
             ) : (
               <React.Fragment>
                 <div className="row justify-content-center">
-                  <h1>{this.state.warning}</h1>
+                  <h1 className="white_text">{this.state.warning}</h1>
                 </div>
                 <div className="row justify-content-center">
                   <button
