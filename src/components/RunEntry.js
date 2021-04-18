@@ -18,6 +18,8 @@ class RunEntry extends Component {
       city: this.props.city,
       state: this.props.state,
       notes: "",
+
+      formError: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -33,6 +35,12 @@ class RunEntry extends Component {
   }
 
   handleSubmit(event) {
+    // Prevent sending response if run is invalid
+    if (this.state.distance === "" || this.state.distance <= 0) {
+      event.preventDefault();
+      this.setState({ formError: "Please enter a valid distance for the run!" });
+      return;
+    }
     // Create json object to send in POST request
     const runData = {
       user_id: this.props.user_id,
@@ -64,6 +72,7 @@ class RunEntry extends Component {
             city: this.props.city,
             state: this.props.state,
             notes: "",
+            formError: ""
           });
         }
       })
@@ -118,6 +127,11 @@ class RunEntry extends Component {
                 placeholder="Notes"
                 className="form_spacing form-control"
               />
+              {this.state.formError === "" ? (
+                <React.Fragment></React.Fragment>
+              ) : (
+                <p className="warning_text">{this.state.formError}</p>
+              )}
               <input
                 type="submit"
                 className="form-control btn btn-success form_spacing"

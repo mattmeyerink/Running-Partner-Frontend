@@ -18,6 +18,8 @@ class RunPageRunEntry extends Component {
       city: this.props.city,
       state: this.props.state,
       notes: "",
+
+      formError: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -33,6 +35,13 @@ class RunPageRunEntry extends Component {
   }
 
   handleSubmit(event) {
+    // Prevent sending response if run is invalid
+    if (this.state.distance === "" || this.state.distance <= 0) {
+      event.preventDefault();
+      this.setState({ formError: "Please enter a valid distance for the run!" });
+      return;
+    }
+
     // Package the run data into a JSON for API request
     const runData = {
       user_id: this.props.user_id,
@@ -64,6 +73,7 @@ class RunPageRunEntry extends Component {
             city: this.props.city,
             state: this.props.state,
             notes: "",
+            formError: "",
           });
           this.props.getRunData();
         }
@@ -128,6 +138,11 @@ class RunPageRunEntry extends Component {
             placeholder="Notes"
             className="form-control form_spacing"
           />
+          {this.state.formError === "" ? (
+            <React.Fragment></React.Fragment>
+          ) : (
+            <p className="warning_text">{this.state.formError}</p>
+          )}
           <input type="submit" className="btn btn-success form-control" />
         </form>
       </React.Fragment>

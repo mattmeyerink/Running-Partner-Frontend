@@ -143,3 +143,7 @@ code {
   border: none;
   background-color: #323232;
 }
+
+.warning_text {
+  color: red
+}
