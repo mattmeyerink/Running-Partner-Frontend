@@ -28,6 +28,8 @@ class CustomPlan extends Component {
       sundayEdit: null,
       totalEdit: null,
 
+      planName: "",
+
       planSubmitted: false,
 
       possibleStartDates: [],
@@ -276,9 +278,9 @@ class CustomPlan extends Component {
     const planData = {
       user_id: this.props.userData.id,
       plan: output,
-      difficulty: "Custom Plan",
-      race_name: "Custom Race Name",
-      plan_length: "10",
+      difficulty: "Custom",
+      race_name: this.state.planName,
+      plan_length: this.state.numberOfWeeks,
     };
 
     // Prepare headers for the reuest
@@ -365,6 +367,17 @@ class CustomPlan extends Component {
                 </div>
                 <div className="row justify-content-center">
                   <h3 className="white_text">{this.state.numberOfWeeks}</h3>
+                </div>
+                <div className="row justify-content-center">
+                  <div className="col-md-6">
+                    <input
+                      type="text"
+                      name="planName"
+                      onChange={this.handleChange}
+                      className="form-control custom_plan_button"
+                      placeholder="Plan Name"
+                    />
+                  </div>
                 </div>
                 <div className="row justify-content-center">
                   <div className="col-md-10">
