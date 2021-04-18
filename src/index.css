@@ -138,3 +138,8 @@ code {
   margin: 10px;
   margin-left: 25px;
 }
+
+.icon_button_main {
+  border: none;
+  background-color: #323232;
+}

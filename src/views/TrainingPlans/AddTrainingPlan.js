@@ -6,7 +6,7 @@ import Config from "../../config";
 import "../../index.css";
 
 /**
- * Class responsible for allowing the user to edit a general 
+ * Class responsible for allowing the user to edit a general
  * plan and add it to their account
  */
 class AddPlan extends Component {
@@ -47,13 +47,16 @@ class AddPlan extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.submitPlan = this.submitPlan.bind(this);
   }
-  
+
   componentDidMount() {
     // Set current page to allTraining Plans for the nav bar
     this.props.setCurrentPage("allTrainingPlans");
 
     // Set current path in local storage
-    localStorage.setItem('currentPath', `/add_plan/${this.props.match.params.id}`);
+    localStorage.setItem(
+      "currentPath",
+      `/add_plan/${this.props.match.params.id}`
+    );
 
     // Prepare headers for the request
     const myHeaders = new Headers({
@@ -161,7 +164,7 @@ class AddPlan extends Component {
   /**
    * Saves any edits to the table to state
    * @param index Represents the week that was edited/saved
-   * @param planData 
+   * @param planData
    */
   saveTable(index, planData) {
     // Push the edited values from the table into the planData
@@ -252,7 +255,7 @@ class AddPlan extends Component {
 
   /**
    * Submit the custom plan to the database
-   */  
+   */
   submitPlan() {
     // Retrive the user id from state
     const userID = this.props.userData.id;
@@ -311,7 +314,9 @@ class AddPlan extends Component {
             {this.state.loading ? (
               <React.Fragment>
                 <div className="row justify-content-center loading_height">
-                  <h1 className="white_text">Loading <Spinner animation="border" variant="light" /></h1>
+                  <h1 className="white_text">
+                    Loading <Spinner animation="border" variant="light" />
+                  </h1>
                 </div>
               </React.Fragment>
             ) : (
@@ -327,22 +332,21 @@ class AddPlan extends Component {
                         {this.state.planData.race_name} -{" "}
                         {this.state.planData.difficulty}
                       </h1>
-                    </div>
-                    <div className="row justify-content-center">
                       <button
                         onClick={this.submitPlan}
-                        className="btn btn-success form_spacing"
+                        className="btn btn-success custom_plan_button"
                       >
                         Submit Plan
                       </button>
                     </div>
                     <div className="row justify-content-center">
-                      <h4 className="label_margin white_text">Start Date</h4>
+                      <h4 className="white_text custom_plan_button">Start Date</h4>
                       <form>
                         <select
                           name="startDate"
                           value={this.state.startDate}
                           onChange={this.handleChange}
+                          className="form-control custom_plan_button"
                         >
                           {this.state.possibleStartDates.map(
                             (possibleStartDate, index) => (
@@ -355,9 +359,6 @@ class AddPlan extends Component {
                           )}
                         </select>
                       </form>
-                    </div>
-                    <div className="row justify-content-center">
-                      <h3 className="white_text">Training Plan</h3>
                     </div>
                     <div className="row justify-content-center">
                       <div className="col-md-10">

@@ -92,11 +92,9 @@ class SinglePlan extends Component {
                   <h1 className="white_text">
                     {training_plan.race_name} - {training_plan.difficulty}
                   </h1>
-                </div>
-                <div className="row justify-content-center">
                   <Link
                     to={`/add_plan/${training_plan.id}`}
-                    className="btn btn-success form_spacing"
+                    className="btn btn-success custom_plan_button"
                   >
                     Use Plan
                   </Link>

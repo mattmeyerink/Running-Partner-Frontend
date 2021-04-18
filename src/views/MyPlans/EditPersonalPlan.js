@@ -5,7 +5,7 @@ import Config from "../../config";
 import "../../index.css";
 
 /**
- * This class is in charge of the page that allows the user to edit a plan 
+ * This class is in charge of the page that allows the user to edit a plan
  * Already added to their account.
  */
 class EditPlan extends Component {
@@ -71,7 +71,7 @@ class EditPlan extends Component {
   /**
    * Converts the plan in state to an array.
    * That array can then be mapped when it is rendered
-   */  
+   */
   convertToTable() {
     // Pull the plan data from state
     const plan = this.state.finalPlan;
@@ -252,7 +252,9 @@ class EditPlan extends Component {
             {this.state.loading ? (
               <React.Fragment>
                 <div className="row justify-content-center loading_height">
-                  <h1 className="white_text">Loading <Spinner animation="border" variant="light" /></h1>
+                  <h1 className="white_text">
+                    Loading <Spinner animation="border" variant="light" />
+                  </h1>
                 </div>
               </React.Fragment>
             ) : (
@@ -268,11 +270,9 @@ class EditPlan extends Component {
                         {this.state.planData.race_name} -{" "}
                         {this.state.planData.difficulty}
                       </h1>
-                    </div>
-                    <div className="row justify-content-center">
                       <button
                         onClick={this.submitPlan}
-                        className="btn btn-success form_spacing"
+                        className="btn btn-success custom_plan_button"
                       >
                         Submit Plan
                       </button>

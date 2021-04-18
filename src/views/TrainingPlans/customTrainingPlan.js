@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import moment from "moment";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusSquare, faMinusSquare } from "@fortawesome/free-solid-svg-icons";
 import Config from "../../config";
 import "../../index.css";
 
@@ -258,8 +260,8 @@ class CustomPlan extends Component {
         }
       }
       this.setState({ currentPlanDates: next2YearsDates.slice(dateIndex) });
-    } 
-    
+    }
+
     // Don't let any week day be edited to a negative number
     else if (editDayNames.includes(name) && value < 0) {
       return;
@@ -332,32 +334,33 @@ class CustomPlan extends Component {
               <React.Fragment>
                 <div className="row justify-content-center">
                   <h1 className="white_text">Custom Training Plan</h1>
-                  <div className="row justify-content-center">
-                    <button
-                      onClick={this.submitPlan}
-                      className="btn btn-success custom_plan_submit"
-                    >
-                      {this.state.loading ? <b>Loading</b> : <b>Submit Plan</b>}
-                    </button>
-                  </div>
+                  <button
+                    onClick={this.submitPlan}
+                    className="btn btn-success custom_plan_button"
+                  >
+                    {this.state.loading ? (
+                      <React.Fragment>Loading</React.Fragment>
+                    ) : (
+                      <React.Fragment>Submit Plan</React.Fragment>
+                    )}
+                  </button>
                 </div>
                 <div className="row justify-content-center">
                   <h3 className="white_text custom_plan_button">
-                    Number of Weeks
+                    Number of Weeks: {this.state.numberOfWeeks}
                   </h3>
                   <button
+                    className="icon_button_main"
                     onClick={this.addWeekToPlan}
-                    className="btn btn-success custom_plan_button"
                   >
-                    <b>+</b>
+                    <FontAwesomeIcon icon={faPlusSquare} color="white"/>
                   </button>
                   <button
                     onClick={this.deleteWeekFromPlan}
-                    className="btn btn-success custom_plan_button"
+                    className="icon_button_main"
                   >
-                    <b>-</b>
+                    <FontAwesomeIcon icon={faMinusSquare} color="white"/>
                   </button>
-                  <div className="row justify-content-center">
                     <h3 className="label_margin white_text custom_plan_button">
                       Start Date
                     </h3>
@@ -366,6 +369,7 @@ class CustomPlan extends Component {
                         name="startDate"
                         value={this.state.startDate}
                         onChange={this.handleChange}
+                        className="form-control"
                       >
                         {this.state.possibleStartDates.map(
                           (possibleStartDate, index) => (
@@ -378,10 +382,6 @@ class CustomPlan extends Component {
                         )}
                       </select>
                     </form>
-                  </div>
-                </div>
-                <div className="row justify-content-center">
-                  <h3 className="white_text">{this.state.numberOfWeeks}</h3>
                 </div>
                 <div className="row justify-content-center">
                   <div className="col-md-6">
