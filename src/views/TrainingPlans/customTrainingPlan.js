@@ -237,6 +237,16 @@ class CustomPlan extends Component {
     const name = target.name;
     const value = target.value;
 
+    const editDayNames = [
+      "mondayEdit",
+      "tuesdayEdit",
+      "wednesdayEdit",
+      "thursdayEdit",
+      "fridayEdit",
+      "saturdayEdit",
+      "sundayEdit",
+    ];
+
     // Set the currentPlanDates array to appropriate values if start date changed
     if (name === "startDate") {
       const next2YearsDates = this.state.next2YearsDates;
@@ -248,6 +258,11 @@ class CustomPlan extends Component {
         }
       }
       this.setState({ currentPlanDates: next2YearsDates.slice(dateIndex) });
+    } 
+    
+    // Don't let any week day be edited to a negative number
+    else if (editDayNames.includes(name) && value < 0) {
+      return;
     }
 
     // Changed the specified state

@@ -4,7 +4,7 @@ import Spinner from "react-bootstrap/Spinner";
 import Config from "../../config";
 import "../../index.css";
 
-/*
+/**
  * This class is in charge of the page that allows the user to edit a plan 
  * Already added to their account.
  */
@@ -68,7 +68,7 @@ class EditPlan extends Component {
       .catch((error) => console.error(error));
   }
 
-  /*
+  /**
    * Converts the plan in state to an array.
    * That array can then be mapped when it is rendered
    */  
@@ -103,7 +103,7 @@ class EditPlan extends Component {
     return planOutput;
   }
 
-  /*
+  /**
    * Initialize edit mode on a week of the trianing plan
    * @param rowKey Represents the key (week) in the plan being edited
    * @param week An array with the run values of the week to be edited
@@ -127,7 +127,7 @@ class EditPlan extends Component {
     });
   }
 
-  /*
+  /**
    * Save the results of table edit to state.
    * @param index represents the week of the plan that was edited
    * @param planData represents the entire plan matrix
@@ -187,9 +187,27 @@ class EditPlan extends Component {
     const name = target.name;
     const value = target.value;
 
+    const editDayNames = [
+      "mondayEdit",
+      "tuesdayEdit",
+      "wednesdayEdit",
+      "thursdayEdit",
+      "fridayEdit",
+      "saturdayEdit",
+      "sundayEdit",
+    ];
+
+    // Don't let any week day be edited to a negative number
+    if (editDayNames.includes(name) && value < 0) {
+      return;
+    }
+
     this.setState({ [name]: value });
   }
 
+  /**
+   * Submit the current edited version of the plan to the database
+   */
   submitPlan() {
     // Create a JSON object to send edited plan to db in post request
     const planData = {
