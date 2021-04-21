@@ -4,7 +4,7 @@ import StatesForm from "./StatesForm";
 import Config from "../config";
 import "../index.css";
 
-/*
+/**
  * Run entry form to allow the runner to log a new run.
  * This component is specifically located on the dashboard.
  */

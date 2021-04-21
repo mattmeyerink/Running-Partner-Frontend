@@ -1,6 +1,6 @@
 import React from "react";
 
-/*
+/**
  * React fragment to display all of the states in a drop down menu. 
  */
 function StatesForm() {

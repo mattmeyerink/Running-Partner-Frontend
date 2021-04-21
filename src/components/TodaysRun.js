@@ -5,7 +5,7 @@ import "../index.css";
 import running_shoes from "../images/running_shoes.jpeg";
 import rest_day_beach from "../images/rest_day_beach.jpeg";
 
-/*
+/**
  * Class to handle processing for today's run on the dashboard
  */
 class TodaysRun extends Component {

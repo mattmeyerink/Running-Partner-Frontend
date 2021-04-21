@@ -5,7 +5,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import Config from "../config";
 import "./components.css";
 
-/*
+/**
  * Class to display training plan information in a small header.
  * Specifically for the personal training plan header.
  */
@@ -18,7 +18,7 @@ class MyPlanHeader extends Component {
     this.deletePlan = this.deletePlan.bind(this);
   }
 
-  /*
+  /**
    * Deletes a custom plan from the db
    */
   deletePlan() {

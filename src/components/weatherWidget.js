@@ -1,7 +1,7 @@
 import React from "react";
 import "./components.css";
 
-/*
+/**
  * Function to display the weather for the person's current city
  */
 function WeatherWidget(props) {

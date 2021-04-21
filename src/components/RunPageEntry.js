@@ -4,7 +4,7 @@ import StatesForm from "./StatesForm";
 import Config from "../config";
 import "../index.css";
 
-/*
+/**
  * Run entry forms to allow runners to enter new runs
  * Component specifically for the my runs page
  */
