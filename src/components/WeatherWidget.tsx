@@ -1,10 +1,16 @@
 import React from "react";
 import "./components.css";
 
+interface WeatherProps {
+  city: string;
+  state: string;
+  weatherData: any;
+}
+
 /**
  * Function to display the weather for the person's current city
  */
-function WeatherWidget(props) {
+function WeatherWidget(props: WeatherProps) {
   const { city, state, weatherData } = props;
   let description = weatherData.weather[0].description.split(" ");
 
