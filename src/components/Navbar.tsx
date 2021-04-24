@@ -2,13 +2,19 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./components.css";
 
+interface NavBarProps {
+  currentPage: string;
+  userAuthenticated: boolean;
+  logout: any;
+}
+
 /**
  * Class to handle the navbar to be displayed on every page
  */
-class NavBar extends Component {
+class NavBar extends Component<NavBarProps> {
   render() {
     // Retrieve the current page from props to highlight the correct 
-    const { currentPage } = this.props;
+    const { currentPage } = this.props as NavBarProps;
 
     return (
       <React.Fragment>
