@@ -4,12 +4,30 @@ import StatesForm from "./StatesForm";
 import Config from "../config";
 import "../index.css";
 
+
+interface RunPageProps {
+  user_id: number;
+  city: string;
+  state: string;
+  getRunData: any;
+  userData: any;
+}
+
+type RunPageState = {
+  distance?: any;
+  date?: string;
+  city?: string;
+  state?: string;
+  notes?: string;
+  formError?: string;
+}
+
 /**
  * Run entry forms to allow runners to enter new runs
  * Component specifically for the my runs page
  */
-class RunPageRunEntry extends Component {
-  constructor(props) {
+class RunPageRunEntry extends Component<RunPageProps, RunPageState> {
+  constructor(props: RunPageProps) {
     super(props);
 
     this.state = {
@@ -26,15 +44,13 @@ class RunPageRunEntry extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    const target = event.target;
-    const name = target.name;
-    const value = target.value;
+  handleChange(event: any) {
+    const name = event.target.name;
 
-    this.setState({ [name]: value });
+    this.setState({ [name]: event.target.value });
   }
 
-  handleSubmit(event) {
+  handleSubmit(event: any) {
     // Prevent sending response if run is invalid
     if (this.state.distance === "" || this.state.distance <= 0) {
       event.preventDefault();
