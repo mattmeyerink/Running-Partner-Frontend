@@ -4,12 +4,29 @@ import StatesForm from "./StatesForm";
 import Config from "../config";
 import "../index.css";
 
+interface RunEntryProps {
+  user_id: number;
+  city: string;
+  state: string;
+  getRunData: any;
+  userData: any;
+}
+
+interface RunEntryState {
+  distance?: any;
+  date?: string;
+  city?: string;
+  state?: string;
+  notes?: string;
+  formError?: string;
+}
+
 /**
  * Run entry form to allow the runner to log a new run.
  * This component is specifically located on the dashboard.
  */
-class RunEntry extends Component {
-  constructor(props) {
+class RunEntry extends Component<RunEntryProps, RunEntryState> {
+  constructor(props: RunEntryProps) {
     super(props);
 
     this.state = {
@@ -26,7 +43,7 @@ class RunEntry extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange(event: any) {
     const target = event.target;
     const name = target.name;
     const value = target.value;
@@ -34,7 +51,7 @@ class RunEntry extends Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit(event) {
+  handleSubmit(event: any) {
     // Prevent sending response if run is invalid
     if (this.state.distance === "" || this.state.distance <= 0) {
       event.preventDefault();

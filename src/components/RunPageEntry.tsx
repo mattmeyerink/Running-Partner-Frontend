@@ -13,7 +13,7 @@ interface RunPageProps {
   userData: any;
 }
 
-type RunPageState = {
+interface RunPageState {
   distance?: any;
   date?: string;
   city?: string;
