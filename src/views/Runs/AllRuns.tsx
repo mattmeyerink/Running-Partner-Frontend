@@ -7,11 +7,26 @@ import RunPageRunEntry from "../../components/RunPageEntry";
 import Config from "../../config";
 import "../../index.css";
 
-/*
+interface AllRunsProps {
+  setCurrentPage(page: string): void;
+  userData: any;
+  userAuthenticated: boolean;
+}
+
+interface AllRunsState {
+  loading: boolean;
+  runs: any;
+  totalMiles: number;
+  totalRuns: number;
+  averageMilesPerRun: number;
+  runDeleted: boolean;
+}
+
+/**
  * Page to display and handle the user's runs
  */
-class AllRuns extends Component {
-  constructor(props) {
+class AllRuns extends Component<AllRunsProps, AllRunsState> {
+  constructor(props: AllRunsProps) {
     super(props);
 
     this.state = {
@@ -71,7 +86,7 @@ class AllRuns extends Component {
   /*
    * Deletes a run from the db
    */
-  deleteRun(run_id) {
+  deleteRun(run_id: number) {
     // Prepare headers for the request
     const myHeaders = new Headers({
       "Content-Type": "application/json",
@@ -192,7 +207,7 @@ class AllRuns extends Component {
                       </div>
                     </div>
                     <div className="row justify-content-center">
-                      {this.state.runs.map((run) => (
+                      {this.state.runs.map((run: any) => (
                         <React.Fragment key={run.id}>
                           <div className="col-md-8 run_card">
                             <div className="row">
