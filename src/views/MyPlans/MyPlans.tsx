@@ -5,11 +5,23 @@ import MyPlanHeader from "../../components/MyPlanHeader";
 import Config from "../../config";
 import "../../index.css";
 
-/*
+interface MyPlansProps {
+  setCurrentPage(page: string): void;
+  userData: any;
+  userAuthenticated: boolean;
+}
+
+interface MyPlansState {
+  training_plans?: any;
+  loading: boolean;
+  planDeleted: boolean;
+}
+
+/**
  * This class is responsible for displaying all of a users plans
  */
-class MyPlans extends Component {
-  constructor(props) {
+class MyPlans extends Component<MyPlansProps, MyPlansState> {
+  constructor(props: MyPlansProps) {
     super(props);
 
     this.state = {
@@ -135,7 +147,6 @@ class MyPlans extends Component {
                             key={activePlan.id}
                             id={activePlan.id}
                             difficulty={activePlan.difficulty}
-                            plan_length={activePlan.plan_length}
                             race_name={activePlan.race_name}
                             plan={activePlan.plan}
                             getTrainingPlans={this.getTrainingPlans}
@@ -156,7 +167,7 @@ class MyPlans extends Component {
                       )}
                     </div>
                     <div className="row justify-content-center">
-                      {this.state.training_plans.map((plan) => (
+                      {this.state.training_plans.map((plan: any) => (
                         <React.Fragment key={plan.id}>
                           {plan.id === this.props.userData.active_plan ? (
                             <React.Fragment></React.Fragment>
@@ -165,7 +176,6 @@ class MyPlans extends Component {
                               key={plan.id}
                               id={plan.id}
                               difficulty={plan.difficulty}
-                              plan_length={plan.plan_length}
                               race_name={plan.race_name}
                               plan={plan.plan}
                               getTrainingPlans={this.getTrainingPlans}

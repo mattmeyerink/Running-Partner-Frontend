@@ -4,12 +4,38 @@ import Spinner from "react-bootstrap/Spinner";
 import Config from "../../config";
 import "../../index.css";
 
+interface EditPlanProps {
+  setCurrentPage(page: string): void;
+  userData: any;
+  userAuthenticated: boolean;
+  match: any;
+}
+
+interface EditPlanState {
+  loading?: boolean;
+  planData?: any;
+  finalPlan?: string;
+  inEditMode?: any
+
+  startDateEdit?: any;
+  mondayEdit?: any;
+  tuesdayEdit?: any;
+  wednesdayEdit?: any;
+  thursdayEdit?: any;
+  fridayEdit?: any;
+  saturdayEdit?: any;
+  sundayEdit?: any;
+  totalEdit?: any;
+
+  planSubmitted?: boolean;
+}
+
 /**
  * This class is in charge of the page that allows the user to edit a plan
  * Already added to their account.
  */
-class EditPlan extends Component {
-  constructor(props) {
+class EditPlan extends Component<EditPlanProps, EditPlanState> {
+  constructor(props: EditPlanProps) {
     super(props);
 
     this.state = {
@@ -74,7 +100,7 @@ class EditPlan extends Component {
    */
   convertToTable() {
     // Pull the plan data from state
-    const plan = this.state.finalPlan;
+    const plan: string = this.state.finalPlan as string;
 
     // Split the plan into an array of strings. Each string represnets a week
     const weeks = plan.split("-");
@@ -108,7 +134,7 @@ class EditPlan extends Component {
    * @param rowKey Represents the key (week) in the plan being edited
    * @param week An array with the run values of the week to be edited
    */
-  editTable(rowKey, week) {
+  editTable(rowKey: number, week: any) {
     this.setState({
       inEditMode: {
         status: true,
@@ -132,7 +158,7 @@ class EditPlan extends Component {
    * @param index represents the week of the plan that was edited
    * @param planData represents the entire plan matrix
    */
-  saveTable(index, planData) {
+  saveTable(index: number, planData: [any]) {
     // Push the new row values for each day to the matrix
     planData[index] = [
       this.state.startDateEdit,
@@ -169,20 +195,20 @@ class EditPlan extends Component {
       inEditMode: {
         status: false,
         rowKey: null,
-        mondayEdit: null,
-        tuesdayEdit: null,
-        wednesdayEdit: null,
-        thursdayEdit: null,
-        fridayEdit: null,
-        saturdayEdit: null,
-        sundayEdit: null,
-        totalEdit: null,
       },
+      mondayEdit: null,
+      tuesdayEdit: null,
+      wednesdayEdit: null,
+      thursdayEdit: null,
+      fridayEdit: null,
+      saturdayEdit: null,
+      sundayEdit: null,
+      totalEdit: null,
       finalPlan: outputPlan,
     });
   }
 
-  handleChange(event) {
+  handleChange(event: any) {
     const target = event.target;
     const name = target.name;
     const value = target.value;
@@ -240,7 +266,7 @@ class EditPlan extends Component {
 
   render() {
     // Run function to pull data into Matrix that can be rendered
-    let planData = [];
+    let planData: any = [];
     if (!this.state.loading) {
       planData = this.convertToTable();
     }
@@ -292,7 +318,7 @@ class EditPlan extends Component {
                               <th>Sunday</th>
                               <th>Total</th>
                             </tr>
-                            {planData.map((week, index) => (
+                            {planData.map((week: any, index: number) => (
                               <React.Fragment key={index}>
                                 <tr>
                                   <td>

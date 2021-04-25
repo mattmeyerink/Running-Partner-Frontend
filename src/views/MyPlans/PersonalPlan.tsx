@@ -4,11 +4,25 @@ import Spinner from "react-bootstrap/Spinner";
 import Config from "../../config";
 import "../../index.css";
 
-/*
+interface PersonalPlanProps {
+  setCurrentPage(page: string): void;
+  userData: any;
+  match: any;
+  refreshUserData(id: number, token: string): void;
+}
+
+interface PersonalPlanState {
+  planData: any;
+  planDeleted: boolean;
+  editingPlan: boolean;
+  loading: boolean;
+}
+
+/**
  * View to display a specific personal training plan
  */
-class PersonalPlan extends Component {
-  constructor(props) {
+class PersonalPlan extends Component<PersonalPlanProps, PersonalPlanState> {
+  constructor(props: PersonalPlanProps) {
     super(props);
 
     this.state = {
