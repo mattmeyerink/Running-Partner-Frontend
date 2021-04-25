@@ -4,12 +4,31 @@ import { Redirect } from "react-router-dom";
 import Config from "../../config";
 import "../../index.css";
 
-/*
+interface ProfileProps {
+  userData: any;
+  userAuthenticated: boolean;
+  setCurrentPage(page: string): void;
+  refreshUserData(id: number, token: string): void;
+}
+
+interface ProfileState {
+  plans?: any;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  username?: string;
+  city?: string;
+  state?: string;
+  editing?: boolean;
+  deleting?: boolean;
+}
+
+/**
  * Class to display the current user's profile
  * Also contains a form allowing the user to edit their information
  */
-class Profile extends Component {
-  constructor(props) {
+class Profile extends Component<ProfileProps, ProfileState> {
+  constructor(props: ProfileProps) {
     super(props);
 
     this.state = {
@@ -47,7 +66,7 @@ class Profile extends Component {
     this.setState({ editing: true });
   }
 
-  handleChange(event) {
+  handleChange(event: any) {
     const target = event.target;
     const name = target.name;
     const value = target.value;
@@ -55,7 +74,7 @@ class Profile extends Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit(event) {
+  handleSubmit(event: any) {
     // Create JSON of edited user data for POST Request
     const editedUserData = {
       id: this.props.userData.id,
