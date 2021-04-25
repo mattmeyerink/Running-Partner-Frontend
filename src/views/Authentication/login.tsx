@@ -15,7 +15,6 @@ interface LoginState {
   email?: string;
   password?: string;
   loading?: boolean;
-  username?: string;
 }
 
 /**
@@ -30,7 +29,6 @@ class Login extends Component<LoginProps, LoginState> {
       email: "",
       password: "",
       loading: false,
-      username: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -129,7 +127,7 @@ class Login extends Component<LoginProps, LoginState> {
                         type="text"
                         name="email"
                         onChange={this.handleChange}
-                        value={this.state.username}
+                        value={this.state.email}
                         placeholder="Email"
                         className="form-control form_spacing"
                       />
