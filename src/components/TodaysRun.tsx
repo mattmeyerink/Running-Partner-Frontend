@@ -5,17 +5,27 @@ import "../index.css";
 import running_shoes from "../images/running_shoes.jpeg";
 import rest_day_beach from "../images/rest_day_beach.jpeg";
 
+interface TodaysRunProps {
+  userData: any;
+}
+
+interface TodaysRunState {
+  activePlan?: boolean;
+  planData?: any;
+  activePlanRun?: number;
+}
+
 /**
  * Class to handle processing for today's run on the dashboard
  */
-class TodaysRun extends Component {
-  constructor(props) {
+class TodaysRun extends Component<TodaysRunProps, TodaysRunState> {
+  constructor(props: TodaysRunProps) {
     super(props);
 
     this.state = {
       activePlan: false,
       planData: {},
-      activePlanRun: null,
+      activePlanRun: -1,
     };
 
     this.getTodaysRun = this.getTodaysRun.bind(this);
@@ -34,7 +44,7 @@ class TodaysRun extends Component {
         Config.rpAPI +
           `/training_plans/custom_plan/${this.props.userData.active_plan}`,
         {
-          methods: "GET",
+          method: "GET",
           headers: myHeaders,
         }
       )
@@ -71,13 +81,13 @@ class TodaysRun extends Component {
       // Create moment objects with first and last week moments
       const firstWeekStartMoment = moment({
         year: parseInt(firstWeekStartArr[2]),
-        month: parseInt(firstWeekStartArr[0] - 1),
+        month: firstWeekStartArr[0] - 1,
         day: parseInt(firstWeekStartArr[1]),
       });
       firstWeekStartMoment.subtract(1, "days");
       const lastWeekStartMoment = moment({
         year: parseInt(lastWeekStartArr[2]),
-        month: parseInt(lastWeekStartArr[0] - 1),
+        month: lastWeekStartArr[0] - 1,
         day: parseInt(lastWeekStartArr[1]),
       });
       lastWeekStartMoment.add(7, "days");
@@ -98,13 +108,13 @@ class TodaysRun extends Component {
           // Create moments for the start of the week and for the end of the week
           const weekStartDateMoment = moment({
             year: parseInt(weekStartDateArr[2]),
-            month: parseInt(weekStartDateArr[0] - 1),
-            day: parseInt(weekStartDateArr[1]),
+            month: weekStartDateArr[0] - 1,
+            day: weekStartDateArr[1],
           });
           weekStartDateMoment.subtract(1, "days");
           const weekEndDateMoment = moment({
             year: parseInt(weekStartDateArr[2]),
-            month: parseInt(weekStartDateArr[0] - 1),
+            month: weekStartDateArr[0] - 1,
             day: parseInt(weekStartDateArr[1]),
           });
           weekEndDateMoment.add(7, "days");
