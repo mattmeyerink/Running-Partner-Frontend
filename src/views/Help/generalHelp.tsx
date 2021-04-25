@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import "../../index.css";
 
-/*
+interface GeneralHelpProps {
+  setCurrentPage(page: string): void;
+}
+
+/**
  * Page containing general help and advice for using the site
  */
-class GeneralHelp extends Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
-
+class GeneralHelp extends Component<GeneralHelpProps> {
   componentDidMount() {
     // Set the current page to help for the nav bar
     this.props.setCurrentPage("help");

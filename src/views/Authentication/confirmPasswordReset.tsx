@@ -2,14 +2,22 @@ import React, { Component } from "react";
 import Config from "../../config";
 import "../../index.css";
 
-/*
+interface ConfirmPasswordResetProps {};
+
+interface ConfirmPasswordResetState {
+  email?: string;
+  emailSent?: boolean;
+  emailNotFound?: boolean;
+};
+
+/**
  * Class to confirm the user wants to reset their password.
  * requires the user to enter their email to send the page link to and confirms 
  * the email matches an email in the system
  */
-class ConfirmPasswordReset extends Component {
-  constructor() {
-    super();
+class ConfirmPasswordReset extends Component<ConfirmPasswordResetProps, ConfirmPasswordResetState> {
+  constructor(props: ConfirmPasswordResetProps) {
+    super(props);
     this.state = {
       email: "",
       emailSent: false,
@@ -20,14 +28,14 @@ class ConfirmPasswordReset extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange(event: any) {
     const target = event.target;
     const { name, value } = target;
 
     this.setState({ [name]: value });
   }
 
-  handleSubmit(event) {
+  handleSubmit(event: any) {
     // Package the input email to send to the request
     const emailData = {
       email: this.state.email,

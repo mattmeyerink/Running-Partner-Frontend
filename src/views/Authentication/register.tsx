@@ -4,12 +4,29 @@ import StatesForm from "../../components/StatesForm";
 import Config from "../../config";
 import "../../index.css";
 
-/*
+interface RegistrationProps {
+  setCurrentPage(page: string): void;
+};
+
+interface RegistrationState {
+  accountCreated?: boolean;
+  warning?: string;
+  firstName?: string;
+  lastName?: string;
+  username?: string;
+  email?: string;
+  city?: string;
+  state?: string;
+  password?: string;
+  password2?: string;
+};
+
+/**
  * Class that handles the registration page allowing new users to sign up
  */
-class Registration extends Component {
-  constructor() {
-    super();
+class Registration extends Component<RegistrationProps, RegistrationState> {
+  constructor(props: RegistrationProps) {
+    super(props);
 
     this.state = {
       accountCreated: false,
@@ -36,7 +53,7 @@ class Registration extends Component {
     localStorage.setItem('currentPath', '/registration');
   }
 
-  handleChange(event) {
+  handleChange(event: any) {
     const target = event.target;
     const name = target.name;
     const value = target.value;
@@ -44,7 +61,7 @@ class Registration extends Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit(event) {
+  handleSubmit(event: any) {
     // Ensure that all of the fields were filled out
     if (
       this.state.firstName === "" ||
