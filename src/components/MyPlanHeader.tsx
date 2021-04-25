@@ -5,15 +5,22 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import Config from "../config";
 import "./components.css";
 
+interface MyPlanHeaderProps {
+  userData: any;
+  plan: string;
+  id: number;
+  getTrainingPlans(): void;
+  race_name: string;
+  difficulty: string;
+}
+
 /**
  * Class to display training plan information in a small header.
  * Specifically for the personal training plan header.
  */
-class MyPlanHeader extends Component {
-  constructor() {
-    super();
-
-    this.state = {};
+class MyPlanHeader extends Component<MyPlanHeaderProps> {
+  constructor(props: MyPlanHeaderProps) {
+    super(props);
 
     this.deletePlan = this.deletePlan.bind(this);
   }
