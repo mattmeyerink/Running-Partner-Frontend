@@ -8,17 +8,31 @@ import RunEntry from "../components/RunEntry";
 import Config from "../config";
 import "../index.css";
 
-/*
+interface HomeProps {
+  setCurrentPage(page: string): void;
+  userAuthenticated: boolean;
+  userData: any;
+}
+
+interface HomeState {
+  weatherData: any;
+  loading: boolean;
+  greeting: any;
+  shouldRedirect: boolean;
+}
+
+/**
  * Class to handle and render the main dashboard
  */
-class Home extends Component {
-  constructor(props) {
+class Home extends Component<HomeProps, HomeState> {
+  constructor(props: HomeProps) {
     super(props);
 
     this.state = {
       weatherData: {},
       loading: true,
       greeting: null,
+      shouldRedirect: false
     };
   }
 
@@ -65,10 +79,6 @@ class Home extends Component {
     const { city, state, first_name, id } = this.props.userData;
 
     return (
-      <React.Fragment>
-        {this.state.shouldRedirect ? (
-          <Redirect to={this.state.redirectTo} />
-        ) : (
           <div className="home_page">
             {this.props.userAuthenticated ? (
               <React.Fragment>
@@ -113,8 +123,6 @@ class Home extends Component {
               </React.Fragment>
             )}
           </div>
-        )}
-      </React.Fragment>
     );
   }
 }

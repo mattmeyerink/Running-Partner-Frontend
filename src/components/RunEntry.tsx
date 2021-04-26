@@ -8,7 +8,6 @@ interface RunEntryProps {
   user_id: number;
   city: string;
   state: string;
-  getRunData: any;
   userData: any;
 }
 
