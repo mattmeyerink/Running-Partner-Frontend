@@ -2,12 +2,23 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Config from "../../config";
 
-/*
+interface ConfirmDeleteAccountProps {
+  setCurrentPage(page: string): void;
+  match: any;
+  userData: any;
+  logout(): void;
+}
+
+interface ConfirmDeleteAccountState {
+  accountDeleted: boolean;
+}
+
+/**
  * View cofirming the user would like to delete their account
  */
-class ConfirmDeleteAccount extends Component {
-  constructor() {
-    super();
+class ConfirmDeleteAccount extends Component<ConfirmDeleteAccountProps, ConfirmDeleteAccountState> {
+  constructor(props: ConfirmDeleteAccountProps) {
+    super(props);
 
     this.state = {
       accountDeleted: false,

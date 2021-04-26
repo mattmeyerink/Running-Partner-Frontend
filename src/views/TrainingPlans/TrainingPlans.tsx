@@ -5,12 +5,24 @@ import PlanHeader from "../../components/PlanHeader";
 import Config from "../../config";
 import "../../index.css";
 
-/*
+interface TrainingPlanProps {
+  setCurrentPage(page: string): void;
+  userData: any;
+  userAuthenticated: boolean;
+}
+
+interface TrainingPlanState {
+  training_plans?: any;
+  planType?: string;
+  loading?: boolean;
+}
+
+/**
  * Class that displays all of the available training plans
  */
-class TrainingPlan extends Component {
-  constructor() {
-    super();
+class TrainingPlan extends Component<TrainingPlanProps, TrainingPlanState> {
+  constructor(props: TrainingPlanProps) {
+    super(props);
 
     this.state = {
       training_plans: [],
@@ -44,7 +56,7 @@ class TrainingPlan extends Component {
       .catch((error) => console.error(error));
   }
 
-  handleChange(event) {
+  handleChange(event: any) {
     const target = event.target;
     const name = target.name;
     const value = target.value;
@@ -88,7 +100,7 @@ class TrainingPlan extends Component {
               </div>
             ) : (
               <div className="row justify-content-center">
-                {this.state.training_plans.map((plan) =>
+                {this.state.training_plans.map((plan: any) =>
                   this.state.planType === "All-Plans" ||
                   this.state.planType === plan.race_name ? (
                     <PlanHeader
@@ -97,7 +109,6 @@ class TrainingPlan extends Component {
                       difficulty={plan.difficulty}
                       frequency={plan.frequency}
                       plan_length={plan.plan_length}
-                      race_length={plan.race_length}
                       race_name={plan.race_name}
                     />
                   ) : (

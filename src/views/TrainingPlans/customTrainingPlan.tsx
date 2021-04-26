@@ -6,9 +6,43 @@ import { faPlusSquare, faMinusSquare } from "@fortawesome/free-solid-svg-icons";
 import Config from "../../config";
 import "../../index.css";
 
-class CustomPlan extends Component {
-  constructor() {
-    super();
+interface CustomPlanProps {
+  setCurrentPage(page: string): void;
+  userData: any;
+  userAuthenticated: boolean;
+}
+
+interface CustomPlanState {
+  loading?: boolean;
+  numberOfWeeks?: number;
+  trainingPlanString?: string;
+  inEditMode?: any;
+
+  mondayEdit?: any;
+  tuesdayEdit?: any;
+  wednesdayEdit?: any;
+  thursdayEdit?: any;
+  fridayEdit?: any;
+  saturdayEdit?: any;
+  sundayEdit?: any;
+  totalEdit?: any;
+
+  planName?: string;
+
+  planSubmitted?: boolean;
+
+  possibleStartDates?: any;
+  currentPlanDates?: any;
+  next2YearsDates?: any;
+  startDate?: any;
+}
+
+/**
+ * Class responsible for view to create a custom training plan
+ */
+class CustomPlan extends Component<CustomPlanProps, CustomPlanState> {
+  constructor(props: CustomPlanProps) {
+    super(props);
     this.state = {
       loading: false,
       numberOfWeeks: 5,
@@ -88,7 +122,7 @@ class CustomPlan extends Component {
   addWeekToPlan() {
     let { numberOfWeeks, trainingPlanString } = this.state;
 
-    numberOfWeeks++;
+    numberOfWeeks = (numberOfWeeks as number) + 1;
     trainingPlanString += "-0,0,0,0,0,0,0";
 
     this.setState({
@@ -104,10 +138,10 @@ class CustomPlan extends Component {
     let { numberOfWeeks, trainingPlanString } = this.state;
 
     // Update number of weeks the plan takes
-    numberOfWeeks--;
+    numberOfWeeks = (numberOfWeeks as number) - 1;
 
     // Pull the current training plan from state and deconstruct to an array
-    const trainingPlanWeeks = trainingPlanString.split("-");
+    const trainingPlanWeeks = (trainingPlanString as string).split("-");
 
     // Pop the last week off and join the remaining weeks back together to a string
     trainingPlanWeeks.pop();
@@ -127,7 +161,7 @@ class CustomPlan extends Component {
    */
   convertToTable() {
     // Pull the plan data from state
-    const plan = this.state.trainingPlanString;
+    const plan = this.state.trainingPlanString as string;
 
     // Split the string into weeks with the deliniating - char
     const weeks = plan.split("-");
@@ -159,7 +193,7 @@ class CustomPlan extends Component {
    * @param rowKey represents the week of the plan being edited
    * @param week data to display to initialize in edit form
    */
-  editTable(rowKey, week) {
+  editTable(rowKey: number, week: any) {
     // Set the state to edit mode and set which week being edited
     this.setState({
       inEditMode: {
@@ -184,7 +218,7 @@ class CustomPlan extends Component {
    * @param index Represents the week that was edited/saved
    * @param planData
    */
-  saveTable(index, planData) {
+  saveTable(index: number, planData: any) {
     // Push the edited values from the table into the planData
     planData[index] = [
       this.state.mondayEdit,
@@ -233,7 +267,7 @@ class CustomPlan extends Component {
     });
   }
 
-  handleChange(event) {
+  handleChange(event: any) {
     // Gather change event variables
     const target = event.target;
     const name = target.name;
@@ -282,7 +316,7 @@ class CustomPlan extends Component {
 
     // Add dates to the final plan
     const currentStartDates = this.state.currentPlanDates;
-    const finalPlan = this.state.trainingPlanString;
+    const finalPlan = (this.state.trainingPlanString as string);
     const planArr = finalPlan.split("-");
     let output = "";
     for (let i = 0; i < planArr.length; i++) {
@@ -372,7 +406,7 @@ class CustomPlan extends Component {
                         className="form-control"
                       >
                         {this.state.possibleStartDates.map(
-                          (possibleStartDate, index) => (
+                          (possibleStartDate: string, index: number) => (
                             <React.Fragment key={index}>
                               <option value={possibleStartDate}>
                                 {possibleStartDate}
@@ -409,7 +443,7 @@ class CustomPlan extends Component {
                           <th>Sunday</th>
                           <th>Total</th>
                         </tr>
-                        {planData.map((week, index) => (
+                        {planData.map((week: any, index) => (
                           <React.Fragment key={index}>
                             <tr>
                               <td>

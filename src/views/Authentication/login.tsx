@@ -4,11 +4,24 @@ import Spinner from "react-bootstrap/Spinner";
 import Config from "../../config";
 import "../../index.css";
 
-/*
+interface LoginProps {
+  setCurrentPage(page: string): void;
+  login(userData: any): void;
+  userAuthenticated: boolean;
+}
+
+interface LoginState {
+  warning?: string;
+  email?: string;
+  password?: string;
+  loading?: boolean;
+}
+
+/**
  * Class to handle loging the user into the page
  */
-class Login extends Component {
-  constructor(props) {
+class Login extends Component<LoginProps, LoginState> {
+  constructor(props: LoginProps) {
     super(props);
 
     this.state = {
@@ -31,7 +44,7 @@ class Login extends Component {
     localStorage.setItem("currentPath", "/login");
   }
 
-  handleChange(event) {
+  handleChange(event: any) {
     const target = event.target;
     const name = target.name;
     const value = target.value;
@@ -39,7 +52,7 @@ class Login extends Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit(event) {
+  handleSubmit(event: any) {
     // Determine if a form field was left blank
     if (this.state.email === "" || this.state.password === "") {
       this.setState({ warning: "Please fill in all login credentials" });
@@ -47,7 +60,7 @@ class Login extends Component {
     }
 
     // Prepare JSON to submit form data to API
-    const loginData = {
+    const loginData: any = {
       email: this.state.email,
       password: this.state.password,
     };
@@ -114,7 +127,7 @@ class Login extends Component {
                         type="text"
                         name="email"
                         onChange={this.handleChange}
-                        value={this.state.username}
+                        value={this.state.email}
                         placeholder="Email"
                         className="form-control form_spacing"
                       />

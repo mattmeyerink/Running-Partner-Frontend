@@ -3,17 +3,30 @@ import { Redirect } from "react-router-dom";
 import Config from "../../config";
 import "../../index.css";
 
-/*
+interface ResetPasswordProps {
+  setCurrentPage(page: string): void;
+  match: any;
+}
+
+interface ResetPasswordState {
+  password?: string;
+  confirmPassword?: string;
+  passwordReset?: boolean;
+  warning?: string;
+}
+
+/**
  * Class that holds the form that resets the user's password on submit
  */
-class ResetPassword extends Component {
-  constructor() {
-    super();
+class ResetPassword extends Component<ResetPasswordProps, ResetPasswordState> {
+  constructor(props: ResetPasswordProps) {
+    super(props);
+
     this.state = {
       password: "",
       confirmPassword: "",
       passwordReset: false,
-      warning: null,
+      warning: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -31,14 +44,14 @@ class ResetPassword extends Component {
     );
   }
 
-  handleChange(event) {
+  handleChange(event: any) {
     const target = event.target;
     const { name, value } = target;
 
     this.setState({ [name]: value });
   }
 
-  handleSubmit(event) {
+  handleSubmit(event: any) {
     // Check to make a password was input
     if (!this.state.password) {
       this.setState({ warning: "Please input a password" });
