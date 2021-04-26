@@ -13,9 +13,9 @@ interface PlanHeaderProps {
 /**
  * Class to display the header information for pre made training plans
  */
-class PlanHeader extends Component {
+class PlanHeader extends Component<PlanHeaderProps> {
   render() {
-    const {race_name, difficulty, plan_length, frequency, id } = this.props as PlanHeaderProps;
+    const {race_name, difficulty, plan_length, frequency, id } = this.props;
     return (
       <React.Fragment>
         <div className="col-md-8 border border-secondary training_plan_card">

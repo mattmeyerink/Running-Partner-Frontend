@@ -4,12 +4,25 @@ import Spinner from "react-bootstrap/Spinner";
 import Config from "../../config";
 import "../../index.css";
 
-/*
+interface SinglePlanProps {
+  setCurrentPage(page: string): void;
+  match: any;
+  userData: any;
+  userAuthenticated: boolean;
+}
+
+interface SinglePlanState {
+   training_plan: any;
+   planDetails: any;
+   loading: boolean;
+}
+
+/**
  * Class to display a single general training plan
  */
-class SinglePlan extends Component {
-  constructor() {
-    super();
+class SinglePlan extends Component<SinglePlanProps, SinglePlanState> {
+  constructor(props: SinglePlanProps) {
+    super(props);
 
     this.state = {
       training_plan: {},
