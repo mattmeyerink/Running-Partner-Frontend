@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChartLine, faCalendarPlus, faRunning, faUser, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import "./components.css";
 
 interface NavBarProps {
@@ -33,7 +35,7 @@ class NavBar extends Component<NavBarProps> {
                 }
               >
                 <Link className="nav-link" to="/personal_plan">
-                  My Training Plans
+                  <FontAwesomeIcon icon={faChartLine} color="white" className="nav_icon" /> My Training Plans
                 </Link>
               </li>
               <li
@@ -42,7 +44,7 @@ class NavBar extends Component<NavBarProps> {
                 }
               >
                 <Link className="nav-link" to="/all_runs">
-                  My Runs
+                  <FontAwesomeIcon icon={faRunning} color="white" className="nav_icon" /> My Runs
                 </Link>
               </li>
               <li
@@ -53,7 +55,7 @@ class NavBar extends Component<NavBarProps> {
                 }
               >
                 <Link className="nav-link" to="/training_plans">
-                  Training Plans
+                  <FontAwesomeIcon icon={faCalendarPlus} color="white" className="nav_icon" /> Training Plans
                 </Link>
               </li>
               <li
@@ -62,7 +64,7 @@ class NavBar extends Component<NavBarProps> {
                 }
               >
                 <Link className="nav-link" to="/profile">
-                  Profile
+                  <FontAwesomeIcon icon={faUser} color="white" className="nav_icon" /> Profile
                 </Link>
               </li>
               <li
@@ -71,7 +73,7 @@ class NavBar extends Component<NavBarProps> {
                 }
               >
                 <Link className="nav-link" to="/help">
-                  Help
+                  <FontAwesomeIcon icon={faInfoCircle} color="white" className="nav_icon" /> Help
                 </Link>
               </li>
             </ul>
