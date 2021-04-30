@@ -85,10 +85,11 @@ class Login extends Component<LoginProps, LoginState> {
       .then((data) => {
         if (data !== {}) {
           this.props.login(data);
-          this.setState({ loading: false });
         }
       })
       .catch((error) => console.error(error));
+
+      this.setState({ loading: false });
 
     event.preventDefault();
   }
