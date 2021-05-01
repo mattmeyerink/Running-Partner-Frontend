@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Config from "../config";
 import "./components.css";
 
@@ -61,14 +61,17 @@ class MyPlanHeader extends Component<MyPlanHeaderProps> {
       <React.Fragment>
         <div className="col-md-8 training_plan_card">
           <div className="row">
-            <div className="col-md-11">
+            <div className="col-md-10">
               <Link to={`/personal_plan/${this.props.id}`}>
                 <h5>
                   {this.props.race_name} - {this.props.difficulty}
                 </h5>
               </Link>
             </div>
-            <div className="col-md-1">
+            <div className="col-md-2">
+              <Link to={`/personal_plan/edit/${this.props.id}`} className="icon_button edit_icon">
+                <FontAwesomeIcon icon={faEdit} />
+              </Link>
               <button className="icon_button" onClick={this.deletePlan}>
                 <FontAwesomeIcon icon={faTrash} color="red" />
               </button>

@@ -300,7 +300,7 @@ class EditPlan extends Component<EditPlanProps, EditPlanState> {
                         onClick={this.submitPlan}
                         className="btn btn-success custom_plan_button"
                       >
-                        Submit Plan
+                        Save Plan
                       </button>
                     </div>
                     <div className="row justify-content-center">
