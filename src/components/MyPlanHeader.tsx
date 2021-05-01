@@ -69,9 +69,9 @@ class MyPlanHeader extends Component<MyPlanHeaderProps> {
               </Link>
             </div>
             <div className="col-md-2">
-              <button className="icon_button edit_icon">
+              <Link to={`/personal_plan/edit/${this.props.id}`} className="icon_button edit_icon">
                 <FontAwesomeIcon icon={faEdit} />
-              </button>
+              </Link>
               <button className="icon_button" onClick={this.deletePlan}>
                 <FontAwesomeIcon icon={faTrash} color="red" />
               </button>
