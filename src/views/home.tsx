@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Spinner from "react-bootstrap/spinner";
+import Spinner from "react-bootstrap/Spinner";
 import moment from "moment";
 import { Redirect } from "react-router-dom";
 import WeatherWidget from "../components/WeatherWidget";
