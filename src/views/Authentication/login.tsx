@@ -96,7 +96,7 @@ class Login extends Component<LoginProps, LoginState> {
     event.preventDefault();
   }
 
-  /*
+  /**
    * Clear the warning from the page
    */
   clearWarning() {
