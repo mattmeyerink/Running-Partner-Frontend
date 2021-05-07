@@ -53,9 +53,15 @@ class Login extends Component<LoginProps, LoginState> {
   }
 
   handleSubmit(event: any) {
+    // Tell state loading has begun
+    this.setState({ loading: true });
+
     // Determine if a form field was left blank
     if (this.state.email === "" || this.state.password === "") {
-      this.setState({ warning: "Please fill in all login credentials" });
+      this.setState({
+        warning: "Please fill in all login credentials",
+        loading: false,
+      });
       return;
     }
 
@@ -64,9 +70,6 @@ class Login extends Component<LoginProps, LoginState> {
       email: this.state.email,
       password: this.state.password,
     };
-
-    // Tell state loading has begun
-    this.setState({ loading: true });
 
     // Fetch request to authentication section of API
     fetch(Config.rpAPI + "/authentication/login", {
@@ -78,7 +81,7 @@ class Login extends Component<LoginProps, LoginState> {
     })
       .then((response) => {
         if (response.status === 401) {
-          this.setState({ warning: "Invalid Email or Password" });
+          this.setState({ warning: "Invalid Email or Password", loading: false });
         }
         return response.json();
       })
@@ -86,10 +89,9 @@ class Login extends Component<LoginProps, LoginState> {
         if (data !== {}) {
           this.props.login(data);
         }
+        this.setState({ loading: false })
       })
       .catch((error) => console.error(error));
-
-      this.setState({ loading: false });
 
     event.preventDefault();
   }
@@ -110,58 +112,53 @@ class Login extends Component<LoginProps, LoginState> {
           <React.Fragment>
             {this.state.warning === "" ? (
               <div className="row">
-                {this.state.loading ? (
-                  <div className="col">
-                    <div className="row justify-content-center loading_height">
-                      <h1 className="white_text">
-                        Loading <Spinner animation="border" variant="light" />
-                      </h1>
-                    </div>
+                <div className="col-md-4 offset-4 login_input_box">
+                  <div className="row justify-content-center">
+                    <h1>Login</h1>
                   </div>
-                ) : (
-                  <div className="col-md-4 offset-4 login_input_box">
-                    <div className="row justify-content-center">
-                      <h1>Login</h1>
-                    </div>
-                    <form onSubmit={this.handleSubmit}>
-                      <input
-                        type="text"
-                        name="email"
-                        onChange={this.handleChange}
-                        value={this.state.email}
-                        placeholder="Email"
-                        className="form-control form_spacing"
-                      />
-                      <input
-                        type="password"
-                        name="password"
-                        onChange={this.handleChange}
-                        value={this.state.password}
-                        placeholder="Password"
-                        className="form-control form_spacing"
-                      />
-                      <input
-                        type="submit"
-                        className="form-control btn btn-success form_spacing"
-                      />
-                    </form>
-                    <div className="row justify-content-center">
-                      <strong>
-                        Not signed up yet?
-                        <Link to="/registration"> Create an account!</Link>
-                      </strong>
-                    </div>
-                    <div className="row justify-content-center">
-                      <strong>
-                        Forgot your password?
-                        <Link to="/confirm_password_reset">
-                          {" "}
-                          Reset your password
-                        </Link>
-                      </strong>
-                    </div>
+                  <form onSubmit={this.handleSubmit}>
+                    <input
+                      type="text"
+                      name="email"
+                      onChange={this.handleChange}
+                      value={this.state.email}
+                      placeholder="Email"
+                      className="form-control form_spacing"
+                    />
+                    <input
+                      type="password"
+                      name="password"
+                      onChange={this.handleChange}
+                      value={this.state.password}
+                      placeholder="Password"
+                      className="form-control form_spacing"
+                    />
+                    <button
+                      type="submit"
+                      className="form-control btn btn-success form_spacing"
+                    >
+                      Submit{" "}
+                      {this.state.loading && (
+                        <Spinner animation="border" variant="light" size="sm" />
+                      )}
+                    </button>
+                  </form>
+                  <div className="row justify-content-center">
+                    <strong>
+                      Not signed up yet?
+                      <Link to="/registration"> Create an account!</Link>
+                    </strong>
                   </div>
-                )}
+                  <div className="row justify-content-center">
+                    <strong>
+                      Forgot your password?
+                      <Link to="/confirm_password_reset">
+                        {" "}
+                        Reset your password
+                      </Link>
+                    </strong>
+                  </div>
+                </div>
               </div>
             ) : (
               <React.Fragment>
