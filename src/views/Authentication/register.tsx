@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 import StatesForm from "../../components/StatesForm";
 import Config from "../../config";
 import "../../index.css";
 
 interface RegistrationProps {
   setCurrentPage(page: string): void;
-};
+}
 
 interface RegistrationState {
   accountCreated?: boolean;
@@ -19,7 +20,8 @@ interface RegistrationState {
   state?: string;
   password?: string;
   password2?: string;
-};
+  loading?: boolean;
+}
 
 /**
  * Class that handles the registration page allowing new users to sign up
@@ -39,6 +41,7 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
       state: "",
       password: "",
       password2: "",
+      loading: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -50,7 +53,7 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
     this.props.setCurrentPage("");
 
     // Set current path in local storage
-    localStorage.setItem('currentPath', '/registration');
+    localStorage.setItem("currentPath", "/registration");
   }
 
   handleChange(event: any) {
@@ -62,6 +65,9 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
   }
 
   handleSubmit(event: any) {
+    // Tell state api interaction has begun
+    this.setState({ loading: true });
+
     // Ensure that all of the fields were filled out
     if (
       this.state.firstName === "" ||
@@ -71,13 +77,19 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
       this.state.password === "" ||
       this.state.password2 === ""
     ) {
-      this.setState({ warning: "Please fill in all form fields" });
+      this.setState({
+        warning: "Please fill in all form fields",
+        loading: false,
+      });
       return;
     }
 
     // Make sure the passwords match each other
     if (this.state.password !== this.state.password2) {
-      this.setState({ warning: "Passwords did not match. Try again!" });
+      this.setState({
+        warning: "Passwords did not match. Try again!",
+        loading: false,
+      });
       return;
     }
 
@@ -108,12 +120,14 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
           warning: "Email already in use! Try a different one!",
         });
       }
+
+      this.setState({ loading: false });
     });
 
     event.preventDefault();
   }
 
-  /*
+  /**
    * Clear the registration warning from the screen
    */
   clearWarning() {
@@ -198,10 +212,15 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
                       className="form-control form_spacing"
                       placeholder="Retype Password"
                     />
-                    <input
+                    <button
                       type="submit"
                       className="btn btn-success form-control form_spacing"
-                    />
+                    >
+                      Submit{" "}
+                      {this.state.loading && (
+                        <Spinner animation="border" variant="light" size="sm" />
+                      )}
+                    </button>
                   </form>
                   <div className="row justify-content-center">
                     <strong>
