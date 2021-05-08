@@ -53,6 +53,8 @@ class Login extends Component<LoginProps, LoginState> {
   }
 
   handleSubmit(event: any) {
+    event.preventDefault();
+    
     // Tell state loading has begun
     this.setState({ loading: true });
 
@@ -81,19 +83,21 @@ class Login extends Component<LoginProps, LoginState> {
     })
       .then((response) => {
         if (response.status === 401) {
-          this.setState({ warning: "Invalid Email or Password", loading: false });
+          this.setState({
+            warning: "Invalid Email or Password",
+            loading: false,
+          });
         }
         return response.json();
       })
       .then((data) => {
         if (data !== {}) {
           this.props.login(data);
+          this.clearWarning();
         }
-        this.setState({ loading: false })
+        this.setState({ loading: false });
       })
       .catch((error) => console.error(error));
-
-    event.preventDefault();
   }
 
   /**
@@ -110,71 +114,56 @@ class Login extends Component<LoginProps, LoginState> {
           <Redirect to="/" />
         ) : (
           <React.Fragment>
-            {this.state.warning === "" ? (
-              <div className="row">
-                <div className="col-md-4 offset-4 login_input_box">
-                  <div className="row justify-content-center">
-                    <h1>Login</h1>
-                  </div>
-                  <form onSubmit={this.handleSubmit}>
-                    <input
-                      type="text"
-                      name="email"
-                      onChange={this.handleChange}
-                      value={this.state.email}
-                      placeholder="Email"
-                      className="form-control form_spacing"
-                    />
-                    <input
-                      type="password"
-                      name="password"
-                      onChange={this.handleChange}
-                      value={this.state.password}
-                      placeholder="Password"
-                      className="form-control form_spacing"
-                    />
-                    <button
-                      type="submit"
-                      className="form-control btn btn-success form_spacing"
-                    >
-                      Submit{" "}
-                      {this.state.loading && (
-                        <Spinner animation="border" variant="light" size="sm" />
-                      )}
-                    </button>
-                  </form>
-                  <div className="row justify-content-center">
-                    <strong>
-                      Not signed up yet?
-                      <Link to="/registration"> Create an account!</Link>
-                    </strong>
-                  </div>
-                  <div className="row justify-content-center">
-                    <strong>
-                      Forgot your password?
-                      <Link to="/confirm_password_reset">
-                        {" "}
-                        Reset your password
-                      </Link>
-                    </strong>
-                  </div>
+            <div className="row">
+              <div className="col-md-4 offset-4 login_input_box">
+                <div className="row justify-content-center">
+                  <h1>Login</h1>
+                </div>
+                <form onSubmit={this.handleSubmit}>
+                  <input
+                    type="text"
+                    name="email"
+                    onChange={this.handleChange}
+                    value={this.state.email}
+                    placeholder="Email"
+                    className="form-control form_spacing"
+                  />
+                  <input
+                    type="password"
+                    name="password"
+                    onChange={this.handleChange}
+                    value={this.state.password}
+                    placeholder="Password"
+                    className="form-control form_spacing"
+                  />
+                  <p className="warning_text">{this.state.warning && this.state.warning}</p>
+                  <button
+                    type="submit"
+                    className="form-control btn btn-success form_spacing"
+                  >
+                    Submit{" "}
+                    {this.state.loading && (
+                      <Spinner animation="border" variant="light" size="sm" />
+                    )}
+                  </button>
+                </form>
+                <div className="row justify-content-center">
+                  <strong>
+                    Not signed up yet?
+                    <Link to="/registration"> Create an account!</Link>
+                  </strong>
+                </div>
+                <div className="row justify-content-center">
+                  <strong>
+                    Forgot your password?
+                    <Link to="/confirm_password_reset">
+                      {" "}
+                      Reset your password
+                    </Link>
+                  </strong>
                 </div>
               </div>
-            ) : (
-              <React.Fragment>
-                <div className="row justify-content-center">
-                  <h1 className="white_text">{this.state.warning}</h1>
-                </div>
-                <div className="row justify-content-center">
-                  <button
-                    className="btn btn-warning"
-                    onClick={this.clearWarning}
-                  >
-                    Return to Login Page
-                  </button>
-                </div>
-              </React.Fragment>
-            )}
+            </div>
           </React.Fragment>
         )}
       </React.Fragment>
