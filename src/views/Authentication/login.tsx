@@ -54,7 +54,7 @@ class Login extends Component<LoginProps, LoginState> {
 
   handleSubmit(event: any) {
     event.preventDefault();
-    
+
     // Tell state loading has begun
     this.setState({ loading: true });
 
@@ -136,7 +136,7 @@ class Login extends Component<LoginProps, LoginState> {
                     placeholder="Password"
                     className="form-control form_spacing"
                   />
-                  <p className="warning_text">{this.state.warning && this.state.warning}</p>
+                  <p className="warning_text">{this.state.warning}</p>
                   <button
                     type="submit"
                     className="form-control btn btn-success form_spacing"

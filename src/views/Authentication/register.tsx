@@ -65,6 +65,8 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
   }
 
   handleSubmit(event: any) {
+    event.preventDefault();
+
     // Tell state api interaction has begun
     this.setState({ loading: true });
 
@@ -115,6 +117,7 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
     }).then((response) => {
       if (response.status === 201) {
         this.setState({ accountCreated: true });
+        this.clearWarning();
       } else if (response.status === 409) {
         this.setState({
           warning: "Email already in use! Try a different one!",
@@ -123,8 +126,6 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
 
       this.setState({ loading: false });
     });
-
-    event.preventDefault();
   }
 
   /**
@@ -141,110 +142,95 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
           <Redirect to="/login" />
         ) : (
           <React.Fragment>
-            {this.state.warning === "" ? (
-              <div className="row">
-                <div className="col-md-4 offset-4 input_box">
-                  <div className="row justify-content-center">
-                    <h1>Register</h1>
-                  </div>
-                  <form onSubmit={this.handleSubmit}>
-                    <input
-                      type="text"
-                      name="firstName"
-                      value={this.state.firstName}
-                      onChange={this.handleChange}
-                      className="form-control form_spacing"
-                      placeholder="First Name"
-                    />
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={this.state.lastName}
-                      onChange={this.handleChange}
-                      className="form-control form_spacing"
-                      placeholder="Last Name"
-                    />
-                    <input
-                      type="text"
-                      name="username"
-                      value={this.state.username}
-                      onChange={this.handleChange}
-                      className="form-control form_spacing"
-                      placeholder="Username"
-                    />
-                    <input
-                      type="text"
-                      name="email"
-                      value={this.state.email}
-                      onChange={this.handleChange}
-                      className="form-control form_spacing"
-                      placeholder="Email"
-                    />
-                    <input
-                      type="text"
-                      name="city"
-                      value={this.state.city}
-                      onChange={this.handleChange}
-                      className="form-control form_spacing"
-                      placeholder="City"
-                    />
-                    <select
-                      name="state"
-                      value={this.state.state}
-                      onChange={this.handleChange}
-                      className="form-control form_spacing"
-                    >
-                      <StatesForm />
-                    </select>
-                    <input
-                      type="password"
-                      name="password"
-                      value={this.state.password}
-                      onChange={this.handleChange}
-                      className="form-control form_spacing"
-                      placeholder="Password"
-                    />
-                    <input
-                      type="password"
-                      name="password2"
-                      value={this.state.password2}
-                      onChange={this.handleChange}
-                      className="form-control form_spacing"
-                      placeholder="Retype Password"
-                    />
-                    <button
-                      type="submit"
-                      className="btn btn-success form-control form_spacing"
-                    >
-                      Submit{" "}
-                      {this.state.loading && (
-                        <Spinner animation="border" variant="light" size="sm" />
-                      )}
-                    </button>
-                  </form>
-                  <div className="row justify-content-center">
-                    <strong>
-                      Already have an account?
-                      <Link to="/login"> Login!</Link>
-                    </strong>
-                  </div>
+            <div className="row">
+              <div className="col-md-4 offset-4 input_box">
+                <div className="row justify-content-center">
+                  <h1>Register</h1>
+                </div>
+                <form onSubmit={this.handleSubmit}>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={this.state.firstName}
+                    onChange={this.handleChange}
+                    className="form-control form_spacing"
+                    placeholder="First Name"
+                  />
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={this.state.lastName}
+                    onChange={this.handleChange}
+                    className="form-control form_spacing"
+                    placeholder="Last Name"
+                  />
+                  <input
+                    type="text"
+                    name="username"
+                    value={this.state.username}
+                    onChange={this.handleChange}
+                    className="form-control form_spacing"
+                    placeholder="Username"
+                  />
+                  <input
+                    type="text"
+                    name="email"
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                    className="form-control form_spacing"
+                    placeholder="Email"
+                  />
+                  <input
+                    type="text"
+                    name="city"
+                    value={this.state.city}
+                    onChange={this.handleChange}
+                    className="form-control form_spacing"
+                    placeholder="City"
+                  />
+                  <select
+                    name="state"
+                    value={this.state.state}
+                    onChange={this.handleChange}
+                    className="form-control form_spacing"
+                  >
+                    <StatesForm />
+                  </select>
+                  <input
+                    type="password"
+                    name="password"
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                    className="form-control form_spacing"
+                    placeholder="Password"
+                  />
+                  <input
+                    type="password"
+                    name="password2"
+                    value={this.state.password2}
+                    onChange={this.handleChange}
+                    className="form-control form_spacing"
+                    placeholder="Retype Password"
+                  />
+                  <p className="warning_text">{this.state.warning}</p>
+                  <button
+                    type="submit"
+                    className="btn btn-success form-control form_spacing"
+                  >
+                    Submit{" "}
+                    {this.state.loading && (
+                      <Spinner animation="border" variant="light" size="sm" />
+                    )}
+                  </button>
+                </form>
+                <div className="row justify-content-center">
+                  <strong>
+                    Already have an account?
+                    <Link to="/login"> Login!</Link>
+                  </strong>
                 </div>
               </div>
-            ) : (
-              <React.Fragment>
-                <div className="row justify-content-center">
-                  <h1 className="text_shadow">{this.state.warning}</h1>
-                </div>
-                <div className="row justify-content-center">
-                  <button
-                    className="btn btn-warning"
-                    onClick={this.clearWarning}
-                  >
-                    Return to Registration Page
-                  </button>
-                </div>
-              </React.Fragment>
-            )}
+            </div>
           </React.Fragment>
         )}
       </React.Fragment>
