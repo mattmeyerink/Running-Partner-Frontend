@@ -24,19 +24,16 @@ export default function checkPasswordStrength(password: string): boolean {
     // Check if the character is uppercase
     if (passwordChar >= capitalA && passwordChar <= capitalZ) {
       upperCasePresent = true;
-      console.log('here upper');
     }
 
     // Check if character is lowercase
     else if (passwordChar >= lowerA && passwordChar <= lowerZ) {
       lowerCasePresent = true;
-      console.log('here lower');
     }
 
     // Check if a digit is present
     else if (passwordChar >= lowerNum && passwordChar <= upperNum) {
       numberPresent = true;
-      console.log('here number');
     }
   }
 
