@@ -4,6 +4,7 @@ import Spinner from "react-bootstrap/Spinner";
 import StatesForm from "../../components/StatesForm";
 import Config from "../../config";
 import checkPasswordStrength from "../../utility/checkPasswordStrength";
+import { AllUSCities } from "../../utility/AllUSCities";
 import "../../index.css";
 
 interface RegistrationProps {
@@ -102,6 +103,23 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
         warning: "Passwords did not match. Try again!",
         loading: false,
       });
+      return;
+    }
+
+    // Make sure the user input a valid city
+    let cityFound = false;
+    for (let i = 0; i < AllUSCities.length; i++) {
+      if(AllUSCities[i].name === this.state.city && AllUSCities[i].state === this.state.state) {
+        cityFound = true;
+        break;
+      }
+    }
+
+    if (!cityFound) {
+      this.setState({
+        warning: "City not found",
+        loading: false
+      })
       return;
     }
 

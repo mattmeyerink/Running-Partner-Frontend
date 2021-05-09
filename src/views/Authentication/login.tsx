@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import Config from "../../config";
-import LoginData from "../../interfaces";
+import { LoginData } from "../../interfaces";
 import "../../index.css";
 
 interface LoginProps {
