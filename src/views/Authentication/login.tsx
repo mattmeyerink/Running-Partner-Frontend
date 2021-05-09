@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import Config from "../../config";
+import LoginData from "../../interfaces";
 import "../../index.css";
 
 interface LoginProps {
@@ -68,9 +69,9 @@ class Login extends Component<LoginProps, LoginState> {
     }
 
     // Prepare JSON to submit form data to API
-    const loginData: any = {
-      email: this.state.email,
-      password: this.state.password,
+    const loginData: LoginData = {
+      email: this.state.email as string,
+      password: this.state.password as string,
     };
 
     // Fetch request to authentication section of API
