@@ -46,6 +46,7 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.clearWarning = this.clearWarning.bind(this);
+    this.checkPasswordStrength = this.checkPasswordStrength.bind(this);
   }
 
   componentDidMount() {
@@ -68,7 +69,7 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
     event.preventDefault();
 
     // Tell state api interaction has begun
-    this.setState({ loading: true });
+    this.setState({ loading: true, warning: "" });
 
     // Ensure that all of the fields were filled out
     if (
@@ -81,6 +82,15 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
     ) {
       this.setState({
         warning: "Please fill in all form fields",
+        loading: false,
+      });
+      return;
+    }
+
+    // Ensure the password meets minimum strength requirements
+    if (!this.checkPasswordStrength(this.state.password as string)) {
+      this.setState({
+        warning: "Passwords require an uppercase letter, lowercase letter, and a number",
         loading: false,
       });
       return;
@@ -126,6 +136,51 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
 
       this.setState({ loading: false });
     });
+  }
+
+  /**
+   * Returns if the password meets minimum strength requirements.
+   * Currently password needs uppercase, lowercase, and a number.
+   * @param password Represents the password to check strength of
+   * @returns if password meets minimum strength requirements
+   */
+  checkPasswordStrength(password: string): boolean {
+    // Conditions for acceptable password
+    let upperCasePresent = false;
+    let lowerCasePresent = false;
+    let numberPresent = false;
+
+    // Bounds for neccessary character types
+    const capitalA = 65;
+    const capitalZ = 90;
+    const lowerA = 97;
+    const lowerZ = 122;
+    const lowerNum = 48;
+    const upperNum = 57;
+
+    for (let i = 0; i < password.length; i++) {
+      const passwordChar = password.charCodeAt(i);
+
+      // Check if the character is uppercase
+      if (passwordChar >= capitalA && passwordChar <= capitalZ) {
+        upperCasePresent = true;
+        console.log('here upper');
+      }
+
+      // Check if character is lowercase
+      else if (passwordChar >= lowerA && passwordChar <= lowerZ) {
+        lowerCasePresent = true;
+        console.log('here lower');
+      }
+
+      // Check if a digit is present
+      else if (passwordChar >= lowerNum && passwordChar <= upperNum) {
+        numberPresent = true;
+        console.log('here number');
+      }
+    }
+
+    return upperCasePresent && lowerCasePresent && numberPresent;
   }
 
   /**

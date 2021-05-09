@@ -56,7 +56,7 @@ class Login extends Component<LoginProps, LoginState> {
     event.preventDefault();
 
     // Tell state loading has begun
-    this.setState({ loading: true });
+    this.setState({ loading: true, warning: "" });
 
     // Determine if a form field was left blank
     if (this.state.email === "" || this.state.password === "") {
