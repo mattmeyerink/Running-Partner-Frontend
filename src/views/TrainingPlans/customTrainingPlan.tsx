@@ -91,11 +91,15 @@ class CustomPlan extends Component<CustomPlanProps, CustomPlanState> {
   }
 
   /**
-   * Assign the moment object for the next monday in state
+   * Assign the moment object for the first monday the plan can start on.
+   * The earliest a plan can start is one month prior to the current day.
    */
-  findFirstMonday() {
+   findFirstMonday() {
     // Gather the current datetime object. Move to next day until monday is found
     let currentDay = moment();
+    currentDay = currentDay.subtract(1, 'months');
+
+    // Find the next Monday to start from
     while (currentDay.format("dddd") !== "Monday") {
       currentDay = currentDay.add(1, "days");
     }
