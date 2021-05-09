@@ -90,7 +90,7 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
     // Ensure the password meets minimum strength requirements
     if (!checkPasswordStrength(this.state.password as string)) {
       this.setState({
-        warning: "Passwords require an uppercase letter, lowercase letter, and a number",
+        warning: "Passwords require an uppercase letter, lowercase letter, and a number and must be at least 7 characters long",
         loading: false,
       });
       return;

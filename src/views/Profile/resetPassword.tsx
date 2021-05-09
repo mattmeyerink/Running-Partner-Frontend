@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Config from "../../config";
-import checkPasswordStrength from "../../utility/checkPasswordStrength";
 import "../../index.css";
 
 interface ResetPasswordProps {
@@ -56,11 +55,6 @@ class ResetPassword extends Component<ResetPasswordProps, ResetPasswordState> {
     // Check to make a password was input
     if (!this.state.password) {
       this.setState({ warning: "Please input a password" });
-    }
-
-    // Check the password strength
-    if (!checkPasswordStrength(this.state.password as string)) {
-      this.setState({ warning: "Passwords require an uppercase letter, lowercase letter, and a number"});
     }
 
     // Check that the two passwords match

@@ -9,6 +9,7 @@ export default function checkPasswordStrength(password: string): boolean {
   let upperCasePresent = false;
   let lowerCasePresent = false;
   let numberPresent = false;
+  let passwordLength = false;
 
   // Bounds for neccessary character types
   const capitalA = 65;
@@ -17,6 +18,10 @@ export default function checkPasswordStrength(password: string): boolean {
   const lowerZ = 122;
   const lowerNum = 48;
   const upperNum = 57;
+  const minimumPasswordLength = 7;
+
+  //Check password length
+  passwordLength = password.length >= minimumPasswordLength;
 
   for (let i = 0; i < password.length; i++) {
     const passwordChar = password.charCodeAt(i);
@@ -37,5 +42,5 @@ export default function checkPasswordStrength(password: string): boolean {
     }
   }
 
-  return upperCasePresent && lowerCasePresent && numberPresent;
+  return upperCasePresent && lowerCasePresent && numberPresent && passwordLength;
 }
