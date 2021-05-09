@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import StatesForm from "../../components/StatesForm";
 import { Redirect } from "react-router-dom";
+import { confirmValidCity } from "../../utility/FormFieldUtilities";
+import Spinner from "react-bootstrap/Spinner";
 import Config from "../../config";
 import "../../index.css";
 
@@ -21,6 +23,8 @@ interface ProfileState {
   state?: string;
   editing?: boolean;
   deleting?: boolean;
+  warning?: string;
+  loading?: boolean;
 }
 
 /**
@@ -43,6 +47,8 @@ class Profile extends Component<ProfileProps, ProfileState> {
 
       editing: false,
       deleting: false,
+      warning: "",
+      loading: false,
     };
 
     this.deleteAccount = this.deleteAccount.bind(this);
@@ -56,7 +62,7 @@ class Profile extends Component<ProfileProps, ProfileState> {
     this.props.setCurrentPage("profile");
 
     // Set current path in local storage
-    localStorage.setItem('currentPath', '/profile');
+    localStorage.setItem("currentPath", "/profile");
   }
 
   /*
@@ -75,6 +81,21 @@ class Profile extends Component<ProfileProps, ProfileState> {
   }
 
   handleSubmit(event: any) {
+    event.preventDefault();
+
+    this.setState({ loading: true, warning: "" });
+
+    // Make sure the user entered a valid city
+    if (
+      !confirmValidCity(this.state.city as string, this.state.state as string)
+    ) {
+      this.setState({
+        warning: "City not found",
+        loading: false,
+      });
+      return;
+    }
+
     // Create JSON of edited user data for POST Request
     const editedUserData = {
       id: this.props.userData.id,
@@ -101,15 +122,18 @@ class Profile extends Component<ProfileProps, ProfileState> {
       .then((response) => {
         if (response.status === 200) {
           // Function to repull user data in the app to have most up to date info
-          this.props.refreshUserData(this.props.userData.id, this.props.userData.token);
+          this.props.refreshUserData(
+            this.props.userData.id,
+            this.props.userData.token
+          );
 
           // Clear the editing state to display user info again
-          this.setState({ editing: false });
+          this.setState({ editing: false, loading: false, warning: "" });
         }
       })
       .catch((error) => console.error(error));
 
-    event.preventDefault();
+    this.setState({ loading: false });
   }
 
   /*
@@ -193,10 +217,20 @@ class Profile extends Component<ProfileProps, ProfileState> {
                           >
                             <StatesForm />
                           </select>
-                          <input
+                          <p className="warning_text">{this.state.warning}</p>
+                          <button
                             type="submit"
                             className="btn btn-success form-control"
-                          />
+                          >
+                            Submit{" "}
+                            {this.state.loading && (
+                              <Spinner
+                                animation="border"
+                                variant="light"
+                                size="sm"
+                              />
+                            )}
+                          </button>
                         </form>
                       </div>
                     </div>

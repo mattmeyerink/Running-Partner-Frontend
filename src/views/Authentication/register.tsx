@@ -105,7 +105,7 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
       return;
     }
 
-    // Make sure the user entered a valid string
+    // Make sure the user entered a valid city
     if (!confirmValidCity(this.state.city as string, this.state.state as string)) {
       this.setState({
         warning: "City not found",
