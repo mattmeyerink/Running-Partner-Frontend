@@ -3,8 +3,7 @@ import { Redirect, Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import StatesForm from "../../components/StatesForm";
 import Config from "../../config";
-import checkPasswordStrength from "../../utility/checkPasswordStrength";
-import { AllUSCities } from "../../utility/AllUSCities";
+import { checkPasswordStrength, confirmValidCity } from "../../utility/FormFieldUtilities";
 import "../../index.css";
 
 interface RegistrationProps {
@@ -106,16 +105,8 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
       return;
     }
 
-    // Make sure the user input a valid city
-    let cityFound = false;
-    for (let i = 0; i < AllUSCities.length; i++) {
-      if(AllUSCities[i].name === this.state.city && AllUSCities[i].state === this.state.state) {
-        cityFound = true;
-        break;
-      }
-    }
-
-    if (!cityFound) {
+    // Make sure the user entered a valid string
+    if (!confirmValidCity(this.state.city as string, this.state.state as string)) {
       this.setState({
         warning: "City not found",
         loading: false
