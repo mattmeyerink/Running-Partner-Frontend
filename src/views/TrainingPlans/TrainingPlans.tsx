@@ -81,6 +81,7 @@ class TrainingPlan extends Component<TrainingPlanProps, TrainingPlanState> {
                   name="planType"
                   value={this.state.planType}
                   onChange={this.handleChange}
+                  className="form-control"
                 >
                   <option value="All-Plans">All Plans</option>
                   <option value="5k">5k</option>
@@ -88,7 +89,6 @@ class TrainingPlan extends Component<TrainingPlanProps, TrainingPlanState> {
                   <option value="Half-Marathon">Half Marathon</option>
                   <option value="Marathon">Marathon</option>
                   <option value="Base Training">Base Training</option>
-                  <option value="Custom">Custom</option>
                 </select>
               </form>
             </div>

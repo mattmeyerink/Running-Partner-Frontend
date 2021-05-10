@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import moment from "moment";
 import StatesForm from "./StatesForm";
+import { confirmValidCity } from "../utility/FormFieldUtilities";
 import Config from "../config";
 import "../index.css";
 
@@ -35,7 +36,7 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
       state: this.props.state,
       notes: "",
 
-      formError: ""
+      formError: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -51,12 +52,27 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
   }
 
   handleSubmit(event: any) {
+    event.preventDefault();
+
     // Prevent sending response if run is invalid
     if (this.state.distance === "" || this.state.distance <= 0) {
       event.preventDefault();
-      this.setState({ formError: "Please enter a valid distance for the run!" });
+      this.setState({
+        formError: "Please enter a valid distance for the run!",
+      });
       return;
     }
+
+    // Make sure the user entered a valid city
+    if (
+      !confirmValidCity(this.state.city as string, this.state.state as string)
+    ) {
+      this.setState({
+        formError: "City not found",
+      });
+      return;
+    }
+
     // Create json object to send in POST request
     const runData = {
       user_id: this.props.user_id,
@@ -88,13 +104,11 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
             city: this.props.city,
             state: this.props.state,
             notes: "",
-            formError: ""
+            formError: "",
           });
         }
       })
       .catch((error) => console.error(error));
-
-    event.preventDefault();
   }
 
   render() {
@@ -143,15 +157,13 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
                 placeholder="Notes"
                 className="form_spacing form-control"
               />
-              {this.state.formError === "" ? (
-                <React.Fragment></React.Fragment>
-              ) : (
-                <p className="warning_text">{this.state.formError}</p>
-              )}
-              <input
+              <p className="warning_text">{this.state.formError}</p>
+              <button
                 type="submit"
                 className="form-control btn btn-success form_spacing"
-              />
+              >
+                Submit
+              </button>
             </form>
           </div>
         </div>
