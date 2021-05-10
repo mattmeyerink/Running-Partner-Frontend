@@ -3,7 +3,7 @@ import { Redirect, Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import StatesForm from "../../components/StatesForm";
 import Config from "../../config";
-import checkPasswordStrength from "../../utility/checkPasswordStrength";
+import { checkPasswordStrength, confirmValidCity } from "../../utility/FormFieldUtilities";
 import "../../index.css";
 
 interface RegistrationProps {
@@ -102,6 +102,15 @@ class Registration extends Component<RegistrationProps, RegistrationState> {
         warning: "Passwords did not match. Try again!",
         loading: false,
       });
+      return;
+    }
+
+    // Make sure the user entered a valid city
+    if (!confirmValidCity(this.state.city as string, this.state.state as string)) {
+      this.setState({
+        warning: "City not found",
+        loading: false
+      })
       return;
     }
 

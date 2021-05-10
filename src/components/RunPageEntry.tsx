@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import moment from "moment";
 import StatesForm from "./StatesForm";
+import { confirmValidCity } from "../utility/FormFieldUtilities";
 import Config from "../config";
 import "../index.css";
 
@@ -51,10 +52,22 @@ class RunPageRunEntry extends Component<RunPageProps, RunPageState> {
   }
 
   handleSubmit(event: any) {
+    event.preventDefault();
+
     // Prevent sending response if run is invalid
     if (this.state.distance === "" || this.state.distance <= 0) {
       event.preventDefault();
       this.setState({ formError: "Please enter a valid distance for the run!" });
+      return;
+    }
+
+    // Make sure the user entered a valid city
+    if (
+      !confirmValidCity(this.state.city as string, this.state.state as string)
+    ) {
+      this.setState({
+        formError: "City not found",
+      });
       return;
     }
 
@@ -95,8 +108,6 @@ class RunPageRunEntry extends Component<RunPageProps, RunPageState> {
         }
       })
       .catch((error) => console.error(error));
-
-    event.preventDefault();
   }
 
   render() {
