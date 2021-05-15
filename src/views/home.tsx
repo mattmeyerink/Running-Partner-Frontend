@@ -3,6 +3,7 @@ import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import CardDeck from "react-bootstrap/CardDeck";
+import Card from "react-bootstrap/Card";
 import moment from "moment";
 import { Redirect } from "react-router-dom";
 import WeatherWidget from "../components/WeatherWidget";
@@ -35,7 +36,7 @@ class Home extends Component<HomeProps, HomeState> {
       weatherData: {},
       loading: true,
       greeting: null,
-      shouldRedirect: false
+      shouldRedirect: false,
     };
   }
 
@@ -82,42 +83,60 @@ class Home extends Component<HomeProps, HomeState> {
     const { city, state, first_name, id } = this.props.userData;
 
     return (
-          <Container className="home_page">
-            {this.props.userAuthenticated ? (
-              <React.Fragment>
-                <Row className="justify-content-center home_widgets">
-                  <h1 className="white_text">
-                    {this.state.greeting} {first_name}!
-                  </h1>
-                </Row>
-
-                {this.state.loading ? (
-                  <Row className="justify-content-center loading_height">
-                    <h1 className="white_text">Loading <Spinner animation="border" variant="light"/></h1>
-                  </Row>
-                ) : (
-                  <CardDeck>
-                      <WeatherWidget
-                        city={city}
-                        state={state}
-                        weatherData={this.state.weatherData}
-                      />
-                      <TodaysRun userData={this.props.userData} />
-                      <RunEntry
-                        user_id={id}
-                        city={city}
-                        state={state}
-                        userData={this.props.userData}
-                      />
-                  </CardDeck>
-                )}
-              </React.Fragment>
+      <Container className="home_page">
+        {this.props.userAuthenticated ? (
+          <React.Fragment>
+            {this.state.loading ? (
+              <Row className="justify-content-center loading_height">
+                <h1 className="white_text">
+                  Loading <Spinner animation="border" variant="light" />
+                </h1>
+              </Row>
             ) : (
               <React.Fragment>
-                <Redirect to="/login" />
+                <Card className="homescreen_quote">
+                  <Card.Title className="text-center filter_dropdown">
+                    <h1>
+                      {this.state.greeting} {first_name}!
+                    </h1>
+                  </Card.Title>
+                  <Card.Body>
+                    <blockquote className="blockquote mb-0">
+                      <p>
+                        {" "}
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Integer posuere erat a ante.{" "}
+                      </p>
+                      <footer className="blockquote-footer">
+                        Someone famous in{" "}
+                        <cite title="Source Title">Source Title</cite>
+                      </footer>
+                    </blockquote>
+                  </Card.Body>
+                </Card>
+                <CardDeck>
+                  <WeatherWidget
+                    city={city}
+                    state={state}
+                    weatherData={this.state.weatherData}
+                  />
+                  <TodaysRun userData={this.props.userData} />
+                  <RunEntry
+                    user_id={id}
+                    city={city}
+                    state={state}
+                    userData={this.props.userData}
+                  />
+                </CardDeck>
               </React.Fragment>
             )}
-          </Container>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <Redirect to="/login" />
+          </React.Fragment>
+        )}
+      </Container>
     );
   }
 }
