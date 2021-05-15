@@ -9,6 +9,7 @@ import { Redirect } from "react-router-dom";
 import WeatherWidget from "../components/WeatherWidget";
 import TodaysRun from "../components/TodaysRun";
 import RunEntry from "../components/RunEntry";
+import { RunningQuotes } from "../RunningQuotes";
 import Config from "../config";
 import "../index.css";
 
@@ -81,13 +82,14 @@ class Home extends Component<HomeProps, HomeState> {
 
   render() {
     const { city, state, first_name, id } = this.props.userData;
+    const quote = RunningQuotes[0];
 
     return (
       <Container className="home_page">
         {this.props.userAuthenticated ? (
           <React.Fragment>
             {this.state.loading ? (
-              <Row className="justify-content-center loading_height">
+              <Row className="justify-content-center home_widgets">
                 <h1 className="white_text">
                   Loading <Spinner animation="border" variant="light" />
                 </h1>
@@ -103,13 +105,10 @@ class Home extends Component<HomeProps, HomeState> {
                   <Card.Body>
                     <blockquote className="blockquote mb-0">
                       <p>
-                        {" "}
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Integer posuere erat a ante.{" "}
+                        {quote.quote}
                       </p>
                       <footer className="blockquote-footer">
-                        Someone famous in{" "}
-                        <cite title="Source Title">Source Title</cite>
+                        {quote.author}
                       </footer>
                     </blockquote>
                   </Card.Body>
