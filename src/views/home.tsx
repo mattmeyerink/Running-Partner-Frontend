@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import Spinner from "react-bootstrap/Spinner";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import CardDeck from "react-bootstrap/CardDeck";
 import moment from "moment";
 import { Redirect } from "react-router-dom";
 import WeatherWidget from "../components/WeatherWidget";
@@ -79,42 +82,34 @@ class Home extends Component<HomeProps, HomeState> {
     const { city, state, first_name, id } = this.props.userData;
 
     return (
-          <div className="home_page">
+          <Container className="home_page">
             {this.props.userAuthenticated ? (
               <React.Fragment>
-                <div className="row justify-content-center home_widgets">
+                <Row className="justify-content-center home_widgets">
                   <h1 className="white_text">
                     {this.state.greeting} {first_name}!
                   </h1>
-                </div>
+                </Row>
 
                 {this.state.loading ? (
-                  <div className="row justify-content-center loading_height">
+                  <Row className="justify-content-center loading_height">
                     <h1 className="white_text">Loading <Spinner animation="border" variant="light"/></h1>
-                  </div>
+                  </Row>
                 ) : (
-                  <React.Fragment>
-                    <div className="row justify-content-center home_widgets">
-                      <div className="col-md-3 widget_spacing">
-                        <WeatherWidget
-                          city={city}
-                          state={state}
-                          weatherData={this.state.weatherData}
-                        />
-                      </div>
-                      <div className="col-md-4 widget_spacing">
-                        <TodaysRun userData={this.props.userData} />
-                      </div>
-                      <div className="col-md-3 widget_spacing">
-                        <RunEntry
-                          user_id={id}
-                          city={city}
-                          state={state}
-                          userData={this.props.userData}
-                        />
-                      </div>
-                    </div>
-                  </React.Fragment>
+                  <CardDeck>
+                      <WeatherWidget
+                        city={city}
+                        state={state}
+                        weatherData={this.state.weatherData}
+                      />
+                      <TodaysRun userData={this.props.userData} />
+                      <RunEntry
+                        user_id={id}
+                        city={city}
+                        state={state}
+                        userData={this.props.userData}
+                      />
+                  </CardDeck>
                 )}
               </React.Fragment>
             ) : (
@@ -122,7 +117,7 @@ class Home extends Component<HomeProps, HomeState> {
                 <Redirect to="/login" />
               </React.Fragment>
             )}
-          </div>
+          </Container>
     );
   }
 }

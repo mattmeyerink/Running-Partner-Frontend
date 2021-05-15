@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import moment from "moment";
 import Config from "../config";
+import Card from "react-bootstrap/Card";
 import "../index.css";
 import running_shoes from "../images/running_shoes.jpeg";
 import rest_day_beach from "../images/rest_day_beach.jpeg";
@@ -70,9 +71,8 @@ class TodaysRun extends Component<TodaysRunProps, TodaysRunState> {
 
       // Get the start date of the first week and the last week
       const firstWeekStart = activePlanArr[0].split(",")[0];
-      const lastWeekStart = activePlanArr[activePlanArr.length - 1].split(
-        ","
-      )[0];
+      const lastWeekStart =
+        activePlanArr[activePlanArr.length - 1].split(",")[0];
 
       // Split dates in array to use in creating moment objects
       const firstWeekStartArr = firstWeekStart.split("/");
@@ -161,40 +161,36 @@ class TodaysRun extends Component<TodaysRunProps, TodaysRunState> {
     const activeRun = this.getTodaysRun();
 
     return (
-      <React.Fragment>
-        <div className="row justify-content-center">
-          <div className="weather_card">
-            <div className="row justify-content-center">
-              <h3>Today's Run</h3>
-            </div>
-            <div className="row justify-content-center">
-              {activeRun === null || activeRun === 0 ? (
-                <React.Fragment>
-                  <h5 className="training_run_spacing">No Run Today!</h5>
-                  <img
-                    src={rest_day_beach}
-                    className="img-fluid training_run_spacing"
-                    alt="oops"
-                  />
-                  <p className="trianing_run_spacing">Have a nice rest day!</p>
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  <h5 className="training_run_spacing">{activeRun} Miles</h5>
-                  <img
-                    src={running_shoes}
-                    className="img-fluid border border-dark training_run_spacing"
-                    alt="oops"
-                  />
-                  <p className="training_run_spacing">
-                    Strap on your shoes and get out there!
-                  </p>
-                </React.Fragment>
-              )}
-            </div>
-          </div>
-        </div>
-      </React.Fragment>
+      <Card className="text-center">
+        <Card.Header>
+          <h3>Today's Run</h3>
+        </Card.Header>
+        <Card.Body>
+          {activeRun === null || activeRun === 0 ? (
+            <React.Fragment>
+              <h5 className="training_run_spacing">No Run Today!</h5>
+              <Card.Img
+                src={rest_day_beach}
+                className="img-fluid training_run_spacing"
+                alt="oops"
+              />
+              <p className="trianing_run_spacing">Have a nice rest day!</p>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <h5 className="training_run_spacing">{activeRun} Miles</h5>
+              <Card.Img
+                src={running_shoes}
+                className="img-fluid border border-dark training_run_spacing"
+                alt="oops"
+              />
+              <p className="training_run_spacing">
+                Strap on your shoes and get out there!
+              </p>
+            </React.Fragment>
+          )}
+        </Card.Body>
+      </Card>
     );
   }
 }
