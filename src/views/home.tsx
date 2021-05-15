@@ -39,6 +39,8 @@ class Home extends Component<HomeProps, HomeState> {
       greeting: null,
       shouldRedirect: false,
     };
+
+    this.getQuote = this.getQuote.bind(this);
   }
 
   componentDidMount() {
@@ -69,6 +71,14 @@ class Home extends Component<HomeProps, HomeState> {
     this.getGreetingMessage();
   }
 
+  /**
+   * Gets a random quote from the running quotes array
+   */
+  getQuote() {
+    const randomIndex = Math.floor(RunningQuotes.length * Math.random());
+    return RunningQuotes[randomIndex];
+  }
+
   // Determine the greeting message based on the time
   getGreetingMessage() {
     if (moment().hour() < 12) {
@@ -82,7 +92,7 @@ class Home extends Component<HomeProps, HomeState> {
 
   render() {
     const { city, state, first_name, id } = this.props.userData;
-    const quote = RunningQuotes[0];
+    const quote = this.getQuote();
 
     return (
       <Container className="home_page">
@@ -98,9 +108,9 @@ class Home extends Component<HomeProps, HomeState> {
               <React.Fragment>
                 <Card className="homescreen_quote">
                   <Card.Title className="text-center filter_dropdown">
-                    <h1>
+                    <h2>
                       {this.state.greeting} {first_name}!
-                    </h1>
+                    </h2>
                   </Card.Title>
                   <Card.Body>
                     <blockquote className="blockquote mb-0">
