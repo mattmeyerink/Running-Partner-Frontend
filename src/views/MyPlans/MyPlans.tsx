@@ -8,6 +8,8 @@ import "../../index.css";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 interface MyPlansProps {
   setCurrentPage(page: string): void;
@@ -112,7 +114,6 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
       startDate = planSplit[0].split(",")[0];
       endDate = planSplit[planSplit.length - 1].split(",")[0];
     }
-    
 
     return (
       <React.Fragment>
@@ -158,13 +159,30 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
                             userData={this.props.userData}
                           />
                           <Card>
-                            <Card.Header>Active Plan</Card.Header>
-                            <Card.Title>{activePlan.race_name}</Card.Title>
+                            <Card.Header>
+                              <h4>Active Plan</h4>
+                            </Card.Header>
+
                             <Card.Body>
                               <Col>
-                                <Card.Text>Week of <b>{startDate}</b> through the week of <b>{endDate}</b></Card.Text>
+                                <Card.Title>{activePlan.race_name}</Card.Title>
+                                <Card.Text>
+                                  Week of <b>{startDate}</b> through the week of{" "}
+                                  <b>{endDate}</b>
+                                </Card.Text>
                               </Col>
                               <Col>
+                                <Link
+                                  to={`/personal_plan/edit/${activePlan.id}`}
+                                  className="icon_button edit_icon"
+                                >
+                                  <FontAwesomeIcon icon={faEdit} />
+                                </Link>
+                                <button
+                                  className="icon_button"
+                                >
+                                  <FontAwesomeIcon icon={faTrash} color="red" />
+                                </button>
                               </Col>
                             </Card.Body>
                           </Card>
