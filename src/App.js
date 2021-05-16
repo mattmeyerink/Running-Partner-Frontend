@@ -144,7 +144,7 @@ class App extends Component {
           logout={this.logout}
           currentPage={this.state.currentPage}
         />
-        <main className="container">
+        <main className="container footer_space">
           <Switch>
             <Route
               exact
