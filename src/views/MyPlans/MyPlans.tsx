@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
+import Row from "react-bootstrap/Row";
 import MyPlanHeader from "../../components/MyPlanHeader";
 import Config from "../../config";
 import "../../index.css";
+import Container from "react-bootstrap/Container";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
 
 interface MyPlansProps {
   setCurrentPage(page: string): void;
@@ -100,25 +104,31 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
 
   render() {
     const activePlan = this.getActivePlan();
+    let planSplit;
+    let startDate;
+    let endDate;
+    if (activePlan) {
+      planSplit = activePlan.plan.split("-");
+      startDate = planSplit[0].split(",")[0];
+      endDate = planSplit[planSplit.length - 1].split(",")[0];
+    }
+    
 
     return (
       <React.Fragment>
         {this.props.userAuthenticated ? (
-          <React.Fragment>
+          <Container fluid>
+            <h1 className="white_text text-center">My Plans</h1>
             {this.state.loading ? (
               <React.Fragment>
-                <div className="row justify-content-center">
-                  <h1 className="white_text">My Plans</h1>
-                </div>
-                <div className="row justify-content-center loading_height">
-                  <h1 className="white_text">Loading <Spinner animation="border" variant="light" /></h1>
-                </div>
+                <Row>
+                  <h1 className="white_text">
+                    Loading <Spinner animation="border" variant="light" />
+                  </h1>
+                </Row>
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <div className="row justify-content-center">
-                  <h1 className="white_text">My Plans</h1>
-                </div>
                 {this.state.training_plans.length === 0 ? (
                   <React.Fragment>
                     <div className="row justify-content-center">
@@ -137,11 +147,6 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
                   <React.Fragment>
                     {activePlan !== null ? (
                       <React.Fragment>
-                        <div className="row">
-                          <div className="offset-2">
-                            <h3 className="white_text">My Active Plan</h3>
-                          </div>
-                        </div>
                         <div className="row justify-content-center">
                           <MyPlanHeader
                             key={activePlan.id}
@@ -152,6 +157,17 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
                             getTrainingPlans={this.getTrainingPlans}
                             userData={this.props.userData}
                           />
+                          <Card>
+                            <Card.Header>Active Plan</Card.Header>
+                            <Card.Title>{activePlan.race_name}</Card.Title>
+                            <Card.Body>
+                              <Col>
+                                <Card.Text>Week of <b>{startDate}</b> through the week of <b>{endDate}</b></Card.Text>
+                              </Col>
+                              <Col>
+                              </Col>
+                            </Card.Body>
+                          </Card>
                         </div>
                       </React.Fragment>
                     ) : (
@@ -189,7 +205,7 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
                 )}
               </React.Fragment>
             )}
-          </React.Fragment>
+          </Container>
         ) : (
           <React.Fragment>
             <Redirect to="/login" />
