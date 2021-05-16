@@ -12,8 +12,8 @@ class Footer extends Component {
   render() {
     return (
       <Container>
-        <Navbar fixed="bottom">
-          <Col className="white_text">
+        <Navbar fixed="bottom" className="footer_wrapper">
+          <Col>
             <h5>Running Partner: A Wizard Boy Production</h5>
           </Col>
           <Col className="text-right">
