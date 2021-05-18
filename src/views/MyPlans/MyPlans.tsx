@@ -138,7 +138,11 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
                     {activePlan !== null ? (
                       <React.Fragment>
                         <div className="row justify-content-center">
-                          <ActivePlanHeader activePlan={activePlan} />
+                          <ActivePlanHeader
+                            activePlan={activePlan}
+                            getTrainingPlans={this.getTrainingPlans}
+                            userData={this.props.userData}
+                          />
                         </div>
                       </React.Fragment>
                     ) : (
