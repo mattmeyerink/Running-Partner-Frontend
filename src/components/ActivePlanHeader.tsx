@@ -85,7 +85,11 @@ class ActivePlanHeader extends Component<ActivePlanProps> {
           <Card.Body>
             <Row>
               <Col>
-                <Card.Title>{this.props.activePlan.race_name}</Card.Title>
+                <Card.Title>
+                  <Link to={`/personal_plan/${this.props.activePlan.id}`}>
+                    {this.props.activePlan.race_name}
+                  </Link>
+                </Card.Title>
                 <Card.Text>
                   Week of <b>{dates.startDate}</b> through the week of{" "}
                   <b>{dates.endDate}</b>
