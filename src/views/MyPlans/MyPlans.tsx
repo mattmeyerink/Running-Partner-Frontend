@@ -6,10 +6,7 @@ import MyPlanHeader from "../../components/MyPlanHeader";
 import Config from "../../config";
 import "../../index.css";
 import Container from "react-bootstrap/Container";
-import Card from "react-bootstrap/Card";
-import Col from "react-bootstrap/Col";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
+import ActivePlanHeader from "../../components/ActivePlanHeader";
 
 interface MyPlansProps {
   setCurrentPage(page: string): void;
@@ -106,14 +103,6 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
 
   render() {
     const activePlan = this.getActivePlan();
-    let planSplit;
-    let startDate;
-    let endDate;
-    if (activePlan) {
-      planSplit = activePlan.plan.split("-");
-      startDate = planSplit[0].split(",")[0];
-      endDate = planSplit[planSplit.length - 1].split(",")[0];
-    }
 
     return (
       <React.Fragment>
@@ -149,43 +138,7 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
                     {activePlan !== null ? (
                       <React.Fragment>
                         <div className="row justify-content-center">
-                          <MyPlanHeader
-                            key={activePlan.id}
-                            id={activePlan.id}
-                            difficulty={activePlan.difficulty}
-                            race_name={activePlan.race_name}
-                            plan={activePlan.plan}
-                            getTrainingPlans={this.getTrainingPlans}
-                            userData={this.props.userData}
-                          />
-                          <Card>
-                            <Card.Header>
-                              <h4>Active Plan</h4>
-                            </Card.Header>
-
-                            <Card.Body>
-                              <Col>
-                                <Card.Title>{activePlan.race_name}</Card.Title>
-                                <Card.Text>
-                                  Week of <b>{startDate}</b> through the week of{" "}
-                                  <b>{endDate}</b>
-                                </Card.Text>
-                              </Col>
-                              <Col>
-                                <Link
-                                  to={`/personal_plan/edit/${activePlan.id}`}
-                                  className="icon_button edit_icon"
-                                >
-                                  <FontAwesomeIcon icon={faEdit} />
-                                </Link>
-                                <button
-                                  className="icon_button"
-                                >
-                                  <FontAwesomeIcon icon={faTrash} color="red" />
-                                </button>
-                              </Col>
-                            </Card.Body>
-                          </Card>
+                          <ActivePlanHeader activePlan={activePlan} />
                         </div>
                       </React.Fragment>
                     ) : (
