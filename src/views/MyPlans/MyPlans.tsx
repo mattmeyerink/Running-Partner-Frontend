@@ -7,6 +7,7 @@ import Config from "../../config";
 import "../../index.css";
 import Container from "react-bootstrap/Container";
 import ActivePlanHeader from "../../components/ActivePlanHeader";
+import MyPlansCollection from "../../components/MyPlansCollection";
 
 interface MyPlansProps {
   setCurrentPage(page: string): void;
@@ -148,34 +149,14 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
                     ) : (
                       <React.Fragment></React.Fragment>
                     )}
-                    <div className="row">
-                      {this.state.training_plans.length === 1 && activePlan ? (
-                        <React.Fragment></React.Fragment>
-                      ) : (
-                        <div className="offset-2">
-                          <h3 className="white_text">Saved Plans</h3>
-                        </div>
-                      )}
-                    </div>
-                    <div className="row justify-content-center">
-                      {this.state.training_plans.map((plan: any) => (
-                        <React.Fragment key={plan.id}>
-                          {plan.id === this.props.userData.active_plan ? (
-                            <React.Fragment></React.Fragment>
-                          ) : (
-                            <MyPlanHeader
-                              key={plan.id}
-                              id={plan.id}
-                              difficulty={plan.difficulty}
-                              race_name={plan.race_name}
-                              plan={plan.plan}
-                              getTrainingPlans={this.getTrainingPlans}
-                              userData={this.props.userData}
-                            />
-                          )}
-                        </React.Fragment>
-                      ))}
-                    </div>
+                    <Row className="plans_collection">
+                      <MyPlansCollection
+                        trainingPlans={this.state.training_plans}
+                        activePlanId={this.props.userData.active_plan}
+                        userData={this.props.userData}
+                        getTrainingPlans={this.getTrainingPlans}
+                      />
+                    </Row>
                   </React.Fragment>
                 )}
               </React.Fragment>
