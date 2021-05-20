@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import RunPageRunEntry from "../../components/RunPageEntry";
+import RunEntry from "../../components/RunEntry";
 import Config from "../../config";
 import "../../index.css";
 
@@ -155,17 +155,14 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
               <h1 className="white_text">My Runs</h1>
             </div>
             <div className="row justify-content-center text_spacing">
-              <div className="col-md-5 run_entry_input_box">
-                <div className="row justify-content-center">
-                  <RunPageRunEntry
-                    user_id={this.props.userData.id}
-                    city={this.props.userData.city}
-                    state={this.props.userData.state}
-                    getRunData={this.getRunData}
-                    userData={this.props.userData}
-                  />
-                </div>
-              </div>
+              <RunEntry
+                user_id={this.props.userData.id}
+                city={this.props.userData.city}
+                state={this.props.userData.state}
+                getRunData={this.getRunData}
+                userData={this.props.userData}
+                isRunPage={true}
+              />
             </div>
             {this.state.loading ? (
               <div className="row justify-content-center">

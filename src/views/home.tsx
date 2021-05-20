@@ -135,6 +135,8 @@ class Home extends Component<HomeProps, HomeState> {
                     city={city}
                     state={state}
                     userData={this.props.userData}
+                    isRunPage={false}
+                    getRunData={() => {}}
                   />
                 </CardDeck>
               </React.Fragment>

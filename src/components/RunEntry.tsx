@@ -11,6 +11,8 @@ interface RunEntryProps {
   city: string;
   state: string;
   userData: any;
+  isRunPage: boolean;
+  getRunData(): void;
 }
 
 interface RunEntryState {
@@ -24,7 +26,7 @@ interface RunEntryState {
 
 /**
  * Run entry form to allow the runner to log a new run.
- * This component is specifically located on the dashboard.
+ * Located on the dashboard and the my runs page
  */
 class RunEntry extends Component<RunEntryProps, RunEntryState> {
   constructor(props: RunEntryProps) {
@@ -107,6 +109,10 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
             notes: "",
             formError: "",
           });
+          // Signal to refresh runs if this is the all runs page
+          if (this.props.isRunPage) {
+            this.props.getRunData();
+          }
         }
       })
       .catch((error) => console.error(error));
