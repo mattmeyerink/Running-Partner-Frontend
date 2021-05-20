@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import Row from "react-bootstrap/Row";
-import MyPlanHeader from "../../components/MyPlanHeader";
 import Config from "../../config";
 import "../../index.css";
 import Container from "react-bootstrap/Container";
