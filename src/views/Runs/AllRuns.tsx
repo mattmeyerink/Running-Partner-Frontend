@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import RunEntry from "../../components/RunEntry";
 import RunStatisticsModal from "../../components/RunStatsModal";
+import RunCardCollection from "../../components/RunCardCollection";   
 import Config from "../../config";
 import "../../index.css";
 
@@ -187,42 +188,7 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
-                    <div className="row justify-content-center">
-                      {this.state.runs.map((run: any) => (
-                        <React.Fragment key={run.id}>
-                          <div className="col-md-8 run_card">
-                            <div className="row">
-                              <div className="col-md-11">
-                                <h5>
-                                  {run.distance} Miles - {run.run_city},{" "}
-                                  {run.run_state}
-                                </h5>
-                              </div>
-                              <div className="col-md-1">
-                                <button
-                                  className="icon_button"
-                                  onClick={() => this.deleteRun(run.id)}
-                                >
-                                  <FontAwesomeIcon icon={faTrash} color="red" />
-                                </button>
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-md-10">
-                                <strong>
-                                  {run.date.split("-")[1] +
-                                    " - " +
-                                    run.date.split("-")[2] +
-                                    " - " +
-                                    run.date.split("-")[0]}
-                                </strong>
-                                <p>{run.notes}</p>
-                              </div>
-                            </div>
-                          </div>
-                        </React.Fragment>
-                      ))}
-                    </div>
+                    <RunCardCollection runs={this.state.runs} deleteRun={this.deleteRun} />
                   </React.Fragment>
                 )}
               </React.Fragment>
