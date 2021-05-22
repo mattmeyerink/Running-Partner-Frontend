@@ -187,22 +187,6 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
-                    <div className="row justify-content-center training_run_spacing">
-                      <div className="col-md-7 background_color">
-                        <div className="row justify-content-center">
-                          <strong className="text_spacing">
-                            Total Miles: {this.state.totalMiles} Miles
-                          </strong>
-                          <strong className="text_spacing">
-                            Total Runs: {this.state.totalRuns}
-                          </strong>
-                          <strong className="text_spacing">
-                            Average Miles Per Run:{" "}
-                            {this.state.averageMilesPerRun.toFixed(2)} Miles
-                          </strong>
-                        </div>
-                      </div>
-                    </div>
                     <div className="row justify-content-center">
                       {this.state.runs.map((run: any) => (
                         <React.Fragment key={run.id}>
