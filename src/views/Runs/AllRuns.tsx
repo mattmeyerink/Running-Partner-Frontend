@@ -3,8 +3,6 @@ import { Redirect } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 import CardDeck from "react-bootstrap/CardDeck";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import RunEntry from "../../components/RunEntry";
 import RunStatisticsModal from "../../components/RunStatsModal";
 import RunCardCollection from "../../components/RunCardCollection";   
