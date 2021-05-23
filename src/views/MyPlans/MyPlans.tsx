@@ -111,11 +111,9 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
             <h1 className="white_text text-center">My Plans</h1>
             {this.state.loading ? (
               <React.Fragment>
-                <Row>
-                  <h1 className="white_text">
-                    Loading <Spinner animation="border" variant="light" />
-                  </h1>
-                </Row>
+                <h1 className="white_text text-center">
+                  Loading <Spinner animation="border" variant="light" />
+                </h1>
               </React.Fragment>
             ) : (
               <React.Fragment>
