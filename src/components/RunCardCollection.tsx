@@ -3,6 +3,7 @@ import CardColumns from "react-bootstrap/CardColumns";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { getStandardDateFormat } from "../utility/DateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -27,11 +28,7 @@ class RunCardCollection extends Component<RunCardCollectionProps> {
                 <Row>
                   <Col>
                     <strong>
-                      {run.date.split("-")[1] +
-                        " - " +
-                        run.date.split("-")[2] +
-                        " - " +
-                        run.date.split("-")[0]}
+                      {getStandardDateFormat(run.date)}
                     </strong>
                   </Col>
                   <Col className="text-right">
