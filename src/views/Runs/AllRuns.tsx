@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import RunPageRunEntry from "../../components/RunPageEntry";
+import Container from "react-bootstrap/Container";
+import CardDeck from "react-bootstrap/CardDeck";
+import RunEntry from "../../components/RunEntry";
+import RunStatisticsModal from "../../components/RunStatsModal";
+import RunCardCollection from "../../components/RunCardCollection";   
 import Config from "../../config";
 import "../../index.css";
 
@@ -83,7 +85,7 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
       .catch((error) => console.error(error));
   }
 
-  /*
+  /**
    * Deletes a run from the db
    */
   deleteRun(run_id: number) {
@@ -106,7 +108,7 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
       .catch((error) => console.error(error));
   }
 
-  /*
+  /**
    * Re-pull all the user's run data after run deleted or added
    */
   getRunData() {
@@ -150,31 +152,25 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
     return (
       <React.Fragment>
         {this.props.userAuthenticated ? (
-          <React.Fragment>
-            <div className="row justify-content-center">
-              <h1 className="white_text">My Runs</h1>
-            </div>
-            <div className="row justify-content-center text_spacing">
-              <div className="col-md-5 run_entry_input_box">
-                <div className="row justify-content-center">
-                  <RunPageRunEntry
+          <Container fluid>
+            <h1 className="white_text text-center">My Runs</h1>
+            {this.state.loading ? (
+              <h1 className="white_text text-center">
+                Loading <Spinner animation="border" variant="light" />
+              </h1>
+            ) : (
+              <React.Fragment>
+                <CardDeck className="text_spacing">
+                  <RunStatisticsModal runs={this.state.runs}/>
+                  <RunEntry
                     user_id={this.props.userData.id}
                     city={this.props.userData.city}
                     state={this.props.userData.state}
                     getRunData={this.getRunData}
                     userData={this.props.userData}
+                    isRunPage={true}
                   />
-                </div>
-              </div>
-            </div>
-            {this.state.loading ? (
-              <div className="row justify-content-center">
-                <h1 className="white_text">
-                  Loading <Spinner animation="border" variant="light" />
-                </h1>
-              </div>
-            ) : (
-              <React.Fragment>
+                </CardDeck>
                 {this.state.totalRuns === 0 ? (
                   <React.Fragment>
                     <div className="row justify-content-center">
@@ -190,63 +186,12 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
-                    <div className="row justify-content-center training_run_spacing">
-                      <div className="col-md-7 background_color">
-                        <div className="row justify-content-center">
-                          <strong className="text_spacing">
-                            Total Miles: {this.state.totalMiles} Miles
-                          </strong>
-                          <strong className="text_spacing">
-                            Total Runs: {this.state.totalRuns}
-                          </strong>
-                          <strong className="text_spacing">
-                            Average Miles Per Run:{" "}
-                            {this.state.averageMilesPerRun.toFixed(2)} Miles
-                          </strong>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row justify-content-center">
-                      {this.state.runs.map((run: any) => (
-                        <React.Fragment key={run.id}>
-                          <div className="col-md-8 run_card">
-                            <div className="row">
-                              <div className="col-md-11">
-                                <h5>
-                                  {run.distance} Miles - {run.run_city},{" "}
-                                  {run.run_state}
-                                </h5>
-                              </div>
-                              <div className="col-md-1">
-                                <button
-                                  className="icon_button"
-                                  onClick={() => this.deleteRun(run.id)}
-                                >
-                                  <FontAwesomeIcon icon={faTrash} color="red" />
-                                </button>
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-md-10">
-                                <strong>
-                                  {run.date.split("-")[1] +
-                                    " - " +
-                                    run.date.split("-")[2] +
-                                    " - " +
-                                    run.date.split("-")[0]}
-                                </strong>
-                                <p>{run.notes}</p>
-                              </div>
-                            </div>
-                          </div>
-                        </React.Fragment>
-                      ))}
-                    </div>
+                    <RunCardCollection runs={this.state.runs} deleteRun={this.deleteRun} />
                   </React.Fragment>
                 )}
               </React.Fragment>
             )}
-          </React.Fragment>
+          </Container>
         ) : (
           <React.Fragment>
             <Redirect to="/login" />

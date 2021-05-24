@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
-import MyPlanHeader from "../../components/MyPlanHeader";
+import Row from "react-bootstrap/Row";
 import Config from "../../config";
 import "../../index.css";
+import Container from "react-bootstrap/Container";
+import ActivePlanHeader from "../../components/ActivePlanHeader";
+import MyPlansCollection from "../../components/MyPlansCollection";
 
 interface MyPlansProps {
   setCurrentPage(page: string): void;
@@ -104,21 +107,16 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
     return (
       <React.Fragment>
         {this.props.userAuthenticated ? (
-          <React.Fragment>
+          <Container fluid>
+            <h1 className="white_text text-center">My Plans</h1>
             {this.state.loading ? (
               <React.Fragment>
-                <div className="row justify-content-center">
-                  <h1 className="white_text">My Plans</h1>
-                </div>
-                <div className="row justify-content-center loading_height">
-                  <h1 className="white_text">Loading <Spinner animation="border" variant="light" /></h1>
-                </div>
+                <h1 className="white_text text-center">
+                  Loading <Spinner animation="border" variant="light" />
+                </h1>
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <div className="row justify-content-center">
-                  <h1 className="white_text">My Plans</h1>
-                </div>
                 {this.state.training_plans.length === 0 ? (
                   <React.Fragment>
                     <div className="row justify-content-center">
@@ -137,18 +135,9 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
                   <React.Fragment>
                     {activePlan !== null ? (
                       <React.Fragment>
-                        <div className="row">
-                          <div className="offset-2">
-                            <h3 className="white_text">My Active Plan</h3>
-                          </div>
-                        </div>
                         <div className="row justify-content-center">
-                          <MyPlanHeader
-                            key={activePlan.id}
-                            id={activePlan.id}
-                            difficulty={activePlan.difficulty}
-                            race_name={activePlan.race_name}
-                            plan={activePlan.plan}
+                          <ActivePlanHeader
+                            activePlan={activePlan}
                             getTrainingPlans={this.getTrainingPlans}
                             userData={this.props.userData}
                           />
@@ -157,39 +146,19 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
                     ) : (
                       <React.Fragment></React.Fragment>
                     )}
-                    <div className="row">
-                      {this.state.training_plans.length === 1 && activePlan ? (
-                        <React.Fragment></React.Fragment>
-                      ) : (
-                        <div className="offset-2">
-                          <h3 className="white_text">Saved Plans</h3>
-                        </div>
-                      )}
-                    </div>
-                    <div className="row justify-content-center">
-                      {this.state.training_plans.map((plan: any) => (
-                        <React.Fragment key={plan.id}>
-                          {plan.id === this.props.userData.active_plan ? (
-                            <React.Fragment></React.Fragment>
-                          ) : (
-                            <MyPlanHeader
-                              key={plan.id}
-                              id={plan.id}
-                              difficulty={plan.difficulty}
-                              race_name={plan.race_name}
-                              plan={plan.plan}
-                              getTrainingPlans={this.getTrainingPlans}
-                              userData={this.props.userData}
-                            />
-                          )}
-                        </React.Fragment>
-                      ))}
-                    </div>
+                    <Row className="plans_collection">
+                      <MyPlansCollection
+                        trainingPlans={this.state.training_plans}
+                        activePlanId={this.props.userData.active_plan}
+                        userData={this.props.userData}
+                        getTrainingPlans={this.getTrainingPlans}
+                      />
+                    </Row>
                   </React.Fragment>
                 )}
               </React.Fragment>
             )}
-          </React.Fragment>
+          </Container>
         ) : (
           <React.Fragment>
             <Redirect to="/login" />

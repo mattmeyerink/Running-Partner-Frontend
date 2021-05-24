@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import moment from "moment";
+import Card from "react-bootstrap/Card";
 import StatesForm from "./StatesForm";
 import { confirmValidCity } from "../utility/FormFieldUtilities";
 import Config from "../config";
@@ -10,6 +11,8 @@ interface RunEntryProps {
   city: string;
   state: string;
   userData: any;
+  isRunPage: boolean;
+  getRunData(): void;
 }
 
 interface RunEntryState {
@@ -23,7 +26,7 @@ interface RunEntryState {
 
 /**
  * Run entry form to allow the runner to log a new run.
- * This component is specifically located on the dashboard.
+ * Located on the dashboard and the my runs page
  */
 class RunEntry extends Component<RunEntryProps, RunEntryState> {
   constructor(props: RunEntryProps) {
@@ -106,6 +109,10 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
             notes: "",
             formError: "",
           });
+          // Signal to refresh runs if this is the all runs page
+          if (this.props.isRunPage) {
+            this.props.getRunData();
+          }
         }
       })
       .catch((error) => console.error(error));
@@ -113,61 +120,62 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
 
   render() {
     return (
-      <React.Fragment>
-        <div className="row justify-content-center">
-          <div className="weather_card">
-            <h3>Enter a Run</h3>
-            <form onSubmit={this.handleSubmit}>
-              <input
-                type="number"
-                name="distance"
-                value={this.state.distance}
-                onChange={this.handleChange}
-                placeholder="Distance"
-                className="form_spacing form-control"
-              />
-              <input
-                type="date"
-                name="date"
-                value={this.state.date}
-                onChange={this.handleChange}
-                placeholder="Date (MM/DD/YYYY)"
-                className="form_spacing form-control"
-              />
-              <input
-                type="text"
-                name="city"
-                value={this.state.city}
-                onChange={this.handleChange}
-                placeholder="City"
-                className="form_spacing form-control"
-              />
-              <select
-                name="state"
-                value={this.state.state}
-                onChange={this.handleChange}
-                className="form_spacing form-control"
-              >
-                <StatesForm />
-              </select>
-              <textarea
-                name="notes"
-                value={this.state.notes}
-                onChange={this.handleChange}
-                placeholder="Notes"
-                className="form_spacing form-control"
-              />
-              <p className="warning_text">{this.state.formError}</p>
-              <button
-                type="submit"
-                className="form-control btn btn-success form_spacing"
-              >
-                Submit
-              </button>
-            </form>
-          </div>
-        </div>
-      </React.Fragment>
+      <Card className="text-center">
+        <Card.Header>
+          <h3>Enter a Run</h3>
+        </Card.Header>
+
+        <Card.Body>
+          <form onSubmit={this.handleSubmit}>
+            <input
+              type="number"
+              name="distance"
+              value={this.state.distance}
+              onChange={this.handleChange}
+              placeholder="Distance"
+              className="form_spacing form-control"
+            />
+            <input
+              type="date"
+              name="date"
+              value={this.state.date}
+              onChange={this.handleChange}
+              placeholder="Date (MM/DD/YYYY)"
+              className="form_spacing form-control"
+            />
+            <input
+              type="text"
+              name="city"
+              value={this.state.city}
+              onChange={this.handleChange}
+              placeholder="City"
+              className="form_spacing form-control"
+            />
+            <select
+              name="state"
+              value={this.state.state}
+              onChange={this.handleChange}
+              className="form_spacing form-control"
+            >
+              <StatesForm />
+            </select>
+            <textarea
+              name="notes"
+              value={this.state.notes}
+              onChange={this.handleChange}
+              placeholder="Notes"
+              className="form_spacing form-control"
+            />
+            <p className="warning_text">{this.state.formError}</p>
+            <button
+              type="submit"
+              className="form-control btn btn-success form_spacing"
+            >
+              Submit
+            </button>
+          </form>
+        </Card.Body>
+      </Card>
     );
   }
 }

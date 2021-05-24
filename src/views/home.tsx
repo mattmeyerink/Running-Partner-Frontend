@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import Spinner from "react-bootstrap/Spinner";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import CardDeck from "react-bootstrap/CardDeck";
+import Card from "react-bootstrap/Card";
 import moment from "moment";
 import { Redirect } from "react-router-dom";
 import WeatherWidget from "../components/WeatherWidget";
 import TodaysRun from "../components/TodaysRun";
 import RunEntry from "../components/RunEntry";
+import { RunningQuotes } from "../RunningQuotes";
 import Config from "../config";
 import "../index.css";
 
@@ -32,8 +37,10 @@ class Home extends Component<HomeProps, HomeState> {
       weatherData: {},
       loading: true,
       greeting: null,
-      shouldRedirect: false
+      shouldRedirect: false,
     };
+
+    this.getQuote = this.getQuote.bind(this);
   }
 
   componentDidMount() {
@@ -64,6 +71,14 @@ class Home extends Component<HomeProps, HomeState> {
     this.getGreetingMessage();
   }
 
+  /**
+   * Gets a random quote from the running quotes array
+   */
+  getQuote() {
+    const randomIndex = Math.floor(RunningQuotes.length * Math.random());
+    return RunningQuotes[randomIndex];
+  }
+
   // Determine the greeting message based on the time
   getGreetingMessage() {
     if (moment().hour() < 12) {
@@ -77,52 +92,62 @@ class Home extends Component<HomeProps, HomeState> {
 
   render() {
     const { city, state, first_name, id } = this.props.userData;
+    const quote = this.getQuote();
 
     return (
-          <div className="home_page">
-            {this.props.userAuthenticated ? (
-              <React.Fragment>
-                <div className="row justify-content-center home_widgets">
-                  <h1 className="white_text">
-                    {this.state.greeting} {first_name}!
-                  </h1>
-                </div>
-
-                {this.state.loading ? (
-                  <div className="row justify-content-center loading_height">
-                    <h1 className="white_text">Loading <Spinner animation="border" variant="light"/></h1>
-                  </div>
-                ) : (
-                  <React.Fragment>
-                    <div className="row justify-content-center home_widgets">
-                      <div className="col-md-3 widget_spacing">
-                        <WeatherWidget
-                          city={city}
-                          state={state}
-                          weatherData={this.state.weatherData}
-                        />
-                      </div>
-                      <div className="col-md-4 widget_spacing">
-                        <TodaysRun userData={this.props.userData} />
-                      </div>
-                      <div className="col-md-3 widget_spacing">
-                        <RunEntry
-                          user_id={id}
-                          city={city}
-                          state={state}
-                          userData={this.props.userData}
-                        />
-                      </div>
-                    </div>
-                  </React.Fragment>
-                )}
-              </React.Fragment>
+      <Container className="home_page">
+        {this.props.userAuthenticated ? (
+          <React.Fragment>
+            {this.state.loading ? (
+              <Row className="justify-content-center home_widgets">
+                <h1 className="white_text">
+                  Loading <Spinner animation="border" variant="light" />
+                </h1>
+              </Row>
             ) : (
               <React.Fragment>
-                <Redirect to="/login" />
+                <Card className="homescreen_quote">
+                  <Card.Title className="text-center filter_dropdown">
+                    <h2>
+                      {this.state.greeting} {first_name}!
+                    </h2>
+                  </Card.Title>
+                  <Card.Body>
+                    <blockquote className="blockquote mb-0">
+                      <p>
+                        {quote.quote}
+                      </p>
+                      <footer className="blockquote-footer">
+                        {quote.author}
+                      </footer>
+                    </blockquote>
+                  </Card.Body>
+                </Card>
+                <CardDeck>
+                  <WeatherWidget
+                    city={city}
+                    state={state}
+                    weatherData={this.state.weatherData}
+                  />
+                  <TodaysRun userData={this.props.userData} />
+                  <RunEntry
+                    user_id={id}
+                    city={city}
+                    state={state}
+                    userData={this.props.userData}
+                    isRunPage={false}
+                    getRunData={() => {}}
+                  />
+                </CardDeck>
               </React.Fragment>
             )}
-          </div>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <Redirect to="/login" />
+          </React.Fragment>
+        )}
+      </Container>
     );
   }
 }

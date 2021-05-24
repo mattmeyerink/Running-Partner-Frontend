@@ -17,6 +17,7 @@ import Login from "./views/Authentication/login";
 import Registration from "./views/Authentication/register";
 import ConfirmPasswordReset from "./views/Authentication/confirmPasswordReset";
 import NavBar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Config from "./config";
 import "./index.css";
 
@@ -143,7 +144,7 @@ class App extends Component {
           logout={this.logout}
           currentPage={this.state.currentPage}
         />
-        <main className="container">
+        <main className="container footer_space">
           <Switch>
             <Route
               exact
@@ -331,7 +332,9 @@ class App extends Component {
             />
           </Switch>
         </main>
-
+        
+        {this.state.userAuthenticated && <Footer />}
+        
         {this.state.currentPath ? (
           <Redirect to={this.state.currentPath} />
         ) : (

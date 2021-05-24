@@ -22,6 +22,11 @@
     margin-top: 20px;
 }
 
+.new_icon_button {
+    border: none;
+    background-color: white;
+}
+
 .navbar_custom {
     background-color: #02A7A2;
 }
@@ -36,4 +41,32 @@
 
 .edit_icon {
     margin-right: 12px;
+}
+
+.footer_image {
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+
+.footer_wrapper {
+    background-color: white;
+    margin-top: 10px;
+    border-top: 2px solid black;
+}
+
+.footer_space {
+    margin-bottom: 100px;
+}
+
+.plans_collection {
+    margin-top: 20px;
+}
+
+.pad-da-stats {
+    margin-bottom: 40px;
+}
+
+.some_run_notes_padding {
+    margin-top: 10px;
 }
