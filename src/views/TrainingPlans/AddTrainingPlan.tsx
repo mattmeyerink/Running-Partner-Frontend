@@ -130,9 +130,9 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
 
     // Set date arrays/values in state
     this.setState({
-      possibleStartDates: startDates.slice(0, 52),
-      startDate: startDates[0],
-      currentPlanDates: startDates,
+      possibleStartDates: startDates.slice(0, 56),
+      startDate: startDates[5],
+      currentPlanDates: startDates.slice(5),
       next2YearsDates: startDates,
     });
   }
