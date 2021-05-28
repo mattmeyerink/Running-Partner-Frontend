@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Config from "../config";
+import { getStandardDateFormat } from "../utility/DateFormatters";
 
 interface MyPlanCardProps {
   plan: any;
@@ -62,13 +63,9 @@ class MyPlanCard extends Component<MyPlanCardProps> {
         </Card.Header>
         <Card.Body>
           <Row>
-            <Col>
-              <Row>
-                <b>Start:</b> {startDate}
-              </Row>
-              <Row>
-                <b>End:</b> {endDate}
-              </Row>
+            <Col xs={7}>
+                <Card.Text><strong>Start: { getStandardDateFormat(startDate) } </strong></Card.Text>
+                <Card.Text><strong>End: { getStandardDateFormat(endDate) } </strong></Card.Text>
             </Col>
             <Col className="text-right">
               <Link

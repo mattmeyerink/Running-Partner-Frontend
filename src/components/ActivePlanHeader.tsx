@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Config from "../config";
+import { getLongDateFormat } from "../utility/DateFormatters";
 
 interface ActivePlanProps {
   activePlan: any;
@@ -91,8 +92,8 @@ class ActivePlanHeader extends Component<ActivePlanProps> {
                   </Link>
                 </Card.Title>
                 <Card.Text>
-                  Week of <b>{dates.startDate}</b> through the week of{" "}
-                  <b>{dates.endDate}</b>
+                  Week of <b>{getLongDateFormat(dates.startDate)}</b> through the week of{" "}
+                  <b>{getLongDateFormat(dates.endDate)}</b>
                 </Card.Text>
               </Col>
               <Col className="text-right">
