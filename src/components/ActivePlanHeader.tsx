@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
@@ -38,7 +39,9 @@ class ActivePlanHeader extends Component<ActivePlanProps> {
   getStartEndDates(): DatesObject {
     const planSplit = this.props.activePlan.plan.split("-");
     const startDate = planSplit[0].split(",")[0];
-    const endDate = planSplit[planSplit.length - 1].split(",")[0];
+    const endMonday = planSplit[planSplit.length - 1].split(",")[0];
+
+    const endDate = moment(endMonday).add(6, 'days').format("MMMM Do, YYYY");
 
     const dates = {
       startDate: startDate,
@@ -85,15 +88,15 @@ class ActivePlanHeader extends Component<ActivePlanProps> {
 
           <Card.Body>
             <Row>
-              <Col>
+              <Col xs={8}>
                 <Card.Title>
                   <Link to={`/personal_plan/${this.props.activePlan.id}`}>
                     {this.props.activePlan.race_name} ({this.props.activePlan.difficulty})
                   </Link>
                 </Card.Title>
                 <Card.Text>
-                  Week of <b>{getLongDateFormat(dates.startDate)}</b> through the week of{" "}
-                  <b>{getLongDateFormat(dates.endDate)}</b>
+                  Starts on <b>Monday {getLongDateFormat(dates.startDate)}</b> and ends on {" "}
+                  <b>Sunday {dates.endDate}</b>
                 </Card.Text>
               </Col>
               <Col className="text-right">

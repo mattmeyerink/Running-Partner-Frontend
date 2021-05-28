@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -50,7 +51,8 @@ class MyPlanCard extends Component<MyPlanCardProps> {
   render() {
     const planSplit = this.props.plan.plan.split("-");
     const startDate = planSplit[0].split(",")[0];
-    const endDate = planSplit[planSplit.length - 1].split(",")[0];
+    const endMonday = planSplit[planSplit.length - 1].split(",")[0];
+    const endDate = moment(endMonday).add(6, 'days').format("MMM Do, YYYY");
 
     return (
       <Card>
@@ -65,7 +67,7 @@ class MyPlanCard extends Component<MyPlanCardProps> {
           <Row>
             <Col xs={7}>
                 <Card.Text><strong>Start: { getStandardDateFormat(startDate) } </strong></Card.Text>
-                <Card.Text><strong>End: { getStandardDateFormat(endDate) } </strong></Card.Text>
+                <Card.Text><strong>End: { endDate } </strong></Card.Text>
             </Col>
             <Col className="text-right">
               <Link
