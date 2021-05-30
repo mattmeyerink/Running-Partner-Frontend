@@ -27,6 +27,8 @@ interface EditPlanState {
   sundayEdit?: any;
   totalEdit?: any;
 
+  planName?: string;
+
   planSubmitted?: boolean;
 }
 
@@ -57,6 +59,7 @@ class EditPlan extends Component<EditPlanProps, EditPlanState> {
       saturdayEdit: null,
       sundayEdit: null,
       totalEdit: null,
+      planName: "",
 
       planSubmitted: false,
     };
@@ -89,7 +92,7 @@ class EditPlan extends Component<EditPlanProps, EditPlanState> {
     )
       .then((result) => result.json())
       .then((data) =>
-        this.setState({ planData: data, loading: false, finalPlan: data.plan })
+        this.setState({ planData: data, loading: false, finalPlan: data.plan, planName: data.race_name })
       )
       .catch((error) => console.error(error));
   }
@@ -235,8 +238,14 @@ class EditPlan extends Component<EditPlanProps, EditPlanState> {
    * Submit the current edited version of the plan to the database
    */
   submitPlan() {
+    // Make sure the plan name field is not blank
+    if (this.state.planName === '') {
+      this.setState({ planName: "My AWESOME " + this.state.planData.race_name + " plan"})
+    }
+
     // Create a JSON object to send edited plan to db in post request
     const planData = {
+      race_name: this.state.planName,
       plan: this.state.finalPlan,
     };
 
@@ -301,6 +310,18 @@ class EditPlan extends Component<EditPlanProps, EditPlanState> {
                       >
                         Save Plan
                       </button>
+                    </div>
+                    <div className="row justify-content-center">
+                      <div className="col-md-6">
+                        <input
+                          type="text"
+                          name="planName"
+                          value={this.state.planName}
+                          onChange={this.handleChange}
+                          className="form-control custom_plan_button"
+                          placeholder="Plan Name"
+                        />
+                      </div>
                     </div>
                     <div className="row justify-content-center">
                       <div className="col-md-10">
