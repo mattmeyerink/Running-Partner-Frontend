@@ -91,7 +91,7 @@ class ActivePlanHeader extends Component<ActivePlanProps> {
               <Col xs={8}>
                 <Card.Title>
                   <Link to={`/personal_plan/${this.props.activePlan.id}`}>
-                    {this.props.activePlan.race_name} ({this.props.activePlan.difficulty})
+                    {this.props.activePlan.race_name}
                   </Link>
                 </Card.Title>
                 <Card.Text>

@@ -59,7 +59,7 @@ class MyPlanCard extends Component<MyPlanCardProps> {
         <Card.Header>
           <Link to={`/personal_plan/${this.props.plan.id}`}>
           <h5>
-            {this.props.plan.race_name} ({this.props.plan.difficulty})
+            {this.props.plan.race_name}
           </h5>
           </Link>
         </Card.Header>
