@@ -223,7 +223,7 @@ class PersonalPlan extends Component<PersonalPlanProps, PersonalPlanState> {
                   <React.Fragment>
                     <div className="row justify-content-center">
                       <h1 className="white_text">
-                        {training_plan.race_name} - {training_plan.difficulty}
+                        {training_plan.race_name}
                       </h1>
                     </div>
                     <div className="row justify-content-center">

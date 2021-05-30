@@ -293,8 +293,7 @@ class EditPlan extends Component<EditPlanProps, EditPlanState> {
                   <React.Fragment>
                     <div className="row justify-content-center">
                       <h1 className="white_text">
-                        {this.state.planData.race_name} -{" "}
-                        {this.state.planData.difficulty}
+                        {this.state.planData.race_name}
                       </h1>
                       <button
                         onClick={this.submitPlan}
