@@ -114,31 +114,41 @@ class TrainingPlan extends Component<TrainingPlanProps, TrainingPlanState> {
                   <Col>
                     <Carousel fade>
                       <Carousel.Item>
-                        <Image fluid src={CustomPlanImage} />
-                        <Carousel.Caption>
-                          <h3>Custom Training Plan</h3>
-                          <p>
-                            Create a custom training plan to suit your exact needs!
-                          </p>
-                        </Carousel.Caption>
+                        <Link to="/custom_plan">
+                          <Image fluid src={CustomPlanImage} />
+                          <Carousel.Caption>
+                            <h3>Custom Training Plan</h3>
+                            <p>
+                              Create a custom training plan to suit your exact
+                              needs!
+                            </p>
+                          </Carousel.Caption>
+                        </Link>
                       </Carousel.Item>
                       <Carousel.Item>
+                        <Link to="/training_plans/3">
                         <Image fluid src={HalfMarathonImage} />
                         <Carousel.Caption>
                           <h3>Half Marathon - Beginner</h3>
                           <p>
-                            This beginner plan is the perfect ramp up into your first half marathon!
+                            This beginner plan is the perfect ramp up into your
+                            first half marathon!
                           </p>
                         </Carousel.Caption>
+                        </Link>
+                        
                       </Carousel.Item>
                       <Carousel.Item>
+                      <Link to="/training_plans/1">
                         <Image fluid src={MarathonImage} />
                         <Carousel.Caption>
                           <h3>Marathon - Beginner</h3>
                           <p>
-                            Ready to take the leap into your first full? This plan has you covered!
+                            Ready to take the leap into your first full? This
+                            plan has you covered!
                           </p>
                         </Carousel.Caption>
+                        </Link>
                       </Carousel.Item>
                     </Carousel>
                   </Col>
