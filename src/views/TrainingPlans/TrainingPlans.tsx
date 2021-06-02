@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Carousel from "react-bootstrap/Carousel";
 import Image from "react-bootstrap/Image";
-import PlanHeader from "../../components/PlanHeader";
+import GeneralPlanCardCollection from "../../components/GeneralPlanCardCollection";
 import CustomPlanImage from "../../images/CustomPlan.jpeg";
 import HalfMarathonImage from "../../images/HalfMarathon.jpeg";
 import MarathonImage from "../../images/Marathon.jpeg";
@@ -154,21 +154,7 @@ class TrainingPlan extends Component<TrainingPlanProps, TrainingPlanState> {
                   </Col>
                 </Row>
                 <Row>
-                  {this.state.training_plans.map((plan: any) =>
-                    this.state.planType === "All-Plans" ||
-                    this.state.planType === plan.race_name ? (
-                      <PlanHeader
-                        key={plan.id}
-                        id={plan.id}
-                        difficulty={plan.difficulty}
-                        frequency={plan.frequency}
-                        plan_length={plan.plan_length}
-                        race_name={plan.race_name}
-                      />
-                    ) : (
-                      <React.Fragment key={plan.id}></React.Fragment>
-                    )
-                  )}
+                  <GeneralPlanCardCollection trainingPlans={this.state.training_plans} />
                 </Row>
               </React.Fragment>
             )}
