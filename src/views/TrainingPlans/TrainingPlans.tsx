@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
+import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Carousel from "react-bootstrap/Carousel";
@@ -20,7 +21,6 @@ interface TrainingPlanProps {
 
 interface TrainingPlanState {
   training_plans?: any;
-  planType?: string;
   loading?: boolean;
 }
 
@@ -33,7 +33,6 @@ class TrainingPlan extends Component<TrainingPlanProps, TrainingPlanState> {
 
     this.state = {
       training_plans: [],
-      planType: "All-Plans",
       loading: true,
     };
 
@@ -76,32 +75,6 @@ class TrainingPlan extends Component<TrainingPlanProps, TrainingPlanState> {
       <React.Fragment>
         {this.props.userAuthenticated ? (
           <React.Fragment>
-            <div className="row justify-content-center">
-              <Link
-                to="/custom_plan"
-                className="btn btn-success custom_plan_button"
-              >
-                <b>Create a Custom Plan</b>
-              </Link>
-
-              <h1 className="white_text">Training Plans</h1>
-
-              <form className="filter_dropdown">
-                <select
-                  name="planType"
-                  value={this.state.planType}
-                  onChange={this.handleChange}
-                  className="form-control"
-                >
-                  <option value="All-Plans">All Plans</option>
-                  <option value="5k">5k</option>
-                  <option value="10k">10k</option>
-                  <option value="Half-Marathon">Half Marathon</option>
-                  <option value="Marathon">Marathon</option>
-                  <option value="Base Training">Base Training</option>
-                </select>
-              </form>
-            </div>
             {this.state.loading ? (
               <div className="row justify-content-center">
                 <h1 className="white_text">
@@ -109,9 +82,9 @@ class TrainingPlan extends Component<TrainingPlanProps, TrainingPlanState> {
                 </h1>
               </div>
             ) : (
-              <React.Fragment>
-                <Row>
-                  <Col>
+              <Container fluid>
+                <Row className="text-center">
+                  <Col className="carousel_margin">
                     <Carousel fade>
                       <Carousel.Item>
                         <Link to="/custom_plan">
@@ -156,7 +129,7 @@ class TrainingPlan extends Component<TrainingPlanProps, TrainingPlanState> {
                 <Row>
                   <GeneralPlanCardCollection trainingPlans={this.state.training_plans} />
                 </Row>
-              </React.Fragment>
+              </Container>
             )}
           </React.Fragment>
         ) : (
