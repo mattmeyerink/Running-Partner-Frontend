@@ -11,7 +11,7 @@ class GeneralPlanCard extends Component<GeneralPlanCardProps> {
     return (
       <Card>
         <Link to={`/training_plans/${this.props.plan.id}`}>
-          <Card.Body>
+          <Card.Body className="black_link">
             <Card.Title className="text-center">
               {this.props.plan.difficulty} {this.props.plan.race_name} Plan
             </Card.Title>
