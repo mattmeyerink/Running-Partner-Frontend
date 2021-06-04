@@ -9,10 +9,10 @@ interface GeneralPlanCardProps {
 class GeneralPlanCard extends Component<GeneralPlanCardProps> {
   render() {
     return (
-      <Card>
-        <Link to={`/training_plans/${this.props.plan.id}`}>
-          <Card.Body className="black_link">
-            <Card.Title className="text-center">
+      <Card className="hvr-grow">
+        <Link to={`/training_plans/${this.props.plan.id}`} className="black_link">
+          <Card.Body>
+            <Card.Title>
               {this.props.plan.difficulty} {this.props.plan.race_name} Plan
             </Card.Title>
             <Card.Text>Duration: {this.props.plan.plan_length} weeks</Card.Text>
