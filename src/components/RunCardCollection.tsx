@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { getStandardDateFormat } from "../utility/DateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 interface RunCardCollectionProps {
   runs: any;
@@ -32,6 +32,9 @@ class RunCardCollection extends Component<RunCardCollectionProps> {
                     </strong>
                   </Col>
                   <Col className="text-right">
+                    <button className="new_icon_button">
+                      <FontAwesomeIcon icon={faEdit} color="blue" />
+                    </button>
                     <button className="new_icon_button" onClick={() => this.props.deleteRun(run.id)}>
                       <FontAwesomeIcon icon={faTrash} color="red" />
                     </button>
