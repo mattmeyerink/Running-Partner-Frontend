@@ -45,14 +45,19 @@ class RunStatisticsModal extends Component<RunStatisticsModalProps> {
           <h3>Run Statistics</h3>
         </Card.Header>
         <Card.Body>
-        <Card.Text>
-          <p className="pad-da-stats">Runs Completed: {totalRuns}</p>
-          <p className="pad-da-stats">Total Miles: {totalMiles} Miles</p>
-          <p className="pad-da-stats">Average Miles Per Run: {averageRunMiles} Miles</p>
-          <p className="pad-da-stats">Longest Run: {longestRun}</p>
-        </Card.Text>
+          <Card.Text className="pad-da-stats">
+            Runs Completed: {totalRuns}
+          </Card.Text>
+          <Card.Text className="pad-da-stats">
+            Total Miles: {totalMiles} Miles
+          </Card.Text>
+          <Card.Text className="pad-da-stats">
+            Average Miles Per Run: {averageRunMiles} Miles
+          </Card.Text>
+          <Card.Text className="pad-da-stats">
+            Longest Run: {longestRun}
+          </Card.Text>
         </Card.Body>
-        
       </Card>
     );
   }
