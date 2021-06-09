@@ -15,6 +15,7 @@ interface RunCardCollectionProps {
 
 interface RunCardCollectionState {
   showEditModal: boolean;
+  runBeingEdited: any;
 }
 
 class RunCardCollection extends Component<
@@ -26,13 +27,14 @@ class RunCardCollection extends Component<
 
     this.state = {
       showEditModal: false,
+      runBeingEdited: {}
     };
     this.handleEditModalOpen = this.handleEditModalOpen.bind(this);
     this.handleEditModalClose = this.handleEditModalClose.bind(this);
   }
 
-  handleEditModalOpen() {
-    this.setState({ showEditModal: true });
+  handleEditModalOpen(run: any) {
+    this.setState({ runBeingEdited: run, showEditModal: true });
   }
 
   handleEditModalClose() {
@@ -61,7 +63,7 @@ class RunCardCollection extends Component<
                         <FontAwesomeIcon
                           icon={faEdit}
                           color="blue"
-                          onClick={this.handleEditModalOpen}
+                          onClick={() => this.handleEditModalOpen(run)}
                         />
                       </button>
                       <button
@@ -83,6 +85,7 @@ class RunCardCollection extends Component<
           ))}
         </CardColumns>
         <EditRunModal
+          runBeingEdited={this.state.runBeingEdited}
           handleEditModalClose={this.handleEditModalClose}
           showEditModal={this.state.showEditModal}
         />

@@ -5,7 +5,8 @@ import StatesForm from "./StatesForm";
 
 interface EditRunModalProps {
   handleEditModalClose(): void,
-  showEditModal: boolean
+  showEditModal: boolean,
+  runBeingEdited: any,
 };
 
 interface EditRunModalState {
@@ -31,7 +32,9 @@ class EditRunModal extends Component<EditRunModalProps, EditRunModalState> {
       formError: ""
     }
 
+    this.preFillForm = this.preFillForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event: any) {
@@ -46,7 +49,20 @@ class EditRunModal extends Component<EditRunModalProps, EditRunModalState> {
     console.log("Yeet that bad boy in!!!");
   }
 
+  preFillForm() {
+    this.setState({
+      distance: this.props.runBeingEdited.distance,
+      date: this.props.runBeingEdited.date,
+      city: this.props.runBeingEdited.run_city,
+      state: this.props.runBeingEdited.run_state,
+      notes: this.props.runBeingEdited.notes
+    });
+  }
+
   render() {
+    if (!this.state.distance) {
+      this.preFillForm();
+    }
     return (
       <Modal
         show={this.props.showEditModal}
