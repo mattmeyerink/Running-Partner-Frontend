@@ -15,6 +15,7 @@ interface EditRunModalState {
   city?: string,
   state?: string,
   notes?: string,
+  runBeingEdited?: any,
 
   formError?: string
 }
@@ -28,13 +29,27 @@ class EditRunModal extends Component<EditRunModalProps, EditRunModalState> {
       city: "",
       state: "",
       notes: "",
+      runBeingEdited: {},
 
       formError: ""
     }
 
-    this.preFillForm = this.preFillForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  static getDerivedStateFromProps(props: any, state: any) {
+    if (props.runBeingEdited && props.runBeingEdited !== state.runBeingEdited) {
+      return {
+        distance: props.runBeingEdited.distance,
+        date: props.runBeingEdited.date,
+        city: props.runBeingEdited.run_city,
+        state: props.runBeingEdited.run_state,
+        notes: props.runBeingEdited.notes,
+        runBeingEdited: props.runBeingEdited
+      }
+    }
+    return null;
   }
 
   handleChange(event: any) {
@@ -49,20 +64,7 @@ class EditRunModal extends Component<EditRunModalProps, EditRunModalState> {
     console.log("Yeet that bad boy in!!!");
   }
 
-  preFillForm() {
-    this.setState({
-      distance: this.props.runBeingEdited.distance,
-      date: this.props.runBeingEdited.date,
-      city: this.props.runBeingEdited.run_city,
-      state: this.props.runBeingEdited.run_state,
-      notes: this.props.runBeingEdited.notes
-    });
-  }
-
   render() {
-    if (!this.state.distance) {
-      this.preFillForm();
-    }
     return (
       <Modal
         show={this.props.showEditModal}

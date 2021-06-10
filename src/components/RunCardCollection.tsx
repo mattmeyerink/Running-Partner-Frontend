@@ -27,7 +27,7 @@ class RunCardCollection extends Component<
 
     this.state = {
       showEditModal: false,
-      runBeingEdited: {}
+      runBeingEdited: null,
     };
     this.handleEditModalOpen = this.handleEditModalOpen.bind(this);
     this.handleEditModalClose = this.handleEditModalClose.bind(this);
