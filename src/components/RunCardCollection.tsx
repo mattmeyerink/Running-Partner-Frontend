@@ -11,6 +11,7 @@ import EditRunModal from "./EditRunModal";
 interface RunCardCollectionProps {
   runs: any;
   deleteRun(id: number): void;
+  userData: any;
 }
 
 interface RunCardCollectionState {
@@ -29,6 +30,7 @@ class RunCardCollection extends Component<
       showEditModal: false,
       runBeingEdited: null,
     };
+
     this.handleEditModalOpen = this.handleEditModalOpen.bind(this);
     this.handleEditModalClose = this.handleEditModalClose.bind(this);
   }
@@ -85,6 +87,7 @@ class RunCardCollection extends Component<
           ))}
         </CardColumns>
         <EditRunModal
+          userData={this.props.userData}
           runBeingEdited={this.state.runBeingEdited}
           handleEditModalClose={this.handleEditModalClose}
           showEditModal={this.state.showEditModal}

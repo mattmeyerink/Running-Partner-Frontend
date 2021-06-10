@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import Modal from "react-bootstrap/Modal";
 import StatesForm from "./StatesForm";
+import { confirmValidCity } from "../utility/FormFieldUtilities";
 
 interface EditRunModalProps {
   handleEditModalClose(): void,
   showEditModal: boolean,
   runBeingEdited: any,
+  userData: any,
 };
 
 interface EditRunModalState {
-  distance?: string,
+  distance?: any,
   date?: string,
   city?: string,
   state?: string,
@@ -60,7 +62,40 @@ class EditRunModal extends Component<EditRunModalProps, EditRunModalState> {
   }
 
   handleSubmit(event: any) {
-    console.log("Yeet that bad boy in!!!");
+    event.preventDefault();
+
+    // Prevent sending response if run is invalid
+    if (this.state.distance === "" || this.state.distance <= 0) {
+      event.preventDefault();
+      this.setState({
+        formError: "Please enter a valid distance for the run!",
+      });
+      return;
+    }
+
+    // Make sure the user entered a valid city
+    if (
+      !confirmValidCity(this.state.city as string, this.state.state as string)
+    ) {
+      this.setState({
+        formError: "City not found",
+      });
+      return;
+    }
+
+    // Create json object to send in POST request
+    const runData = {
+      user_id: this.props.userData.user_id,
+      distance: this.state.distance,
+      date: this.state.date,
+      run_city: this.state.city,
+      run_state: this.state.state,
+      notes: this.state.notes,
+    };
+
+    console.log(runData);
+    
+    this.props.handleEditModalClose();
   }
 
   render() {
