@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import StatesForm from "./StatesForm";
 
 interface EditRunModalProps {
@@ -123,9 +122,6 @@ class EditRunModal extends Component<EditRunModalProps, EditRunModalState> {
             </button>
           </form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button>Submit</Button>
-        </Modal.Footer>
       </Modal>
     );
   }
