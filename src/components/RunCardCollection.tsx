@@ -12,6 +12,7 @@ interface RunCardCollectionProps {
   runs: any;
   deleteRun(id: number): void;
   userData: any;
+  getRunData(): void;
 }
 
 interface RunCardCollectionState {
@@ -91,6 +92,7 @@ class RunCardCollection extends Component<
           runBeingEdited={this.state.runBeingEdited}
           handleEditModalClose={this.handleEditModalClose}
           showEditModal={this.state.showEditModal}
+          getRunData={this.props.getRunData}
         />
       </React.Fragment>
     );

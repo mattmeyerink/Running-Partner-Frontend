@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import Modal from "react-bootstrap/Modal";
 import StatesForm from "./StatesForm";
 import { confirmValidCity } from "../utility/FormFieldUtilities";
+import Config from "../config";
 
 interface EditRunModalProps {
   handleEditModalClose(): void,
   showEditModal: boolean,
   runBeingEdited: any,
   userData: any,
+  getRunData(): void,
 };
 
 interface EditRunModalState {
@@ -93,8 +95,36 @@ class EditRunModal extends Component<EditRunModalProps, EditRunModalState> {
       notes: this.state.notes,
     };
 
-    console.log(runData);
+    // Prepare the headers for the request
+    const myHeaders = new Headers({
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + this.props.userData.token,
+    });
+
+    // Send POST request to create run in the db
+    fetch(Config.rpAPI + `/runs/edit_run/${this.props.runBeingEdited.id}`, {
+      method: "POST",
+      body: JSON.stringify(runData),
+      headers: myHeaders,
+    })
+      .then((response) => {
+        // Reset the form fields if request was successful
+        if (response.status === 200) {
+          this.setState({
+            distance: "",
+            date: "",
+            city: "",
+            state: "",
+            notes: "",
+            formError: "",
+          });
+          // Signal to refresh run page
+          this.props.getRunData();
+        }
+      })
+      .catch((error) => console.error(error));
     
+    // Close the edit modal
     this.props.handleEditModalClose();
   }
 

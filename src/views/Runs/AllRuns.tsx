@@ -186,7 +186,7 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
-                    <RunCardCollection runs={this.state.runs} deleteRun={this.deleteRun} userData={this.props.userData} />
+                    <RunCardCollection runs={this.state.runs} deleteRun={this.deleteRun} userData={this.props.userData} getRunData={this.getRunData} />
                   </React.Fragment>
                 )}
               </React.Fragment>
