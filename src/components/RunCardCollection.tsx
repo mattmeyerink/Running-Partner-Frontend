@@ -7,6 +7,7 @@ import { getStandardDateFormat } from "../utility/DateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import EditRunModal from "./EditRunModal";
+import ConfirmDeleteRunModal from "./ConfirmDeleteRunModal";
 
 interface RunCardCollectionProps {
   runs: any;
@@ -18,6 +19,8 @@ interface RunCardCollectionProps {
 interface RunCardCollectionState {
   showEditModal: boolean;
   runBeingEdited: any;
+  showDeleteModal: boolean;
+  runBeingDeleted: any;
 }
 
 class RunCardCollection extends Component<
@@ -30,10 +33,14 @@ class RunCardCollection extends Component<
     this.state = {
       showEditModal: false,
       runBeingEdited: null,
+      showDeleteModal: false,
+      runBeingDeleted: false,
     };
 
     this.handleEditModalOpen = this.handleEditModalOpen.bind(this);
     this.handleEditModalClose = this.handleEditModalClose.bind(this);
+    this.handleDeleteModalOpen = this.handleDeleteModalOpen.bind(this);
+    this.handleDeleteModalClose = this.handleDeleteModalClose.bind(this);
   }
 
   handleEditModalOpen(run: any) {
@@ -42,6 +49,14 @@ class RunCardCollection extends Component<
 
   handleEditModalClose() {
     this.setState({ showEditModal: false });
+  }
+
+  handleDeleteModalOpen(run: any) {
+    this.setState({ runBeingDeleted: run, showDeleteModal: true });
+  }
+
+  handleDeleteModalClose() {
+    this.setState({ showDeleteModal: false });
   }
 
   render() {
@@ -71,7 +86,7 @@ class RunCardCollection extends Component<
                       </button>
                       <button
                         className="new_icon_button"
-                        onClick={() => this.props.deleteRun(run.id)}
+                        onClick={() => this.handleDeleteModalOpen(run.id)}
                       >
                         <FontAwesomeIcon icon={faTrash} color="red" />
                       </button>
@@ -94,6 +109,13 @@ class RunCardCollection extends Component<
           showEditModal={this.state.showEditModal}
           getRunData={this.props.getRunData}
         />
+        <ConfirmDeleteRunModal
+          userData={this.props.userData}
+          runBeingDeleted={this.state.runBeingDeleted}
+          showDeleteModal={this.state.showDeleteModal}
+          handleDeleteModalClose={this.handleDeleteModalClose}
+          getRunData={this.props.getRunData}
+        ></ConfirmDeleteRunModal>
       </React.Fragment>
     );
   }
