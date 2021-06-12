@@ -115,6 +115,7 @@ class RunCardCollection extends Component<
           showDeleteModal={this.state.showDeleteModal}
           handleDeleteModalClose={this.handleDeleteModalClose}
           getRunData={this.props.getRunData}
+          deleteRun={this.props.deleteRun}
         ></ConfirmDeleteRunModal>
       </React.Fragment>
     );
