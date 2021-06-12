@@ -86,7 +86,7 @@ class RunCardCollection extends Component<
                       </button>
                       <button
                         className="new_icon_button"
-                        onClick={() => this.handleDeleteModalOpen(run.id)}
+                        onClick={() => this.handleDeleteModalOpen(run)}
                       >
                         <FontAwesomeIcon icon={faTrash} color="red" />
                       </button>
