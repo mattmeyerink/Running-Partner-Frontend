@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
-import PlanHeader from "../../components/PlanHeader";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Carousel from "react-bootstrap/Carousel";
+import Image from "react-bootstrap/Image";
+import GeneralPlanCardCollection from "../../components/GeneralPlanCardCollection";
+import CustomPlanImage from "../../images/CustomPlan.jpeg";
+import HalfMarathonImage from "../../images/HalfMarathon.jpeg";
+import MarathonImage from "../../images/Marathon.jpeg";
 import Config from "../../config";
 import "../../index.css";
 
@@ -13,7 +21,6 @@ interface TrainingPlanProps {
 
 interface TrainingPlanState {
   training_plans?: any;
-  planType?: string;
   loading?: boolean;
 }
 
@@ -26,7 +33,6 @@ class TrainingPlan extends Component<TrainingPlanProps, TrainingPlanState> {
 
     this.state = {
       training_plans: [],
-      planType: "All-Plans",
       loading: true,
     };
 
@@ -69,29 +75,6 @@ class TrainingPlan extends Component<TrainingPlanProps, TrainingPlanState> {
       <React.Fragment>
         {this.props.userAuthenticated ? (
           <React.Fragment>
-            <div className="row justify-content-center">
-              <Link to="/custom_plan" className="btn btn-success custom_plan_button">
-                <b>Create a Custom Plan</b>
-              </Link>
-
-              <h1 className="white_text">Training Plans</h1>
-
-              <form className="filter_dropdown">
-                <select
-                  name="planType"
-                  value={this.state.planType}
-                  onChange={this.handleChange}
-                  className="form-control"
-                >
-                  <option value="All-Plans">All Plans</option>
-                  <option value="5k">5k</option>
-                  <option value="10k">10k</option>
-                  <option value="Half-Marathon">Half Marathon</option>
-                  <option value="Marathon">Marathon</option>
-                  <option value="Base Training">Base Training</option>
-                </select>
-              </form>
-            </div>
             {this.state.loading ? (
               <div className="row justify-content-center">
                 <h1 className="white_text">
@@ -99,23 +82,54 @@ class TrainingPlan extends Component<TrainingPlanProps, TrainingPlanState> {
                 </h1>
               </div>
             ) : (
-              <div className="row justify-content-center">
-                {this.state.training_plans.map((plan: any) =>
-                  this.state.planType === "All-Plans" ||
-                  this.state.planType === plan.race_name ? (
-                    <PlanHeader
-                      key={plan.id}
-                      id={plan.id}
-                      difficulty={plan.difficulty}
-                      frequency={plan.frequency}
-                      plan_length={plan.plan_length}
-                      race_name={plan.race_name}
-                    />
-                  ) : (
-                    <React.Fragment key={plan.id}></React.Fragment>
-                  )
-                )}
-              </div>
+              <Container fluid>
+                <Row className="text-center">
+                  <Col className="carousel_margin">
+                    <Carousel fade>
+                      <Carousel.Item>
+                        <Link to="/custom_plan">
+                          <Image fluid src={CustomPlanImage} />
+                          <Carousel.Caption>
+                            <h3>Custom Training Plan</h3>
+                            <p>
+                              Create a custom training plan to suit your exact
+                              needs!
+                            </p>
+                          </Carousel.Caption>
+                        </Link>
+                      </Carousel.Item>
+                      <Carousel.Item>
+                        <Link to="/training_plans/3">
+                        <Image fluid src={HalfMarathonImage} />
+                        <Carousel.Caption>
+                          <h3>Half Marathon - Beginner</h3>
+                          <p>
+                            This beginner plan is the perfect ramp up into your
+                            first half marathon!
+                          </p>
+                        </Carousel.Caption>
+                        </Link>
+                        
+                      </Carousel.Item>
+                      <Carousel.Item>
+                      <Link to="/training_plans/1">
+                        <Image fluid src={MarathonImage} />
+                        <Carousel.Caption>
+                          <h3>Marathon - Beginner</h3>
+                          <p>
+                            Ready to take the leap into your first full? This
+                            plan has you covered!
+                          </p>
+                        </Carousel.Caption>
+                        </Link>
+                      </Carousel.Item>
+                    </Carousel>
+                  </Col>
+                </Row>
+                <Row>
+                  <GeneralPlanCardCollection trainingPlans={this.state.training_plans} />
+                </Row>
+              </Container>
             )}
           </React.Fragment>
         ) : (

@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Config from "../config";
+import { getStandardDateFormat } from "../utility/DateFormatters";
 
 interface MyPlanCardProps {
   plan: any;
@@ -49,26 +51,23 @@ class MyPlanCard extends Component<MyPlanCardProps> {
   render() {
     const planSplit = this.props.plan.plan.split("-");
     const startDate = planSplit[0].split(",")[0];
-    const endDate = planSplit[planSplit.length - 1].split(",")[0];
+    const endMonday = planSplit[planSplit.length - 1].split(",")[0];
+    const endDate = moment(endMonday).add(6, 'days').format("MMM Do, YYYY");
 
     return (
       <Card>
         <Card.Header>
           <Link to={`/personal_plan/${this.props.plan.id}`}>
           <h5>
-            {this.props.plan.race_name} ({this.props.plan.difficulty})
+            {this.props.plan.race_name}
           </h5>
           </Link>
         </Card.Header>
         <Card.Body>
           <Row>
-            <Col>
-              <Row>
-                <b>Start:</b> {startDate}
-              </Row>
-              <Row>
-                <b>End:</b> {endDate}
-              </Row>
+            <Col xs={7}>
+                <Card.Text><strong>Start: { getStandardDateFormat(startDate) } </strong></Card.Text>
+                <Card.Text><strong>End: { endDate } </strong></Card.Text>
             </Col>
             <Col className="text-right">
               <Link

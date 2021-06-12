@@ -21,10 +21,11 @@ interface AddPlanState {
   tuesdayEdit?: any;
   wednesdayEdit?: any;
   thursdayEdit?: any;
-  fridayEdit?: any; 
+  fridayEdit?: any;
   saturdayEdit?: any;
   sundayEdit?: any;
   totalEdit?: any;
+  planName?: string;
 
   planSubmitted?: boolean;
 
@@ -51,6 +52,7 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
         rowKey: null,
         rowValues: null,
       },
+      planName: "",
 
       mondayEdit: null,
       tuesdayEdit: null,
@@ -99,9 +101,9 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
       headers: myHeaders,
     })
       .then((result) => result.json())
-      .then((data) =>
-        this.setState({ planData: data, loading: false, finalPlan: data.plan })
-      )
+      .then((data) => {
+        this.setState({ planData: data, loading: false, finalPlan: data.plan, planName: "My AWESOME " + data.race_name + " plan" });
+      })
       .catch((error) => console.error(error));
 
     this.findFirstMonday();
@@ -114,7 +116,7 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
   findFirstMonday() {
     // Gather the current datetime object. Move to next day until monday is found
     let currentDay = moment();
-    currentDay = currentDay.subtract(1, 'months');
+    currentDay = currentDay.subtract(1, "months");
 
     // Find the next Monday to start from
     while (currentDay.format("dddd") !== "Monday") {
@@ -130,9 +132,9 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
 
     // Set date arrays/values in state
     this.setState({
-      possibleStartDates: startDates.slice(0, 52),
-      startDate: startDates[0],
-      currentPlanDates: startDates,
+      possibleStartDates: startDates.slice(0, 56),
+      startDate: startDates[5],
+      currentPlanDates: startDates.slice(5),
       next2YearsDates: startDates,
     });
   }
@@ -290,6 +292,11 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
    * Submit the custom plan to the database
    */
   submitPlan() {
+    // Make sure the plan name field is not blank
+    if (this.state.planName === '') {
+      this.setState({ planName: "My AWESOME " + this.state.planData.race_name + " plan"})
+    }
+
     // Retrive the user id from state
     const userID = this.props.userData.id;
 
@@ -309,7 +316,7 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
       user_id: this.props.userData.id,
       plan: output,
       difficulty: this.state.planData.difficulty,
-      race_name: this.state.planData.race_name,
+      race_name: this.state.planName,
       plan_length: this.state.planData.plan_length,
     };
 
@@ -373,7 +380,21 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
                       </button>
                     </div>
                     <div className="row justify-content-center">
-                      <h4 className="white_text custom_plan_button">Start Date</h4>
+                      <div className="col-md-6">
+                        <input
+                          type="text"
+                          name="planName"
+                          value={this.state.planName}
+                          onChange={this.handleChange}
+                          className="form-control custom_plan_button"
+                          placeholder="Plan Name"
+                        />
+                      </div>
+                    </div>
+                    <div className="row justify-content-center">
+                      <h4 className="white_text custom_plan_button">
+                        Start Date
+                      </h4>
                       <form>
                         <select
                           name="startDate"
