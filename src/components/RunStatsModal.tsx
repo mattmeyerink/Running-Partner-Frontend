@@ -40,7 +40,7 @@ class RunStatisticsModal extends Component<RunStatisticsModalProps> {
   render() {
     const { totalMiles, totalRuns, averageRunMiles, longestRun } = this.calculateStatistics();
     return(
-      <Card>
+      <Card className="text-left">
         <Card.Header>
           <h3>Run Statistics</h3>
         </Card.Header>

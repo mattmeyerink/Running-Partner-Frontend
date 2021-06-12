@@ -122,7 +122,7 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
     return (
       <Card className="text-center">
         <Card.Header>
-          <h3>Enter a Run</h3>
+          <h3 className="text-left">Enter a Run</h3>
         </Card.Header>
 
         <Card.Body>

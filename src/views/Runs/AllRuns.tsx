@@ -160,7 +160,7 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
               </h1>
             ) : (
               <React.Fragment>
-                <CardDeck className="text_spacing">
+                <CardDeck className="text_spacing text-center">
                   <RunStatisticsModal runs={this.state.runs}/>
                   <RunEntry
                     user_id={this.props.userData.id}
