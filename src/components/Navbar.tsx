@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChartLine, faCalendarPlus, faRunning, faUser, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { faChartLine, faCalendarPlus, faRunning, faUser, faInfoCircle, faIdCard } from "@fortawesome/free-solid-svg-icons";
 import "./components.css";
 
 interface NavBarProps {
@@ -78,9 +78,14 @@ class NavBar extends Component<NavBarProps> {
               </li>
             </ul>
             {this.props.userAuthenticated ? (
-              <button className="btn btn-secondary" onClick={this.props.logout}>
-                Logout
-              </button>
+              <React.Fragment>
+                <button className="btn btn-secondary">
+                  <FontAwesomeIcon icon={faIdCard} color="white" className="nav_icon" /> Profile
+                </button>
+                <button className="btn btn-secondary registration_btn" onClick={this.props.logout}>
+                  Logout
+                </button>
+              </React.Fragment>
             ) : (
               <React.Fragment>
                 <Link to="/login" className="btn btn-secondary">
