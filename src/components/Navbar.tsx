@@ -1,14 +1,23 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChartLine, faCalendarPlus, faRunning, faUser, faInfoCircle, faIdCard } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChartLine,
+  faCalendarPlus,
+  faRunning,
+  faUser,
+  faInfoCircle,
+  faIdCard,
+} from "@fortawesome/free-solid-svg-icons";
 import ProfileModal from "./ProfileModal";
 import "./components.css";
 
 interface NavBarProps {
   currentPage: string;
+  userData: any;
   userAuthenticated: boolean;
   logout: any;
+  refreshUserData(): void;
 }
 
 interface NavBarState {
@@ -22,8 +31,8 @@ class NavBar extends Component<NavBarProps, NavBarState> {
   constructor(props: NavBarProps) {
     super(props);
     this.state = {
-      showProfileModal: false
-    }
+      showProfileModal: false,
+    };
 
     this.handleProfileModalOpen = this.handleProfileModalOpen.bind(this);
     this.handleProfileModalClose = this.handleProfileModalClose.bind(this);
@@ -44,7 +53,7 @@ class NavBar extends Component<NavBarProps, NavBarState> {
   }
 
   render() {
-    // Retrieve the current page from props to highlight the correct 
+    // Retrieve the current page from props to highlight the correct
     const { currentPage } = this.props as NavBarProps;
 
     return (
@@ -64,7 +73,12 @@ class NavBar extends Component<NavBarProps, NavBarState> {
                 }
               >
                 <Link className="nav-link" to="/personal_plan">
-                  <FontAwesomeIcon icon={faChartLine} color="white" className="nav_icon" /> My Training Plans
+                  <FontAwesomeIcon
+                    icon={faChartLine}
+                    color="white"
+                    className="nav_icon"
+                  />{" "}
+                  My Training Plans
                 </Link>
               </li>
               <li
@@ -73,7 +87,12 @@ class NavBar extends Component<NavBarProps, NavBarState> {
                 }
               >
                 <Link className="nav-link" to="/all_runs">
-                  <FontAwesomeIcon icon={faRunning} color="white" className="nav_icon" /> My Runs
+                  <FontAwesomeIcon
+                    icon={faRunning}
+                    color="white"
+                    className="nav_icon"
+                  />{" "}
+                  My Runs
                 </Link>
               </li>
               <li
@@ -84,7 +103,12 @@ class NavBar extends Component<NavBarProps, NavBarState> {
                 }
               >
                 <Link className="nav-link" to="/training_plans">
-                  <FontAwesomeIcon icon={faCalendarPlus} color="white" className="nav_icon" /> Training Plans
+                  <FontAwesomeIcon
+                    icon={faCalendarPlus}
+                    color="white"
+                    className="nav_icon"
+                  />{" "}
+                  Training Plans
                 </Link>
               </li>
               <li
@@ -93,7 +117,12 @@ class NavBar extends Component<NavBarProps, NavBarState> {
                 }
               >
                 <Link className="nav-link" to="/profile">
-                  <FontAwesomeIcon icon={faUser} color="white" className="nav_icon" /> Profile
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    color="white"
+                    className="nav_icon"
+                  />{" "}
+                  Profile
                 </Link>
               </li>
               <li
@@ -102,16 +131,32 @@ class NavBar extends Component<NavBarProps, NavBarState> {
                 }
               >
                 <Link className="nav-link" to="/help">
-                  <FontAwesomeIcon icon={faInfoCircle} color="white" className="nav_icon" /> Help
+                  <FontAwesomeIcon
+                    icon={faInfoCircle}
+                    color="white"
+                    className="nav_icon"
+                  />{" "}
+                  Help
                 </Link>
               </li>
             </ul>
             {this.props.userAuthenticated ? (
               <React.Fragment>
-                <button className="btn btn-secondary" onClick={this.handleProfileModalOpen}>
-                  <FontAwesomeIcon icon={faIdCard} color="white" className="nav_icon" /> Profile
+                <button
+                  className="btn btn-secondary"
+                  onClick={this.handleProfileModalOpen}
+                >
+                  <FontAwesomeIcon
+                    icon={faIdCard}
+                    color="white"
+                    className="nav_icon"
+                  />{" "}
+                  Profile
                 </button>
-                <button className="btn btn-secondary registration_btn" onClick={this.props.logout}>
+                <button
+                  className="btn btn-secondary registration_btn"
+                  onClick={this.props.logout}
+                >
                   Logout
                 </button>
               </React.Fragment>
@@ -130,7 +175,12 @@ class NavBar extends Component<NavBarProps, NavBarState> {
             )}
           </div>
         </nav>
-        <ProfileModal showProfileModal={this.state.showProfileModal} handleProfileModalClose={this.handleProfileModalClose} />
+        <ProfileModal
+          userData={this.props.userData}
+          refreshUserData={this.props.refreshUserData}
+          showProfileModal={this.state.showProfileModal}
+          handleProfileModalClose={this.handleProfileModalClose}
+        />
       </React.Fragment>
     );
   }

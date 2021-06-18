@@ -140,6 +140,8 @@ class App extends Component {
     return (
       <div>
         <NavBar
+          userData={this.state.userData}
+          refreshUserData={this.refreshUserData}
           userAuthenticated={this.state.userAuthenticated}
           logout={this.logout}
           currentPage={this.state.currentPage}
@@ -332,9 +334,9 @@ class App extends Component {
             />
           </Switch>
         </main>
-        
+
         {this.state.userAuthenticated && <Footer />}
-        
+
         {this.state.currentPath ? (
           <Redirect to={this.state.currentPath} />
         ) : (
