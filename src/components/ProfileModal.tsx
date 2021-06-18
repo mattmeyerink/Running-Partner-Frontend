@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import Modal from "react-bootstrap/Modal";
 import Spinner from "react-bootstrap/Spinner";
+import Config from "../config";
+import { confirmValidCity } from "../utility/FormFieldUtilities";
 import StatesForm from "./StatesForm";
 
 interface ProfileModalProps {
   userData: any;
   showProfileModal: boolean;
   handleProfileModalClose(): void;
-  refreshUserData(): void;
+  refreshUserData(id: number, token: string): void;
 }
 
 interface ProfileModalState {
@@ -40,6 +42,7 @@ class ProfileModal extends Component<ProfileModalProps, ProfileModalState> {
       loading: false,
     };
 
+    this.areFormFieldsValid = this.areFormFieldsValid.bind(this);
     this.beginEditing = this.beginEditing.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,11 +57,83 @@ class ProfileModal extends Component<ProfileModalProps, ProfileModalState> {
   }
 
   /**
+   * Returns a boolean if the edit profile form fields are valid
+   * @returns If the form fields are valid
+   */
+  areFormFieldsValid() {
+    let warning = "";
+    if (!this.state.firstName) {
+      warning = "Please enter a first name!";
+    } else if (!this.state.lastName) {
+      warning = "Please enter a last name!";
+    } else if (!this.state.email) {
+      warning = "Please enter an email!";
+    } else if (!this.state.username) {
+      warning = "Please enter a username!";
+    } else if (
+      !confirmValidCity(this.state.city as string, this.state.state as string)
+    ) {
+      warning = "Please enter a valid city!";
+    }
+    
+    if (warning) {
+      this.setState({
+        warning: warning,
+        loading: false,
+      });
+      return false;
+    }
+    return true;
+  }
+
+  /**
    * Submit the edit profile form and exit editing mode
    */
   handleSubmit() {
-    console.log("Profile Changes Submitted!");
-    this.setState({ editing: false });
+    this.setState({ loading: true, warning: "" });
+
+    if (!this.areFormFieldsValid()) {
+      return;
+    }
+
+    // Create JSON of edited user data for POST Request
+    const editedUserData = {
+      id: this.props.userData.id,
+      first_name: this.state.firstName,
+      last_name: this.state.lastName,
+      email: this.state.email,
+      username: this.state.username,
+      city: this.state.city,
+      state: this.state.state,
+    };
+
+    // Prepare headers for the request
+    const myHeaders = new Headers({
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + this.props.userData.token,
+    });
+
+    // POST request to update user's data in db
+    fetch(Config.rpAPI + "/authentication/edit_profile", {
+      method: "POST",
+      body: JSON.stringify(editedUserData),
+      headers: myHeaders,
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          // Function to repull user data in the app to have most up to date info
+          this.props.refreshUserData(
+            this.props.userData.id,
+            this.props.userData.token
+          );
+
+          // Clear the editing state to display user info again
+          this.setState({ editing: false, loading: false, warning: "" });
+        }
+      })
+      .catch((error) => console.error(error));
+
+    this.setState({ loading: false });
   }
 
   /*
