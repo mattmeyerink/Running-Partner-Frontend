@@ -176,6 +176,7 @@ class NavBar extends Component<NavBarProps, NavBarState> {
           </div>
         </nav>
         <ProfileModal
+          logout={this.props.logout}
           userData={this.props.userData}
           refreshUserData={this.props.refreshUserData}
           showProfileModal={this.state.showProfileModal}
