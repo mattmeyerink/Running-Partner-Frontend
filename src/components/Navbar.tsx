@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChartLine, faCalendarPlus, faRunning, faUser, faInfoCircle, faIdCard } from "@fortawesome/free-solid-svg-icons";
+import ProfileModal from "./ProfileModal";
 import "./components.css";
 
 interface NavBarProps {
@@ -10,10 +11,38 @@ interface NavBarProps {
   logout: any;
 }
 
+interface NavBarState {
+  showProfileModal: boolean;
+}
+
 /**
  * Class to handle the navbar to be displayed on every page
  */
-class NavBar extends Component<NavBarProps> {
+class NavBar extends Component<NavBarProps, NavBarState> {
+  constructor(props: NavBarProps) {
+    super(props);
+    this.state = {
+      showProfileModal: false
+    }
+
+    this.handleProfileModalOpen = this.handleProfileModalOpen.bind(this);
+    this.handleProfileModalClose = this.handleProfileModalClose.bind(this);
+  }
+
+  /**
+   * Open the Profile Modal
+   */
+  handleProfileModalOpen() {
+    this.setState({ showProfileModal: true });
+  }
+
+  /**
+   * Close the Profile Modal
+   */
+  handleProfileModalClose() {
+    this.setState({ showProfileModal: false });
+  }
+
   render() {
     // Retrieve the current page from props to highlight the correct 
     const { currentPage } = this.props as NavBarProps;
@@ -79,7 +108,7 @@ class NavBar extends Component<NavBarProps> {
             </ul>
             {this.props.userAuthenticated ? (
               <React.Fragment>
-                <button className="btn btn-secondary">
+                <button className="btn btn-secondary" onClick={this.handleProfileModalOpen}>
                   <FontAwesomeIcon icon={faIdCard} color="white" className="nav_icon" /> Profile
                 </button>
                 <button className="btn btn-secondary registration_btn" onClick={this.props.logout}>
@@ -101,6 +130,7 @@ class NavBar extends Component<NavBarProps> {
             )}
           </div>
         </nav>
+        <ProfileModal showProfileModal={this.state.showProfileModal} handleProfileModalClose={this.handleProfileModalClose} />
       </React.Fragment>
     );
   }
