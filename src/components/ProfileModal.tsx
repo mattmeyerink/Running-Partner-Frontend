@@ -191,7 +191,7 @@ class ProfileModal extends Component<ProfileModalProps, ProfileModalState> {
   }
 
   render() {
-    const { first_name, last_name, email, username, city, state, id } =
+    const { first_name, last_name, email, username, city, state } =
       this.props.userData;
     return (
       <Modal
@@ -205,7 +205,7 @@ class ProfileModal extends Component<ProfileModalProps, ProfileModalState> {
           <React.Fragment>
             {this.state.deleting ? (
               <React.Fragment>
-                Are you sure you want to delete dog?
+                Are you sure you want to delete your account? This action cannot be undone!
               </React.Fragment>
             ) : (
               <React.Fragment>
