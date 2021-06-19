@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "./views/home";
-import Profile from "./views/Profile/profile";
-import ConfirmDeleteAccount from "./views/Profile/ConfirmDelete";
 import ResetPassword from "./views/Profile/resetPassword";
 import SinglePlan from "./views/TrainingPlans/IndividualPlan";
 import TrainingPlan from "./views/TrainingPlans/TrainingPlans";
@@ -256,32 +254,6 @@ class App extends Component {
                 <AllRuns
                   userAuthenticated={this.state.userAuthenticated}
                   userData={this.state.userData}
-                  setCurrentPage={this.setCurrentPage}
-                />
-              )}
-            />
-
-            <Route
-              exact
-              path="/profile"
-              render={() => (
-                <Profile
-                  userAuthenticated={this.state.userAuthenticated}
-                  userData={this.state.userData}
-                  refreshUserData={this.refreshUserData}
-                  setCurrentPage={this.setCurrentPage}
-                />
-              )}
-            />
-
-            <Route
-              exact
-              path="/profile/confirm_delete/:id"
-              render={({ match }) => (
-                <ConfirmDeleteAccount
-                  match={match}
-                  userData={this.state.userData}
-                  logout={this.logout}
                   setCurrentPage={this.setCurrentPage}
                 />
               )}

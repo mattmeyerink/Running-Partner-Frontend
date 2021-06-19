@@ -5,7 +5,6 @@ import {
   faChartLine,
   faCalendarPlus,
   faRunning,
-  faUser,
   faInfoCircle,
   faIdCard,
 } from "@fortawesome/free-solid-svg-icons";
@@ -109,20 +108,6 @@ class NavBar extends Component<NavBarProps, NavBarState> {
                     className="nav_icon"
                   />{" "}
                   Training Plans
-                </Link>
-              </li>
-              <li
-                className={
-                  currentPage === "profile" ? "nav-item active" : "nav-item"
-                }
-              >
-                <Link className="nav-link" to="/profile">
-                  <FontAwesomeIcon
-                    icon={faUser}
-                    color="white"
-                    className="nav_icon"
-                  />{" "}
-                  Profile
                 </Link>
               </li>
               <li
