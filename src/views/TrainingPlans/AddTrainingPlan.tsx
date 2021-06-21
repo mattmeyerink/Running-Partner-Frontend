@@ -4,6 +4,7 @@ import Spinner from "react-bootstrap/Spinner";
 import moment from "moment";
 import Config from "../../config";
 import "../../index.css";
+import { getMonthDayFormat } from "../../utility/DateFormatters";
 
 interface AddPlanProps {
   setCurrentPage(page: string): void;
@@ -433,7 +434,7 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
                               <React.Fragment key={index}>
                                 <tr>
                                   <td>
-                                    <b>{this.state.currentPlanDates[index]}</b>
+                                    <b>{getMonthDayFormat(this.state.currentPlanDates[index])}</b>
                                   </td>
                                   <td>
                                     {this.state.inEditMode.status &&
