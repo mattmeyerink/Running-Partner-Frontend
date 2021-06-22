@@ -150,7 +150,7 @@ class App extends Component {
   showAlertMessage(variant, header, message) {
     this.setState({
       alertData: {
-        showAlertMessage: true,
+        showAlertBanner: true,
         alertVariant: variant,
         alertHeader: header,
         alertMessage: message,
@@ -164,7 +164,7 @@ class App extends Component {
   hideAlertMessage() {
     this.setState({
       alertData: {
-        showAlertMessage: false,
+        showAlertBanner: false,
         alertVariant: "",
         alertHeader: "",
         alertMessage: "",
@@ -186,10 +186,11 @@ class App extends Component {
           currentPage={this.state.currentPage}
         />
         <AlertBanner
-          show={this.state.showAlertBanner}
-          variant={this.state.alertVariant}
-          header={this.alertHeader}
-          message={this.showAlertMessage}
+          show={this.state.alertData.showAlertBanner}
+          variant={this.state.alertData.alertVariant}
+          header={this.state.alertData.alertHeader}
+          message={this.state.alertData.alertMessage}
+          hideAlertMessage={this.hideAlertMessage}
         />
         <main className="container footer_space">
           <Switch>
@@ -199,7 +200,6 @@ class App extends Component {
               render={() => (
                 <Home
                   showAlertMessage={this.showAlertMessage}
-                  hideAlertMessage={this.hideAlertMessage}
                   userAuthenticated={this.state.userAuthenticated}
                   userData={this.state.userData}
                   setCurrentPage={this.setCurrentPage}
@@ -300,6 +300,7 @@ class App extends Component {
               path="/all_runs"
               render={() => (
                 <AllRuns
+                  showAlertMessage={this.showAlertMessage}
                   userAuthenticated={this.state.userAuthenticated}
                   userData={this.state.userData}
                   setCurrentPage={this.setCurrentPage}
