@@ -16,6 +16,7 @@ import Registration from "./views/Authentication/register";
 import ConfirmPasswordReset from "./views/Authentication/confirmPasswordReset";
 import NavBar from "./components/Navbar";
 import Footer from "./components/Footer";
+import AlertBanner from "./components/Alert";
 import Config from "./config";
 import "./index.css";
 
@@ -28,6 +29,11 @@ class App extends Component {
       userData: {},
       currentPage: "",
       currentPath: "",
+
+      showAlertBanner: false,
+      alertVariant: "",
+      alertHeader: "",
+      alertMessage: "",
     };
 
     this.setCurrentPage = this.setCurrentPage.bind(this);
@@ -131,6 +137,33 @@ class App extends Component {
       .catch((error) => console.error(error));
   }
 
+  /**
+   * Updates state to display the alert message
+   * @param {*} variant Type of message being displayed
+   * @param {*} header Header banner message being displayed
+   * @param {*} message Message to be displayed
+   */
+  showAlertMessage(variant, header, message) {
+    this.setState({
+      showAlertMessage: true,
+      alertVariant: variant,
+      alertHeader: header,
+      alertMessage: message,
+    });
+  }
+
+  /**
+   * Updates state to clear and hide the alert message
+   */
+  hideAlertMessage() {
+    this.setState({
+      showAlertMessage: false,
+      alertVariant: "",
+      alertHeader: "",
+      alertMessage: "",
+    });
+  }
+
   render() {
     // Setting background for entire app here. CSS was being broken don't know why
     document.body.style.backgroundColor = "#323232";
@@ -143,6 +176,12 @@ class App extends Component {
           userAuthenticated={this.state.userAuthenticated}
           logout={this.logout}
           currentPage={this.state.currentPage}
+        />
+        <AlertBanner
+          show={this.state.showAlertBanner}
+          variant={this.state.alertVariant}
+          header={this.alertHeader}
+          message={this.showAlertMessage}
         />
         <main className="container footer_space">
           <Switch>

@@ -12,8 +12,8 @@ class AlertBanner extends Component<AlertBannerProps> {
   render() {
     return(
       <Alert show={this.props.show} variant={this.props.variant} transition dismissible>
-        <Alert.Heading>This is an alert!</Alert.Heading>
-        This is the normal alert message!
+        <Alert.Heading>{this.props.header}</Alert.Heading>
+        <p>{this.props.message}</p>
       </Alert>
     );
   }
