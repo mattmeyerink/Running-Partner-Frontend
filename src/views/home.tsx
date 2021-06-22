@@ -14,6 +14,8 @@ import Config from "../config";
 import "../index.css";
 
 interface HomeProps {
+  showAlertMessage(variant: string, header: string, message: string): void;
+  hideAlertMessage(): void;
   setCurrentPage(page: string): void;
   userAuthenticated: boolean;
   userData: any;

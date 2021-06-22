@@ -30,12 +30,16 @@ class App extends Component {
       currentPage: "",
       currentPath: "",
 
-      showAlertBanner: false,
-      alertVariant: "",
-      alertHeader: "",
-      alertMessage: "",
+      alertData: {
+        showAlertBanner: false,
+        alertVariant: "",
+        alertHeader: "",
+        alertMessage: "",
+      }
     };
 
+    this.showAlertMessage = this.showAlertMessage.bind(this);
+    this.hideAlertMessage = this.hideAlertMessage.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
@@ -145,10 +149,12 @@ class App extends Component {
    */
   showAlertMessage(variant, header, message) {
     this.setState({
-      showAlertMessage: true,
-      alertVariant: variant,
-      alertHeader: header,
-      alertMessage: message,
+      alertData: {
+        showAlertMessage: true,
+        alertVariant: variant,
+        alertHeader: header,
+        alertMessage: message,
+      }
     });
   }
 
@@ -157,10 +163,12 @@ class App extends Component {
    */
   hideAlertMessage() {
     this.setState({
-      showAlertMessage: false,
-      alertVariant: "",
-      alertHeader: "",
-      alertMessage: "",
+      alertData: {
+        showAlertMessage: false,
+        alertVariant: "",
+        alertHeader: "",
+        alertMessage: "",
+      }
     });
   }
 
@@ -190,9 +198,10 @@ class App extends Component {
               path="/"
               render={() => (
                 <Home
+                  showAlertMessage={this.showAlertMessage}
+                  hideAlertMessage={this.hideAlertMessage}
                   userAuthenticated={this.state.userAuthenticated}
                   userData={this.state.userData}
-                  owAPIKey={this.state.owAPIKey}
                   setCurrentPage={this.setCurrentPage}
                 />
               )}
