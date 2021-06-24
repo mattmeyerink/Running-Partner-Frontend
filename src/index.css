@@ -157,3 +157,8 @@ code {
   margin-top: 50px;
   margin-bottom: 50px;
 }
+
+.plain_page_icon_button {
+  border: none;
+  background-color: #323232;
+}

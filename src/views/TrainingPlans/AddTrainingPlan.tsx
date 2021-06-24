@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import moment from "moment";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import Config from "../../config";
 import "../../index.css";
 import { getDayOfWeekFormat, getMonthDayFormat } from "../../utility/DateFormatters";
@@ -30,6 +32,8 @@ interface AddPlanState {
   planName?: string;
 
   planSubmitted?: boolean;
+  editingPlanName?: boolean;
+  editingStartDate?: boolean;
 
   possibleStartDates?: any;
   currentPlanDates?: any;
@@ -66,6 +70,8 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
       totalEdit: null,
 
       planSubmitted: false,
+      editingPlanName: false,
+      editingStartDate: false,
 
       possibleStartDates: [],
       currentPlanDates: [],
@@ -73,6 +79,8 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
       startDate: null,
     };
 
+    this.toggleEditingPlanName = this.toggleEditingPlanName.bind(this);
+    this.toggleEditingStartDate = this.toggleEditingStartDate.bind(this);
     this.findFirstMonday = this.findFirstMonday.bind(this);
     this.convertToTable = this.convertToTable.bind(this);
     this.editTable = this.editTable.bind(this);
@@ -291,6 +299,24 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
   }
 
   /**
+   * Enter and exit edit mode for plan name
+   */
+  toggleEditingPlanName() {
+    this.setState((previousState) => ({
+      editingPlanName: !previousState.editingPlanName
+    }));
+  }
+
+  /**
+   * Enter and exit edit mode for plan start date
+   */
+  toggleEditingStartDate() {
+    this.setState((previousState) => ({
+      editingStartDate: !previousState.editingStartDate
+    }));
+  }
+
+  /**
    * Submit the custom plan to the database
    */
   submitPlan() {
@@ -381,11 +407,23 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
                     <Row className="justify-content-center">
                       <h5 className="white_text">
                         This is your awesome plan currently named <b>{this.state.planName}</b>
+                        <button className="plain_page_icon_button">
+                        <FontAwesomeIcon
+                          icon={faEdit}
+                          color="blue"
+                        />
+                      </button>
                       </h5>
                     </Row>
                     <Row className="justify-content-center">
                       <h5 className="white_text">
                         Your plan starts on <b>{getDayOfWeekFormat(this.state.startDate)}</b>
+                        <button className="plain_page_icon_button">
+                        <FontAwesomeIcon
+                          icon={faEdit}
+                          color="blue"
+                        />
+                      </button>
                       </h5>
                     </Row>
                     <Row className="justify-content-center">
