@@ -26,3 +26,13 @@ export function getLongDateFormat(date: string) {
 export function getMonthDayFormat(date: string) {
   return moment(date).format("MMM Do");
 }
+
+/**
+ * Converts a standard date string into full written string
+ * including the day of the week
+ * @param date Date string in format MM/DD/YYYY
+ * @returns String in written format Sunday April 10th, 2021
+ */
+export function getDayOfWeekFormat(date: string) {
+  return moment(date).format("dddd MMMM Do, YYYY");
+}
