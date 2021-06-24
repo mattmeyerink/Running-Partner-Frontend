@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import moment from "moment";
 import Config from "../../config";
 import "../../index.css";
-import { getMonthDayFormat } from "../../utility/DateFormatters";
+import { getDayOfWeekFormat, getMonthDayFormat } from "../../utility/DateFormatters";
+import { Row } from "react-bootstrap";
 
 interface AddPlanProps {
   setCurrentPage(page: string): void;
@@ -348,6 +349,9 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
       planData = this.convertToTable();
     }
 
+    const planEndDateMonday = this.state.currentPlanDates[this.state.planData.plan_length - 1];
+    const planEndDate = moment(planEndDateMonday).add(6, 'days').format("dddd MMMM Do, YYYY");
+
     return (
       <React.Fragment>
         {this.props.userAuthenticated ? (
@@ -373,13 +377,22 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
                         {this.state.planData.race_name} -{" "}
                         {this.state.planData.difficulty}
                       </h1>
-                      <button
-                        onClick={this.submitPlan}
-                        className="btn btn-success custom_plan_button"
-                      >
-                        Submit Plan
-                      </button>
                     </div>
+                    <Row className="justify-content-center">
+                      <h5 className="white_text">
+                        This is your awesome plan currently named <b>{this.state.planName}</b>
+                      </h5>
+                    </Row>
+                    <Row className="justify-content-center">
+                      <h5 className="white_text">
+                        Your plan starts on <b>{getDayOfWeekFormat(this.state.startDate)}</b>
+                      </h5>
+                    </Row>
+                    <Row className="justify-content-center">
+                      <h5 className="white_text">
+                        Your plan ends on <b>{planEndDate}</b>
+                      </h5>
+                    </Row>
                     <div className="row justify-content-center">
                       <div className="col-md-6">
                         <input
@@ -415,6 +428,19 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
                         </select>
                       </form>
                     </div>
+                    <Row className="justify-content-center">
+                      <Link
+                        to={`/training_plans/${this.props.match.params.id}`}
+                        className="btn btn-warning custom_plan_button">
+                          Back to Outline
+                      </Link>
+                      <button
+                        onClick={this.submitPlan}
+                        className="btn btn-success custom_plan_button"
+                      >
+                        Submit Plan
+                      </button>
+                    </Row>
                     <div className="row justify-content-center">
                       <div className="col-md-10">
                         <table className="table background_color">
