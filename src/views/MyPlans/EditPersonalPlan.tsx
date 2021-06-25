@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import Config from "../../config";
 import "../../index.css";
+import { getMonthDayFormat } from "../../utility/DateFormatters";
 
 interface EditPlanProps {
   setCurrentPage(page: string): void;
@@ -342,7 +343,7 @@ class EditPlan extends Component<EditPlanProps, EditPlanState> {
                               <React.Fragment key={index}>
                                 <tr>
                                   <td>
-                                    <b>{week[0]}</b>
+                                    <b>{getMonthDayFormat(week[0])}</b>
                                   </td>
                                   <td>
                                     {this.state.inEditMode.status &&

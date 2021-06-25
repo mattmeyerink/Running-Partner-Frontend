@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import Config from "../../config";
 import "../../index.css";
+import { getMonthDayFormat } from "../../utility/DateFormatters";
 
 interface PersonalPlanProps {
   setCurrentPage(page: string): void;
@@ -275,7 +276,7 @@ class PersonalPlan extends Component<PersonalPlanProps, PersonalPlanState> {
                               <React.Fragment key={index}>
                                 <tr>
                                   <td>
-                                    <b>{week[0]}</b>
+                                    <b>{getMonthDayFormat(week[0])}</b>
                                   </td>
                                   <td>{week[1]}</td>
                                   <td>{week[2]}</td>

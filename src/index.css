@@ -157,3 +157,16 @@ code {
   margin-top: 50px;
   margin-bottom: 50px;
 }
+
+.plain_page_icon_button {
+  border: none;
+  background-color: #323232;
+}
+
+.aligning_text_height {
+  margin-top: 12px;
+}
+
+.restrict_width {
+  width: 50% !important;
+}

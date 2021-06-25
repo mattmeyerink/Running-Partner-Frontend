@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "./views/home";
-import Profile from "./views/Profile/profile";
-import ConfirmDeleteAccount from "./views/Profile/ConfirmDelete";
 import ResetPassword from "./views/Profile/resetPassword";
 import SinglePlan from "./views/TrainingPlans/IndividualPlan";
 import TrainingPlan from "./views/TrainingPlans/TrainingPlans";
@@ -18,6 +16,7 @@ import Registration from "./views/Authentication/register";
 import ConfirmPasswordReset from "./views/Authentication/confirmPasswordReset";
 import NavBar from "./components/Navbar";
 import Footer from "./components/Footer";
+import AlertBanner from "./components/Alert";
 import Config from "./config";
 import "./index.css";
 
@@ -30,8 +29,17 @@ class App extends Component {
       userData: {},
       currentPage: "",
       currentPath: "",
+
+      alertData: {
+        showAlertBanner: false,
+        alertVariant: "",
+        alertHeader: "",
+        alertMessage: "",
+      }
     };
 
+    this.showAlertMessage = this.showAlertMessage.bind(this);
+    this.hideAlertMessage = this.hideAlertMessage.bind(this);
     this.setCurrentPage = this.setCurrentPage.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
@@ -133,6 +141,37 @@ class App extends Component {
       .catch((error) => console.error(error));
   }
 
+  /**
+   * Updates state to display the alert message
+   * @param {*} variant Type of message being displayed
+   * @param {*} header Header banner message being displayed
+   * @param {*} message Message to be displayed
+   */
+  showAlertMessage(variant, header, message) {
+    this.setState({
+      alertData: {
+        showAlertBanner: true,
+        alertVariant: variant,
+        alertHeader: header,
+        alertMessage: message,
+      }
+    });
+  }
+
+  /**
+   * Updates state to clear and hide the alert message
+   */
+  hideAlertMessage() {
+    this.setState({
+      alertData: {
+        showAlertBanner: false,
+        alertVariant: "",
+        alertHeader: "",
+        alertMessage: "",
+      }
+    });
+  }
+
   render() {
     // Setting background for entire app here. CSS was being broken don't know why
     document.body.style.backgroundColor = "#323232";
@@ -140,9 +179,18 @@ class App extends Component {
     return (
       <div>
         <NavBar
+          userData={this.state.userData}
+          refreshUserData={this.refreshUserData}
           userAuthenticated={this.state.userAuthenticated}
           logout={this.logout}
           currentPage={this.state.currentPage}
+        />
+        <AlertBanner
+          show={this.state.alertData.showAlertBanner}
+          variant={this.state.alertData.alertVariant}
+          header={this.state.alertData.alertHeader}
+          message={this.state.alertData.alertMessage}
+          hideAlertMessage={this.hideAlertMessage}
         />
         <main className="container footer_space">
           <Switch>
@@ -151,9 +199,9 @@ class App extends Component {
               path="/"
               render={() => (
                 <Home
+                  showAlertMessage={this.showAlertMessage}
                   userAuthenticated={this.state.userAuthenticated}
                   userData={this.state.userData}
-                  owAPIKey={this.state.owAPIKey}
                   setCurrentPage={this.setCurrentPage}
                 />
               )}
@@ -252,34 +300,9 @@ class App extends Component {
               path="/all_runs"
               render={() => (
                 <AllRuns
+                  showAlertMessage={this.showAlertMessage}
                   userAuthenticated={this.state.userAuthenticated}
                   userData={this.state.userData}
-                  setCurrentPage={this.setCurrentPage}
-                />
-              )}
-            />
-
-            <Route
-              exact
-              path="/profile"
-              render={() => (
-                <Profile
-                  userAuthenticated={this.state.userAuthenticated}
-                  userData={this.state.userData}
-                  refreshUserData={this.refreshUserData}
-                  setCurrentPage={this.setCurrentPage}
-                />
-              )}
-            />
-
-            <Route
-              exact
-              path="/profile/confirm_delete/:id"
-              render={({ match }) => (
-                <ConfirmDeleteAccount
-                  match={match}
-                  userData={this.state.userData}
-                  logout={this.logout}
                   setCurrentPage={this.setCurrentPage}
                 />
               )}
@@ -332,9 +355,9 @@ class App extends Component {
             />
           </Switch>
         </main>
-        
+
         {this.state.userAuthenticated && <Footer />}
-        
+
         {this.state.currentPath ? (
           <Redirect to={this.state.currentPath} />
         ) : (

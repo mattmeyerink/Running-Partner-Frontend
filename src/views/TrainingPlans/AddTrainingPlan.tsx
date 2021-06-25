@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import moment from "moment";
 import Config from "../../config";
 import "../../index.css";
+import { getMonthDayFormat } from "../../utility/DateFormatters";
+import { Row } from "react-bootstrap";
 
 interface AddPlanProps {
   setCurrentPage(page: string): void;
@@ -347,6 +349,9 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
       planData = this.convertToTable();
     }
 
+    const planEndDateMonday = this.state.currentPlanDates[this.state.planData.plan_length - 1];
+    const planEndDate = moment(planEndDateMonday).add(6, 'days').format("dddd MMMM Do, YYYY");
+
     return (
       <React.Fragment>
         {this.props.userAuthenticated ? (
@@ -372,28 +377,25 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
                         {this.state.planData.race_name} -{" "}
                         {this.state.planData.difficulty}
                       </h1>
-                      <button
-                        onClick={this.submitPlan}
-                        className="btn btn-success custom_plan_button"
-                      >
-                        Submit Plan
-                      </button>
                     </div>
-                    <div className="row justify-content-center">
-                      <div className="col-md-6">
-                        <input
+                    <Row className="justify-content-center">
+                      <h4 className="white_text aligning_text_height">
+                        This is your AWESOME plan currently named... 
+                      </h4>
+                    </Row>
+                    <Row className="justify-content-center">
+                      <input
                           type="text"
                           name="planName"
                           value={this.state.planName}
                           onChange={this.handleChange}
-                          className="form-control custom_plan_button"
+                          className="form-control custom_plan_button restrict_width"
                           placeholder="Plan Name"
                         />
-                      </div>
-                    </div>
-                    <div className="row justify-content-center">
-                      <h4 className="white_text custom_plan_button">
-                        Start Date
+                    </Row>
+                    <Row className="justify-content-center">
+                      <h4 className="white_text aligning_text_height">
+                        Your plan starts on 
                       </h4>
                       <form>
                         <select
@@ -413,7 +415,25 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
                           )}
                         </select>
                       </form>
-                    </div>
+                    </Row>
+                    <Row className="justify-content-center">
+                      <h4 className="white_text">
+                        Your plan ends on <b>{planEndDate}</b>
+                      </h4>
+                    </Row>
+                    <Row className="justify-content-center">
+                      <Link
+                        to={`/training_plans/${this.props.match.params.id}`}
+                        className="btn btn-warning custom_plan_button">
+                          Back to Outline
+                      </Link>
+                      <button
+                        onClick={this.submitPlan}
+                        className="btn btn-success custom_plan_button"
+                      >
+                        Submit Plan
+                      </button>
+                    </Row>
                     <div className="row justify-content-center">
                       <div className="col-md-10">
                         <table className="table background_color">
@@ -433,7 +453,7 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
                               <React.Fragment key={index}>
                                 <tr>
                                   <td>
-                                    <b>{this.state.currentPlanDates[index]}</b>
+                                    <b>{getMonthDayFormat(this.state.currentPlanDates[index])}</b>
                                   </td>
                                   <td>
                                     {this.state.inEditMode.status &&

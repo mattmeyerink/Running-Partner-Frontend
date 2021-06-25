@@ -10,6 +10,7 @@ import Config from "../../config";
 import "../../index.css";
 
 interface AllRunsProps {
+  showAlertMessage(variant: string, header: string, message: string): void;
   setCurrentPage(page: string): void;
   userData: any;
   userAuthenticated: boolean;
@@ -160,9 +161,10 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
               </h1>
             ) : (
               <React.Fragment>
-                <CardDeck className="text_spacing">
+                <CardDeck className="text_spacing text-center">
                   <RunStatisticsModal runs={this.state.runs}/>
                   <RunEntry
+                    showAlertMessage={this.props.showAlertMessage}
                     user_id={this.props.userData.id}
                     city={this.props.userData.city}
                     state={this.props.userData.state}

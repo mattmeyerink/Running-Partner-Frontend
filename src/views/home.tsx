@@ -14,6 +14,7 @@ import Config from "../config";
 import "../index.css";
 
 interface HomeProps {
+  showAlertMessage(variant: string, header: string, message: string): void;
   setCurrentPage(page: string): void;
   userAuthenticated: boolean;
   userData: any;
@@ -131,6 +132,7 @@ class Home extends Component<HomeProps, HomeState> {
                   />
                   <TodaysRun userData={this.props.userData} />
                   <RunEntry
+                    showAlertMessage={this.props.showAlertMessage}
                     user_id={id}
                     city={city}
                     state={state}

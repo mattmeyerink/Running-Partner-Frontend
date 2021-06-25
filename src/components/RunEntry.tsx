@@ -13,6 +13,7 @@ interface RunEntryProps {
   userData: any;
   isRunPage: boolean;
   getRunData(): void;
+  showAlertMessage(variant: string, header: string, message: string): void;
 }
 
 interface RunEntryState {
@@ -113,6 +114,8 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
           if (this.props.isRunPage) {
             this.props.getRunData();
           }
+          // Trigger successful alert
+          this.props.showAlertMessage('success', 'Run Successfully Saved', 'Congratulations on you latest adventure! We\'ve got your run in the books!');
         }
       })
       .catch((error) => console.error(error));
@@ -122,7 +125,7 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
     return (
       <Card className="text-center">
         <Card.Header>
-          <h3>Enter a Run</h3>
+          <h3 className="text-left">Enter a Run</h3>
         </Card.Header>
 
         <Card.Body>
