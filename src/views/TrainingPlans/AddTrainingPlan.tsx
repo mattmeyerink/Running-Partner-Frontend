@@ -5,7 +5,7 @@ import moment from "moment";
 import Config from "../../config";
 import "../../index.css";
 import { getMonthDayFormat } from "../../utility/DateFormatters";
-import { Col, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 
 interface AddPlanProps {
   setCurrentPage(page: string): void;
