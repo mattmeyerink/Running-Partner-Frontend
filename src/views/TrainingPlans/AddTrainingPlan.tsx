@@ -380,7 +380,7 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
                     </div>
                     <Row className="justify-content-center">
                       <h4 className="white_text aligning_text_height">
-                        This is your awesome plan currently named 
+                        This is your AWESOME plan currently named... 
                       </h4>
                     </Row>
                     <Row className="justify-content-center">
