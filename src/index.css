@@ -162,3 +162,11 @@ code {
   border: none;
   background-color: #323232;
 }
+
+.aligning_text_height {
+  margin-top: 12px;
+}
+
+.restrict_width {
+  width: 50% !important;
+}

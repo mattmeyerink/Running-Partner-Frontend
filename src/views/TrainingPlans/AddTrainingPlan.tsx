@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import moment from "moment";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import Config from "../../config";
 import "../../index.css";
-import { getDayOfWeekFormat, getMonthDayFormat } from "../../utility/DateFormatters";
-import { Row } from "react-bootstrap";
+import { getMonthDayFormat } from "../../utility/DateFormatters";
+import { Col, Row } from "react-bootstrap";
 
 interface AddPlanProps {
   setCurrentPage(page: string): void;
@@ -32,8 +30,6 @@ interface AddPlanState {
   planName?: string;
 
   planSubmitted?: boolean;
-  editingPlanName?: boolean;
-  editingStartDate?: boolean;
 
   possibleStartDates?: any;
   currentPlanDates?: any;
@@ -70,8 +66,6 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
       totalEdit: null,
 
       planSubmitted: false,
-      editingPlanName: false,
-      editingStartDate: false,
 
       possibleStartDates: [],
       currentPlanDates: [],
@@ -79,8 +73,6 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
       startDate: null,
     };
 
-    this.toggleEditingPlanName = this.toggleEditingPlanName.bind(this);
-    this.toggleEditingStartDate = this.toggleEditingStartDate.bind(this);
     this.findFirstMonday = this.findFirstMonday.bind(this);
     this.convertToTable = this.convertToTable.bind(this);
     this.editTable = this.editTable.bind(this);
@@ -299,24 +291,6 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
   }
 
   /**
-   * Enter and exit edit mode for plan name
-   */
-  toggleEditingPlanName() {
-    this.setState((previousState) => ({
-      editingPlanName: !previousState.editingPlanName
-    }));
-  }
-
-  /**
-   * Enter and exit edit mode for plan start date
-   */
-  toggleEditingStartDate() {
-    this.setState((previousState) => ({
-      editingStartDate: !previousState.editingStartDate
-    }));
-  }
-
-  /**
    * Submit the custom plan to the database
    */
   submitPlan() {
@@ -405,47 +379,23 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
                       </h1>
                     </div>
                     <Row className="justify-content-center">
-                      <h5 className="white_text">
-                        This is your awesome plan currently named <b>{this.state.planName}</b>
-                        <button className="plain_page_icon_button">
-                        <FontAwesomeIcon
-                          icon={faEdit}
-                          color="blue"
-                        />
-                      </button>
-                      </h5>
+                      <h4 className="white_text aligning_text_height">
+                        This is your awesome plan currently named 
+                      </h4>
                     </Row>
                     <Row className="justify-content-center">
-                      <h5 className="white_text">
-                        Your plan starts on <b>{getDayOfWeekFormat(this.state.startDate)}</b>
-                        <button className="plain_page_icon_button">
-                        <FontAwesomeIcon
-                          icon={faEdit}
-                          color="blue"
-                        />
-                      </button>
-                      </h5>
-                    </Row>
-                    <Row className="justify-content-center">
-                      <h5 className="white_text">
-                        Your plan ends on <b>{planEndDate}</b>
-                      </h5>
-                    </Row>
-                    <div className="row justify-content-center">
-                      <div className="col-md-6">
-                        <input
+                      <input
                           type="text"
                           name="planName"
                           value={this.state.planName}
                           onChange={this.handleChange}
-                          className="form-control custom_plan_button"
+                          className="form-control custom_plan_button restrict_width"
                           placeholder="Plan Name"
                         />
-                      </div>
-                    </div>
-                    <div className="row justify-content-center">
-                      <h4 className="white_text custom_plan_button">
-                        Start Date
+                    </Row>
+                    <Row className="justify-content-center">
+                      <h4 className="white_text aligning_text_height">
+                        Your plan starts on 
                       </h4>
                       <form>
                         <select
@@ -465,7 +415,12 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
                           )}
                         </select>
                       </form>
-                    </div>
+                    </Row>
+                    <Row className="justify-content-center">
+                      <h5 className="white_text">
+                        Your plan ends on <b>{planEndDate}</b>
+                      </h5>
+                    </Row>
                     <Row className="justify-content-center">
                       <Link
                         to={`/training_plans/${this.props.match.params.id}`}
