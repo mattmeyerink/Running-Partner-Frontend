@@ -417,9 +417,9 @@ class AddPlan extends Component<AddPlanProps, AddPlanState> {
                       </form>
                     </Row>
                     <Row className="justify-content-center">
-                      <h5 className="white_text">
+                      <h4 className="white_text">
                         Your plan ends on <b>{planEndDate}</b>
-                      </h5>
+                      </h4>
                     </Row>
                     <Row className="justify-content-center">
                       <Link
