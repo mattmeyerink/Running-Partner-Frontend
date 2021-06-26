@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
+import Row from "react-bootstrap/Row";
 import Config from "../../config";
 import "../../index.css";
 
@@ -59,7 +60,7 @@ class SinglePlan extends Component<SinglePlanProps, SinglePlanState> {
       .catch((error) => console.error(error));
   }
 
-  /*
+  /**
    * Converts the plan in state to an array that can be mapped to a table when rendered]
    */
   convertToTable() {
@@ -105,13 +106,20 @@ class SinglePlan extends Component<SinglePlanProps, SinglePlanState> {
                   <h1 className="white_text">
                     {training_plan.race_name} - {training_plan.difficulty}
                   </h1>
-                  <Link
-                    to={`/add_plan/${training_plan.id}`}
-                    className="btn btn-success custom_plan_button"
-                  >
-                    Use Plan
-                  </Link>
                 </div>
+                <Row className="justify-content-center">
+                  <Link
+                    to={'/training_plans/'}
+                    className="btn btn-warning custom_plan_button">
+                      Back to Outline
+                  </Link>
+                  <Link
+                      to={`/add_plan/${training_plan.id}`}
+                      className="btn btn-success custom_plan_button"
+                    >
+                      Use Plan
+                  </Link>
+                </Row>
                 <div className="row justify-content-center">
                   <div className="col-md-10">
                     <table className="table background_color">
