@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Config from "../../config";
 import "../../index.css";
 
@@ -107,6 +108,16 @@ class SinglePlan extends Component<SinglePlanProps, SinglePlanState> {
                     {training_plan.race_name} - {training_plan.difficulty}
                   </h1>
                 </div>
+                <Row className="justify-content-center">
+                  <Col className="text-right white_text">
+                    <h5><b>Difficulty:</b> {this.state.training_plan.difficulty}</h5>
+                    <h5><b>Duration:</b> {this.state.training_plan.plan_length} weeks</h5>
+                  </Col>
+                  <Col className="text-left white_text">
+                    <h5><b>Goal Distance:</b> {this.state.training_plan.race_length} miles</h5>
+                    <h5><b>Frequency:</b> {this.state.training_plan.frequency} runs per week</h5>
+                  </Col>
+                </Row>
                 <Row className="justify-content-center">
                   <Link
                     to={'/training_plans/'}
