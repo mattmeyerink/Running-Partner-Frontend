@@ -48,7 +48,7 @@ export const RunningQuotes = [
     author: "Lynn Jennings"
   },
   {
-    quote: "I breathe in strength and breathe out weakness,’ is my mantra during marathons—it calms me down and helps me focus.",
+    quote: "I breathe in strength and breathe out weakness is my mantra during marathons—it calms me down and helps me focus.",
     author: "Amy Hastings"
   },
   {

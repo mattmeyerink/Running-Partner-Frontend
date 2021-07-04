@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Config from "../../config";
 import "../../index.css";
 
@@ -59,7 +61,7 @@ class SinglePlan extends Component<SinglePlanProps, SinglePlanState> {
       .catch((error) => console.error(error));
   }
 
-  /*
+  /**
    * Converts the plan in state to an array that can be mapped to a table when rendered]
    */
   convertToTable() {
@@ -105,13 +107,30 @@ class SinglePlan extends Component<SinglePlanProps, SinglePlanState> {
                   <h1 className="white_text">
                     {training_plan.race_name} - {training_plan.difficulty}
                   </h1>
-                  <Link
-                    to={`/add_plan/${training_plan.id}`}
-                    className="btn btn-success custom_plan_button"
-                  >
-                    Use Plan
-                  </Link>
                 </div>
+                <Row className="justify-content-center">
+                  <Col className="text-right white_text">
+                    <h5><b>Difficulty:</b> {this.state.training_plan.difficulty}</h5>
+                    <h5><b>Duration:</b> {this.state.training_plan.plan_length} weeks</h5>
+                  </Col>
+                  <Col className="text-left white_text">
+                    <h5><b>Goal Distance:</b> {this.state.training_plan.race_length} miles</h5>
+                    <h5><b>Frequency:</b> {this.state.training_plan.frequency} runs per week</h5>
+                  </Col>
+                </Row>
+                <Row className="justify-content-center">
+                  <Link
+                    to={'/training_plans/'}
+                    className="btn btn-warning custom_plan_button">
+                      Back to Outline
+                  </Link>
+                  <Link
+                      to={`/add_plan/${training_plan.id}`}
+                      className="btn btn-success custom_plan_button"
+                    >
+                      Use Plan
+                  </Link>
+                </Row>
                 <div className="row justify-content-center">
                   <div className="col-md-10">
                     <table className="table background_color">
