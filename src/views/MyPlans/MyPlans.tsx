@@ -18,6 +18,7 @@ interface MyPlansState {
   training_plans?: any;
   loading: boolean;
   planDeleted: boolean;
+  runs?: any;
 }
 
 /**
@@ -31,6 +32,7 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
       training_plans: [],
       loading: true,
       planDeleted: false,
+      runs: []
     };
 
     this.getTrainingPlans = this.getTrainingPlans.bind(this);
@@ -59,7 +61,7 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
       }
     )
       .then((result) => result.json())
-      .then((data) => this.setState({ training_plans: data.plans, loading: false }))
+      .then((data) => this.setState({ training_plans: data.plans, runs: data.runs, loading: false }))
       .catch((error) => console.error(error));
   }
 
@@ -82,7 +84,7 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
       }
     )
       .then((result) => result.json())
-      .then((data) => this.setState({ training_plans: data.plans }))
+      .then((data) => this.setState({ training_plans: data.plans, runs: data.runs }))
       .catch((error) => console.error(error));
   }
 
