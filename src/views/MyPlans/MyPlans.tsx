@@ -82,7 +82,7 @@ class MyPlans extends Component<MyPlansProps, MyPlansState> {
       }
     )
       .then((result) => result.json())
-      .then((data) => this.setState({ training_plans: data }))
+      .then((data) => this.setState({ training_plans: data.plans }))
       .catch((error) => console.error(error));
   }
 
