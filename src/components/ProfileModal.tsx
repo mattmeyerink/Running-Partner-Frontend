@@ -51,6 +51,7 @@ class ProfileModal extends Component<ProfileModalProps, ProfileModalState> {
     this.beginEditing = this.beginEditing.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.closeProfileModal = this.closeProfileModal.bind(this);
   }
 
   handleChange(event: any) {
@@ -190,13 +191,23 @@ class ProfileModal extends Component<ProfileModalProps, ProfileModalState> {
     this.setState({ deleting: false });
   }
 
+  /**
+   * Closes the profile modal and resets edit state of modal
+   */
+  closeProfileModal() {
+    this.props.handleProfileModalClose();
+    this.setState({
+      editing: false
+    });
+  }
+
   render() {
     const { first_name, last_name, email, username, city, state } =
       this.props.userData;
     return (
       <Modal
         show={this.props.showProfileModal}
-        onHide={this.props.handleProfileModalClose}
+        onHide={this.closeProfileModal}
       >
         <Modal.Header closeButton>
           <Modal.Title>My Profile</Modal.Title>
