@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import CardDeck from "react-bootstrap/CardDeck";
 import Card from "react-bootstrap/Card";
+import Confetti from "../components/Confetti";
 import moment from "moment";
 import { Redirect } from "react-router-dom";
 import WeatherWidget from "../components/WeatherWidget";
@@ -25,6 +26,7 @@ interface HomeState {
   loading: boolean;
   greeting: any;
   shouldRedirect: boolean;
+  showConfetti: boolean;
 }
 
 /**
@@ -39,6 +41,7 @@ class Home extends Component<HomeProps, HomeState> {
       loading: true,
       greeting: null,
       shouldRedirect: false,
+      showConfetti: true
     };
 
     this.getQuote = this.getQuote.bind(this);
@@ -107,6 +110,7 @@ class Home extends Component<HomeProps, HomeState> {
               </Row>
             ) : (
               <React.Fragment>
+                { this.state.showConfetti && <Confetti /> }
                 <Card className="homescreen_quote">
                   <Card.Title className="text-center filter_dropdown">
                     <h2>
