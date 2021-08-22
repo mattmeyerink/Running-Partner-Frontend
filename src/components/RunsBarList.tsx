@@ -20,6 +20,7 @@ interface RunBarListState {
   runBeingEdited: any;
   showDeleteModal: boolean;
   runBeingDeleted: any;
+  runs: any;
 }
 
 class RunBarList extends Component<RunBarListProps, RunBarListState> {
@@ -31,12 +32,19 @@ class RunBarList extends Component<RunBarListProps, RunBarListState> {
       runBeingEdited: null,
       showDeleteModal: false,
       runBeingDeleted: false,
+
+      runs: [],
     };
 
     this.handleEditModalOpen = this.handleEditModalOpen.bind(this);
     this.handleEditModalClose = this.handleEditModalClose.bind(this);
     this.handleDeleteModalOpen = this.handleDeleteModalOpen.bind(this);
     this.handleDeleteModalClose = this.handleDeleteModalClose.bind(this);
+    this.sortRunsByDate = this.sortRunsByDate.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({ runs: this.props.runs });
   }
 
   handleEditModalOpen(run: any) {
@@ -55,11 +63,26 @@ class RunBarList extends Component<RunBarListProps, RunBarListState> {
     this.setState({ showDeleteModal: false });
   }
 
+  sortRunsByDate() {
+    const runs = this.props.runs.slice(0);
+    runs.sort((a: any, b: any) => {
+      if (a.date < b.date) {
+        return 1;
+      } else if (a.date > b.date) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+    return runs;
+  }
+
   render() {
+    const runs = this.sortRunsByDate();
     return (
       <div className="home_widgets">
         <ListGroup>
-          {this.props.runs.map((run: any) => (
+          {runs.map((run: any) => (
             <React.Fragment key={run.id}>
               <ListGroup.Item>
                 <Row>
