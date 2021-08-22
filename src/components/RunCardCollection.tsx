@@ -43,18 +43,32 @@ class RunCardCollection extends Component<
     this.handleDeleteModalClose = this.handleDeleteModalClose.bind(this);
   }
 
-  handleEditModalOpen(run: any) {
+  /**
+   * Open the edit modal for the passed run
+   * @param run Run that is being edited in the modal
+   */
+   handleEditModalOpen(run: any) {
     this.setState({ runBeingEdited: run, showEditModal: true });
   }
 
+  /**
+   * Close the edit run modal
+   */
   handleEditModalClose() {
     this.setState({ showEditModal: false });
   }
 
+  /**
+   * Open the delete modal for the passed run
+   * @param run Run that is potentially being deleted
+   */
   handleDeleteModalOpen(run: any) {
     this.setState({ runBeingDeleted: run, showDeleteModal: true });
   }
 
+  /**
+   * Close the delete run modal
+   */
   handleDeleteModalClose() {
     this.setState({ showDeleteModal: false });
   }

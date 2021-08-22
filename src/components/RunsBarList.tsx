@@ -20,7 +20,6 @@ interface RunBarListState {
   runBeingEdited: any;
   showDeleteModal: boolean;
   runBeingDeleted: any;
-  runs: any;
 }
 
 class RunBarList extends Component<RunBarListProps, RunBarListState> {
@@ -32,8 +31,6 @@ class RunBarList extends Component<RunBarListProps, RunBarListState> {
       runBeingEdited: null,
       showDeleteModal: false,
       runBeingDeleted: false,
-
-      runs: [],
     };
 
     this.handleEditModalOpen = this.handleEditModalOpen.bind(this);
@@ -43,26 +40,40 @@ class RunBarList extends Component<RunBarListProps, RunBarListState> {
     this.sortRunsByDate = this.sortRunsByDate.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({ runs: this.props.runs });
-  }
-
+  /**
+   * Open the edit modal for the passed run
+   * @param run Run that is being edited in the modal
+   */
   handleEditModalOpen(run: any) {
     this.setState({ runBeingEdited: run, showEditModal: true });
   }
 
+  /**
+   * Close the edit run modal
+   */
   handleEditModalClose() {
     this.setState({ showEditModal: false });
   }
 
+  /**
+   * Open the delete modal for the passed run
+   * @param run Run that is potentially being deleted
+   */
   handleDeleteModalOpen(run: any) {
     this.setState({ runBeingDeleted: run, showDeleteModal: true });
   }
 
+  /**
+   * Close the delete run modal
+   */
   handleDeleteModalClose() {
     this.setState({ showDeleteModal: false });
   }
 
+  /**
+   * Sorts the runs by date
+   * @returns An array of runs sorted by date
+   */
   sortRunsByDate() {
     const runs = this.props.runs.slice(0);
     runs.sort((a: any, b: any) => {
