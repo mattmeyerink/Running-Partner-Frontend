@@ -61,7 +61,7 @@ class RunCardCollection extends Component<
 
   render() {
     return (
-      <React.Fragment>
+      <div className="home_widgets">
         <CardColumns>
           {this.props.runs.map((run: any) => (
             <React.Fragment key={run.id}>
@@ -117,7 +117,7 @@ class RunCardCollection extends Component<
           getRunData={this.props.getRunData}
           deleteRun={this.props.deleteRun}
         ></ConfirmDeleteRunModal>
-      </React.Fragment>
+      </div>
     );
   }
 }

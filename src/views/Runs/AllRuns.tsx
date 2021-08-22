@@ -3,10 +3,12 @@ import { Redirect } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 import CardDeck from "react-bootstrap/CardDeck";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab"; 
 import RunEntry from "../../components/RunEntry";
 import RunStatisticsModal from "../../components/RunStatsModal";
 import RunCardCollection from "../../components/RunCardCollection";
-import Confetti from "../../components/Confetti";   
+import Confetti from "../../components/Confetti";  
 import Config from "../../config";
 import "../../index.css";
 
@@ -204,7 +206,15 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
-                    <RunCardCollection runs={this.state.runs} deleteRun={this.deleteRun} userData={this.props.userData} getRunData={this.getRunData} />
+                    <Tabs defaultActiveKey="cards">
+                      <Tab eventKey="cards" title="Cards">
+                        <RunCardCollection runs={this.state.runs} deleteRun={this.deleteRun} userData={this.props.userData} getRunData={this.getRunData} />
+                      </Tab>
+                      <Tab eventKey="runDate" title="Run Date">
+
+                      </Tab>
+                    </Tabs>
+                    
                   </React.Fragment>
                 )}
               </React.Fragment>
