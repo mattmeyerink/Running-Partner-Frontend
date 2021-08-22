@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import CardDeck from "react-bootstrap/CardDeck";
 import Card from "react-bootstrap/Card";
+import Confetti from "../components/Confetti";
 import moment from "moment";
 import { Redirect } from "react-router-dom";
 import WeatherWidget from "../components/WeatherWidget";
@@ -25,6 +26,7 @@ interface HomeState {
   loading: boolean;
   greeting: any;
   shouldRedirect: boolean;
+  shouldShowConfetti: boolean;
 }
 
 /**
@@ -39,9 +41,12 @@ class Home extends Component<HomeProps, HomeState> {
       loading: true,
       greeting: null,
       shouldRedirect: false,
+      shouldShowConfetti: false
     };
 
     this.getQuote = this.getQuote.bind(this);
+    this.startConfetti = this.startConfetti.bind(this);
+    this.stopConfetti = this.stopConfetti.bind(this);
   }
 
   componentDidMount() {
@@ -80,7 +85,9 @@ class Home extends Component<HomeProps, HomeState> {
     return RunningQuotes[randomIndex];
   }
 
-  // Determine the greeting message based on the time
+  /**
+   * Determine the greeting message based on the time
+   */
   getGreetingMessage() {
     if (moment().hour() < 12) {
       this.setState({ greeting: "Good Morning " });
@@ -89,6 +96,20 @@ class Home extends Component<HomeProps, HomeState> {
     } else {
       this.setState({ greeting: "Good Night " });
     }
+  }
+
+  /**
+   * Sets the confetti component to display on the home screen
+   */
+  startConfetti() {
+    this.setState({ shouldShowConfetti: true });
+  }
+
+  /**
+   * Prevents the confetti component from displaying on the home screen
+   */
+  stopConfetti() {
+    this.setState({ shouldShowConfetti: false });
   }
 
   render() {
@@ -139,8 +160,11 @@ class Home extends Component<HomeProps, HomeState> {
                     userData={this.props.userData}
                     isRunPage={false}
                     getRunData={() => {}}
+                    startConfetti={this.startConfetti}
+                    stopConfetti={this.stopConfetti}
                   />
                 </CardDeck>
+                { this.state.shouldShowConfetti && <Confetti /> }
               </React.Fragment>
             )}
           </React.Fragment>

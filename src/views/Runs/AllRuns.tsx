@@ -3,9 +3,13 @@ import { Redirect } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 import CardDeck from "react-bootstrap/CardDeck";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab"; 
 import RunEntry from "../../components/RunEntry";
 import RunStatisticsModal from "../../components/RunStatsModal";
-import RunCardCollection from "../../components/RunCardCollection";   
+import RunCardCollection from "../../components/RunCardCollection";
+import RunsBarList from "../../components/RunsBarList";
+import Confetti from "../../components/Confetti";  
 import Config from "../../config";
 import "../../index.css";
 
@@ -23,6 +27,7 @@ interface AllRunsState {
   totalRuns: number;
   averageMilesPerRun: number;
   runDeleted: boolean;
+  shouldShowConfetti: boolean;
 }
 
 /**
@@ -38,12 +43,15 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
       totalMiles: 0,
       totalRuns: 0,
       averageMilesPerRun: 0,
+      shouldShowConfetti: false,
 
       runDeleted: false,
     };
 
     this.getRunData = this.getRunData.bind(this);
     this.deleteRun = this.deleteRun.bind(this);
+    this.startConfetti = this.startConfetti.bind(this);
+    this.stopConfetti = this.stopConfetti.bind(this);
   }
 
   componentDidMount() {
@@ -146,6 +154,14 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
       .catch((error) => console.error(error));
   }
 
+  startConfetti() {
+    this.setState({ shouldShowConfetti: true });
+  }
+
+  stopConfetti() {
+    this.setState({ shouldShowConfetti: false });
+  }
+
   render() {
     if (this.state.runDeleted) {
       this.getRunData();
@@ -161,6 +177,7 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
               </h1>
             ) : (
               <React.Fragment>
+                { this.state.shouldShowConfetti &&<Confetti /> }
                 <CardDeck className="text_spacing text-center">
                   <RunStatisticsModal runs={this.state.runs}/>
                   <RunEntry
@@ -171,6 +188,8 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
                     getRunData={this.getRunData}
                     userData={this.props.userData}
                     isRunPage={true}
+                    startConfetti={this.startConfetti}
+                    stopConfetti={this.stopConfetti}
                   />
                 </CardDeck>
                 {this.state.totalRuns === 0 ? (
@@ -188,7 +207,15 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
-                    <RunCardCollection runs={this.state.runs} deleteRun={this.deleteRun} userData={this.props.userData} getRunData={this.getRunData} />
+                    <Tabs defaultActiveKey="cards">
+                      <Tab eventKey="cards" title="Cards">
+                        <RunCardCollection runs={this.state.runs} deleteRun={this.deleteRun} userData={this.props.userData} getRunData={this.getRunData} />
+                      </Tab>
+                      <Tab eventKey="runDate" title="Run Date">
+                        <RunsBarList runs={this.state.runs} deleteRun={this.deleteRun} userData={this.props.userData} getRunData={this.getRunData} />
+                      </Tab>
+                    </Tabs>
+                    
                   </React.Fragment>
                 )}
               </React.Fragment>

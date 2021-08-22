@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import CardColumns from "react-bootstrap/CardColumns";
-import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { getStandardDateFormat } from "../utility/DateFormatters";
@@ -9,25 +8,22 @@ import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import EditRunModal from "./EditRunModal";
 import ConfirmDeleteRunModal from "./ConfirmDeleteRunModal";
 
-interface RunCardCollectionProps {
+interface RunBarListProps {
   runs: any;
   deleteRun(id: number): void;
   userData: any;
   getRunData(): void;
 }
 
-interface RunCardCollectionState {
+interface RunBarListState {
   showEditModal: boolean;
   runBeingEdited: any;
   showDeleteModal: boolean;
   runBeingDeleted: any;
 }
 
-class RunCardCollection extends Component<
-  RunCardCollectionProps,
-  RunCardCollectionState
-> {
-  constructor(props: RunCardCollectionProps) {
+class RunBarList extends Component<RunBarListProps, RunBarListState> {
+  constructor(props: RunBarListProps) {
     super(props);
 
     this.state = {
@@ -41,13 +37,14 @@ class RunCardCollection extends Component<
     this.handleEditModalClose = this.handleEditModalClose.bind(this);
     this.handleDeleteModalOpen = this.handleDeleteModalOpen.bind(this);
     this.handleDeleteModalClose = this.handleDeleteModalClose.bind(this);
+    this.sortRunsByDate = this.sortRunsByDate.bind(this);
   }
 
   /**
    * Open the edit modal for the passed run
    * @param run Run that is being edited in the modal
    */
-   handleEditModalOpen(run: any) {
+  handleEditModalOpen(run: any) {
     this.setState({ runBeingEdited: run, showEditModal: true });
   }
 
@@ -73,49 +70,67 @@ class RunCardCollection extends Component<
     this.setState({ showDeleteModal: false });
   }
 
+  /**
+   * Sorts the runs by date
+   * @returns An array of runs sorted by date
+   */
+  sortRunsByDate() {
+    const runs = this.props.runs.slice(0);
+    runs.sort((a: any, b: any) => {
+      if (a.date < b.date) {
+        return 1;
+      } else if (a.date > b.date) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+    return runs;
+  }
+
   render() {
+    const runs = this.sortRunsByDate();
     return (
       <div className="home_widgets">
-        <CardColumns>
-          {this.props.runs.map((run: any) => (
+        <ListGroup>
+          {runs.map((run: any) => (
             <React.Fragment key={run.id}>
-              <Card>
-                <Card.Header>
-                  <h5>
-                    {run.distance} Miles - {run.run_city}, {run.run_state}
-                  </h5>
-                </Card.Header>
-                <Card.Body>
-                  <Row>
-                    <Col>
-                      <strong>{getStandardDateFormat(run.date)}</strong>
-                    </Col>
-                    <Col className="text-right">
-                      <button className="new_icon_button">
-                        <FontAwesomeIcon
-                          icon={faEdit}
-                          color="blue"
-                          onClick={() => this.handleEditModalOpen(run)}
-                        />
-                      </button>
-                      <button
-                        className="new_icon_button"
-                        onClick={() => this.handleDeleteModalOpen(run)}
-                      >
-                        <FontAwesomeIcon icon={faTrash} color="red" />
-                      </button>
-                    </Col>
-                  </Row>
-                  <Row className="some_run_notes_padding">
-                    <Col>
-                      <p>{run.notes}</p>
-                    </Col>
-                  </Row>
-                </Card.Body>
-              </Card>
+              <ListGroup.Item>
+                <Row>
+                  <Col>
+                    <h5>
+                      {run.distance} Miles - {run.run_city}, {run.run_state} -{" "}
+                      {getStandardDateFormat(run.date)}
+                    </h5>
+                  </Col>
+                  <Col className="text-right">
+                    <button className="new_icon_button">
+                      <FontAwesomeIcon
+                        icon={faEdit}
+                        color="blue"
+                        onClick={() => this.handleEditModalOpen(run)}
+                      />
+                    </button>
+                    <button
+                      className="new_icon_button"
+                      onClick={() => this.handleDeleteModalOpen(run)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} color="red" />
+                    </button>
+                  </Col>
+                </Row>
+                {run.notes && 
+                <Row className="some_run_notes_padding">
+                  <Col>
+                    <p>{run.notes}</p>
+                  </Col>
+                </Row>
+                }
+              </ListGroup.Item>
             </React.Fragment>
           ))}
-        </CardColumns>
+        </ListGroup>
+
         <EditRunModal
           userData={this.props.userData}
           runBeingEdited={this.state.runBeingEdited}
@@ -136,4 +151,4 @@ class RunCardCollection extends Component<
   }
 }
 
-export default RunCardCollection;
+export default RunBarList;
