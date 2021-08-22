@@ -149,14 +149,14 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
           if (this.props.isRunPage) {
             this.props.getRunData();
           }
-
-          // Trigger successful alert
-          this.props.showAlertMessage('success', 'Run Successfully Saved', 'Congratulations on you latest adventure! We\'ve got your run in the books!');
           
           // Display confetti if the run was a training run
           if(this.didRunMeetPlanDistance(runData.date, runData.distance)) {
+            this.props.showAlertMessage('success', 'Training Run Completed', 'Congratulations on your latest run! You are one run closer to crushing it on race day!');
             this.props.startConfetti();
             setTimeout(this.props.stopConfetti, 7000)
+          } else {
+            this.props.showAlertMessage('success', 'Run Successfully Saved', 'Congratulations on you latest adventure! We\'ve got your run in the books!');
           }
         }
       })
@@ -227,10 +227,10 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
         });
         weekEndDateMoment.add(7, "days");
 
-        // Check if todays run is within this week
+        // Check the run run is within this week
         if (
-          moment().isAfter(weekStartDateMoment) &&
-          moment().isBefore(weekEndDateMoment)
+          dateMoment.isAfter(weekStartDateMoment) &&
+          dateMoment.isBefore(weekEndDateMoment)
         ) {
           weekStartDateMoment.add(1, "days");
 
@@ -238,10 +238,10 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
           // value from the plan array
           let j = 1;
           while (j < 8) {
-            // Pull the ints for the current day, month, year
-            const currentDay = moment().day();
-            const currentMonth = moment().month();
-            const currentYear = moment().year();
+            // Pull the ints for input dates day, month and year
+            const runDay = dateMoment.day();
+            const runMonth = dateMoment.month();
+            const runYear = dateMoment.year();
 
             // Pull the ints for the current day in the plan's date, month, year
             const planDay = weekStartDateMoment.day();
@@ -249,11 +249,11 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
             const planYear = weekStartDateMoment.year();
 
             if (
-              currentDay === planDay &&
-              currentMonth === planMonth &&
-              currentYear === planYear
+              runDay === planDay &&
+              runMonth === planMonth &&
+              runYear === planYear
             ) {
-              return runDistance >= currentWeekArr[j];
+              return currentWeekArr[j] !== '0' && runDistance >= currentWeekArr[j];
             }
             weekStartDateMoment.add(1, "days");
             j++;
