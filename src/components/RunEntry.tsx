@@ -14,6 +14,8 @@ interface RunEntryProps {
   isRunPage: boolean;
   getRunData(): void;
   showAlertMessage(variant: string, header: string, message: string): void;
+  startConfetti(): void;
+  stopConfetti(): void;
 }
 
 interface RunEntryState {
@@ -142,12 +144,20 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
             notes: "",
             formError: "",
           });
+
           // Signal to refresh runs if this is the all runs page
           if (this.props.isRunPage) {
             this.props.getRunData();
           }
+
           // Trigger successful alert
           this.props.showAlertMessage('success', 'Run Successfully Saved', 'Congratulations on you latest adventure! We\'ve got your run in the books!');
+          
+          // Display confetti if the run was a training run
+          if(this.didRunMeetPlanDistance(runData.date, runData.distance)) {
+            this.props.startConfetti();
+            setTimeout(this.props.stopConfetti, 7000)
+          }
         }
       })
       .catch((error) => console.error(error));
@@ -159,7 +169,7 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
    * @param runDistance Distance covered in the run
    * @returns If the run satisfied a training plan run
    */
-  didRunMeetPlanDistance(date: string, runDistance: number): boolean {
+  didRunMeetPlanDistance(date: string | undefined, runDistance: number): boolean {
     // Pull the active plan from state and create a week by week array
     const activePlan = this.state.activePlanData.plan;
     const activePlanArr = activePlan.split("-");
