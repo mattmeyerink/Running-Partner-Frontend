@@ -151,7 +151,7 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
           }
           
           // Display confetti if the run was a training run
-          if(this.didRunMeetPlanDistance(runData.date, runData.distance)) {
+          if (this.didRunMeetPlanDistance(runData.date, parseFloat(runData.distance))) {
             this.props.showAlertMessage('success', 'Training Run Completed', 'Congratulations on your latest run! You are one run closer to crushing it on race day!');
             this.props.startConfetti();
             setTimeout(this.props.stopConfetti, 7000)
@@ -253,7 +253,7 @@ class RunEntry extends Component<RunEntryProps, RunEntryState> {
               runMonth === planMonth &&
               runYear === planYear
             ) {
-              return currentWeekArr[j] !== '0' && runDistance >= currentWeekArr[j];
+              return parseFloat(currentWeekArr[j]) !== 0 && runDistance >= parseFloat(currentWeekArr[j]);
             }
             weekStartDateMoment.add(1, "days");
             j++;
