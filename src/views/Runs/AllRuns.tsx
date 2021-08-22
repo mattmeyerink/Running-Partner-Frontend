@@ -8,6 +8,7 @@ import Tab from "react-bootstrap/Tab";
 import RunEntry from "../../components/RunEntry";
 import RunStatisticsModal from "../../components/RunStatsModal";
 import RunCardCollection from "../../components/RunCardCollection";
+import RunsBarList from "../../components/RunsBarList";
 import Confetti from "../../components/Confetti";  
 import Config from "../../config";
 import "../../index.css";
@@ -211,7 +212,7 @@ class AllRuns extends Component<AllRunsProps, AllRunsState> {
                         <RunCardCollection runs={this.state.runs} deleteRun={this.deleteRun} userData={this.props.userData} getRunData={this.getRunData} />
                       </Tab>
                       <Tab eventKey="runDate" title="Run Date">
-
+                        <RunsBarList runs={this.state.runs} deleteRun={this.deleteRun} userData={this.props.userData} getRunData={this.getRunData} />
                       </Tab>
                     </Tabs>
                     
