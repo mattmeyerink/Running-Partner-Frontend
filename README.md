@@ -1,10 +1,19 @@
 # Running Partner Frontend
-This is the front end for the Running Partner application. Data is at the heart of any good distance training plan. This product has the goal of placing a runner's training plans and training journal in one place for future planning alongside past analysis. 
+This is the front end for the Running Partner application. Data is at the heart of any good distance training plan. This product has the goal of placing a runner's training plans and training journal in one place to combine future planning with the insights of past analysis.
 
-### About the Technology
-This front end is build using React.js interacting with the Python-Flask backend. It is hosted on a heroku server. The address for the app is (https://www.running-partner.com).
+### Features
+- Customizable Plans - Pre-made plans ranging from 5k-Marathon. Plans are customizable in every sense of the word so
+you can add the perfect plan for your situation.
+- Complete Record of Runs - Record of past runs with distance, location, date, and any additional run notes so you can 
+be better informed when planning future training.
+- Information at a Glance - Home page displays the training run for the current day, a motivational quote, the weather
+for your home location, and a quick entry form to streamline planning when you need to.
+- Intelligent Celebration - Accomplish a training plan run and watch the confetti fly!
 
-Note that if the site is not loading properly it may be down for maintenance as we are currently in the process of developing the platform to the highest standards for our users!
 
-### Contact Us
-To learn more about the app, voice suggestions, or just chat about running, code, or Harry Potter please feel free to contact me at meyerink@umich.edu!
+### Tech Stack
+- React.js
+- TypeScript
+
+### Running the Project
+The project can be located at https://www.running-partner.com
